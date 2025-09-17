@@ -1,0 +1,12 @@
+course: data-engineering-zoomcamp
+sections:
+  - "General course-related questions"
+  - "Course Management Platform for Homeworks, Project and Certificate"
+  - "Module 1: Docker and Terraform"
+  - "Module 2: Workflow Orchestration"
+  - "Module 3: Data Warehousing"
+  - "Module 4: analytics engineering with dbt"
+  - "Module 5: pyspark"
+  - "Module 6: streaming with kafka"
+  - "Project"
+  - "Workshop 1 - dlthub"

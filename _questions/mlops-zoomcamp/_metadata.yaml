@@ -1,0 +1,11 @@
+course: mlops-zoomcamp
+sections:
+  - "General course questions"
+  - "Module 1: Introduction"
+  - "Module 2: Experiment tracking"
+  - "Module 3: Orchestration"
+  - "Module 4: Deployment"
+  - "Module 5: Monitoring"
+  - "Module 6: Best practices"
+  - "Capstone Project"
+  - "Certificates:"
