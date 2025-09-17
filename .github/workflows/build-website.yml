@@ -1,11 +1,22 @@
-name: Build FAQ Website
+name: Build and Deploy FAQ Website
 
 on:
   push:
     branches: [ main ]
 
+# Sets permissions for GitHub Pages deployment
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-website:
+  build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
@@ -27,6 +38,18 @@ jobs:
       
     - name: Build static website
       run: make website
+      
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '_site'
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
       
     - name: Check if there are changes to commit
       id: verify-changed-files
