@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e0c1900c47
 question: Python - Pandas can read *.csv.gzip
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1340
 ---
 

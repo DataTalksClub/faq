@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 675d60dadd
 question: Module Not Found Error in Jupyter Notebook .
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3390
 ---
 

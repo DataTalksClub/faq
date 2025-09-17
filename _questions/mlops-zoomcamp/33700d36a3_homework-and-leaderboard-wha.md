@@ -1,8 +1,9 @@
 ---
-id: 33700d36a3
-question: Homework and Leaderboard - what is the system for points in the course management platform?
-section: General course questions
 course: mlops-zoomcamp
+id: 33700d36a3
+question: Homework and Leaderboard - what is the system for points in the course management
+  platform?
+section: General course questions
 sort_order: 230
 ---
 

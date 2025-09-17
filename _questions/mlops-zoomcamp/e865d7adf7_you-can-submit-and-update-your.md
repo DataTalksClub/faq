@@ -1,8 +1,9 @@
 ---
-id: e865d7adf7
-question: You can submit and update your project attempt (1 or 2) multiple times before the final deadline.
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: e865d7adf7
+question: You can submit and update your project attempt (1 or 2) multiple times before
+  the final deadline.
+section: 'Module 1: Introduction'
 sort_order: 260
 ---
 

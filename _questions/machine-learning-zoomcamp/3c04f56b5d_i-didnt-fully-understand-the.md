@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3c04f56b5d
 question: I didn’t fully understand the ROC curve. Can I move on?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1580
 ---
 

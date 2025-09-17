@@ -1,8 +1,9 @@
 ---
-id: 53e0e2f585
-question: Homework - Qn 6: Did anyone get an exact match for one of the options given in Module 3 homework Q6?
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 53e0e2f585
+question: 'Homework - Qn 6: Did anyone get an exact match for one of the options given
+  in Module 3 homework Q6?'
+section: 'Module 3: Data Warehousing'
 sort_order: 2360
 ---
 

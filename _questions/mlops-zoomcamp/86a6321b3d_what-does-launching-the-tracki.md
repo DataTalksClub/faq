@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 86a6321b3d
 question: What does launching the tracking server locally mean?
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1110
 ---
 

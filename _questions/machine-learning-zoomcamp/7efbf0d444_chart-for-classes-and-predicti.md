@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7efbf0d444
 question: Chart for classes and predictions
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4050
 ---
 

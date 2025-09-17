@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 57303f9d80
 question: GCP BQ - Can I use BigQuery for real-time analytics in this project?
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2090
 ---
 

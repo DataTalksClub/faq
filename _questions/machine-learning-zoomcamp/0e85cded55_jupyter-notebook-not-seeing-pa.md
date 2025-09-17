@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0e85cded55
 question: Jupyter notebook not seeing package
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3270
 ---
 

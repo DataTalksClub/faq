@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 13c4d27a91
 question: How can I run UV in Kestra without installing it on every flow execution?
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4310
 ---
 

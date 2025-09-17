@@ -1,8 +1,9 @@
 ---
-id: 3e4e288e93
-question: 'pipenv' is not recognized as an internal or external command, operable program or batch file.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 3e4e288e93
+question: '''pipenv'' is not recognized as an internal or external command, operable
+  program or batch file.'
+section: 5. Deploying Machine Learning Models
 sort_order: 1990
 ---
 

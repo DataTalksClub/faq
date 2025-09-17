@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6834d136c1
 question: Learning in public links for the projects
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3750
 ---
 

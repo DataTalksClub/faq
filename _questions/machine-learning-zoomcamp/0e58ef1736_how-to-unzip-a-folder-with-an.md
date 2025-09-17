@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0e58ef1736
 question: How to unzip a folder with an image dataset and suppress output?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2860
 ---
 

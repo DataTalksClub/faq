@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 4ccef7c92d
 question: Docker-Compose - Which docker-compose binary to use for WSL?
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 970
 ---
 

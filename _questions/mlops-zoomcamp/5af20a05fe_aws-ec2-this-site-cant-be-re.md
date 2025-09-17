@@ -1,8 +1,8 @@
 ---
-id: 5af20a05fe
-question: AWS EC2: this site can’t be reached
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: 5af20a05fe
+question: 'AWS EC2: this site can’t be reached'
+section: 'Module 1: Introduction'
 sort_order: 380
 ---
 

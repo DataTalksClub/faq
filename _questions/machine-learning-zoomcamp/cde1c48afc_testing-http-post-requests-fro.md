@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: cde1c48afc
 question: Testing HTTP POST requests from command line using curl
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2200
 ---
 

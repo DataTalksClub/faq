@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c0f1901d39
 question: Submitting learning in public links
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 230
 ---
 

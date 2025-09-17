@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ed312ff54d
 question: How can I monitor and maintain models deployed on AWS Lambda?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3390
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 590e5d8c20
-question: Py4J Error - ModuleNotFoundError: No module named 'py4j' (Solve with latest version)
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 590e5d8c20
+question: 'Py4J Error - ModuleNotFoundError: No module named ''py4j'' (Solve with
+  latest version)'
+section: 'Module 5: pyspark'
 sort_order: 3410
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 4c3e29589e
 question: Why do we use cross validation?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1620
 ---
 

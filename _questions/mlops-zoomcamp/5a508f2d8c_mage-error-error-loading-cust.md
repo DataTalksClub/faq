@@ -1,8 +1,8 @@
 ---
-id: 5a508f2d8c
-question: Mage error: Error loading custom object at…
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: 5a508f2d8c
+question: 'Mage error: Error loading custom object at…'
+section: 'Module 4: Deployment'
 sort_order: 1830
 ---
 

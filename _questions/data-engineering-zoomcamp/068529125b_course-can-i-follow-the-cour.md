@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 068529125b
 question: Course - Can I follow the course after it finishes?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 80
 ---
 

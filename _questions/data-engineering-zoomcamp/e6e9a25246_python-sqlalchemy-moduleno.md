@@ -1,8 +1,8 @@
 ---
-id: e6e9a25246
-question: Python - SQLAlchemy - ModuleNotFoundError: No module named 'psycopg2'.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: e6e9a25246
+question: 'Python - SQLAlchemy - ModuleNotFoundError: No module named ''psycopg2''.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1380
 ---
 

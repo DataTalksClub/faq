@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 636cd61ba8
 question: Why do we sometimes use random_state and not at other times?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1420
 ---
 

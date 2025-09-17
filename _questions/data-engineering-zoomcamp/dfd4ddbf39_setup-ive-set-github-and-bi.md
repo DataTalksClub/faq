@@ -1,8 +1,9 @@
 ---
-id: dfd4ddbf39
-question: Setup - I’ve set Github and Bigquery to dbt successfully. Why nothing showed in my Develop tab?
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: dfd4ddbf39
+question: Setup - I’ve set Github and Bigquery to dbt successfully. Why nothing showed
+  in my Develop tab?
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3010
 ---
 

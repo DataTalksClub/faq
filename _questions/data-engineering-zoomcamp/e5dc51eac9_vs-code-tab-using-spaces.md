@@ -1,8 +1,8 @@
 ---
-id: e5dc51eac9
-question: VS Code: Tab using spaces
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: e5dc51eac9
+question: 'VS Code: Tab using spaces'
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 450
 ---
 

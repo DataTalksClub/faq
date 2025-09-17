@@ -1,8 +1,9 @@
 ---
-id: d677df9ccb
-question: Taxi Data - How to handle taxi data files, now that the files are available as *.csv.gz?
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: d677df9ccb
+question: Taxi Data - How to handle taxi data files, now that the files are available
+  as *.csv.gz?
+section: 'Module 1: Docker and Terraform'
 sort_order: 490
 ---
 

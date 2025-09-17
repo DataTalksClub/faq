@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 38c419b57c
 question: Checking GPU and CPU utilization using ‘nvitop’
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2960
 ---
 

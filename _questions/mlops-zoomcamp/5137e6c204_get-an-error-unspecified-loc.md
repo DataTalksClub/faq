@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 5137e6c204
 question: Get an error ‘ unspecified location constraint is incompatible ’
-section: Module 6: Best practices
-course: mlops-zoomcamp
+section: 'Module 6: Best practices'
 sort_order: 2230
 ---
 

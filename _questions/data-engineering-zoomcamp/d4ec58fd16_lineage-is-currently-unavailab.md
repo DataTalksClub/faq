@@ -1,8 +1,9 @@
 ---
-id: d4ec58fd16
-question: Lineage is currently unavailable. Check that your project does not contain compilation errors or contact support if this error persists.
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: d4ec58fd16
+question: Lineage is currently unavailable. Check that your project does not contain
+  compilation errors or contact support if this error persists.
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2630
 ---
 

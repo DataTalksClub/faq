@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ee564fdf82
 question: Other packages needed but not listed
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4380
 ---
 

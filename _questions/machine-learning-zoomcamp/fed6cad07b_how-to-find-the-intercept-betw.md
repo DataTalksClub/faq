@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: fed6cad07b
 question: How to find the intercept between precision and recall curves by using numpy?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1600
 ---
 

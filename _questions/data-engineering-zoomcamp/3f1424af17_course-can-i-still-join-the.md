@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 3f1424af17
 question: Course - Can I still join the course after the start date?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 30
 ---
 

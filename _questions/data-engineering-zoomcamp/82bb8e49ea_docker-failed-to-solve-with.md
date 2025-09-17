@@ -1,8 +1,9 @@
 ---
-id: 82bb8e49ea
-question: Docker - failed to solve with frontend dockerfile.v0: failed to read dockerfile: error from sender: open ny_taxi_postgres_data: permission denied.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 82bb8e49ea
+question: 'Docker - failed to solve with frontend dockerfile.v0: failed to read dockerfile:
+  error from sender: open ny_taxi_postgres_data: permission denied.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 750
 ---
 

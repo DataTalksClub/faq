@@ -1,8 +1,8 @@
 ---
-id: 7c3cf3b8fc
-question: How to fix the error "ModuleNotFoundError: No module named 'kafka.vendor.six.moves'"?
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 7c3cf3b8fc
+question: 'How to fix the error "ModuleNotFoundError: No module named ''kafka.vendor.six.moves''"?'
+section: 'Module 6: streaming with kafka'
 sort_order: 4150
 ---
 

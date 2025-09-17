@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: b9d82f5247
 question: Unable to locate credentials
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1890
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: a55ee615db
 question: Reading parquet files with Pandas (pyarrow dependency)
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 770
 ---
 

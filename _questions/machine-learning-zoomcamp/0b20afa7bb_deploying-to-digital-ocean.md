@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0b20afa7bb
 question: Deploying to Digital Ocean
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4190
 ---
 

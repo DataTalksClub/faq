@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8d98b7c098
 question: How to use pandas to find standard deviation
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 860
 ---
 

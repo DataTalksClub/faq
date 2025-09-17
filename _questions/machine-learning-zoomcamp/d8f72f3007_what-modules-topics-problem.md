@@ -1,8 +1,9 @@
 ---
-id: d8f72f3007
-question: What modules, topics, problem-sets should a midterm/capstone project cover? Can I do xyz?
-section: Projects (Midterm and Capstone)
 course: machine-learning-zoomcamp
+id: d8f72f3007
+question: What modules, topics, problem-sets should a midterm/capstone project cover?
+  Can I do xyz?
+section: Projects (Midterm and Capstone)
 sort_order: 3720
 ---
 

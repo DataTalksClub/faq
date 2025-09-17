@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 4cff59a281
 question: Setuptools Replacing Distutils - MLflow Autolog Warning
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1020
 ---
 

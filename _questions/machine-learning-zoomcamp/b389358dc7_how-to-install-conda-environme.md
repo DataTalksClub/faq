@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b389358dc7
 question: How to install Conda environment in my local machine?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4130
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 32f4f59df6
-question: Do we need to apply regularization techniques always? Or only in certain scenarios?
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: 32f4f59df6
+question: Do we need to apply regularization techniques always? Or only in certain
+  scenarios?
+section: 2. Machine Learning for Regression
 sort_order: 830
 ---
 

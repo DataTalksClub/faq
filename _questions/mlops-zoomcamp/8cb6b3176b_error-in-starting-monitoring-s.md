@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 8cb6b3176b
 question: Error in starting monitoring services in Linux
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1930
 ---
 

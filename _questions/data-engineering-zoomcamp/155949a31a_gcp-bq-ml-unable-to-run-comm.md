@@ -1,8 +1,9 @@
 ---
-id: 155949a31a
-question: GCP BQ ML - Unable to run command (shown in video) to export ML model from BQ to GCS
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 155949a31a
+question: GCP BQ ML - Unable to run command (shown in video) to export ML model from
+  BQ to GCS
+section: 'Module 3: Data Warehousing'
 sort_order: 2260
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 2d274b7acd
-question: Can install Faust Library for Module 6 Python Version due to dependency conflicts?
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 2d274b7acd
+question: Can install Faust Library for Module 6 Python Version due to dependency
+  conflicts?
+section: 'Module 6: streaming with kafka'
 sort_order: 4090
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: bd56924fcb
 question: GCP - Static vs Ephemeral IP / Setting up static IP for VM
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1410
 ---
 

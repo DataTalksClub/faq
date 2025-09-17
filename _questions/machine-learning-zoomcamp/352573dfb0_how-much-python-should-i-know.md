@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 352573dfb0
 question: How much Python should I know?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 130
 ---
 

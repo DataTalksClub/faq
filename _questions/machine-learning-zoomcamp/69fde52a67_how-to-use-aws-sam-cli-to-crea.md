@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 69fde52a67
 question: How to Use AWS SAM CLI to Create a Lambda Function as a Container Image
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3400
 ---
 

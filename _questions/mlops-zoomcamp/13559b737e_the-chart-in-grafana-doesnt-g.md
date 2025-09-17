@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 13559b737e
 question: The chart in Grafana doesn’t get updates
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2010
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: ec7b94d408
-question: What IAM permission policy is needed to complete Week 9: Serverless?
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: ec7b94d408
+question: 'What IAM permission policy is needed to complete Week 9: Serverless?'
+section: 9. Serverless Deep Learning
 sort_order: 3300
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 744f73a640
 question: Different values of auc, each time code is re-run
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2550
 ---
 

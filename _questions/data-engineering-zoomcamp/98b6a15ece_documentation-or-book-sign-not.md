@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 98b6a15ece
 question: Documentation or book sign not shown even after doing dbt docs generate.
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3280
 ---
 

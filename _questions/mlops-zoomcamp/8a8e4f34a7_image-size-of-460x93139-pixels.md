@@ -1,8 +1,9 @@
 ---
-id: 8a8e4f34a7
-question: Image size of 460x93139 pixels is too large. It must be less than 2^16 in each direction.
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 8a8e4f34a7
+question: Image size of 460x93139 pixels is too large. It must be less than 2^16 in
+  each direction.
+section: 'Module 2: Experiment tracking'
 sort_order: 890
 ---
 

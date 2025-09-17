@@ -1,8 +1,9 @@
 ---
-id: 8ab8329fea
-question: Could not parse the dbt project. please check that the repository contains a valid dbt project
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 8ab8329fea
+question: Could not parse the dbt project. please check that the repository contains
+  a valid dbt project
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2990
 ---
 

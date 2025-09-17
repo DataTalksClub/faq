@@ -1,8 +1,9 @@
 ---
-id: 8894361030
-question: Zero elements in sparse matrix (AKA when dictionary vectorizer / categorical X transformation fails )
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: '8894361030'
+question: Zero elements in sparse matrix (AKA when dictionary vectorizer / categorical
+  X transformation fails )
+section: 'Module 1: Introduction'
 sort_order: 720
 ---
 

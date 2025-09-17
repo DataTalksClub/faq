@@ -1,8 +1,10 @@
 ---
-id: 03e27c386a
-question: Isn't it easier to use DictVertorizer or get dummies before splitting the data into train/val/test? Is there a reason we wouldn't do this? Or is it the same either way?
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: 03e27c386a
+question: Isn't it easier to use DictVertorizer or get dummies before splitting the
+  data into train/val/test? Is there a reason we wouldn't do this? Or is it the same
+  either way?
+section: 3. Machine Learning for Classification
 sort_order: 1290
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 99c8a70fdf
 question: Cohort - What’s the difference between the 2024 and 2023 course?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 90
 ---
 

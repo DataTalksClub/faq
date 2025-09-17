@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 36c30c8e2f
 question: How much time do I need for this course?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 100
 ---
 

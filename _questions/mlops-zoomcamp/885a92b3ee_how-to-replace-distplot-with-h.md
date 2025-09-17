@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 885a92b3ee
 question: How to replace distplot with histplot
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 480
 ---
 

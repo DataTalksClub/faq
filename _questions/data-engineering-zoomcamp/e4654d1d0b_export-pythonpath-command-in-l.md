@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e4654d1d0b
 question: Export PYTHONPATH command in linux is temporary
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3590
 ---
 

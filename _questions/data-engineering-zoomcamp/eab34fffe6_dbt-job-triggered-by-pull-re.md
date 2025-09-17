@@ -1,8 +1,9 @@
 ---
-id: eab34fffe6
-question: dbt job - Triggered by pull requests is disabled prerequisites when I try to create a new Continuous Integration job in dbt cloud.
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: eab34fffe6
+question: dbt job - Triggered by pull requests is disabled prerequisites when I try
+  to create a new Continuous Integration job in dbt cloud.
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2500
 ---
 

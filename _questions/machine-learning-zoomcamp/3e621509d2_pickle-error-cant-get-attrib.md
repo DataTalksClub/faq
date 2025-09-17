@@ -1,8 +1,8 @@
 ---
-id: 3e621509d2
-question: Pickle error: can’t get attribute XXX on module __main__
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 3e621509d2
+question: 'Pickle error: can’t get attribute XXX on module __main__'
+section: Miscellaneous
 sort_order: 3890
 ---
 

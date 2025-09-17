@@ -1,8 +1,10 @@
 ---
-id: 7915e5968b
-question: Error: (ValueError: Unable to load weights saved in HDF5 format into a subclassed Model which has not created its variables yet. Call the Model first, then load the weights.) when loading model.
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 7915e5968b
+question: 'Error: (ValueError: Unable to load weights saved in HDF5 format into a
+  subclassed Model which has not created its variables yet. Call the Model first,
+  then load the weights.) when loading model.'
+section: 8. Neural Networks and Deep Learning
 sort_order: 2800
 ---
 

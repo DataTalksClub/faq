@@ -1,8 +1,9 @@
 ---
-id: f7cd7d85ab
-question: mlflow ui on Windows FileNotFoundError: [WinError 2] The system cannot find the file specified
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: f7cd7d85ab
+question: 'mlflow ui on Windows FileNotFoundError: [WinError 2] The system cannot
+  find the file specified'
+section: 'Module 2: Experiment tracking'
 sort_order: 1050
 ---
 

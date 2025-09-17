@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: d2add610e3
 question: How do I set up credentials to run dlt in my environment (not Google Colab)?
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4430
 ---
 

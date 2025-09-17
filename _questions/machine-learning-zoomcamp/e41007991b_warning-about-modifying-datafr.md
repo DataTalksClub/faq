@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e41007991b
 question: Warning about modifying Dataframes inside functions
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 850
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 11a7ea6c2c
 question: AWS suggestions
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 340
 ---
 

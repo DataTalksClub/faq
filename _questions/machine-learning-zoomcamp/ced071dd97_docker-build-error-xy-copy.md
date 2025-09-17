@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ced071dd97
 question: docker  build ERROR [x/y] COPY …
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2030
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 57e17a3e5f
 question: Model breaking after augmentation – high loss + bad accuracy
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2840
 ---
 

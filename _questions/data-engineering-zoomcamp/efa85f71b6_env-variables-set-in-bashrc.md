@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: efa85f71b6
 question: Env variables set in ~/.bashrc are not loaded to Jupyter in VS Code
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3680
 ---
 

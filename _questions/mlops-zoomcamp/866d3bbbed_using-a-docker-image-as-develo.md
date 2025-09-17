@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 866d3bbbed
 question: Using a docker image as development environment (Linux)
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 730
 ---
 

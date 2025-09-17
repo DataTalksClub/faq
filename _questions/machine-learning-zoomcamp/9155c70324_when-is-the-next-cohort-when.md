@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9155c70324
 question: When is the next cohort? When does the next iteration start?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 30
 ---
 

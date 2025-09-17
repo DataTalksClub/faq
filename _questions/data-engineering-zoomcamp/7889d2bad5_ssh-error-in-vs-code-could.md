@@ -1,8 +1,9 @@
 ---
-id: 7889d2bad5
-question: SSH error in VS Code - “Could not establish connection to "de-zoomcamp": Permission denied (publickey).”
-section: Module 2: Workflow Orchestration
 course: data-engineering-zoomcamp
+id: 7889d2bad5
+question: 'SSH error in VS Code - “Could not establish connection to "de-zoomcamp":
+  Permission denied (publickey).”'
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1810
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 1b08427cd4
 question: No module named ‘ping’?
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2570
 ---
 

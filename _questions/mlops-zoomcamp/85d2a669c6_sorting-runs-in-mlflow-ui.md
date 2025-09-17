@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 85d2a669c6
 question: Sorting runs in MLflow UI
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1030
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: cdbabdd71a
 question: GCP VM - All of sudden ssh stopped working for my VM after my last restart
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2560
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 34c01677b8
 question: What if I miss a session?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 50
 ---
 

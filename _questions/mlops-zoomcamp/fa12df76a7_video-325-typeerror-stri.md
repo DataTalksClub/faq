@@ -1,8 +1,8 @@
 ---
-id: fa12df76a7
-question: Video 3.2.5 -  TypeError: string indices must be integers
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: fa12df76a7
+question: 'Video 3.2.5 -  TypeError: string indices must be integers'
+section: 'Module 3: Orchestration'
 sort_order: 1410
 ---
 

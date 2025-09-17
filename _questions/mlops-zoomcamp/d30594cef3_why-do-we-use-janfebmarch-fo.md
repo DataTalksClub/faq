@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: d30594cef3
 question: Why do we use Jan/Feb/March for Train/Test/Validation Purposes?
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1200
 ---
 

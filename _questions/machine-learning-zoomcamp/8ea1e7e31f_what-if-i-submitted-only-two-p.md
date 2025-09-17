@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8ea1e7e31f
 question: What If I submitted only two projects and failed to submit the third?
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3770
 ---
 

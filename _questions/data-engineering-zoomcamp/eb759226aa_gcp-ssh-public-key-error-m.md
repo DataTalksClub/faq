@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: eb759226aa
 question: GCP - ssh public key error - multiple users / usernames
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1490
 ---
 

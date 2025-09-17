@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0c6414cf51
 question: What data should be used for EDA?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1060
 ---
 

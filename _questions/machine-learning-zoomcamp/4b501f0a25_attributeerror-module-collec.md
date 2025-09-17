@@ -1,8 +1,8 @@
 ---
-id: 4b501f0a25
-question: AttributeError: module ‘collections’ has no attribute ‘MutableMapping’
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 4b501f0a25
+question: 'AttributeError: module ‘collections’ has no attribute ‘MutableMapping’'
+section: 5. Deploying Machine Learning Models
 sort_order: 2000
 ---
 

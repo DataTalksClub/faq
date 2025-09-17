@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ac52bea382
 question: Docker-Compose - Persist PGAdmin docker contents on GCP
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 890
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 34d0aaa13e
 question: Running out of storage after building many docker images
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3540
 ---
 

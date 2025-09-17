@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: c905f283d7
 question: For the report RegressionQualityMetric()
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1970
 ---
 

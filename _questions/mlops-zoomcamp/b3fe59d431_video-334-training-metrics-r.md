@@ -1,8 +1,9 @@
 ---
-id: b3fe59d431
-question: Video 3.3.4 Training Metrics RMSE chart does not show due to the error: KeyError: ‘rmse_LinearRegression’
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: b3fe59d431
+question: 'Video 3.3.4 Training Metrics RMSE chart does not show due to the error:
+  KeyError: ‘rmse_LinearRegression’'
+section: 'Module 3: Orchestration'
 sort_order: 1510
 ---
 

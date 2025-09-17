@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e74369cf00
 question: What does pandas.DataFrame.info() do?
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 410
 ---
 

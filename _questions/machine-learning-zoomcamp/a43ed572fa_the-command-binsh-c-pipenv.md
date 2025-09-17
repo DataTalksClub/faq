@@ -1,8 +1,9 @@
 ---
-id: a43ed572fa
-question: The command '/bin/sh -c pipenv install --deploy --system &&  rm -rf /root/.cache' returned a non-zero code: 1
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: a43ed572fa
+question: 'The command ''/bin/sh -c pipenv install --deploy --system &&  rm -rf /root/.cache''
+  returned a non-zero code: 1'
+section: 5. Deploying Machine Learning Models
 sort_order: 1840
 ---
 

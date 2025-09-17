@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: b6197e7348
 question: squared Option Not Available in mean_squared_error
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 460
 ---
 

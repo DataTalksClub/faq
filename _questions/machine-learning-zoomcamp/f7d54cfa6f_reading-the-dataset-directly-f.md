@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f7d54cfa6f
 question: Reading the dataset directly from github
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 640
 ---
 

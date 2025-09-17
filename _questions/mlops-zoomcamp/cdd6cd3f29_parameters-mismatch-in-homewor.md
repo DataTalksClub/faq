@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: cdd6cd3f29
 question: Parameters Mismatch in Homework Q3
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 970
 ---
 

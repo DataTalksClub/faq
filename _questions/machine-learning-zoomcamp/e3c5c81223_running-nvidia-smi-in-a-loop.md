@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e3c5c81223
 question: Running ‘nvidia-smi’ in a loop without using ‘watch’
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2950
 ---
 

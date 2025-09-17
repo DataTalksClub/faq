@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 515a590c60
 question: Computing the hash for the leaderboard and project review
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 260
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 061c36bce4
-question: Question 7: Mathematical formula for linear regression
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 061c36bce4
+question: 'Question 7: Mathematical formula for linear regression'
+section: 1. Introduction to Machine Learning
 sort_order: 490
 ---
 

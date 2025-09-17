@@ -1,8 +1,9 @@
 ---
-id: a411de5004
-question: Office Hours - I can’t attend the “Office hours” / workshop, will it be recorded?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: a411de5004
+question: Office Hours - I can’t attend the “Office hours” / workshop, will it be
+  recorded?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 130
 ---
 

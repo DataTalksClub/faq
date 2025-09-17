@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: fee2e5fbda
 question: Visualize Feature Importance by using horizontal bar chart
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2610
 ---
 

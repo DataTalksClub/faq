@@ -1,8 +1,9 @@
 ---
-id: ed397a51ef
-question: In HW10 Q6 what does it mean “correct value for CPU and memory”? Aren’t they arbitrary?
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: ed397a51ef
+question: In HW10 Q6 what does it mean “correct value for CPU and memory”? Aren’t
+  they arbitrary?
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3550
 ---
 

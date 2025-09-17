@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 02bb92c002
 question: How to install easily kubectl on windows ?
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3500
 ---
 

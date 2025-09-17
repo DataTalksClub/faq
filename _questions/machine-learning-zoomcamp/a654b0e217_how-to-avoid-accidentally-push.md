@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a654b0e217
 question: How to avoid accidentally pushing CSV files
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 570
 ---
 

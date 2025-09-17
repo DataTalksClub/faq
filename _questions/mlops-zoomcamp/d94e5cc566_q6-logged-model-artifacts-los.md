@@ -1,8 +1,8 @@
 ---
-id: d94e5cc566
-question: Q6: Logged model artifacts lost when mlflow container is down or removed
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: d94e5cc566
+question: 'Q6: Logged model artifacts lost when mlflow container is down or removed'
+section: 'Module 3: Orchestration'
 sort_order: 1450
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ac851e936b
 question: Reading large parquet files
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 510
 ---
 

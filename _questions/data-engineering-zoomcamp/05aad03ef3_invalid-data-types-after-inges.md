@@ -1,8 +1,10 @@
 ---
-id: 05aad03ef3
-question: Invalid data types after Ingesting FHV data through parquet files: Could not parse SR_Flag as Float64,Couldn’t parse datetime column as timestamp,couldn’t handle NULL values in PULocationID,DOLocationID
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 05aad03ef3
+question: 'Invalid data types after Ingesting FHV data through parquet files: Could
+  not parse SR_Flag as Float64,Couldn’t parse datetime column as timestamp,couldn’t
+  handle NULL values in PULocationID,DOLocationID'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3160
 ---
 

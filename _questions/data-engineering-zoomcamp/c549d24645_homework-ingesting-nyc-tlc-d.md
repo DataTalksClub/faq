@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c549d24645
 question: Homework - Ingesting NYC TLC Data
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3130
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 6a9d87d7d1
-question: Question 7: FINAL MULTIPLICATION not having 5 column
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 6a9d87d7d1
+question: 'Question 7: FINAL MULTIPLICATION not having 5 column'
+section: 1. Introduction to Machine Learning
 sort_order: 500
 ---
 

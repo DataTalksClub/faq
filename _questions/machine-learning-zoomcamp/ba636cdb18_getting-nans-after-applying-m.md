@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ba636cdb18
 question: Getting NaNs after applying .mean()
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 620
 ---
 

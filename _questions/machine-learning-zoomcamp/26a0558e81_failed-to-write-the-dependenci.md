@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 26a0558e81
 question: Failed to write the dependencies to pipfile and piplock file
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1970
 ---
 

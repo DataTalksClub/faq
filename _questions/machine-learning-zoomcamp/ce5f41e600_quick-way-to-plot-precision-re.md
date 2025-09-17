@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ce5f41e600
 question: Quick way to plot Precision-Recall Curve
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1680
 ---
 

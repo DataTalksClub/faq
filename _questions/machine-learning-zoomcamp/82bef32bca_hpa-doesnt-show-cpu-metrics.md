@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 82bef32bca
 question: HPA doesn’t show CPU metrics
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3660
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: abb38848b5
 question: How to destroy infrastructure created via GitHub Actions
-section: Module 6: Best practices
-course: mlops-zoomcamp
+section: 'Module 6: Best practices'
 sort_order: 2370
 ---
 

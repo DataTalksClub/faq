@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 52d7a5d6b2
 question: How to do AWS configure after installing awscli
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3150
 ---
 

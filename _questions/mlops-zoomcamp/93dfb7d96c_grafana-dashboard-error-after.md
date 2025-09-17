@@ -1,8 +1,9 @@
 ---
-id: 93dfb7d96c
-question: Grafana dashboard error after reset: db query error: pq: database “test” does not exist
-section: Module 5: Monitoring
 course: mlops-zoomcamp
+id: 93dfb7d96c
+question: 'Grafana dashboard error after reset: db query error: pq: database “test”
+  does not exist'
+section: 'Module 5: Monitoring'
 sort_order: 2120
 ---
 

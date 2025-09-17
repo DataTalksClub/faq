@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 44ff6ae3df
 question: dbt cloud Developer
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2420
 ---
 

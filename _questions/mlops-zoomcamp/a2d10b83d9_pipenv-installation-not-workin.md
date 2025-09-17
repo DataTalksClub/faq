@@ -1,8 +1,9 @@
 ---
-id: a2d10b83d9
-question: Pipenv installation not working (AttributeError: module 'collections' has no attribute 'MutableMapping')
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: a2d10b83d9
+question: 'Pipenv installation not working (AttributeError: module ''collections''
+  has no attribute ''MutableMapping'')'
+section: 'Module 4: Deployment'
 sort_order: 1560
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 47408c61b9
-question: TypeError: Descriptors cannot not be created directly.
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: 47408c61b9
+question: 'TypeError: Descriptors cannot not be created directly.'
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3490
 ---
 

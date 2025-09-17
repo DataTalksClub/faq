@@ -1,8 +1,9 @@
 ---
-id: bad6a11a5a
-question: GCP - Project creation failed: HttpError accessing … Requested entity alreadytpep_pickup_datetime exists
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: bad6a11a5a
+question: 'GCP - Project creation failed: HttpError accessing … Requested entity alreadytpep_pickup_datetime
+  exists'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1430
 ---
 

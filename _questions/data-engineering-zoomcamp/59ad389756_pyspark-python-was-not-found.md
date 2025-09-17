@@ -1,8 +1,9 @@
 ---
-id: 59ad389756
-question: PySpark - Python was not found; run without arguments to install from the Microsoft Store, or disable this shortcut from Settings > Manage App Execution Aliases.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 59ad389756
+question: PySpark - Python was not found; run without arguments to install from the
+  Microsoft Store, or disable this shortcut from Settings > Manage App Execution Aliases.
+section: 'Module 5: pyspark'
 sort_order: 3320
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f3423f5014
 question: Uploading the homework to Github
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 300
 ---
 

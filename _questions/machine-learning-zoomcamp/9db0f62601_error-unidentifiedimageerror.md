@@ -1,8 +1,8 @@
 ---
-id: 9db0f62601
-question: Error UnidentifiedImageError: cannot identify image file
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 9db0f62601
+question: 'Error UnidentifiedImageError: cannot identify image file'
+section: Miscellaneous
 sort_order: 3990
 ---
 

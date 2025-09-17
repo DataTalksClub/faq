@@ -1,8 +1,10 @@
 ---
-id: 0e4d6a908b
-question: Terraform - Error:Post "https://storage.googleapis.com/storage/v1/b?alt=json&prettyPrint=false&project=coherent-ascent-379901": oauth2: cannot fetch token: Post "https://oauth2.googleapis.com/token": dial tcp 172.217.163.42:443: i/o timeout
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 0e4d6a908b
+question: 'Terraform - Error:Post "https://storage.googleapis.com/storage/v1/b?alt=json&prettyPrint=false&project=coherent-ascent-379901":
+  oauth2: cannot fetch token: Post "https://oauth2.googleapis.com/token": dial tcp
+  172.217.163.42:443: i/o timeout'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1620
 ---
 

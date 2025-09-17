@@ -1,8 +1,9 @@
 ---
-id: 070766ca79
-question: Environment - Do we really have to use GitHub codespaces? I already have PostgreSQL & Docker installed.
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 070766ca79
+question: Environment - Do we really have to use GitHub codespaces? I already have
+  PostgreSQL & Docker installed.
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 250
 ---
 

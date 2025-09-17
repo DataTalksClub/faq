@@ -1,8 +1,8 @@
 ---
-id: d87e3d2a14
-question: Docker - ERRO[0000] error waiting for container: context canceled
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: d87e3d2a14
+question: 'Docker - ERRO[0000] error waiting for container: context canceled'
+section: 'Module 1: Docker and Terraform'
 sort_order: 730
 ---
 

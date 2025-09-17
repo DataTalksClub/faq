@@ -1,8 +1,8 @@
 ---
-id: 1c62848f3d
-question: WARNING: You are using pip version 22.0.4; however, version 22.3.1 is available
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: 1c62848f3d
+question: 'WARNING: You are using pip version 22.0.4; however, version 22.3.1 is available'
+section: 9. Serverless Deep Learning
 sort_order: 3140
 ---
 

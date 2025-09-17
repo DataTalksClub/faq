@@ -1,8 +1,9 @@
 ---
-id: b209edb213
-question: DBT - Error: “404 Not found: Dataset <dataset_name>:<dbt_schema_name> was not found in location EU” after building from stg_green_tripdata.sql
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: b209edb213
+question: 'DBT - Error: “404 Not found: Dataset <dataset_name>:<dbt_schema_name> was
+  not found in location EU” after building from stg_green_tripdata.sql'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3100
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 07cc362868
 question: Where is the model for week 9?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3060
 ---
 

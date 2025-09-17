@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6c51e7d7bb
 question: How keras flow_from_directory know the names of classes in images?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2870
 ---
 

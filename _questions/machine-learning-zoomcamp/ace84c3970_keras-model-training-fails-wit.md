@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ace84c3970
 question: Keras model training fails with “Failed to find data adapter”
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2940
 ---
 

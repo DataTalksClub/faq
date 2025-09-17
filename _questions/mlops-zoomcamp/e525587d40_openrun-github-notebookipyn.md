@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e525587d40
 question: Open/run github notebook(.ipynb) directly in Google Colab
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1190
 ---
 

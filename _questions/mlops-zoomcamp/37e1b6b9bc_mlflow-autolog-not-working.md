@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 37e1b6b9bc
 question: MLflow Autolog not working
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 910
 ---
 

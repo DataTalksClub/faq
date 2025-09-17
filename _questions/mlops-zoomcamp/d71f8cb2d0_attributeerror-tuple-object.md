@@ -1,8 +1,8 @@
 ---
-id: d71f8cb2d0
-question: AttributeError: 'tuple' object has no attribute 'tb_frame'
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: d71f8cb2d0
+question: 'AttributeError: ''tuple'' object has no attribute ''tb_frame'''
+section: 'Module 2: Experiment tracking'
 sort_order: 1140
 ---
 

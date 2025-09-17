@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: dda62d0ef0
 question: Storage Bucket Permission Denied Error when running the gcp_setup flow
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1880
 ---
 

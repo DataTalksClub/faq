@@ -1,8 +1,8 @@
 ---
-id: 3124f13c7c
-question: pgAdmin - Unable to connect to server: [Errno -3] Try again
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 3124f13c7c
+question: 'pgAdmin - Unable to connect to server: [Errno -3] Try again'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1290
 ---
 

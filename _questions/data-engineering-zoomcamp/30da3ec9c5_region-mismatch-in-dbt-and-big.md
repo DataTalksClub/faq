@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 30da3ec9c5
 question: Region Mismatch in DBT and BigQuery
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3210
 ---
 

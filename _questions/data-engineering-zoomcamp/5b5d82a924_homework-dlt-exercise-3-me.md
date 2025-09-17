@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5b5d82a924
 question: Homework - dlt Exercise 3 - Merge a generator concerns
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4400
 ---
 

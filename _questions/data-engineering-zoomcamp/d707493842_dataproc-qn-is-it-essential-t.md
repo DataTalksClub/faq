@@ -1,8 +1,9 @@
 ---
-id: d707493842
-question: Dataproc Qn: Is it essential to have a VM on GCP for running Dataproc and submitting jobs ?
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: d707493842
+question: 'Dataproc Qn: Is it essential to have a VM on GCP for running Dataproc and
+  submitting jobs ?'
+section: 'Module 5: pyspark'
 sort_order: 3830
 ---
 

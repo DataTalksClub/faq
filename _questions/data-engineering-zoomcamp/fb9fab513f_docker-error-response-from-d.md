@@ -1,8 +1,8 @@
 ---
-id: fb9fab513f
-question: Docker - Error response from daemon: invalid mode: \Program Files\Git\var\lib\postgresql\data.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: fb9fab513f
+question: 'Docker - Error response from daemon: invalid mode: \Program Files\Git\var\lib\postgresql\data.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 700
 ---
 

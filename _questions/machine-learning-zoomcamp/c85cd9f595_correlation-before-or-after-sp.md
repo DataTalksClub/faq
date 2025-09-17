@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c85cd9f595
 question: Correlation before or after splitting the data
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1230
 ---
 

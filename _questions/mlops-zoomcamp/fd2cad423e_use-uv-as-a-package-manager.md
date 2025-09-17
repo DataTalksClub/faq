@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: fd2cad423e
 question: Use uv as a package manager
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 740
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0156cf3b62
 question: Kitchenware Classification Competition Dataset Generator
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4070
 ---
 

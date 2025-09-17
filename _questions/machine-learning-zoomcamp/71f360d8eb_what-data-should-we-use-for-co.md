@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 71f360d8eb
 question: What data should we use for correlation matrix
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1020
 ---
 

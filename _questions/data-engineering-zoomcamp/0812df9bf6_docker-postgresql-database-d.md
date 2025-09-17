@@ -1,8 +1,9 @@
 ---
-id: 0812df9bf6
-question: Docker - PostgreSQL Database directory appears to contain a database. Database system is shut down
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 0812df9bf6
+question: Docker - PostgreSQL Database directory appears to contain a database. Database
+  system is shut down
+section: 'Module 1: Docker and Terraform'
 sort_order: 820
 ---
 

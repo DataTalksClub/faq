@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: db8427d6cf
 question: Configuring Github to work from the remote VM
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 290
 ---
 

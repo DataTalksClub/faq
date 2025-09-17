@@ -1,8 +1,9 @@
 ---
-id: e7015b4263
-question: Python Kafka: ./spark-submit.sh streaming.py - How to check why Spark master connection fails
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: e7015b4263
+question: 'Python Kafka: ./spark-submit.sh streaming.py - How to check why Spark master
+  connection fails'
+section: 'Module 6: streaming with kafka'
 sort_order: 4050
 ---
 

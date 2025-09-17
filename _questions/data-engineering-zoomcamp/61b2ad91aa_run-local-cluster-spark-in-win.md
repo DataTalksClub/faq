@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 61b2ad91aa
 question: Run Local Cluster Spark in Windows 10 with CMD
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3730
 ---
 

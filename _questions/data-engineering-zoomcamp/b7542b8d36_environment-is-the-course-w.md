@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b7542b8d36
 question: Environment - Is the course [Windows/macOS/Linux/...] friendly?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 380
 ---
 

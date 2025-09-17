@@ -1,8 +1,9 @@
 ---
-id: 993a359b90
-question: How do I copy files from a different folder into docker container’s working directory?
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 993a359b90
+question: How do I copy files from a different folder into docker container’s working
+  directory?
+section: 5. Deploying Machine Learning Models
 sort_order: 2260
 ---
 

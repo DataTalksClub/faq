@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c36b3f5196
 question: GCP BQ - External and regular table
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2300
 ---
 

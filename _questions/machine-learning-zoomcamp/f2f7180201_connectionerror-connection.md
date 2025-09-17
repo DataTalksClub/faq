@@ -1,8 +1,9 @@
 ---
-id: f2f7180201
-question: ConnectionError: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: f2f7180201
+question: 'ConnectionError: (''Connection aborted.'', RemoteDisconnected(''Remote
+  end closed connection without response''))'
+section: 5. Deploying Machine Learning Models
 sort_order: 2020
 ---
 

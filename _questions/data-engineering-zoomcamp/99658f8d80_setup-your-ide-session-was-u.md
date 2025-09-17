@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 99658f8d80
 question: Setup - Your IDE session was unable to start. Please contact support.
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2510
 ---
 

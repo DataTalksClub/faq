@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: d99433c04b
 question: Using PyCharm & Conda env in remote development
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 640
 ---
 

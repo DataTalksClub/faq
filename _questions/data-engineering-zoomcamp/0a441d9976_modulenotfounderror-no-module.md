@@ -1,8 +1,8 @@
 ---
-id: 0a441d9976
-question: ModuleNotFoundError: No module named 'avro'
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 0a441d9976
+question: 'ModuleNotFoundError: No module named ''avro'''
+section: 'Module 6: streaming with kafka'
 sort_order: 3920
 ---
 

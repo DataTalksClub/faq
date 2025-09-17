@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: bc90da941d
 question: GCP - The project to be billed is associated with an absent billing account
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1440
 ---
 

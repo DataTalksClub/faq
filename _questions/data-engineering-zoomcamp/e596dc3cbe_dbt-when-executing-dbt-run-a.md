@@ -1,8 +1,9 @@
 ---
-id: e596dc3cbe
-question: DBT - When executing dbt run after installing dbt-utils latest version i.e., 1.0.0 warning has generated
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: e596dc3cbe
+question: DBT - When executing dbt run after installing dbt-utils latest version i.e.,
+  1.0.0 warning has generated
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2600
 ---
 

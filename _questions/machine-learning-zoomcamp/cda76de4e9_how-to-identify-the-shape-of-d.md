@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: cda76de4e9
 question: How to identify the shape of dataset in Pandas
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 440
 ---
 

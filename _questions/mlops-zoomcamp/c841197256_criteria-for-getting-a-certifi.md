@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: c841197256
 question: Criteria for getting a certificate?
-section: Certificates:
-course: mlops-zoomcamp
+section: 'Certificates:'
 sort_order: 2470
 ---
 

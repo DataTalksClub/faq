@@ -1,8 +1,8 @@
 ---
-id: 583d28267f
-question: Bad int64 value: 1.0 error (again)
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 583d28267f
+question: 'Bad int64 value: 1.0 error (again)'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2950
 ---
 

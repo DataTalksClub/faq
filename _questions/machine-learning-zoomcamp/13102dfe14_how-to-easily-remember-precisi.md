@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 13102dfe14
 question: How to easily remember precision and recall?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1710
 ---
 

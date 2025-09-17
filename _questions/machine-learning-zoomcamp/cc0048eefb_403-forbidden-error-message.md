@@ -1,8 +1,8 @@
 ---
-id: cc0048eefb
-question: '403 Forbidden' error message when you try to push to a GitHub repository
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: cc0048eefb
+question: '''403 Forbidden'' error message when you try to push to a GitHub repository'
+section: 1. Introduction to Machine Learning
 sort_order: 340
 ---
 

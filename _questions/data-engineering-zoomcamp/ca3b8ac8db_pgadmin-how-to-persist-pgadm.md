@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ca3b8ac8db
 question: pgAdmin - How to Persist pgAdmin Configurations
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1280
 ---
 

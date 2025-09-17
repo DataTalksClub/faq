@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: f2458f5a26
 question: Docker-Compose depreciated
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2150
 ---
 

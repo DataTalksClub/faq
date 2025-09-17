@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 6c9785b291
 question: Orchestrating dbt cloud with Mage
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4270
 ---
 

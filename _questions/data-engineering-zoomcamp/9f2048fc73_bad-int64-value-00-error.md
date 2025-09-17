@@ -1,8 +1,8 @@
 ---
-id: 9f2048fc73
-question: Bad int64 value: 0.0 error
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 9f2048fc73
+question: 'Bad int64 value: 0.0 error'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2930
 ---
 

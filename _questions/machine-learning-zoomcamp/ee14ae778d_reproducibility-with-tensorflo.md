@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ee14ae778d
 question: Reproducibility with TensorFlow using a seed point
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2920
 ---
 

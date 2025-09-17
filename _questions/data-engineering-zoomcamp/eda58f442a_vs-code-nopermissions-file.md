@@ -1,8 +1,9 @@
 ---
-id: eda58f442a
-question: ​​VS Code: NoPermissions (FileSystemError): Error: EACCES: permission denied (linux)
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: eda58f442a
+question: '​​VS Code: NoPermissions (FileSystemError): Error: EACCES: permission denied
+  (linux)'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3050
 ---
 

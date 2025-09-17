@@ -1,8 +1,8 @@
 ---
-id: cc8c2d4b32
-question: Default VPC Error when deploying to AWS Elastic Beanstalk:
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: cc8c2d4b32
+question: 'Default VPC Error when deploying to AWS Elastic Beanstalk:'
+section: 5. Deploying Machine Learning Models
 sort_order: 2320
 ---
 

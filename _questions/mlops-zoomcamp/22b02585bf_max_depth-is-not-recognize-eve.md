@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 22b02585bf
 question: Max_depth is not recognize even when I add the mlflow.log_params
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1130
 ---
 

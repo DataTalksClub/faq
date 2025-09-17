@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 88f2fb38b0
 question: GCP BQ - Check BigQuery Table Exist And Delete
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2140
 ---
 

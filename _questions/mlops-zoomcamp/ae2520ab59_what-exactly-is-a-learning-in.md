@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ae2520ab59
 question: What exactly is a learning-in-public post?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 240
 ---
 

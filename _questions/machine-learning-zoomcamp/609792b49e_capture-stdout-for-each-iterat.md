@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 609792b49e
 question: Capture stdout for each iterations of a loop separately
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2500
 ---
 

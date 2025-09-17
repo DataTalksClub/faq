@@ -1,8 +1,8 @@
 ---
-id: 7c4d422363
-question: Docker - build error checking context: can’t stat ‘/home/fhrzn/Projects/…./ny_taxi_postgres_data’
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 7c4d422363
+question: 'Docker - build error checking context: can’t stat ‘/home/fhrzn/Projects/…./ny_taxi_postgres_data’'
+section: 'Module 1: Docker and Terraform'
 sort_order: 740
 ---
 

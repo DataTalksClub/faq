@@ -1,8 +1,9 @@
 ---
-id: 85fa1b961a
-question: How to download CSV data via Jupyter NB and the Kaggle API, for one seamless experience
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 85fa1b961a
+question: How to download CSV data via Jupyter NB and the Kaggle API, for one seamless
+  experience
+section: 5. Deploying Machine Learning Models
 sort_order: 1770
 ---
 

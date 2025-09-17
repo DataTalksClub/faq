@@ -1,8 +1,8 @@
 ---
-id: 32c95df124
-question: Error: failed to compute cache key: "/model2.bin" not found: not found
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 32c95df124
+question: 'Error: failed to compute cache key: "/model2.bin" not found: not found'
+section: 5. Deploying Machine Learning Models
 sort_order: 1960
 ---
 

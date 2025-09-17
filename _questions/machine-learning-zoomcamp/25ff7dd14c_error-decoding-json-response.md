@@ -1,8 +1,8 @@
 ---
-id: 25ff7dd14c
-question: Error decoding JSON response: Expecting value: line 1 column 1 (char 0)
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 25ff7dd14c
+question: 'Error decoding JSON response: Expecting value: line 1 column 1 (char 0)'
+section: Miscellaneous
 sort_order: 4020
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: dc705a3c4e
 question: Tflite_runtime unable to install
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3960
 ---
 

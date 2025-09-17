@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 70eceb1a01
 question: Are there other ways to compute Precision, Recall and F1 score?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1640
 ---
 

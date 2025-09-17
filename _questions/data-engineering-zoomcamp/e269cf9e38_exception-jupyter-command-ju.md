@@ -1,8 +1,8 @@
 ---
-id: e269cf9e38
-question: Exception: Jupyter command `jupyter-notebook` not found.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: e269cf9e38
+question: 'Exception: Jupyter command `jupyter-notebook` not found.'
+section: 'Module 5: pyspark'
 sort_order: 3420
 ---
 

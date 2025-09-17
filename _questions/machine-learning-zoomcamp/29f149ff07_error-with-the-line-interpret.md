@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 29f149ff07
 question: Error with the line “interpreter.set_tensor(input_index, X”)
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3170
 ---
 

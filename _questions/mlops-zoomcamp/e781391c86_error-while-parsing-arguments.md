@@ -1,8 +1,9 @@
 ---
-id: e781391c86
-question: Error while parsing arguments via CLI  [ValueError: Unknown format code 'd' for object of type 'str']
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: e781391c86
+question: 'Error while parsing arguments via CLI  [ValueError: Unknown format code
+  ''d'' for object of type ''str'']'
+section: 'Module 4: Deployment'
 sort_order: 1660
 ---
 

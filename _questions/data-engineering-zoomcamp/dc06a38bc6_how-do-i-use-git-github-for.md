@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: dc06a38bc6
 question: How do I use Git / GitHub for this course?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 440
 ---
 

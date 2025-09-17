@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 6022cc0440
 question: GCP FREE TRIAL ACCOUNT ERROR
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2570
 ---
 

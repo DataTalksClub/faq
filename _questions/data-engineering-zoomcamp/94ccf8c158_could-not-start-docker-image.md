@@ -1,8 +1,9 @@
 ---
-id: 94ccf8c158
-question: Could not start docker image “control-center” from the docker-compose.yaml file.
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 94ccf8c158
+question: Could not start docker image “control-center” from the docker-compose.yaml
+  file.
+section: 'Module 6: streaming with kafka'
 sort_order: 3890
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: afdcab5249
 question: Running out of memory
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 650
 ---
 

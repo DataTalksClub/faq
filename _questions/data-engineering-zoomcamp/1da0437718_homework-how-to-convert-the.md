@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1da0437718
 question: Homework - how to convert the time difference of two timestamps to hours
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3800
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c33a1ac422
 question: What is eta in XGBoost
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2470
 ---
 

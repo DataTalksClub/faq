@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: dec67e98e1
 question: Where is the Python TensorFlow template on Saturn Cloud?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2760
 ---
 

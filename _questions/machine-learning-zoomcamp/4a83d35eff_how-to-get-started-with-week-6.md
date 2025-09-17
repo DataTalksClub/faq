@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 4a83d35eff
 question: How to get started with Week 6?
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2380
 ---
 

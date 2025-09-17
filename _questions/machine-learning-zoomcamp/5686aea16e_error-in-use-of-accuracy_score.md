@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5686aea16e
 question: Error in use of accuracy_score from sklearn in jupyter (sometimes)
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1350
 ---
 

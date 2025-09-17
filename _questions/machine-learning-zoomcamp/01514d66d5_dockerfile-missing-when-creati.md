@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 01514d66d5
 question: Dockerfile missing when creating the AWS ElasticBean environment
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2280
 ---
 

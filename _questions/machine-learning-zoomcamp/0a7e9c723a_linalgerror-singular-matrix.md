@@ -1,8 +1,8 @@
 ---
-id: 0a7e9c723a
-question: LinAlgError: Singular matrix
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: 0a7e9c723a
+question: 'LinAlgError: Singular matrix'
+section: 2. Machine Learning for Regression
 sort_order: 600
 ---
 

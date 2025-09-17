@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ef52b72189
 question: Understanding Ridge
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1110
 ---
 

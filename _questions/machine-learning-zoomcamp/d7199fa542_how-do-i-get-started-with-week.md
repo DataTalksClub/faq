@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: d7199fa542
 question: How do I get started with Week 4?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1400
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: ed90e0f589
-question: Bind for 0.0.0.0:9696 failed: port is already allocated
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: ed90e0f589
+question: 'Bind for 0.0.0.0:9696 failed: port is already allocated'
+section: 5. Deploying Machine Learning Models
 sort_order: 2060
 ---
 

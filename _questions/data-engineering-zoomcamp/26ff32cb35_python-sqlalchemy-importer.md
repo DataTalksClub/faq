@@ -1,8 +1,9 @@
 ---
-id: 26ff32cb35
-question: Python - SQLAlchemy - ImportError: cannot import name 'TypeAliasType' from 'typing_extensions'.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 26ff32cb35
+question: 'Python - SQLAlchemy - ImportError: cannot import name ''TypeAliasType''
+  from ''typing_extensions''.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1360
 ---
 

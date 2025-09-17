@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0655982228
 question: Traversing feature names and feature importance values
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2690
 ---
 

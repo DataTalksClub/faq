@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 8ddf54cbd0
 question: PGCLI - should we run pgcli inside another docker container?
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1070
 ---
 

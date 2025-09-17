@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7fa434b922
 question: RMSE using metrics.root_meas_square()
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2620
 ---
 

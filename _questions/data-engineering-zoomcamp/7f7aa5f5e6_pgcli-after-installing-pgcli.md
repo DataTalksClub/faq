@@ -1,8 +1,9 @@
 ---
-id: 7f7aa5f5e6
-question: PGCLI - After installing PGCLI and checking with pgcli -- help we get the error: ImportError: no pq wrapper available
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 7f7aa5f5e6
+question: 'PGCLI - After installing PGCLI and checking with pgcli -- help we get the
+  error: ImportError: no pq wrapper available'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1180
 ---
 

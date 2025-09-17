@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b26658a658
 question: How to automatically infer the column data type (pandas missing value issues)?
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2860
 ---
 

@@ -1,8 +1,10 @@
 ---
-id: 8e6e50be33
-question: Why do aws cli commands throw <botocore.awsrequest.AWSRequest object at 0x74c89c3562d0> type messages when listing or creating aws s3 buckets with localstack ?
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: 8e6e50be33
+question: Why do aws cli commands throw <botocore.awsrequest.AWSRequest object at
+  0x74c89c3562d0> type messages when listing or creating aws s3 buckets with localstack
+  ?
+section: 'Module 6: Best practices'
 sort_order: 2340
 ---
 

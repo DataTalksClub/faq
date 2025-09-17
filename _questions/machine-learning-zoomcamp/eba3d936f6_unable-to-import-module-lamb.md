@@ -1,8 +1,9 @@
 ---
-id: eba3d936f6
-question: "Unable to import module 'lambda_function': No module named 'tensorflow'" when run python test.py
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: eba3d936f6
+question: '"Unable to import module ''lambda_function'': No module named ''tensorflow''"
+  when run python test.py'
+section: 9. Serverless Deep Learning
 sort_order: 3340
 ---
 

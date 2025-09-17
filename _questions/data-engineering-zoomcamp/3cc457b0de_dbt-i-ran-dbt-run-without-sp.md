@@ -1,8 +1,10 @@
 ---
-id: 3cc457b0de
-question: DBT - I ran dbt run without specifying variable which gave me a table of 100 rows. I ran again with the variable value specified but my table still has 100 rows in BQ.
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 3cc457b0de
+question: DBT - I ran dbt run without specifying variable which gave me a table of
+  100 rows. I ran again with the variable value specified but my table still has 100
+  rows in BQ.
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2690
 ---
 

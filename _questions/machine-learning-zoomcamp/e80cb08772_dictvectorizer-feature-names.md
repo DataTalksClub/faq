@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e80cb08772
 question: DictVectorizer feature names
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2580
 ---
 

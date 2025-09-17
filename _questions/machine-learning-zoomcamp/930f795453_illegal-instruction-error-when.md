@@ -1,8 +1,9 @@
 ---
-id: 930f795453
-question: Illegal instruction error when running tensorflow/serving image on Mac M2 Apple Silicon (potentially on M1 as well)
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: 930f795453
+question: Illegal instruction error when running tensorflow/serving image on Mac M2
+  Apple Silicon (potentially on M1 as well)
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3650
 ---
 

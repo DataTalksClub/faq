@@ -1,8 +1,8 @@
 ---
-id: 376ba649d7
-question: AttributeError: module 'mlflow' has no attribute 'set_tracking_url'
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: 376ba649d7
+question: 'AttributeError: module ''mlflow'' has no attribute ''set_tracking_url'''
+section: 'Module 3: Orchestration'
 sort_order: 1490
 ---
 

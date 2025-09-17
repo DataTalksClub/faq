@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e43abaa421
 question: Docker-Compose - docker-compose still not available after changing .bashrc
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 930
 ---
 

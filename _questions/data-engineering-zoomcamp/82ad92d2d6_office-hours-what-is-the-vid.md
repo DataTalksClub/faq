@@ -1,8 +1,9 @@
 ---
-id: 82ad92d2d6
-question: Office Hours - What is the video/zoom link to the stream for the “Office Hour” or workshop sessions?
-section: General course-related questions
 course: data-engineering-zoomcamp
+id: 82ad92d2d6
+question: Office Hours - What is the video/zoom link to the stream for the “Office
+  Hour” or workshop sessions?
+section: General course-related questions
 sort_order: 120
 ---
 

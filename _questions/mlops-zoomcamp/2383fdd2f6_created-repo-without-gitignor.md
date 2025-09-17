@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 2383fdd2f6
 question: Created repo without .gitignore
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 320
 ---
 

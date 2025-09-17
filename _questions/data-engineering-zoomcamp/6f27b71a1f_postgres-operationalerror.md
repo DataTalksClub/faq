@@ -1,8 +1,10 @@
 ---
-id: 6f27b71a1f
-question: Postgres - OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  database "ny_taxi" does not exist
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 6f27b71a1f
+question: 'Postgres - OperationalError: (psycopg2.OperationalError) connection to
+  server at "localhost" (::1), port 5432 failed: FATAL:  database "ny_taxi" does not
+  exist'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1220
 ---
 

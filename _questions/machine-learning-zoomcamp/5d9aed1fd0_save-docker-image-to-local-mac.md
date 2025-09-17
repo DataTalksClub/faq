@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5d9aed1fd0
 question: Save Docker Image to local machine and view contents
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3260
 ---
 

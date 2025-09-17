@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 418e8948e7
 question: Course - How do I start?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 50
 ---
 

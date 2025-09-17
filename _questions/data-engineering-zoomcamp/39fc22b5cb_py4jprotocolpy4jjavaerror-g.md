@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 39fc22b5cb
 question: py4j.protocol.Py4JJavaError  GCP
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3750
 ---
 

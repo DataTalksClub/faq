@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: fabdc4421c
 question: Unsupported Operand Type Error in hpo.py
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1060
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 1c7dc011f1
-question: Getting Wrong RMSE that is not matching or close to answer options in HW 2(Regression) of 2024 Cohort.
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 1c7dc011f1
+question: Getting Wrong RMSE that is not matching or close to answer options in HW
+  2(Regression) of 2024 Cohort.
+section: Miscellaneous
 sort_order: 4270
 ---
 

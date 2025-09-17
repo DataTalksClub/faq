@@ -1,8 +1,9 @@
 ---
-id: fd83a2e6ad
-question: ValueError: This solver needs samples of at least 2 classes in the data, but the data contains only one class: 0
-section: 4. Evaluation Metrics for Classification
 course: machine-learning-zoomcamp
+id: fd83a2e6ad
+question: 'ValueError: This solver needs samples of at least 2 classes in the data,
+  but the data contains only one class: 0'
+section: 4. Evaluation Metrics for Classification
 sort_order: 1450
 ---
 

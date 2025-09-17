@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3f5dbbd3b5
 question: Model too big
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3940
 ---
 

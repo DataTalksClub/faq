@@ -1,8 +1,8 @@
 ---
-id: bcedbb12fe
-question: Could not install packages due to an OSError: [WinError 5] Access is denied
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: bcedbb12fe
+question: 'Could not install packages due to an OSError: [WinError 5] Access is denied'
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3480
 ---
 

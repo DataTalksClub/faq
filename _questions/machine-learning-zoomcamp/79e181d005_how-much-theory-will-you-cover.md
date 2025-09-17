@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 79e181d005
 question: How much theory will you cover?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 60
 ---
 

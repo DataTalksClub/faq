@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 4ecc97beb5
 question: How to set credentials in Google Colab notebook to connect to BigQuery
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4420
 ---
 

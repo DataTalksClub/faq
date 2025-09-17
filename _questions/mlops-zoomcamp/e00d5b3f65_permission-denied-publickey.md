@@ -1,8 +1,9 @@
 ---
-id: e00d5b3f65
-question: Permission denied (publickey) Error (when you remove your public key on the AWS machine)
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: e00d5b3f65
+question: Permission denied (publickey) Error (when you remove your public key on
+  the AWS machine)
+section: 'Module 1: Introduction'
 sort_order: 680
 ---
 

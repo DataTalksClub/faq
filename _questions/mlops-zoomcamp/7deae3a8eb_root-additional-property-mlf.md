@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 7deae3a8eb
 question: (root) Additional property mlflow is not allowed
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1440
 ---
 

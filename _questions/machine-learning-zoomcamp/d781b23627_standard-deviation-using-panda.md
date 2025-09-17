@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: d781b23627
 question: Standard deviation using Pandas built in Function
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 880
 ---
 

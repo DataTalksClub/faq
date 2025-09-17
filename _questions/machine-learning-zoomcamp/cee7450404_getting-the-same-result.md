@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: cee7450404
 question: Getting the same result
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2230
 ---
 

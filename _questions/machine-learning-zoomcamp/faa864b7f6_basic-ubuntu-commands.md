@@ -1,8 +1,8 @@
 ---
-id: faa864b7f6
-question: Basic Ubuntu Commands:
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: faa864b7f6
+question: 'Basic Ubuntu Commands:'
+section: 5. Deploying Machine Learning Models
 sort_order: 1780
 ---
 

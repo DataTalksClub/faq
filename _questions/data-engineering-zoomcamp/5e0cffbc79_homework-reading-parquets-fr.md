@@ -1,8 +1,9 @@
 ---
-id: 5e0cffbc79
-question: Homework - Reading parquets from nyc.gov directly into pandas returns Out of bounds error
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 5e0cffbc79
+question: Homework - Reading parquets from nyc.gov directly into pandas returns Out
+  of bounds error
+section: 'Module 3: Data Warehousing'
 sort_order: 2330
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e8fe39dd54
 question: DBT - I am having problems with columns datatype while running DBT/BigQuery
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2520
 ---
 

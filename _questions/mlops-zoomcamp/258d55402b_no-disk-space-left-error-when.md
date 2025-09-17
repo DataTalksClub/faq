@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 258d55402b
 question: no disk space left error when doing docker compose up
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2030
 ---
 

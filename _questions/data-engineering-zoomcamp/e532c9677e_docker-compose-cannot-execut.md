@@ -1,8 +1,8 @@
 ---
-id: e532c9677e
-question: Docker-Compose - cannot execute binary file: Exec format error
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: e532c9677e
+question: 'Docker-Compose - cannot execute binary file: Exec format error'
+section: 'Module 1: Docker and Terraform'
 sort_order: 990
 ---
 

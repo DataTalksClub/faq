@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5b54567e89
 question: Opening an HTML file with a Windows browser from Linux running on WSL
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 460
 ---
 

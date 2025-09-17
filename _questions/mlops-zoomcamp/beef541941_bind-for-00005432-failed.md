@@ -1,8 +1,8 @@
 ---
-id: beef541941
-question: Bind for 0.0.0.0:5432 failed: port is already allocated
-section: Module 5: Monitoring
 course: mlops-zoomcamp
+id: beef541941
+question: 'Bind for 0.0.0.0:5432 failed: port is already allocated'
+section: 'Module 5: Monitoring'
 sort_order: 2070
 ---
 

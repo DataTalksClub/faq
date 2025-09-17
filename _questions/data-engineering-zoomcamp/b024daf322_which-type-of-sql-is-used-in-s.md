@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b024daf322
 question: Which type of SQL is used in Spark? Postgres? MySQL? SQL Server?
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3460
 ---
 

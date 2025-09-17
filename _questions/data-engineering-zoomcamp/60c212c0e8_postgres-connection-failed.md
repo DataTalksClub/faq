@@ -1,8 +1,9 @@
 ---
-id: 60c212c0e8
-question: Postgres - connection failed: connection to server at "127.0.0.1", port 5432 failed: FATAL:  password authentication failed for user "root"
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 60c212c0e8
+question: 'Postgres - connection failed: connection to server at "127.0.0.1", port
+  5432 failed: FATAL:  password authentication failed for user "root"'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1200
 ---
 

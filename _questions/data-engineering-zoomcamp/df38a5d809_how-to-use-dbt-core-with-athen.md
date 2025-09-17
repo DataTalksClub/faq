@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: df38a5d809
 question: How to use dbt-core with Athena?
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4340
 ---
 

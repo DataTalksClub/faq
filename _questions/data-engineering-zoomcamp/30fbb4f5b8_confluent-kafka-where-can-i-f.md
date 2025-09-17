@@ -1,8 +1,8 @@
 ---
-id: 30fbb4f5b8
-question: Confluent Kafka: Where can I find schema registry URL?
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 30fbb4f5b8
+question: 'Confluent Kafka: Where can I find schema registry URL?'
+section: 'Module 6: streaming with kafka'
 sort_order: 4130
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: b6c7eb17d8
 question: How is my capstone project going to be evaluated?
 section: Capstone Project
-course: mlops-zoomcamp
 sort_order: 2440
 ---
 

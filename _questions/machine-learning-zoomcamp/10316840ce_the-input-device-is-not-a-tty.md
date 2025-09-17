@@ -1,8 +1,9 @@
 ---
-id: 10316840ce
-question: The input device is not a TTY when running docker in interactive mode (Running Docker on Windows in GitBash)
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 10316840ce
+question: The input device is not a TTY when running docker in interactive mode (Running
+  Docker on Windows in GitBash)
+section: 5. Deploying Machine Learning Models
 sort_order: 1950
 ---
 

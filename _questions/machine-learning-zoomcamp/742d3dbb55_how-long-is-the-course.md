@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 742d3dbb55
 question: How long is the course?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 90
 ---
 

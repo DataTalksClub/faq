@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6e943f57bc
 question: Are projects solo or collaborative/group work?
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3710
 ---
 

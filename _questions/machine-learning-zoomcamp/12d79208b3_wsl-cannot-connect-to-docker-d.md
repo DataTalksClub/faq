@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 12d79208b3
 question: WSL Cannot Connect To Docker Daemon
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3450
 ---
 

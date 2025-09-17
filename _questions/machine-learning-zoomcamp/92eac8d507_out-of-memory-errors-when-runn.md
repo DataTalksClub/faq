@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 92eac8d507
 question: Out of memory errors when running tensorflow
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2990
 ---
 

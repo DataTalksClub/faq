@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 47c771de0d
 question: wget not working
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1180
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5851324f04
 question: Does the github repository need to be public?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4120
 ---
 

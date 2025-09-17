@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ebcd9b6783
 question: Method to get beautiful classification report
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1460
 ---
 

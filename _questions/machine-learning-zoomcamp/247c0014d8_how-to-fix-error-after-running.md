@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 247c0014d8
 question: How to fix error after running the Docker run command
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2050
 ---
 

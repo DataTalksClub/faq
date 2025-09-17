@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 18e9b4b2a2
 question: When do I use ROC vs Precision-Recall curves?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1650
 ---
 

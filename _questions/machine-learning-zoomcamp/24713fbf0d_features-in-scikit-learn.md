@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 24713fbf0d
 question: Features in scikit-learn?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4160
 ---
 

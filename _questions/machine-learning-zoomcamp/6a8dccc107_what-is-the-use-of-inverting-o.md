@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6a8dccc107
 question: What is the use of inverting or negating the variables less than the threshold?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1540
 ---
 

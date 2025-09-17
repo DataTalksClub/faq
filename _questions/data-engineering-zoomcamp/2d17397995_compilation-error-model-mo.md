@@ -1,8 +1,9 @@
 ---
-id: 2d17397995
-question: Compilation Error : Model '<model_name>' (<model_path>) depends on a node named '<seed_name>' which was not found   (Production Environment)
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 2d17397995
+question: 'Compilation Error : Model ''<model_name>'' (<model_path>) depends on a
+  node named ''<seed_name>'' which was not found   (Production Environment)'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2840
 ---
 

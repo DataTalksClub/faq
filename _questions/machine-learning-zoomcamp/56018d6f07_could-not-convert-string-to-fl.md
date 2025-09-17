@@ -1,8 +1,8 @@
 ---
-id: 56018d6f07
-question: Could not convert string to float:’Nissan’rt string to float: 'Nissan'
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: 56018d6f07
+question: 'Could not convert string to float:’Nissan’rt string to float: ''Nissan'''
+section: 3. Machine Learning for Classification
 sort_order: 1000
 ---
 

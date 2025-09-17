@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9e300560ca
 question: When should we transform the target variable to logarithm distribution?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 790
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: cd934427d8
 question: The same accuracy on epochs
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2830
 ---
 

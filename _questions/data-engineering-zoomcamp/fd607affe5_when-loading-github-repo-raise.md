@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: fd607affe5
 question: When loading github repo raise exception that ‘taxi_zone_lookup’ not found
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2870
 ---
 

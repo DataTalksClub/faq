@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b2e624ea5a
 question: HPA instance doesn’t run properly
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3460
 ---
 

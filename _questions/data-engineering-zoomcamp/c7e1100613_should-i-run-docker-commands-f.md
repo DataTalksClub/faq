@@ -1,8 +1,9 @@
 ---
-id: c7e1100613
-question: Should I run docker commands from the windows file system or a file system of a Linux distribution in WSL?
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: c7e1100613
+question: Should I run docker commands from the windows file system or a file system
+  of a Linux distribution in WSL?
+section: 'Module 1: Docker and Terraform'
 sort_order: 630
 ---
 

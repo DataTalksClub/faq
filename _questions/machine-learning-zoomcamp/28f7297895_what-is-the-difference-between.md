@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 28f7297895
 question: What is the difference between .decision_function() and .predict_proba()?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1360
 ---
 

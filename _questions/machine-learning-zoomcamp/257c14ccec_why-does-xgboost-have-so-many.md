@@ -1,8 +1,9 @@
 ---
-id: 257c14ccec
-question: Why does XGBoost have so many parameters, and which are the most critical to start with?
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 257c14ccec
+question: Why does XGBoost have so many parameters, and which are the most critical
+  to start with?
+section: 8. Neural Networks and Deep Learning
 sort_order: 2700
 ---
 

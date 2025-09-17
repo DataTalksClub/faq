@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b3bb998ae2
 question: How to connect Pyspark with BigQuery?
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4290
 ---
 

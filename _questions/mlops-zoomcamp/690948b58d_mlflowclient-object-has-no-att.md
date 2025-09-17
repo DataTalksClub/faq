@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 690948b58d
 question: MlflowClient object has no attribute 'list_experiments'
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 900
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: e107978d25
-question: Q: Why did we not use OneHotEncoder(sklearn) instead of DictVectorizer ?
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: e107978d25
+question: 'Q: Why did we not use OneHotEncoder(sklearn) instead of DictVectorizer
+  ?'
+section: 'Module 1: Introduction'
 sort_order: 570
 ---
 

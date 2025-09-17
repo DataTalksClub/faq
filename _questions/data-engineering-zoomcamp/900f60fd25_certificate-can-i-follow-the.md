@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 900f60fd25
 question: Certificate - Can I follow the course in a self-paced mode and get a certificate?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 160
 ---
 

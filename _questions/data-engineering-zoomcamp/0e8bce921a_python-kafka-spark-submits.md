@@ -1,8 +1,9 @@
 ---
-id: 0e8bce921a
-question: Python Kafka: ./spark-submit.sh streaming.py Error: py4j.protocol.Py4JJavaError: An error occurred while calling None.org.apache.spark.api.java.JavaSparkContext.
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 0e8bce921a
+question: 'Python Kafka: ./spark-submit.sh streaming.py Error: py4j.protocol.Py4JJavaError:
+  An error occurred while calling None.org.apache.spark.api.java.JavaSparkContext.'
+section: 'Module 6: streaming with kafka'
 sort_order: 4060
 ---
 

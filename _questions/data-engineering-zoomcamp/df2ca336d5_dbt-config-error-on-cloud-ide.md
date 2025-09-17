@@ -1,8 +1,8 @@
 ---
-id: df2ca336d5
-question: DBT-Config ERROR on CLOUD IDE: No dbt_project.yml found at expected path
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: df2ca336d5
+question: 'DBT-Config ERROR on CLOUD IDE: No dbt_project.yml found at expected path'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2430
 ---
 

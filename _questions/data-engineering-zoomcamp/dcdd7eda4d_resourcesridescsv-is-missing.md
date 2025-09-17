@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: dcdd7eda4d
 question: resources/rides.csv is missing
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3960
 ---
 

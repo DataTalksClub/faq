@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e855e1b1b8
 question: Free cloud alternatives
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4030
 ---
 

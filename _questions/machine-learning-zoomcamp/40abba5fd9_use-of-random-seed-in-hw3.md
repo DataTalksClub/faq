@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 40abba5fd9
 question: Use of random seed in HW3
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1220
 ---
 

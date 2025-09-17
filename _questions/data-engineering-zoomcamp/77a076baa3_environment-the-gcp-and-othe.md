@@ -1,8 +1,9 @@
 ---
-id: 77a076baa3
-question: Environment - The GCP and other cloud providers are unavailable in some countries. Is it possible to provide a guide to installing a home lab?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 77a076baa3
+question: Environment - The GCP and other cloud providers are unavailable in some
+  countries. Is it possible to provide a guide to installing a home lab?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 300
 ---
 

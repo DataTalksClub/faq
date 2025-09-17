@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: dfb6836d0b
 question: Hi, is it too late to start the course, I have ML experience?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 190
 ---
 

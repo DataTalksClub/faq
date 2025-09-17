@@ -1,8 +1,10 @@
 ---
-id: 664833c280
-question: How to fix docker compose error: Error response from daemon: pull access denied for spark-3.3.1, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 664833c280
+question: 'How to fix docker compose error: Error response from daemon: pull access
+  denied for spark-3.3.1, repository does not exist or may require ''docker login'':
+  denied: requested access to the resource is denied'
+section: 'Module 6: streaming with kafka'
 sort_order: 4010
 ---
 

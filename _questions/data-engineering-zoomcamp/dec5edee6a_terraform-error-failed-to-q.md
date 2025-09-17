@@ -1,8 +1,11 @@
 ---
-id: dec5edee6a
-question: Terraform - Error: Failed to query available provider packages │ Could not retrieve the list of available versions for provider hashicorp/google: could not query │ provider registry for registry.terrafogorm.io/hashicorp/google: the request failed after 2 attempts, │ please try again later
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: dec5edee6a
+question: 'Terraform - Error: Failed to query available provider packages │ Could
+  not retrieve the list of available versions for provider hashicorp/google: could
+  not query │ provider registry for registry.terrafogorm.io/hashicorp/google: the
+  request failed after 2 attempts, │ please try again later'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1610
 ---
 

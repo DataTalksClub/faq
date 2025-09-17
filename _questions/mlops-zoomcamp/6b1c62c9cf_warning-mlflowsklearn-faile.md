@@ -1,8 +1,9 @@
 ---
-id: 6b1c62c9cf
-question: WARNING: mlflow.sklearn: Failed to log training dataset information to MLflow Tracking.
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 6b1c62c9cf
+question: 'WARNING: mlflow.sklearn: Failed to log training dataset information to
+  MLflow Tracking.'
+section: 'Module 2: Experiment tracking'
 sort_order: 1210
 ---
 

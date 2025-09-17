@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0131ac93ac
 question: GCP BQ - Caution in using bigquery:no
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2050
 ---
 

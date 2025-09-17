@@ -1,8 +1,8 @@
 ---
-id: 60c3a69ea3
-question: Format for questions: [Problem title]
-section: General course questions
 course: mlops-zoomcamp
+id: 60c3a69ea3
+question: 'Format for questions: [Problem title]'
+section: General course questions
 sort_order: 10
 ---
 

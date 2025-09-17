@@ -1,8 +1,9 @@
 ---
-id: 0f19932601
-question: [pipenv.exceptions.ResolutionFailure]: Warning: Your dependencies could not be resolved. You likely have a mismatch in your sub-dependencies
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 0f19932601
+question: '[pipenv.exceptions.ResolutionFailure]: Warning: Your dependencies could
+  not be resolved. You likely have a mismatch in your sub-dependencies'
+section: Miscellaneous
 sort_order: 4000
 ---
 

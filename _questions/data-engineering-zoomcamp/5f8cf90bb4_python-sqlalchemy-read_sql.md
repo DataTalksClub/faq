@@ -1,8 +1,9 @@
 ---
-id: 5f8cf90bb4
-question: Python - SQLAlchemy - read_sql_query() throws "'OptionEngine' object has no attribute 'execute'"
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 5f8cf90bb4
+question: Python - SQLAlchemy - read_sql_query() throws "'OptionEngine' object has
+  no attribute 'execute'"
+section: 'Module 1: Docker and Terraform'
 sort_order: 1400
 ---
 

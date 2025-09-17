@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: eb3d73e55e
 question: Root Mean Squared Error
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1330
 ---
 

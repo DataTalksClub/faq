@@ -1,8 +1,9 @@
 ---
-id: 2ce73ee58a
-question: Get an error ‘Unable to locate credentials’ after running localstack with kinesis
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: 2ce73ee58a
+question: Get an error ‘Unable to locate credentials’ after running localstack with
+  kinesis
+section: 'Module 6: Best practices'
 sort_order: 2220
 ---
 

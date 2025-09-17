@@ -1,8 +1,9 @@
 ---
-id: c2a18da218
-question: GCP BQ - Error Message in BigQuery: annotated as a valid Timestamp, please annotate it as TimestampType(MICROS) or TimestampType(MILLIS)
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: c2a18da218
+question: 'GCP BQ - Error Message in BigQuery: annotated as a valid Timestamp, please
+  annotate it as TimestampType(MICROS) or TimestampType(MILLIS)'
+section: 'Module 3: Data Warehousing'
 sort_order: 2110
 ---
 

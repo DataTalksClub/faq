@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 56ebfe8111
 question: Homework 3
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1390
 ---
 

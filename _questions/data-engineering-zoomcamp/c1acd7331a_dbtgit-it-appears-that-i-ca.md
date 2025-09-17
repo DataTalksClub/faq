@@ -1,8 +1,9 @@
 ---
-id: c1acd7331a
-question: Dbt+git - It appears that I can't edit the files because I'm in read-only mode. Does anyone know how I can change that?
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: c1acd7331a
+question: Dbt+git - It appears that I can't edit the files because I'm in read-only
+  mode. Does anyone know how I can change that?
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2740
 ---
 

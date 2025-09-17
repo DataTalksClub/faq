@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 772aea0210
 question: The spark viewer on localhost:4040 was not showing the current run
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3470
 ---
 

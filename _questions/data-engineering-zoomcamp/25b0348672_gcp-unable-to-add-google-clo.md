@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 25b0348672
 question: GCP - Unable to add Google Cloud SDK PATH to Windows
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1420
 ---
 

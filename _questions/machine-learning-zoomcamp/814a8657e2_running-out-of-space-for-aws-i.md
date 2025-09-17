@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 814a8657e2
 question: Running out of space for AWS instance.
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3280
 ---
 

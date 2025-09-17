@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 87fddc59b7
 question: Setup - Failed to clone repository.
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2480
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 12dffd5b1a
-question: PGCLI -connection failed: FATAL: password authentication failed for user "root"
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 12dffd5b1a
+question: 'PGCLI -connection failed: FATAL: password authentication failed for user
+  "root"'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1120
 ---
 

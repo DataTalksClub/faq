@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 17eeab7562
 question: Loading the Image with PILLOW library and converting to numpy array
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3840
 ---
 

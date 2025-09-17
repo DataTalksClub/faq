@@ -1,8 +1,9 @@
 ---
-id: d02af042b1
-question: 'pip' is not recognized as an internal or external command, operable program or batch file.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: d02af042b1
+question: '''pip'' is not recognized as an internal or external command, operable
+  program or batch file.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1760
 ---
 

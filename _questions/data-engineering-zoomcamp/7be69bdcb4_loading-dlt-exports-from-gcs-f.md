@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 7be69bdcb4
 question: Loading Dlt Exports from GCS Filesystems
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4470
 ---
 

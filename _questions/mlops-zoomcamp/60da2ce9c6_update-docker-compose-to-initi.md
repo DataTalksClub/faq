@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 60da2ce9c6
 question: Update docker-compose to initiate Mage
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1310
 ---
 

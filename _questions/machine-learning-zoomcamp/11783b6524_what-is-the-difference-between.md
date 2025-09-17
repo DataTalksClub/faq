@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 11783b6524
 question: What is the difference between bagging and boosting?
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2480
 ---
 

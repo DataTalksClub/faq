@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 4aa018f478
 question: Activating Anaconda env in .bashrc
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 660
 ---
 

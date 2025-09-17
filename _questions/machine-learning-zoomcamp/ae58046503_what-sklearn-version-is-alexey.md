@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ae58046503
 question: What sklearn version is Alexey using in the youtube videos?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 950
 ---
 

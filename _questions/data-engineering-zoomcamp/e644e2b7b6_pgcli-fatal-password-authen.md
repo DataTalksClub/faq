@@ -1,8 +1,9 @@
 ---
-id: e644e2b7b6
-question: PGCLI - FATAL: password authentication failed for user "root" (You already have Postgres)
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: e644e2b7b6
+question: 'PGCLI - FATAL: password authentication failed for user "root" (You already
+  have Postgres)'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1080
 ---
 

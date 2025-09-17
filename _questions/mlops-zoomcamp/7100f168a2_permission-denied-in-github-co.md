@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 7100f168a2
 question: Permission denied in github codespace
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1430
 ---
 

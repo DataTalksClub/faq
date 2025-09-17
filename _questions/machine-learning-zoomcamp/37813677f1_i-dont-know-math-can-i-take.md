@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 37813677f1
 question: I don't know math. Can I take the course?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 70
 ---
 

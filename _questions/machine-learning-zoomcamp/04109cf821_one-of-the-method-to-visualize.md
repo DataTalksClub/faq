@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 04109cf821
 question: One of the method to visualize the decision trees
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2530
 ---
 

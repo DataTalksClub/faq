@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 3d24f7796d
 question: Github Codespaces - Running pgadmin in docker
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 560
 ---
 

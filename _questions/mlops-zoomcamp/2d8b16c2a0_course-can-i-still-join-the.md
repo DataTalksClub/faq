@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 2d8b16c2a0
 question: Course - Can I still join the course after the start date?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 40
 ---
 

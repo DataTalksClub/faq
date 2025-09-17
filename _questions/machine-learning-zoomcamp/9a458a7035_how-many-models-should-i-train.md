@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9a458a7035
 question: How many models should I train?
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3790
 ---
 

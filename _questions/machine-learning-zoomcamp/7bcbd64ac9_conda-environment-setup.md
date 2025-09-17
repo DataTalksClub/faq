@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7bcbd64ac9
 question: Conda Environment Setup
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 390
 ---
 

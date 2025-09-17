@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 1fe12ec81c
 question: Why do I get a KeyError when dropping features after one-hot encoding?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1370
 ---
 

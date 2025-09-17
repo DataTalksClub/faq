@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 55a29a88a1
 question: What if your accuracy and std training loss don’t match HW?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2900
 ---
 

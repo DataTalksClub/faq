@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: aed2f8ddb9
 question: Unable to create new Experiment
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 850
 ---
 

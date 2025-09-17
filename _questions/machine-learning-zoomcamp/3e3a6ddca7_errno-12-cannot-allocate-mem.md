@@ -1,8 +1,8 @@
 ---
-id: 3e3a6ddca7
-question: [Errno 12] Cannot allocate memory in AWS Elastic Container Service
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 3e3a6ddca7
+question: '[Errno 12] Cannot allocate memory in AWS Elastic Container Service'
+section: Miscellaneous
 sort_order: 3880
 ---
 

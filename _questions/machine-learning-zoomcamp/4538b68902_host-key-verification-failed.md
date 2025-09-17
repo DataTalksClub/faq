@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 4538b68902
 question: Host key verification failed.
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2820
 ---
 

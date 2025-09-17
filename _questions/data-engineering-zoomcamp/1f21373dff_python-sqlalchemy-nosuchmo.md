@@ -1,8 +1,8 @@
 ---
-id: 1f21373dff
-question: Python - SQLAlchemy - NoSuchModuleError: Can't load plugin: sqlalchemy.dialects:postgresql.psycopg
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 1f21373dff
+question: 'Python - SQLAlchemy - NoSuchModuleError: Can''t load plugin: sqlalchemy.dialects:postgresql.psycopg'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1390
 ---
 

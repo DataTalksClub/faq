@@ -1,8 +1,9 @@
 ---
-id: edf4b7b73e
-question: Any particular hardware requirements for the course or everything is mostly cloud? TIA! Couldn't really find this in the FAQ.
-section: General course-related question review
 course: machine-learning-zoomcamp
+id: edf4b7b73e
+question: Any particular hardware requirements for the course or everything is mostly
+  cloud? TIA! Couldn't really find this in the FAQ.
+section: General course-related question review
 sort_order: 140
 ---
 

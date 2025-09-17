@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 3f1c2f93bd
 question: Docker-Compose - mounting error
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 840
 ---
 

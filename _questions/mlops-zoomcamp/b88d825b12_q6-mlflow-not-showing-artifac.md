@@ -1,8 +1,8 @@
 ---
-id: b88d825b12
-question: Q6: mlflow not showing artifacts
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: b88d825b12
+question: 'Q6: mlflow not showing artifacts'
+section: 'Module 3: Orchestration'
 sort_order: 1460
 ---
 

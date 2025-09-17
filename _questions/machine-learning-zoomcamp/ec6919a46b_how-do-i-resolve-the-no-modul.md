@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ec6919a46b
 question: How do I resolve the "No module named flask" error?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1870
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: af2b85f346
 question: GCP gcloud + MS VS Code - gcloud auth hangs
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1600
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 9f6380d76b
 question: AWS costs
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 360
 ---
 

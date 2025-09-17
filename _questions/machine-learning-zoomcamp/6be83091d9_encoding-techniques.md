@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6be83091d9
 question: Encoding Techniques
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1340
 ---
 

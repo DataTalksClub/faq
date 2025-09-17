@@ -1,8 +1,9 @@
 ---
-id: 0c116f6001
-question: In module 5.3.1, trying to run spark.createDataFrame(df_pandas).show() returns error
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 0c116f6001
+question: In module 5.3.1, trying to run spark.createDataFrame(df_pandas).show() returns
+  error
+section: 'Module 5: pyspark'
 sort_order: 3840
 ---
 

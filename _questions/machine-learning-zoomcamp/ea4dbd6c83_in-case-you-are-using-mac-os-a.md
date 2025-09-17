@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ea4dbd6c83
 question: In case you are using mac os and having trouble with WGET
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 540
 ---
 

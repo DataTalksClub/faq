@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e75e477ce2
 question: Access Denied at Localhost:5000 - Authorization Issue
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 800
 ---
 

@@ -1,8 +1,10 @@
 ---
-id: 13fecb68a8
-question: WARNING mlflow.xgboost: Failed to infer model signature: could not sample data to infer model signature: please ensure that autologging is enabled before constructing the dataset.
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 13fecb68a8
+question: 'WARNING mlflow.xgboost: Failed to infer model signature: could not sample
+  data to infer model signature: please ensure that autologging is enabled before
+  constructing the dataset.'
+section: 'Module 2: Experiment tracking'
 sort_order: 1160
 ---
 

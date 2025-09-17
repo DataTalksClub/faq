@@ -1,8 +1,9 @@
 ---
-id: d5d38534f6
-question: PySpark - TypeError: code() argument 13 must be str, not int  , while executing `import pyspark`  (Windows/ Spark 3.0.3 - Python 3.11)
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: d5d38534f6
+question: 'PySpark - TypeError: code() argument 13 must be str, not int  , while executing
+  `import pyspark`  (Windows/ Spark 3.0.3 - Python 3.11)'
+section: 'Module 5: pyspark'
 sort_order: 3330
 ---
 

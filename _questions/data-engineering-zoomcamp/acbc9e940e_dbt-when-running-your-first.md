@@ -1,8 +1,8 @@
 ---
-id: acbc9e940e
-question: DBT - When running your first dbt model, if it fails with an error:
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: acbc9e940e
+question: 'DBT - When running your first dbt model, if it fails with an error:'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2590
 ---
 

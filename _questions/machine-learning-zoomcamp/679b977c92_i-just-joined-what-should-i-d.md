@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 679b977c92
 question: I just joined. What should I do next? How can I access course materials?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 180
 ---
 

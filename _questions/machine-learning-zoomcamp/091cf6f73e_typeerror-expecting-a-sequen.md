@@ -1,8 +1,9 @@
 ---
-id: 091cf6f73e
-question: `TypeError: Expecting a sequence of strings for feature names, got: <class 'numpy.ndarray'> ` when training xgboost model.
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: 091cf6f73e
+question: '`TypeError: Expecting a sequence of strings for feature names, got: <class
+  ''numpy.ndarray''> ` when training xgboost model.'
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2440
 ---
 

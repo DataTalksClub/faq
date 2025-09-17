@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 41aabbd7c5
 question: The course has already started. Can I still join it?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 160
 ---
 

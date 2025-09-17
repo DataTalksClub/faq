@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3cc0ce528e
 question: Is it best to train your model only on the most important features?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4200
 ---
 

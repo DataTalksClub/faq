@@ -1,8 +1,8 @@
 ---
-id: 3ef50b0d88
-question: Question 7: Multiplication operators.
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 3ef50b0d88
+question: 'Question 7: Multiplication operators.'
+section: 1. Introduction to Machine Learning
 sort_order: 510
 ---
 

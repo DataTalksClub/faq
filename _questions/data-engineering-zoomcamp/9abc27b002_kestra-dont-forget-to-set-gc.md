@@ -1,8 +1,8 @@
 ---
-id: 9abc27b002
-question: Kestra: Don’t forget to set GCP_CREDS variable
-section: Module 2: Workflow Orchestration
 course: data-engineering-zoomcamp
+id: 9abc27b002
+question: 'Kestra: Don’t forget to set GCP_CREDS variable'
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1960
 ---
 

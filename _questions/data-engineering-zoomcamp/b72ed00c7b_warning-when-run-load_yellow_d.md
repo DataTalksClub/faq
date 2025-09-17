@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b72ed00c7b
 question: Warning when run load_yellow_data python script
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2410
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 4115da8cbc
-question: Question 5: How and why do we replace the NaN values with average of the column?
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 4115da8cbc
+question: 'Question 5: How and why do we replace the NaN values with average of the
+  column?'
+section: 1. Introduction to Machine Learning
 sort_order: 460
 ---
 

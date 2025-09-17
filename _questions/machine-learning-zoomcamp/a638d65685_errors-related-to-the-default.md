@@ -1,8 +1,9 @@
 ---
-id: a638d65685
-question: Errors related to the default environment: WSL, Ubuntu, proper Python version, installing pipenv etc.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: a638d65685
+question: 'Errors related to the default environment: WSL, Ubuntu, proper Python version,
+  installing pipenv etc.'
+section: 5. Deploying Machine Learning Models
 sort_order: 1760
 ---
 

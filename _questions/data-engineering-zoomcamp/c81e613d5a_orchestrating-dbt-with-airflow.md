@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c81e613d5a
 question: Orchestrating dbt with Airflow
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4250
 ---
 

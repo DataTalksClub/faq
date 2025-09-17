@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ac62d9ccf0
 question: Getting a syntax error while trying to get the password from aws-cli
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3080
 ---
 

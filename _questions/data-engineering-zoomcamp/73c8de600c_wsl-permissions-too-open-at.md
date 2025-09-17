@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 73c8de600c
 question: WSL - Permissions too open at Windows
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1040
 ---
 

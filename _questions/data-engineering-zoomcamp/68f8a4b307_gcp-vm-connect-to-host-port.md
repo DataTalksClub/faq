@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 68f8a4b307
 question: GCP VM -  connect to host port 22 no route to host
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1580
 ---
 

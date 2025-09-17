@@ -1,8 +1,9 @@
 ---
-id: 0c9fc7e7d3
-question: Error: Insufficient 'SSD_TOTAL_GB' quota. Requested 500.0, available 470.0.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 0c9fc7e7d3
+question: 'Error: Insufficient ''SSD_TOTAL_GB'' quota. Requested 500.0, available
+  470.0.'
+section: 'Module 5: pyspark'
 sort_order: 3790
 ---
 

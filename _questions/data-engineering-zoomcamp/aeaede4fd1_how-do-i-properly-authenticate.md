@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: aeaede4fd1
 question: How do I properly authenticate a Google Cloud Service Account in Kestra?
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1900
 ---
 

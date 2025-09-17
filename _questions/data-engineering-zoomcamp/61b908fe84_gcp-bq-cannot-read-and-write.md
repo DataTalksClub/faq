@@ -1,8 +1,9 @@
 ---
-id: 61b908fe84
-question: GCP BQ - Cannot read and write in different locations: source: EU, destination: US - Loading data from GCS into BigQuery (different Region):
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 61b908fe84
+question: 'GCP BQ - Cannot read and write in different locations: source: EU, destination:
+  US - Loading data from GCS into BigQuery (different Region):'
+section: 'Module 3: Data Warehousing'
 sort_order: 2060
 ---
 

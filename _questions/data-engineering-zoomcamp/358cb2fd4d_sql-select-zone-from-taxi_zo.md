@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 358cb2fd4d
 question: SQL - SELECT Zone FROM taxi_zones Error Column Zone doesn't exist
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1730
 ---
 

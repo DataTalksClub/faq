@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: be8e47a85c
 question: How do I push from Saturn Cloud to Github?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2750
 ---
 

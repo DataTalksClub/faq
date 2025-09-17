@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 28676cfdf9
 question: What version of Evidently AI is used in the course?
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2190
 ---
 

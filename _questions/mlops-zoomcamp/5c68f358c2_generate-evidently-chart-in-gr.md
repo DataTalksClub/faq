@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 5c68f358c2
 question: Generate Evidently Chart in Grafana
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2050
 ---
 

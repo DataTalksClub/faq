@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 03f9c129fc
 question: Viewing MLflow Experiments using MLflow CLI
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1090
 ---
 

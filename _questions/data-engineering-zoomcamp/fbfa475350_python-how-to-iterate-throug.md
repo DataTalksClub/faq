@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: fbfa475350
 question: Python - How to iterate through and ingest parquet file
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1350
 ---
 

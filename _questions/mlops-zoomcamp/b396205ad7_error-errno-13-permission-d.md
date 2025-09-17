@@ -1,8 +1,9 @@
 ---
-id: b396205ad7
-question: Error “[Errno 13] Permission denied: '/home/ubuntu/.aws/credentials’” when running any aws command
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: b396205ad7
+question: 'Error “[Errno 13] Permission denied: ''/home/ubuntu/.aws/credentials’”
+  when running any aws command'
+section: 'Module 6: Best practices'
 sort_order: 2380
 ---
 

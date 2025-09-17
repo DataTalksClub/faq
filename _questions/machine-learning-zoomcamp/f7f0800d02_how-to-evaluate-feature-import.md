@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f7f0800d02
 question: How to evaluate feature importance for numerical variables with AUC?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1660
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 39112d0ede
 question: Model training very slow in google colab with T4 GPU
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3010
 ---
 

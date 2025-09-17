@@ -1,8 +1,9 @@
 ---
-id: 2a71bf594b
-question: Does your mid term project need to use a neural network to get maximum number of points?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 2a71bf594b
+question: Does your mid term project need to use a neural network to get maximum number
+  of points?
+section: Miscellaneous
 sort_order: 3820
 ---
 

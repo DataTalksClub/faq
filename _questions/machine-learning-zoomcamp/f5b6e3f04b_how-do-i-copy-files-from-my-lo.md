@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f5b6e3f04b
 question: How do I copy files from my local machine to docker container?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2250
 ---
 

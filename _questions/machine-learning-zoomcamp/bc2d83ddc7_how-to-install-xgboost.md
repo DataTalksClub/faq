@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: bc2d83ddc7
 question: How to Install Xgboost
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2460
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: bc8bd71f9c
-question: How did I resolve the out of memory (OOM) issue when training my model on a GPU?
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: bc8bd71f9c
+question: How did I resolve the out of memory (OOM) issue when training my model on
+  a GPU?
+section: 8. Neural Networks and Deep Learning
 sort_order: 3000
 ---
 

@@ -1,8 +1,11 @@
 ---
-id: 6ae0381ba8
-question: Elastic Beanstalk ‘eb create’: ERROR   Creating Auto Scaling launch configuration failed Reason: Resource handler returned message: "The Launch Configuration creation operation is not available in your account. Use launch templates to create configuration templates for your Auto Scaling groups.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 6ae0381ba8
+question: 'Elastic Beanstalk ‘eb create’: ERROR   Creating Auto Scaling launch configuration
+  failed Reason: Resource handler returned message: "The Launch Configuration creation
+  operation is not available in your account. Use launch templates to create configuration
+  templates for your Auto Scaling groups.'
+section: 5. Deploying Machine Learning Models
 sort_order: 2300
 ---
 

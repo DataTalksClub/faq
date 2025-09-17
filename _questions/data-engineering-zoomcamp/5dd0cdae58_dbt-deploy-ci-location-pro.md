@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5dd0cdae58
 question: DBT Deploy + CI - Location Problems on BigQuery
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3080
 ---
 

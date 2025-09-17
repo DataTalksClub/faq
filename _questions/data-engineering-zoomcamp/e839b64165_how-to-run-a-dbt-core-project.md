@@ -1,8 +1,9 @@
 ---
-id: e839b64165
-question: How to run a dbt-core project as an Airflow Task Group on Google Cloud Composer using a service account JSON key
-section: Project
 course: data-engineering-zoomcamp
+id: e839b64165
+question: How to run a dbt-core project as an Airflow Task Group on Google Cloud Composer
+  using a service account JSON key
+section: Project
 sort_order: 4300
 ---
 

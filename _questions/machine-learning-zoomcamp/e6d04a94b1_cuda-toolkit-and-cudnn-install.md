@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e6d04a94b1
 question: CUDA toolkit and cuDNN Install for Tensorflow
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4080
 ---
 

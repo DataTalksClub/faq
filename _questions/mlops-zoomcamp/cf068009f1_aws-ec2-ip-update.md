@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: cf068009f1
 question: AWS EC2 IP Update
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 410
 ---
 

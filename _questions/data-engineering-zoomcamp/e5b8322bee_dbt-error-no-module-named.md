@@ -1,8 +1,8 @@
 ---
-id: e5b8322bee
-question: DBT - Error: No module named 'pytz' while setting up dbt with docker
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: e5b8322bee
+question: 'DBT - Error: No module named ''pytz'' while setting up dbt with docker'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3040
 ---
 

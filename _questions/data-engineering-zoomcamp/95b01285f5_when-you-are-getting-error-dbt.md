@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 95b01285f5
 question: When You are getting error dbt_utils not found
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2620
 ---
 

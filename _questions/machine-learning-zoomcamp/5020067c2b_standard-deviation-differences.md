@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5020067c2b
 question: Standard Deviation Differences in Numpy and Pandas
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 870
 ---
 

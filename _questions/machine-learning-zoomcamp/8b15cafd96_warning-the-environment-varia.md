@@ -1,8 +1,8 @@
 ---
-id: 8b15cafd96
-question: Warning: the environment variable LANG is not set!
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 8b15cafd96
+question: 'Warning: the environment variable LANG is not set!'
+section: 5. Deploying Machine Learning Models
 sort_order: 2160
 ---
 

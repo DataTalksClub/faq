@@ -1,8 +1,10 @@
 ---
-id: 76f95c1d28
-question: Terraform - Terraform initialized in an empty directory! The directory has no Terraform configuration files. You may begin working with Terraform immediately by creating Terraform configuration files.g
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 76f95c1d28
+question: Terraform - Terraform initialized in an empty directory! The directory has
+  no Terraform configuration files. You may begin working with Terraform immediately
+  by creating Terraform configuration files.g
+section: 'Module 1: Docker and Terraform'
 sort_order: 1670
 ---
 

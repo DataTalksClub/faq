@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1f4fd984f5
 question: Data type errors when ingesting with parquet files
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2890
 ---
 

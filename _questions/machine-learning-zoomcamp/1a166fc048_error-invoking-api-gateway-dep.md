@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 1a166fc048
 question: Error invoking API Gateway deploy API locally
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3220
 ---
 

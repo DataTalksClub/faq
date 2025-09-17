@@ -1,8 +1,10 @@
 ---
-id: d01f2fb06b
-question: Dataproc - ERROR: (gcloud.dataproc.jobs.submit.pyspark) The required property [project] is not currently set. It can be set on a per-command basis by re-running your command with the [--project] flag.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: d01f2fb06b
+question: 'Dataproc - ERROR: (gcloud.dataproc.jobs.submit.pyspark) The required property
+  [project] is not currently set. It can be set on a per-command basis by re-running
+  your command with the [--project] flag.'
+section: 'Module 5: pyspark'
 sort_order: 3720
 ---
 

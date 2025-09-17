@@ -1,8 +1,10 @@
 ---
-id: 98f2d2b078
-question: How are numeric class labels determined in flow_from_directroy using binary class mode and what is meant by the single probability predicted by a binary Keras model:
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 98f2d2b078
+question: 'How are numeric class labels determined in flow_from_directroy using binary
+  class mode and what is meant by the single probability predicted by a binary Keras
+  model:'
+section: 8. Neural Networks and Deep Learning
 sort_order: 2890
 ---
 

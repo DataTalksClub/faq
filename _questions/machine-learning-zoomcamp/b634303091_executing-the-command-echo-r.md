@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b634303091
 question: Executing the command echo ${REMOTE_URI} returns nothing.
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3070
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 011ce679c1
 question: Getting day of the year from day and month column
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4040
 ---
 

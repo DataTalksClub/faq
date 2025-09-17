@@ -1,8 +1,9 @@
 ---
-id: 9e5f381432
-question: I can’t create the environment on AWS Elastic Beanstalk with the command proposed during the video
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 9e5f381432
+question: I can’t create the environment on AWS Elastic Beanstalk with the command
+  proposed during the video
+section: 5. Deploying Machine Learning Models
 sort_order: 2270
 ---
 

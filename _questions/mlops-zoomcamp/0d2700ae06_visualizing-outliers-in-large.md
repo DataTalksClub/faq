@@ -1,8 +1,8 @@
 ---
-id: 0d2700ae06
-question: Visualizing outliers in large datasets with Seaborn: Boxplot vs Histplot
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: 0d2700ae06
+question: 'Visualizing outliers in large datasets with Seaborn: Boxplot vs Histplot'
+section: 'Module 1: Introduction'
 sort_order: 760
 ---
 

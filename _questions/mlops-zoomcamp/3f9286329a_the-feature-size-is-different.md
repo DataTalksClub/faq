@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 3f9286329a
 question: The feature size is different for training set and validation set
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 670
 ---
 

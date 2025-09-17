@@ -1,8 +1,9 @@
 ---
-id: f346d2cc80
-question: Q: I get TypeError: got an unexpected keyword argument 'squared' when using mean_squared_error(..., squared=False). Why?
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: f346d2cc80
+question: 'Q: I get TypeError: got an unexpected keyword argument ''squared'' when
+  using mean_squared_error(..., squared=False). Why?'
+section: 'Module 1: Introduction'
 sort_order: 750
 ---
 

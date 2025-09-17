@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b4a5d32d6b
 question: Setup - Connecting dbt Cloud with BigQuery Error
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2470
 ---
 

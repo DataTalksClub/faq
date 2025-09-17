@@ -1,8 +1,9 @@
 ---
-id: e058b2432a
-question: Cannot create a cluster: Insufficient 'SSD_TOTAL_GB' quota. Requested 500.0, available 250.0.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: e058b2432a
+question: 'Cannot create a cluster: Insufficient ''SSD_TOTAL_GB'' quota. Requested
+  500.0, available 250.0.'
+section: 'Module 5: pyspark'
 sort_order: 3850
 ---
 

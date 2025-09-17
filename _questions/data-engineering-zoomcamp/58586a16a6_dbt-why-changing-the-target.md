@@ -1,8 +1,9 @@
 ---
-id: 58586a16a6
-question: DBT - Why changing the target schema to “marts” actually creates a schema named “dbt_marts” instead?
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 58586a16a6
+question: DBT - Why changing the target schema to “marts” actually creates a schema
+  named “dbt_marts” instead?
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2810
 ---
 

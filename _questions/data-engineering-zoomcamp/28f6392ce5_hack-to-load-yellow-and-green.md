@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 28f6392ce5
 question: Hack to load yellow and green trip data for 2019 and 2020
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2550
 ---
 

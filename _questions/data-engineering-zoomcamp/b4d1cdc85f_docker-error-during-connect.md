@@ -1,8 +1,10 @@
 ---
-id: b4d1cdc85f
-question: Docker - Error during connect: In the default daemon configuration on Windows, the docker client must be run with elevated privileges to connect.: Post: "http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.24/containers/create" : open //./pipe/docker_engine: The system cannot find the file specified
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: b4d1cdc85f
+question: 'Docker - Error during connect: In the default daemon configuration on Windows,
+  the docker client must be run with elevated privileges to connect.: Post: "http://%2F%2F.%2Fpipe%2Fdocker_engine/v1.24/containers/create"
+  : open //./pipe/docker_engine: The system cannot find the file specified'
+section: 'Module 1: Docker and Terraform'
 sort_order: 580
 ---
 

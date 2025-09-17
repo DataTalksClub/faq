@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9346394db7
 question: Caution for applying log transformation in Week-2 2023 cohort homework
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 940
 ---
 

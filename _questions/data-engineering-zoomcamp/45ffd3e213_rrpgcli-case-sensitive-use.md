@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 45ffd3e213
 question: RRPGCLI - case sensitive use “Quotations” around columns with capital letters
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1150
 ---
 

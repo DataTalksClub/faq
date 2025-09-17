@@ -1,8 +1,8 @@
 ---
-id: afb5c3308b
-question: AttributeError: 'DictVectorizer' object has no attribute 'get_feature_names'
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: afb5c3308b
+question: 'AttributeError: ''DictVectorizer'' object has no attribute ''get_feature_names'''
+section: 3. Machine Learning for Classification
 sort_order: 1320
 ---
 

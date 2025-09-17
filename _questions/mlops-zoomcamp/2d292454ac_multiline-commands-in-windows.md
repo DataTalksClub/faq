@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 2d292454ac
 question: Multiline commands in Windows Powershell
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1550
 ---
 

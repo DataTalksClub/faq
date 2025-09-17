@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b71fb3b195
 question: Course - how many Zoomcamps in a year?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 60
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0a4f9065b1
 question: Loading the dataset directly through Kaggle Notebooks
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 650
 ---
 

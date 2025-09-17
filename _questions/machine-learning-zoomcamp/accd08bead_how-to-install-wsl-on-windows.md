@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: accd08bead
 question: How to install WSL on Windows 10 and 11 ?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1800
 ---
 

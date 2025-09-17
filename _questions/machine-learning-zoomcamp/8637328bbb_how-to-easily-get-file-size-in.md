@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8637328bbb
 question: How to easily get file size in powershell terminal ?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3180
 ---
 

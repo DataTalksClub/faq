@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: cdd91ef84a
 question: GCP - Where can I find the “ny-rides.json” file?
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1460
 ---
 

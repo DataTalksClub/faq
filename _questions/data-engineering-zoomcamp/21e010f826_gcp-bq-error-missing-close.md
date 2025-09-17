@@ -1,8 +1,8 @@
 ---
-id: 21e010f826
-question: GCP BQ - Error: Missing close double quote (") character
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 21e010f826
+question: 'GCP BQ - Error: Missing close double quote (") character'
+section: 'Module 3: Data Warehousing'
 sort_order: 2150
 ---
 

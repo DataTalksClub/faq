@@ -1,8 +1,9 @@
 ---
-id: 5ba1e7ba64
-question: NotSupportedError - You can use "eb local" only with preconfigured, generic and multicontainer Docker platforms.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 5ba1e7ba64
+question: NotSupportedError - You can use "eb local" only with preconfigured, generic
+  and multicontainer Docker platforms.
+section: 5. Deploying Machine Learning Models
 sort_order: 2210
 ---
 

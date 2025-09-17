@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: d9072c7279
 question: Inconsistent number of rows when re-running fact_trips model
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2900
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: a3790900cc
-question: Spark-shell: unable to load native-hadoop library for platform - Windows
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: a3790900cc
+question: 'Spark-shell: unable to load native-hadoop library for platform - Windows'
+section: 'Module 5: pyspark'
 sort_order: 3310
 ---
 

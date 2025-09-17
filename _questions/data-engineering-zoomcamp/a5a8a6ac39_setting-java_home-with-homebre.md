@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a5a8a6ac39
 question: Setting JAVA_HOME with Homebrew on Apple Silicon
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3860
 ---
 

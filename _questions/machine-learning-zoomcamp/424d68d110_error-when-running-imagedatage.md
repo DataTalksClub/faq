@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 424d68d110
 question: Error when running ImageDataGenerator.flow_from_dataframe
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3970
 ---
 

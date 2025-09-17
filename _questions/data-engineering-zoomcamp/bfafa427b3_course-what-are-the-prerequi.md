@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: bfafa427b3
 question: Course - What are the prerequisites for this course?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 20
 ---
 

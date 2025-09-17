@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b98d573ce2
 question: GCP BQ - Remember to save your queries
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2080
 ---
 

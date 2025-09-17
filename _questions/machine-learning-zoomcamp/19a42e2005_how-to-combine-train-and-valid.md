@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 19a42e2005
 question: How to combine train and validation datasets
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 890
 ---
 

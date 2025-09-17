@@ -1,8 +1,9 @@
 ---
-id: de13b97575
-question: ValueError: Incorrect item instead of a metric or metric preset was passed to Report
-section: Module 5: Monitoring
 course: mlops-zoomcamp
+id: de13b97575
+question: 'ValueError: Incorrect item instead of a metric or metric preset was passed
+  to Report'
+section: 'Module 5: Monitoring'
 sort_order: 1960
 ---
 

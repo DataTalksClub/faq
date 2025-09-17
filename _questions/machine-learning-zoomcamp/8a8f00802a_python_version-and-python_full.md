@@ -1,8 +1,8 @@
 ---
-id: 8a8f00802a
-question: Python_version and Python_full_version error after running pipenv install:
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 8a8f00802a
+question: 'Python_version and Python_full_version error after running pipenv install:'
+section: 5. Deploying Machine Learning Models
 sort_order: 2110
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: b53176b742
 question: Error pipenv command not found after pipenv installation
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1810
 ---
 

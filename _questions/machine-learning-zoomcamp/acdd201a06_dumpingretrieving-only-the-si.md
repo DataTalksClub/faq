@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: acdd201a06
 question: Dumping/Retrieving only the size of for a specific Docker image
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1920
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b1ecde8177
 question: Pass many parameters in the model at once
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3090
 ---
 

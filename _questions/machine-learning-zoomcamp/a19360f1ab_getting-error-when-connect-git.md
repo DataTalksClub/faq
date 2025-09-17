@@ -1,8 +1,8 @@
 ---
-id: a19360f1ab
-question: Getting error when connect git on Saturn Cloud: permission denied
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: a19360f1ab
+question: 'Getting error when connect git on Saturn Cloud: permission denied'
+section: 8. Neural Networks and Deep Learning
 sort_order: 2810
 ---
 

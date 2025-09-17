@@ -1,8 +1,9 @@
 ---
-id: c04524a66d
-question: Flask image was built and tested successfully, but tensorflow serving image was built and unable to test successfully. What could be the problem?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: c04524a66d
+question: Flask image was built and tested successfully, but tensorflow serving image
+  was built and unable to test successfully. What could be the problem?
+section: Miscellaneous
 sort_order: 4240
 ---
 

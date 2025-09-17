@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: dce5e4842c
 question: Installing and updating to the python version 3.10 and higher
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1790
 ---
 

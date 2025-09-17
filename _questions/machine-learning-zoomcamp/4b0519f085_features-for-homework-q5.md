@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 4b0519f085
 question: Features for homework Q5
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1190
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: f6aa440092
-question: Why is accuracy not always the best metric for evaluating a classification model?
-section: 4. Evaluation Metrics for Classification
 course: machine-learning-zoomcamp
+id: f6aa440092
+question: Why is accuracy not always the best metric for evaluating a classification
+  model?
+section: 4. Evaluation Metrics for Classification
 sort_order: 1700
 ---
 

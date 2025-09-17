@@ -1,8 +1,8 @@
 ---
-id: 3549528659
-question: Docker - Docker won't start or is stuck in settings (Windows 10 / 11)
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: '3549528659'
+question: Docker - Docker won't start or is stuck in settings (Windows 10 / 11)
+section: 'Module 1: Docker and Terraform'
 sort_order: 620
 ---
 

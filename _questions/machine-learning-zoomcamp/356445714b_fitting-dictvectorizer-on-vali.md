@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 356445714b
 question: Fitting DictVectorizer on validation
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1070
 ---
 

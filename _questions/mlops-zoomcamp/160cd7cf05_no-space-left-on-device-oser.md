@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 160cd7cf05
 question: No Space Left on Device - OSError[Errno 28]
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 960
 ---
 

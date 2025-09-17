@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: af5f29b64f
 question: AWS EC2 instance constantly drops SSH connection
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 400
 ---
 

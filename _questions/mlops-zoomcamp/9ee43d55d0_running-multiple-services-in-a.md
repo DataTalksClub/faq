@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 9ee43d55d0
 question: Running multiple services in a Docker container
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1680
 ---
 

@@ -1,8 +1,10 @@
 ---
-id: a25406395b
-question: Subnetwork 'default' does not support Private Google Access which is required for Dataproc clusters when 'internal_ip_only' is set to 'true'. Enable Private Google Access on subnetwork 'default' or set 'internal_ip_only' to 'false'.
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: a25406395b
+question: Subnetwork 'default' does not support Private Google Access which is required
+  for Dataproc clusters when 'internal_ip_only' is set to 'true'. Enable Private Google
+  Access on subnetwork 'default' or set 'internal_ip_only' to 'false'.
+section: 'Module 5: pyspark'
 sort_order: 3870
 ---
 

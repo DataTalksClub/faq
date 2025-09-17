@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5a2fac8521
 question: Can I use LinearRegression from Scikit-Learn for this week?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 700
 ---
 

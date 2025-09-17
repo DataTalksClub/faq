@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 7032c161df
 question: MLflow.xgboost Autolog Model Signature Failure
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 930
 ---
 

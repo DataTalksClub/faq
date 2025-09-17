@@ -1,8 +1,9 @@
 ---
-id: 79d7bebfbf
-question: Is there a way to serve up a form for users to enter data for the model to crunch on?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 79d7bebfbf
+question: Is there a way to serve up a form for users to enter data for the model
+  to crunch on?
+section: Miscellaneous
 sort_order: 3860
 ---
 

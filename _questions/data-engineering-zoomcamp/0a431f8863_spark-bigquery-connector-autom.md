@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0a431f8863
 question: Spark BigQuery connector Automatic configuration
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3510
 ---
 

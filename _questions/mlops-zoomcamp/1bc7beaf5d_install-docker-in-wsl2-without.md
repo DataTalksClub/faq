@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 1bc7beaf5d
 question: Install docker in WSL2 without installing Docker Desktop
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 710
 ---
 

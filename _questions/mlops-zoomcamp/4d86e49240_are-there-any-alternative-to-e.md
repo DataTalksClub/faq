@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 4d86e49240
 question: Are there any alternative to Evidently on cloud platforms ?
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2130
 ---
 

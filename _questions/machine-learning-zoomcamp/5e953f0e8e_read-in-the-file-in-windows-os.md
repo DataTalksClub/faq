@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5e953f0e8e
 question: Read-in the File in Windows OS
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 330
 ---
 

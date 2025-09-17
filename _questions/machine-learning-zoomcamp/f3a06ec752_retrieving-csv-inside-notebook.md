@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f3a06ec752
 question: Retrieving csv inside notebook
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 280
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: bfbe05dcd9
 question: Old version of glibc when running XGBoost
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1170
 ---
 

@@ -1,6 +1,7 @@
 import hashlib
 import re
 from pathlib import Path
+import yaml
 
 import requests
 import docx
@@ -262,13 +263,18 @@ def create_question_file(question_data, course_name, question_index, question_id
     sort_order = question_index * 10
     
     with open(question_file, 'w', encoding='utf-8') as f:
-        # Write frontmatter without escaping - keep full question text
+        # Create frontmatter data
+        frontmatter_data = {
+            'id': question_id,
+            'question': question_data["question"],
+            'section': question_data["section"],
+            'course': course_name,
+            'sort_order': sort_order
+        }
+        
+        # Write properly formatted YAML frontmatter
         f.write('---\n')
-        f.write(f'id: {question_id}\n')
-        f.write(f'question: {question_data["question"]}\n')
-        f.write(f'section: {question_data["section"]}\n')
-        f.write(f'course: {course_name}\n')
-        f.write(f'sort_order: {sort_order}\n')
+        yaml.dump(frontmatter_data, f, default_flow_style=False, allow_unicode=True)
         f.write('---\n\n')
         
         # Write answer content

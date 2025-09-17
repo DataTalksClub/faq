@@ -1,8 +1,9 @@
 ---
-id: b55fea0fc7
-question: Git commit with pre-commit hook raises error ‘'PythonInfo' object has no attribute 'version_nodot'
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: b55fea0fc7
+question: Git commit with pre-commit hook raises error ‘'PythonInfo' object has no
+  attribute 'version_nodot'
+section: 'Module 6: Best practices'
 sort_order: 2290
 ---
 

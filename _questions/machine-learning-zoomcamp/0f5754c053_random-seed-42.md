@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0f5754c053
 question: Random seed 42
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 740
 ---
 

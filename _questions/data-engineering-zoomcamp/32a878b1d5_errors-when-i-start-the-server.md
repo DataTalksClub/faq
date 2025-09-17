@@ -1,8 +1,9 @@
 ---
-id: 32a878b1d5
-question: Errors when I start the server in dbt cloud: Failed to start server. Permission denied (publickey)
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 32a878b1d5
+question: 'Errors when I start the server in dbt cloud: Failed to start server. Permission
+  denied (publickey)'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2490
 ---
 

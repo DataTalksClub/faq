@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 4afbb7db24
 question: Prefect server was not running locally
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2020
 ---
 

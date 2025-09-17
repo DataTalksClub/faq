@@ -1,8 +1,9 @@
 ---
-id: b1a18890f2
-question: Homework 2 , 2025 Cohort - Why is the experiment in question 6 taking so long to run? Should we use yellow taxi data, or green taxi data?
-section: General course questions
 course: mlops-zoomcamp
+id: b1a18890f2
+question: Homework 2 , 2025 Cohort - Why is the experiment in question 6 taking so
+  long to run? Should we use yellow taxi data, or green taxi data?
+section: General course questions
 sort_order: 150
 ---
 

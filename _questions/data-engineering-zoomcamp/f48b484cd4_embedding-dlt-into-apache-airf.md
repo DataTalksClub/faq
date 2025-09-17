@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: f48b484cd4
 question: Embedding dlt into Apache Airflow
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4450
 ---
 

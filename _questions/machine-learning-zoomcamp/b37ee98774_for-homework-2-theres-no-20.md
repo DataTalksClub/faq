@@ -1,8 +1,8 @@
 ---
-id: b37ee98774
-question: For Homework #2, there’s no 2024 cohort folder?
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: b37ee98774
+question: 'For Homework #2, there’s no 2024 cohort folder?'
+section: 2. Machine Learning for Regression
 sort_order: 960
 ---
 

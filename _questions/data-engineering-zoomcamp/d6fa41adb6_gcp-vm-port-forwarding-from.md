@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: d6fa41adb6
 question: GCP VM - Port forwarding from GCP without using VS Code
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1590
 ---
 

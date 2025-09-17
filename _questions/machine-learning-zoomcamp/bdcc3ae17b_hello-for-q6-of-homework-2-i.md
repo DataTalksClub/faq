@@ -1,8 +1,10 @@
 ---
-id: bdcc3ae17b
-question: Hello, for Q6 of homework 2, is the RMSE result close to the options? Mine is about 12.4 different from the closets option, but all the above questions I have pretty close answers, so I don’t know why there is such a great difference in Q6…
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: bdcc3ae17b
+question: Hello, for Q6 of homework 2, is the RMSE result close to the options? Mine
+  is about 12.4 different from the closets option, but all the above questions I have
+  pretty close answers, so I don’t know why there is such a great difference in Q6…
+section: 2. Machine Learning for Regression
 sort_order: 970
 ---
 

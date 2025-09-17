@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ba210ca8ef
 question: I changed location in dbt, but dbt run still gives me an error
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2680
 ---
 

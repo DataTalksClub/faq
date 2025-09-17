@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: cd5d3e8423
 question: hadoop “wc -l” is giving a different result then shown in the video
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3690
 ---
 

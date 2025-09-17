@@ -1,8 +1,10 @@
 ---
-id: 381dfe5145
-question: Docker - Error response from daemon: Conflict. The container name "pg-database" is already in use by container “xxx”.  You have to remove (or rename) that container to be able to reuse that name.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 381dfe5145
+question: 'Docker - Error response from daemon: Conflict. The container name "pg-database"
+  is already in use by container “xxx”.  You have to remove (or rename) that container
+  to be able to reuse that name.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 770
 ---
 

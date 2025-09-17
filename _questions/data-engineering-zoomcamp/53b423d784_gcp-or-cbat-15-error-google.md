@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 53b423d784
 question: GCP - OR-CBAT-15 ERROR Google cloud free trial account
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1450
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 89f4d77539
 question: How to install Tensorflow in Ubuntu WSL2
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3420
 ---
 

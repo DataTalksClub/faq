@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6698c6cbd4
 question: wget is not recognized as an internal or external command
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 270
 ---
 

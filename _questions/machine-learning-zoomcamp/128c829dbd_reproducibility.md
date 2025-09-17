@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 128c829dbd
 question: Reproducibility
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3930
 ---
 

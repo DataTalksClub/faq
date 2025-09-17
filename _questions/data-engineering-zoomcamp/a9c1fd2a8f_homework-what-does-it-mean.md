@@ -1,8 +1,9 @@
 ---
-id: a9c1fd2a8f
-question: Homework - What does it mean “Stop with loading the files into a bucket.' Stop with loading the files into a bucket?”
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: a9c1fd2a8f
+question: Homework - What does it mean “Stop with loading the files into a bucket.'
+  Stop with loading the files into a bucket?”
+section: 'Module 3: Data Warehousing'
 sort_order: 2320
 ---
 

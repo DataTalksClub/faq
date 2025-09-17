@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: a0de15febf
 question: Project - Are we free to choose our own topics for the final project?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 200
 ---
 

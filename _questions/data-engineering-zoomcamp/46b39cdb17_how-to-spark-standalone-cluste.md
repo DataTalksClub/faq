@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 46b39cdb17
 question: How to spark standalone cluster is run on windows OS
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3670
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: d317ebf313
-question: Mage pipeline breaks with [Errno 2] No such file or directory: '/home/src/mage_data/{…} /.variables/{...}/output_1/object.joblib'"
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: d317ebf313
+question: 'Mage pipeline breaks with [Errno 2] No such file or directory: ''/home/src/mage_data/{…}
+  /.variables/{...}/output_1/object.joblib''"'
+section: 'Module 3: Orchestration'
 sort_order: 1300
 ---
 

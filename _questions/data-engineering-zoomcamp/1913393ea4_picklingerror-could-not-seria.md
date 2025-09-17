@@ -1,8 +1,9 @@
 ---
-id: 1913393ea4
-question: PicklingError: Could not serialize object: IndexError: tuple index out of range
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 1913393ea4
+question: 'PicklingError: Could not serialize object: IndexError: tuple index out
+  of range'
+section: 'Module 5: pyspark'
 sort_order: 3810
 ---
 

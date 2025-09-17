@@ -1,8 +1,8 @@
 ---
-id: 8351543816
+course: machine-learning-zoomcamp
+id: '8351543816'
 question: Why do I have different values of accuracy than the options in the homework?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1590
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 9c40a115f8
 question: ‘taxi_zone_lookup’ not found
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2880
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 9b0561dbf8
-question: Project - What is Project Attempt #1 and Project Attempt #2 exactly?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 9b0561dbf8
+question: 'Project - What is Project Attempt #1 and Project Attempt #2 exactly?'
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 410
 ---
 

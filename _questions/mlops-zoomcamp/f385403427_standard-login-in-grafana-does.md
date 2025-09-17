@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: f385403427
 question: Standard login in Grafana does not work
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2000
 ---
 

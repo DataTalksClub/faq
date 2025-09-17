@@ -1,8 +1,8 @@
 ---
-id: 3b76daefb2
-question: Overfitting: Absurdly high RMSE on the validation dataset
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: 3b76daefb2
+question: 'Overfitting: Absurdly high RMSE on the validation dataset'
+section: 'Module 1: Introduction'
 sort_order: 690
 ---
 

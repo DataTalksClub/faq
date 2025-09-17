@@ -1,8 +1,8 @@
 ---
-id: 7bff88dbd7
-question: Compression Error: zcat output is gibberish, seems like still compressed
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 7bff88dbd7
+question: 'Compression Error: zcat output is gibberish, seems like still compressed'
+section: 'Module 5: pyspark'
 sort_order: 3600
 ---
 

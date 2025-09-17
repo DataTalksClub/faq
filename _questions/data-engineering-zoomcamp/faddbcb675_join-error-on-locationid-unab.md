@@ -1,8 +1,9 @@
 ---
-id: faddbcb675
-question: Join Error on LocationID “Unable to find common supertype for templated argument”
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: faddbcb675
+question: Join Error on LocationID “Unable to find common supertype for templated
+  argument”
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3170
 ---
 

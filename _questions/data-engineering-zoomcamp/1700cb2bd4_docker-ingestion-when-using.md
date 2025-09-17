@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1700cb2bd4
 question: Docker - ingestion when using docker-compose could not translate host name
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 780
 ---
 

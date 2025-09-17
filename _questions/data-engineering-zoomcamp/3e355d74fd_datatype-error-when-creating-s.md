@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 3e355d74fd
 question: DataType error when creating Spark DataFrame with a specified schema?
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3540
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a5ee2dc890
 question: I cannot pull the image with docker pull command
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1910
 ---
 

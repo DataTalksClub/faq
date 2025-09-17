@@ -1,8 +1,9 @@
 ---
-id: 1497aabe44
-question: Homework 2 , I am getting conflicts on server ports and cannot establish a connection to the MLflow server, why?
-section: General course questions
 course: mlops-zoomcamp
+id: 1497aabe44
+question: Homework 2 , I am getting conflicts on server ports and cannot establish
+  a connection to the MLflow server, why?
+section: General course questions
 sort_order: 160
 ---
 

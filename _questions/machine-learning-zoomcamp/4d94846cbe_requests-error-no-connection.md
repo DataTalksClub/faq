@@ -1,8 +1,8 @@
 ---
-id: 4d94846cbe
-question: Requests Error: No connection adapters were found for 'localhost:9696/predict'.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 4d94846cbe
+question: 'Requests Error: No connection adapters were found for ''localhost:9696/predict''.'
+section: 5. Deploying Machine Learning Models
 sort_order: 2220
 ---
 

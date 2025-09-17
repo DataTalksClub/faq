@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 41463c387b
 question: Loading FHV Data goes into slumber using Mage?
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3200
 ---
 

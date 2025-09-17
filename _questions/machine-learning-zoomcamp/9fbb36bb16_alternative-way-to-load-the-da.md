@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9fbb36bb16
 question: Alternative way to load the data using requests
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 670
 ---
 

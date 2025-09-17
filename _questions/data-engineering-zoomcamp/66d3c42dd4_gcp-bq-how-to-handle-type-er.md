@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 66d3c42dd4
 question: GCP BQ - How to handle type error from big query and parquet data?
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2190
 ---
 

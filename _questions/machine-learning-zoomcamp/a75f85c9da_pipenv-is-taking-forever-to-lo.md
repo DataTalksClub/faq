@@ -1,8 +1,9 @@
 ---
-id: a75f85c9da
-question: Pipenv is taking forever to lock file. I have deleted the lockfile, and restarted my pc. Please, what is a possible solution?
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: a75f85c9da
+question: Pipenv is taking forever to lock file. I have deleted the lockfile, and
+  restarted my pc. Please, what is a possible solution?
+section: 5. Deploying Machine Learning Models
 sort_order: 2360
 ---
 

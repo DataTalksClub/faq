@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 3a2a22f115
 question: Could not convert string to float - ValueError
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 820
 ---
 

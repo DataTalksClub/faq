@@ -1,8 +1,9 @@
 ---
-id: df10d8e0e7
-question: Homework 1 , 2025 Cohort - Is the due date for homework 20th May? How do I check the updated playlist and homework for mlops course?
-section: General course questions
 course: mlops-zoomcamp
+id: df10d8e0e7
+question: Homework 1 , 2025 Cohort - Is the due date for homework 20th May? How do
+  I check the updated playlist and homework for mlops course?
+section: General course questions
 sort_order: 140
 ---
 

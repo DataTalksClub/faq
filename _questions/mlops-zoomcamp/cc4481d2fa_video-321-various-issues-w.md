@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: cc4481d2fa
 question: Video 3.2.1 - Various issues with Global Data Products
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1390
 ---
 

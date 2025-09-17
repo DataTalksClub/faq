@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: d4c21886e6
 question: WandB API error
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1150
 ---
 

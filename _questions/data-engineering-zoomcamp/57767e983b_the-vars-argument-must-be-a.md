@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 57767e983b
 question: The - vars argument must be a YAML dictionary, but was of type str
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2970
 ---
 

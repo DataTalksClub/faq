@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 1695e67099
 question: Missing dependencies
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 450
 ---
 

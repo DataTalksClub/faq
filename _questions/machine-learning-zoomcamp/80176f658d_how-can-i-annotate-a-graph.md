@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 80176f658d
 question: How can I annotate a graph?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1570
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 63e87e7442
-question: Docker-Compose - dial unix /var/run/docker.sock: connect: permission denied
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 63e87e7442
+question: 'Docker-Compose - dial unix /var/run/docker.sock: connect: permission denied'
+section: 'Module 1: Docker and Terraform'
 sort_order: 920
 ---
 

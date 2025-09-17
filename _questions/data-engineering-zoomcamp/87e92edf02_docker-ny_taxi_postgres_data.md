@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 87e92edf02
 question: Docker - ny_taxi_postgres_data is empty
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 660
 ---
 

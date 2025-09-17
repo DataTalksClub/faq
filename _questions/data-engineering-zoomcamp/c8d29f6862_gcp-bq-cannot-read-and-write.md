@@ -1,8 +1,9 @@
 ---
-id: c8d29f6862
-question: GCP BQ - Cannot read and write in different locations: source: <REGION_HERE>, destination: <ANOTHER_REGION_HERE>
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: c8d29f6862
+question: 'GCP BQ - Cannot read and write in different locations: source: <REGION_HERE>,
+  destination: <ANOTHER_REGION_HERE>'
+section: 'Module 3: Data Warehousing'
 sort_order: 2070
 ---
 

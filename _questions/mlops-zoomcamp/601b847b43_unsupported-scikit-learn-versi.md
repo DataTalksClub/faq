@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 601b847b43
 question: Unsupported Scikit-Learn version
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1070
 ---
 

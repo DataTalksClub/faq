@@ -1,8 +1,9 @@
 ---
-id: 05727a95dd
-question: Homework and Leaderboard - what is the system for points in the course management platform?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 05727a95dd
+question: Homework and Leaderboard - what is the system for points in the course management
+  platform?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 200
 ---
 

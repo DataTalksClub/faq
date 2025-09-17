@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 563feb7fd1
 question: Mage updated in UI
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1340
 ---
 

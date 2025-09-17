@@ -1,8 +1,9 @@
 ---
-id: e34580b954
-question: Billing account has not been enabled for this project. But you’ve done it indeed!
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: e34580b954
+question: Billing account has not been enabled for this project. But you’ve done it
+  indeed!
+section: 'Module 1: Docker and Terraform'
 sort_order: 1510
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 4076e3f3a6
-question: 'kind' is not recognized as an internal or external command, operable program or batch file. (In Windows)
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: 4076e3f3a6
+question: '''kind'' is not recognized as an internal or external command, operable
+  program or batch file. (In Windows)'
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3580
 ---
 

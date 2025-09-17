@@ -1,8 +1,9 @@
 ---
-id: ad15f21a9f
-question: TypeError: send_file() unexpected keyword 'max_age' during MLflow UI Launch
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: ad15f21a9f
+question: 'TypeError: send_file() unexpected keyword ''max_age'' during MLflow UI
+  Launch'
+section: 'Module 2: Experiment tracking'
 sort_order: 1040
 ---
 

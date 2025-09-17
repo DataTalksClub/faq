@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 76d72f3776
 question: Setting up MLflow experiment tracker on GCP
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1010
 ---
 

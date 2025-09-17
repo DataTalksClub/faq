@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a1469eef57
 question: How does the project evaluation work for you as a peer reviewer?
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3800
 ---
 

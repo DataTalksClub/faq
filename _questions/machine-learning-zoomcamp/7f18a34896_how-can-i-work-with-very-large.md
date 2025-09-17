@@ -1,8 +1,9 @@
 ---
-id: 7f18a34896
-question: How can I work with very large datasets, e.g. the New York Yellow Taxi dataset, with over a million rows?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 7f18a34896
+question: How can I work with very large datasets, e.g. the New York Yellow Taxi dataset,
+  with over a million rows?
+section: Miscellaneous
 sort_order: 4210
 ---
 

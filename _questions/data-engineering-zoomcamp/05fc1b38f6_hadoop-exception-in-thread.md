@@ -1,8 +1,8 @@
 ---
-id: 05fc1b38f6
-question: Hadoop - Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 05fc1b38f6
+question: 'Hadoop - Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z'
+section: 'Module 5: pyspark'
 sort_order: 3700
 ---
 

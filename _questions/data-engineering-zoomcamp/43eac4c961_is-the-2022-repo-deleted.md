@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 43eac4c961
 question: Is the 2022 repo deleted?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 340
 ---
 

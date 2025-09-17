@@ -1,8 +1,9 @@
 ---
-id: fa4068ee43
-question: Unable to complete HW 5 due to running Docker on M1 and not using Docker Desktop.
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: fa4068ee43
+question: Unable to complete HW 5 due to running Docker on M1 and not using Docker
+  Desktop.
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2370
 ---
 

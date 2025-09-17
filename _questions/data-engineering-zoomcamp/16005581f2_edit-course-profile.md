@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 16005581f2
 question: Edit Course Profile.
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 140
 ---
 

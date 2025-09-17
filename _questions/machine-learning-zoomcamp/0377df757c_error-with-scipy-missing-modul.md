@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0377df757c
 question: Error with scipy missing module in SaturnCloud
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2880
 ---
 

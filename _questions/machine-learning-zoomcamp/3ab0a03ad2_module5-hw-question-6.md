@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3ab0a03ad2
 question: Module5 HW Question 6
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2170
 ---
 

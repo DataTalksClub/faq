@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 92ff36d48e
 question: Kernel died during Model Training  on Github Codespaces
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 780
 ---
 

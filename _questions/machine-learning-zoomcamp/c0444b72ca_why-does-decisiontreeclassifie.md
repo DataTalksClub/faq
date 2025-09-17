@@ -1,8 +1,9 @@
 ---
-id: c0444b72ca
-question: Why does DecisionTreeClassifier and DecisionTreeRegressor not throw an error when there are nan (missing) values in the feature matrix?
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: c0444b72ca
+question: Why does DecisionTreeClassifier and DecisionTreeRegressor not throw an error
+  when there are nan (missing) values in the feature matrix?
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2680
 ---
 

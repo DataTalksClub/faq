@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e499535e82
 question: Course - Is the current cohort going to be different from the previous cohort?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 70
 ---
 

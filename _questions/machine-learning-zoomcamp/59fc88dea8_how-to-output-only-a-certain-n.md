@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 59fc88dea8
 question: How to output only a certain number of decimal places
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 550
 ---
 

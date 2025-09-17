@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 24d2042733
 question: What does KFold do?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1510
 ---
 

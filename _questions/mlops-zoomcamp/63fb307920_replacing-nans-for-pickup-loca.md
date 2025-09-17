@@ -1,8 +1,9 @@
 ---
-id: 63fb307920
-question: Replacing NaNs for pickup location and drop off location with -1 for One-Hot Encoding
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: 63fb307920
+question: Replacing NaNs for pickup location and drop off location with -1 for One-Hot
+  Encoding
+section: 'Module 1: Introduction'
 sort_order: 590
 ---
 

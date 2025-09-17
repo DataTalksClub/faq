@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 79b2760cc5
 question: How do I interpret precision and recall?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1720
 ---
 

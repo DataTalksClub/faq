@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 862909f457
 question: What is the better option FeatureHasher or DictVectorizer
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1280
 ---
 

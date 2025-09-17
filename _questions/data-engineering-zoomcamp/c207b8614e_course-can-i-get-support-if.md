@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c207b8614e
 question: Course - Can I get support if I take the course in the self-paced mode?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 90
 ---
 

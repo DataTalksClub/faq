@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 49e1ec9d84
 question: dbt - Where should we create `profiles.yml` ?
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3230
 ---
 

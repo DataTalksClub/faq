@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: feed303fc9
 question: Convergence Problems in W3Q6
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1130
 ---
 

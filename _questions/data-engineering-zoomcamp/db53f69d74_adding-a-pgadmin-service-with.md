@@ -1,8 +1,8 @@
 ---
-id: db53f69d74
-question: Adding a pgadmin service with volume mounting to the docker-compose:
-section: Module 2: Workflow Orchestration
 course: data-engineering-zoomcamp
+id: db53f69d74
+question: 'Adding a pgadmin service with volume mounting to the docker-compose:'
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1850
 ---
 

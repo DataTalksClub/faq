@@ -1,8 +1,9 @@
 ---
-id: 716ff05962
-question: Question: pytest doesn't recognize my installed libraries, but the script works in the terminal. Why?
-section: Capstone Project
 course: mlops-zoomcamp
+id: 716ff05962
+question: 'Question: pytest doesn''t recognize my installed libraries, but the script
+  works in the terminal. Why?'
+section: Capstone Project
 sort_order: 2410
 ---
 

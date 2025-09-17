@@ -1,8 +1,9 @@
 ---
-id: 8d8da9989c
-question: Dbt deploy + Git CI - cannot create CI checks job for deployment to Production. See more discussion in
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 8d8da9989c
+question: Dbt deploy + Git CI - cannot create CI checks job for deployment to Production.
+  See more discussion in
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2750
 ---
 

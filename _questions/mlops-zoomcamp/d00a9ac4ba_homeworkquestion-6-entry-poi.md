@@ -1,8 +1,8 @@
 ---
-id: d00a9ac4ba
-question: Homework/Question 6: Entry point for running scoring script in Docker container
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: d00a9ac4ba
+question: 'Homework/Question 6: Entry point for running scoring script in Docker container'
+section: 'Module 4: Deployment'
 sort_order: 1880
 ---
 

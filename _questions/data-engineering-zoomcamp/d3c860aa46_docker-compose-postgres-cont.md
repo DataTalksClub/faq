@@ -1,8 +1,9 @@
 ---
-id: d3c860aa46
-question: Docker-Compose - Postgres container fails to launch with exit code (1) when attempting to compose
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: d3c860aa46
+question: Docker-Compose - Postgres container fails to launch with exit code (1) when
+  attempting to compose
+section: 'Module 1: Docker and Terraform'
 sort_order: 1000
 ---
 

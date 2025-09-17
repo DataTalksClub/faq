@@ -1,8 +1,9 @@
 ---
-id: 666177cfde
-question: The course videos are from the previous iteration. Will you release new ones or we’ll use the videos from 2021?
-section: General course-related question review
 course: machine-learning-zoomcamp
+id: 666177cfde
+question: The course videos are from the previous iteration. Will you release new
+  ones or we’ll use the videos from 2021?
+section: General course-related question review
 sort_order: 220
 ---
 

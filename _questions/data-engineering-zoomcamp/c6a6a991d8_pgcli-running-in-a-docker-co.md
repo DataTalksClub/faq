@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c6a6a991d8
 question: PGCLI - running in a Docker container
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1140
 ---
 

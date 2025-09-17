@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 663dda52c8
 question: Slightly different RMSE
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 600
 ---
 

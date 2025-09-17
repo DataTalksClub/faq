@@ -1,8 +1,8 @@
 ---
-id: fb9f6e511b
-question: MlflowException: Unable to Set a Deleted Experiment
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: fb9f6e511b
+question: 'MlflowException: Unable to Set a Deleted Experiment'
+section: 'Module 2: Experiment tracking'
 sort_order: 940
 ---
 

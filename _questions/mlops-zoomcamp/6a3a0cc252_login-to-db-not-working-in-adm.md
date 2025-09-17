@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 6a3a0cc252
 question: Login to DB not working in Adminer UI even after right DB, user and password.
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2170
 ---
 

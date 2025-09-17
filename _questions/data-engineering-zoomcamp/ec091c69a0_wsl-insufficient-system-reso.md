@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ec091c69a0
 question: WSL - Insufficient system resources exist to complete the requested service.
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1020
 ---
 

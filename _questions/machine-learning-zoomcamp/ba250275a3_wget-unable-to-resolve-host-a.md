@@ -1,8 +1,8 @@
 ---
-id: ba250275a3
-question: wget: unable to resolve host address 'raw.githubusercontent.com'
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: ba250275a3
+question: 'wget: unable to resolve host address ''raw.githubusercontent.com'''
+section: 1. Introduction to Machine Learning
 sort_order: 360
 ---
 

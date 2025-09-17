@@ -1,8 +1,9 @@
 ---
-id: 05dc43cda8
-question: Jupyter Notebook or SparkUI not loading properly at localhost after port forwarding from VS code?
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 05dc43cda8
+question: Jupyter Notebook or SparkUI not loading properly at localhost after port
+  forwarding from VS code?
+section: 'Module 5: pyspark'
 sort_order: 3770
 ---
 

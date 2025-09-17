@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7ec4b76943
 question: How to get the training and validation metrics from XGBoost?
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2410
 ---
 

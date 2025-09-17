@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 8f9f91b4de
 question: GCP - Windows Google Cloud SDK install issue:gcp
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1520
 ---
 

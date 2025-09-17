@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 631e3d040c
 question: Why linear regression doesn’t provide a “perfect” fit?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 730
 ---
 

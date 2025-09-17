@@ -1,8 +1,8 @@
 ---
-id: f291e8d311
-question: Postgres - bind: address already in use
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: f291e8d311
+question: 'Postgres - bind: address already in use'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1170
 ---
 

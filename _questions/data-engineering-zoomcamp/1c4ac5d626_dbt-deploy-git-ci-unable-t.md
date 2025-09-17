@@ -1,8 +1,9 @@
 ---
-id: 1c4ac5d626
-question: Dbt deploy + Git CI - Unable to configure Continuous Integration (CI) with Github
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 1c4ac5d626
+question: Dbt deploy + Git CI - Unable to configure Continuous Integration (CI) with
+  Github
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2760
 ---
 

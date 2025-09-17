@@ -1,8 +1,10 @@
 ---
-id: 1b89887a15
-question: Homework 4 , q1 is not making sense to me.  The score should be between 0 to 1. I tried computing roc_curve (df_train['age'], y] and the graph does not have the model line. Please can anyone clarify.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 1b89887a15
+question: Homework 4 , q1 is not making sense to me.  The score should be between
+  0 to 1. I tried computing roc_curve (df_train['age'], y] and the graph does not
+  have the model line. Please can anyone clarify.
+section: 5. Deploying Machine Learning Models
 sort_order: 1740
 ---
 

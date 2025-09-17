@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e6ffad6be5
 question: The arm64 chip doesn’t match with Alexey’s docker image
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1840
 ---
 

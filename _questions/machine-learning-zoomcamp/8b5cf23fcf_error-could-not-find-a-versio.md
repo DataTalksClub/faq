@@ -1,8 +1,9 @@
 ---
-id: 8b5cf23fcf
-question: Error: Could not find a version that satisfies the requirement tflite_runtime (from versions:none)
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: 8b5cf23fcf
+question: 'Error: Could not find a version that satisfies the requirement tflite_runtime
+  (from versions:none)'
+section: 9. Serverless Deep Learning
 sort_order: 3230
 ---
 

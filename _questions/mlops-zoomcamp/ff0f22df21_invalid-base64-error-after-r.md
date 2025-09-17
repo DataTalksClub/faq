@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ff0f22df21
 question: ‘Invalid base64’ error after running `aws kinesis put-record`
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1610
 ---
 

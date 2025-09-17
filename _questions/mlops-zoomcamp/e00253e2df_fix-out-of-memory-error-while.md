@@ -1,8 +1,9 @@
 ---
-id: e00253e2df
-question: Fix Out of Memory error while orchestrating the workflow on a ML Pipeline for a high volume dataset.
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: e00253e2df
+question: Fix Out of Memory error while orchestrating the workflow on a ML Pipeline
+  for a high volume dataset.
+section: 'Module 4: Deployment'
 sort_order: 1530
 ---
 

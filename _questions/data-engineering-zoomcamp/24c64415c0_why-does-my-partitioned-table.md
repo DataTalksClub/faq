@@ -1,8 +1,9 @@
 ---
-id: 24c64415c0
-question: Why does my partitioned table in BigQuery show as non-partitioned even though BigQuery says it's partitioned?
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 24c64415c0
+question: Why does my partitioned table in BigQuery show as non-partitioned even though
+  BigQuery says it's partitioned?
+section: 'Module 3: Data Warehousing'
 sort_order: 2250
 ---
 

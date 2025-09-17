@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a83f047f52
 question: How to troubleshoot issues
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 420
 ---
 

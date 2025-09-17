@@ -1,8 +1,8 @@
 ---
-id: 2488656439
-question: ValueError: multi_class must be in ('ovo', 'ovr')
-section: 4. Evaluation Metrics for Classification
 course: machine-learning-zoomcamp
+id: '2488656439'
+question: 'ValueError: multi_class must be in (''ovo'', ''ovr'')'
+section: 4. Evaluation Metrics for Classification
 sort_order: 1520
 ---
 

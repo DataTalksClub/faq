@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5f056e236c
 question: Docker-Compose - Error undefined volume in Windows/WSL
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 980
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 2c007273b4
 question: Pipenv installation
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1850
 ---
 

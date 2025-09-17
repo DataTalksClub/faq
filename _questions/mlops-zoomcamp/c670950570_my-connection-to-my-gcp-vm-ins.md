@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: c670950570
 question: My connection to my GCP VM instance keeps timing out when I try to connect
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 430
 ---
 

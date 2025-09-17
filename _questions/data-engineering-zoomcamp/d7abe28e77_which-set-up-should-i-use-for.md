@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: d7abe28e77
 question: Which set-up should I use for my dlt homework?
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4360
 ---
 

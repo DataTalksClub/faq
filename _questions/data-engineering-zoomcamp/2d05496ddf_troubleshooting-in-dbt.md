@@ -1,8 +1,8 @@
 ---
-id: 2d05496ddf
-question: Troubleshooting in dbt:
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 2d05496ddf
+question: 'Troubleshooting in dbt:'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2800
 ---
 

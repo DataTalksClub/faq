@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 5ad72730d6
 question: Table/database not showing on grafana dashboard
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2080
 ---
 

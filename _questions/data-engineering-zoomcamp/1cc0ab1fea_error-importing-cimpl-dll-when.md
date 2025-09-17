@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1cc0ab1fea
 question: Error importing cimpl dll when running avro examples
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3910
 ---
 

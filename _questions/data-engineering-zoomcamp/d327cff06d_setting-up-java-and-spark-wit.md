@@ -1,8 +1,9 @@
 ---
-id: d327cff06d
-question: Setting up Java and Spark (with PySpark) on Linux (Alternative option using SDKMAN)
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: d327cff06d
+question: Setting up Java and Spark (with PySpark) on Linux (Alternative option using
+  SDKMAN)
+section: 'Module 5: pyspark'
 sort_order: 3290
 ---
 

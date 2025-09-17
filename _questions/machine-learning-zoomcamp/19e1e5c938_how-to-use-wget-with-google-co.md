@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 19e1e5c938
 question: How to use wget with Google Colab?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4150
 ---
 

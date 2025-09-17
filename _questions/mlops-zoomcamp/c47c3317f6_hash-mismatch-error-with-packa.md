@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: c47c3317f6
 question: Hash Mismatch Error with Package Installation
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 860
 ---
 

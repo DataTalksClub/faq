@@ -1,8 +1,8 @@
 ---
-id: 4693802714
-question: Getting: Allocator ran out of memory errors?
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: '4693802714'
+question: 'Getting: Allocator ran out of memory errors?'
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3430
 ---
 

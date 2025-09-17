@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: bad28cd4e0
 question: Setting up an environment using VS Code
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 370
 ---
 

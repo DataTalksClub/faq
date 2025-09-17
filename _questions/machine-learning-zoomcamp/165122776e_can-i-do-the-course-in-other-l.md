@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 165122776e
 question: Can I do the course in other languages, like R or Scala?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4220
 ---
 

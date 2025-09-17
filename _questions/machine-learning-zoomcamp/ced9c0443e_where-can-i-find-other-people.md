@@ -1,8 +1,9 @@
 ---
-id: ced9c0443e
-question: Where can I find other people’s projects to peer review them and where do I post mine for peer review? (cohort 2024).
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: ced9c0443e
+question: Where can I find other people’s projects to peer review them and where do
+  I post mine for peer review? (cohort 2024).
+section: Miscellaneous
 sort_order: 4310
 ---
 

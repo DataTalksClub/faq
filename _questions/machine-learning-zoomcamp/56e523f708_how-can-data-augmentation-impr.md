@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 56e523f708
 question: How can data augmentation improve model performance?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3040
 ---
 

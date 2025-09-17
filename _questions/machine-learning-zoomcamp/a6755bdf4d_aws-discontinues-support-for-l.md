@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a6755bdf4d
 question: AWS Discontinues Support for Launch Configurations
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2310
 ---
 

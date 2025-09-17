@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 7f10dde6f8
 question: Is it going to be live? When?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 30
 ---
 

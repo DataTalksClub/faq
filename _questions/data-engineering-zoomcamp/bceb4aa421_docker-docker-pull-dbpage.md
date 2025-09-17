@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: bceb4aa421
 question: Docker - docker pull dbpage
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 590
 ---
 

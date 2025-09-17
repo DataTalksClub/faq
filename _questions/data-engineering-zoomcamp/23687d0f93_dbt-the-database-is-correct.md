@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 23687d0f93
 question: DBT - The database is correct but I get Error with Incorrect Schema in Models
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3260
 ---
 

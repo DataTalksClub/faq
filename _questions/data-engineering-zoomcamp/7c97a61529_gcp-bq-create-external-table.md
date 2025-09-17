@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 7c97a61529
 question: GCP BQ - Create External Table using Python
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2130
 ---
 

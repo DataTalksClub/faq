@@ -1,8 +1,11 @@
 ---
-id: 80a2e18431
-question: docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "gunicorn": executable file not found in $PATH: unknown.
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 80a2e18431
+question: 'docker: Error response from daemon: failed to create task for container:
+  failed to create shim task: OCI runtime create failed: runc create failed: unable
+  to start container process: exec: "gunicorn": executable file not found in $PATH:
+  unknown.'
+section: Miscellaneous
 sort_order: 4280
 ---
 

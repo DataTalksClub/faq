@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 8b0214d089
 question: Environment - Roadblock for Windows users in modules with *.sh (shell scripts).
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 390
 ---
 

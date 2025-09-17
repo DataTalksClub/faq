@@ -1,8 +1,9 @@
 ---
-id: c37b2ed3a5
-question: Compilation Error (Model 'model.my_new_project.stg_green_tripdata' (models/staging/stg_green_tripdata.sql) depends on a source named 'staging.green_trip_external' which was not found)
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: c37b2ed3a5
+question: Compilation Error (Model 'model.my_new_project.stg_green_tripdata' (models/staging/stg_green_tripdata.sql)
+  depends on a source named 'staging.green_trip_external' which was not found)
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2770
 ---
 

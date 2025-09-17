@@ -1,8 +1,8 @@
 ---
-id: ee4a3bc34d
-question: GCS Bucket - error when writing data from web to GCS:
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: ee4a3bc34d
+question: 'GCS Bucket - error when writing data from web to GCS:'
+section: 'Module 3: Data Warehousing'
 sort_order: 1990
 ---
 

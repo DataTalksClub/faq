@@ -1,8 +1,9 @@
 ---
-id: d01cbfa9cb
-question: Java Kafka: <project_name>-1.0-SNAPSHOT.jar errors: package xxx does not exist even after gradle build
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: d01cbfa9cb
+question: 'Java Kafka: <project_name>-1.0-SNAPSHOT.jar errors: package xxx does not
+  exist even after gradle build'
+section: 'Module 6: streaming with kafka'
 sort_order: 4070
 ---
 

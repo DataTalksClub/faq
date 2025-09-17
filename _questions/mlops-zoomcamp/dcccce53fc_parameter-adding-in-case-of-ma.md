@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: dcccce53fc
 question: Parameter adding in case of max_depth not recognized
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1120
 ---
 

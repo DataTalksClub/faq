@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: eaae17dfea
 question: Embedding dlt into Kestra
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4460
 ---
 

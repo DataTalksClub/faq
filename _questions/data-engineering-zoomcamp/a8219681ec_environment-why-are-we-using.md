@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a8219681ec
 question: Environment - Why are we using GCP and not other cloud providers?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 280
 ---
 

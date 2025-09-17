@@ -1,8 +1,9 @@
 ---
-id: 3fd406c55c
-question: SSH Connection to AWS EC2 instance from local machine WSL getting terminated frequently within a minute of inactivity.
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 3fd406c55c
+question: SSH Connection to AWS EC2 instance from local machine WSL getting terminated
+  frequently within a minute of inactivity.
+section: 'Module 2: Experiment tracking'
 sort_order: 990
 ---
 

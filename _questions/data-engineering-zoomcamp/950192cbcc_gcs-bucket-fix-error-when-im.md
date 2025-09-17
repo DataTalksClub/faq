@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 950192cbcc
 question: GCS Bucket - Fix Error when importing FHV data to GCS
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2010
 ---
 

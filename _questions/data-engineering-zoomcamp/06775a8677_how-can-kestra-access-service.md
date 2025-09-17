@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 06775a8677
 question: How can Kestra access service account credential?
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1870
 ---
 

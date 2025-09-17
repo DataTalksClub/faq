@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b56bc7c32f
 question: How do I get started with Week 2?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 580
 ---
 

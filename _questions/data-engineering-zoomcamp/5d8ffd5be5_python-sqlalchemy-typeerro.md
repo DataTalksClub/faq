@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5d8ffd5be5
 question: Python - SQLALchemy - TypeError 'module' object is not callable
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1370
 ---
 

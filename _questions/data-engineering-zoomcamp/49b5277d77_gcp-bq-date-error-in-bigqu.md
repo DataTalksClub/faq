@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 49b5277d77
 question: GCP BQ - DATE() Error in BigQuery
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2220
 ---
 

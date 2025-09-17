@@ -1,8 +1,10 @@
 ---
-id: d2902a7227
-question: GCS Bucket - te table: Error while reading data, error message: Parquet column 'XYZ' has type INT which does not match the target cpp_type DOUBLE. File: gs://path/to/some/blob.parquet
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: d2902a7227
+question: 'GCS Bucket - te table: Error while reading data, error message: Parquet
+  column ''XYZ'' has type INT which does not match the target cpp_type DOUBLE. File:
+  gs://path/to/some/blob.parquet'
+section: 'Module 3: Data Warehousing'
 sort_order: 2000
 ---
 

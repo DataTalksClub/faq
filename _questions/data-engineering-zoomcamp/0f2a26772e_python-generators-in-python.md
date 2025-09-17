@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0f2a26772e
 question: Python - Generators in python
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2380
 ---
 

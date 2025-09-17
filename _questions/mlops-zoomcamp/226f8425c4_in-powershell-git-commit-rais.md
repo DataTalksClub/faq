@@ -1,8 +1,9 @@
 ---
-id: 226f8425c4
-question: In Powershell, Git commit raises utf-8 encoding error after creating pre-commit yaml file
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: 226f8425c4
+question: In Powershell, Git commit raises utf-8 encoding error after creating pre-commit
+  yaml file
+section: 'Module 6: Best practices'
 sort_order: 2280
 ---
 

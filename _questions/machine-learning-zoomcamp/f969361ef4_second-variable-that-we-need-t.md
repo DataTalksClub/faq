@@ -1,8 +1,9 @@
 ---
-id: f969361ef4
-question: Second variable that we need to use to calculate the mutual information score
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: f969361ef4
+question: Second variable that we need to use to calculate the mutual information
+  score
+section: 3. Machine Learning for Classification
 sort_order: 1180
 ---
 

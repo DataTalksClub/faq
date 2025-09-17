@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: d8ebc91216
 question: GCP VM - Is it necessary to use a GCP VM? When is it useful?
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1540
 ---
 

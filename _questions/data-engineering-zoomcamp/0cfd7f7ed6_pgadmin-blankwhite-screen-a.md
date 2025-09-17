@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0cfd7f7ed6
 question: pgAdmin - Blank/white screen after login (browser)
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1260
 ---
 

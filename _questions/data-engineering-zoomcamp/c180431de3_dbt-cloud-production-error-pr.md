@@ -1,8 +1,8 @@
 ---
-id: c180431de3
-question: DBT Cloud production error: prod dataset not available in location EU
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: c180431de3
+question: 'DBT Cloud production error: prod dataset not available in location EU'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2440
 ---
 

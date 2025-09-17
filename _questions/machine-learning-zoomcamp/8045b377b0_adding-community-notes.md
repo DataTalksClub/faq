@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8045b377b0
 question: Adding community notes
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 250
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 108295493e
 question: Kernel getting killed during assignment tasks on local
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 520
 ---
 

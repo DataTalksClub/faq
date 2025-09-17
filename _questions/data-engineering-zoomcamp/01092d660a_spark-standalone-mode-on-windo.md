@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 01092d660a
 question: Spark Standalone Mode on Windows
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3580
 ---
 

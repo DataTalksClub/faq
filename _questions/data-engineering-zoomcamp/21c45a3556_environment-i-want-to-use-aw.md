@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 21c45a3556
 question: Environment - I want to use AWS. May I do that?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 320
 ---
 

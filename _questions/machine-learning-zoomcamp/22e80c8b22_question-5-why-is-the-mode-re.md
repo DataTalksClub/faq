@@ -1,8 +1,9 @@
 ---
-id: 22e80c8b22
-question: Question 5: Why is the mode returned as a Series instead of a single value in my DataFrame?
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 22e80c8b22
+question: 'Question 5: Why is the mode returned as a Series instead of a single value
+  in my DataFrame?'
+section: 1. Introduction to Machine Learning
 sort_order: 470
 ---
 

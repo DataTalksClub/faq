@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 1fa4030823
 question: IBM Cloud an alternative for AWS
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 350
 ---
 

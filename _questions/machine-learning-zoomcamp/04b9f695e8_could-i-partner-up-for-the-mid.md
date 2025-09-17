@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 04b9f695e8
 question: Could I partner up for the mid and final projects?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 200
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c3c8b7150d
 question: Crucial Links
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3730
 ---
 

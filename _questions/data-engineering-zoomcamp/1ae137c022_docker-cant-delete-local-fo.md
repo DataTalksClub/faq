@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1ae137c022
 question: Docker - can’t delete local folder that mounted to docker volume
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 610
 ---
 

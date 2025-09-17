@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e8bd670973
 question: Clipping outliers
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 580
 ---
 

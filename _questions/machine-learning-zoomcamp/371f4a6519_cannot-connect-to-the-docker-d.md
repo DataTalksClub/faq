@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 371f4a6519
 question: Cannot connect to the docker daemon. Is the Docker daemon running?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1830
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 9da67b7e6d
 question: KeyError ‘content-length’ when running prepare.py
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1940
 ---
 

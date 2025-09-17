@@ -1,8 +1,8 @@
 ---
-id: a0f048fb48
-question: and (sparse=False) produce the same type of one-hot encodings:
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: a0f048fb48
+question: 'and (sparse=False) produce the same type of one-hot encodings:'
+section: 3. Machine Learning for Classification
 sort_order: 1120
 ---
 

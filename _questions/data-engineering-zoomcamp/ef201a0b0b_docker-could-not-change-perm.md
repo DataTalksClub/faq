@@ -1,8 +1,9 @@
 ---
-id: ef201a0b0b
-question: Docker - Could not change permissions of directory "/var/lib/postgresql/data": Operation not permitted
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: ef201a0b0b
+question: 'Docker - Could not change permissions of directory "/var/lib/postgresql/data":
+  Operation not permitted'
+section: 'Module 1: Docker and Terraform'
 sort_order: 680
 ---
 

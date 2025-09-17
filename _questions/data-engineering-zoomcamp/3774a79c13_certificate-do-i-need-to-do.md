@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 3774a79c13
 question: Certificate - Do I need to do the homeworks to get the certificate?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 150
 ---
 

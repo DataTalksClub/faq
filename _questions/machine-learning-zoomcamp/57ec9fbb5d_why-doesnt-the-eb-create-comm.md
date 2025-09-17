@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 57ec9fbb5d
 question: Why doesn’t the eb create command use the latest version of my Dockerfile?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2290
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: d767e50478
-question: Any advice for adding the Machine Learning Zoomcamp experience to your LinkedIn profile?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: d767e50478
+question: Any advice for adding the Machine Learning Zoomcamp experience to your LinkedIn
+  profile?
+section: Miscellaneous
 sort_order: 4250
 ---
 

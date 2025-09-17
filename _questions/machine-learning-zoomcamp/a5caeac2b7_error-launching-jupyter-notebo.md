@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a5caeac2b7
 question: Error launching Jupyter notebook
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 520
 ---
 

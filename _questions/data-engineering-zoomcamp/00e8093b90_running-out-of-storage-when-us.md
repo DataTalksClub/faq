@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 00e8093b90
 question: Running out of storage when using kestra with postgres on GCP VM
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1860
 ---
 

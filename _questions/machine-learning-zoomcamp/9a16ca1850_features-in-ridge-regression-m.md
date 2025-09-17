@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9a16ca1850
 question: Features in Ridge Regression Model
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1240
 ---
 

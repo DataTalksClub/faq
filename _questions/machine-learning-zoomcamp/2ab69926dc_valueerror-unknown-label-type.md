@@ -1,8 +1,8 @@
 ---
-id: 2ab69926dc
-question: ValueError: Unknown label type: 'continuous'
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: 2ab69926dc
+question: 'ValueError: Unknown label type: ''continuous'''
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2540
 ---
 

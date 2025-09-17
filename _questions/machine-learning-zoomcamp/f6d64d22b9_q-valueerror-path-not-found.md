@@ -1,8 +1,8 @@
 ---
-id: f6d64d22b9
-question: Q: ValueError: Path not found or generated: WindowsPath('C:/Users/username/.virtualenvs/envname/Scripts')
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: f6d64d22b9
+question: 'Q: ValueError: Path not found or generated: WindowsPath(''C:/Users/username/.virtualenvs/envname/Scripts'')'
+section: 5. Deploying Machine Learning Models
 sort_order: 2010
 ---
 

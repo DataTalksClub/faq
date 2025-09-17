@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9b9e23bca0
 question: Features Importance graph
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2630
 ---
 

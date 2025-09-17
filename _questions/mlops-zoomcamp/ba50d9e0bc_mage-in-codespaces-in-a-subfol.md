@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ba50d9e0bc
 question: Mage in Codespaces in a subfolder under mlops-zoomcamp repository
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1320
 ---
 

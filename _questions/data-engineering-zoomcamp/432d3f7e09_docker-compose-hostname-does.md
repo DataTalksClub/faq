@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 432d3f7e09
 question: Docker-Compose - Hostname does not resolve
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 870
 ---
 

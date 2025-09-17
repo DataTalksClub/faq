@@ -1,8 +1,8 @@
 ---
-id: 0afee51849
-question: Q6: Correct mlflow tracking uri
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: 0afee51849
+question: 'Q6: Correct mlflow tracking uri'
+section: 'Module 3: Orchestration'
 sort_order: 1470
 ---
 

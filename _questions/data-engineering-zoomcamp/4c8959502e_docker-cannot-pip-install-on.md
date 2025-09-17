@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 4c8959502e
 question: Docker - Cannot pip install on Docker container (Windows)
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 650
 ---
 

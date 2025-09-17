@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 768fa21d6b
 question: Where does pipenv create environments and how does it name them?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1930
 ---
 

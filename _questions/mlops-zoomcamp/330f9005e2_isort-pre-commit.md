@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 330f9005e2
 question: Isort Pre-commit
-section: Module 6: Best practices
-course: mlops-zoomcamp
+section: 'Module 6: Best practices'
 sort_order: 2360
 ---
 

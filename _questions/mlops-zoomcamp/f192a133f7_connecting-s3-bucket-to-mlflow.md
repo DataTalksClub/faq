@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: f192a133f7
 question: Connecting s3 bucket to MLFLOW
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1700
 ---
 

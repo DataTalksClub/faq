@@ -1,8 +1,9 @@
 ---
-id: b395e1c5ec
-question: I get below error invalid mount config for type "bind": invalid specification: destination can't be '/' when running docker compose up when running mage
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: b395e1c5ec
+question: 'I get below error invalid mount config for type "bind": invalid specification:
+  destination can''t be ''/'' when running docker compose up when running mage'
+section: 'Module 3: Orchestration'
 sort_order: 1480
 ---
 

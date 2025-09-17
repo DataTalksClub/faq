@@ -1,8 +1,8 @@
 ---
-id: c842475338
-question: Q : just found this course, can I still submit homeworks?
-section: General course questions
 course: mlops-zoomcamp
+id: c842475338
+question: 'Q : just found this course, can I still submit homeworks?'
+section: General course questions
 sort_order: 180
 ---
 

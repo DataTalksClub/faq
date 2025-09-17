@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 71a682959a
 question: Using Tensorflow 2.15 for AWS deployment
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3290
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 42552a35f7
-question: : what is `r`, is it the same as `alpha` in ?
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: 42552a35f7
+question: ': what is `r`, is it the same as `alpha` in ?'
+section: 2. Machine Learning for Regression
 sort_order: 720
 ---
 

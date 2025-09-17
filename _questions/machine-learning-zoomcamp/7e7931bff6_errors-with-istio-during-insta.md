@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7e7931bff6
 question: Errors with istio during installation
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3690
 ---
 

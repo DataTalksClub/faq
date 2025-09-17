@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8a5d89cbae
 question: Serialized Model Xgboost error
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2670
 ---
 

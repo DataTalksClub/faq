@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: e3ce42af1a
 question: How do you read data stored in gcs on pandas with your local computer?
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3640
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b27e47d7ca
 question: Logistic regression crashing Jupyter kernel
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1100
 ---
 

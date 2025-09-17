@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 49ee668514
 question: Spark Cloud Storage connector
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3520
 ---
 

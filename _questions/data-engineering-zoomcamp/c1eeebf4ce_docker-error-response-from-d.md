@@ -1,8 +1,10 @@
 ---
-id: c1eeebf4ce
-question: Docker - Error response from daemon: error while creating buildmount source path '/run/desktop/mnt/host/c/<your path>': mkdir /run/desktop/mnt/host/c: file exists
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: c1eeebf4ce
+question: 'Docker - Error response from daemon: error while creating buildmount source
+  path ''/run/desktop/mnt/host/c/<your path>'': mkdir /run/desktop/mnt/host/c: file
+  exists'
+section: 'Module 1: Docker and Terraform'
 sort_order: 710
 ---
 

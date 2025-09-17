@@ -1,8 +1,9 @@
 ---
-id: 52217fc51b
-question: Course - I have registered for the Data Engineering Bootcamp. When can I expect to receive the confirmation email?
-section: General course-related questions
 course: data-engineering-zoomcamp
+id: 52217fc51b
+question: Course - I have registered for the Data Engineering Bootcamp. When can I
+  expect to receive the confirmation email?
+section: General course-related questions
 sort_order: 40
 ---
 

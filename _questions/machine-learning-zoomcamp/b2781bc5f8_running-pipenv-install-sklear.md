@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b2781bc5f8
 question: Running “pipenv install sklearn==1.0.2” gives errors. What should I do?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1850
 ---
 

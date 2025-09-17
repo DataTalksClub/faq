@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ec5e405fa6
 question: Key Vault in Azure cloud stack
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4280
 ---
 

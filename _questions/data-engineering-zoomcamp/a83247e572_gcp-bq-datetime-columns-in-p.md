@@ -1,8 +1,9 @@
 ---
-id: a83247e572
-question: GCP BQ - Datetime columns in Parquet files created from Pandas show up as integer columns in BigQuery
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: a83247e572
+question: GCP BQ - Datetime columns in Parquet files created from Pandas show up as
+  integer columns in BigQuery
+section: 'Module 3: Data Warehousing'
 sort_order: 2120
 ---
 

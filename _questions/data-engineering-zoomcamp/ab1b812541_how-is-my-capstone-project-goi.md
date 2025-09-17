@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ab1b812541
 question: How is my capstone project going to be evaluated?
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4180
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: b78f247dc5
-question: ValueError: feature_names must be string, and may not contain [, ] or <
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: b78f247dc5
+question: 'ValueError: feature_names must be string, and may not contain [, ] or <'
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2430
 ---
 

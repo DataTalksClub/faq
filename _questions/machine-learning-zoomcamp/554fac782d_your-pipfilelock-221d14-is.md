@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 554fac782d
 question: Your Pipfile.lock (221d14) is out of date (during Docker build)
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2120
 ---
 

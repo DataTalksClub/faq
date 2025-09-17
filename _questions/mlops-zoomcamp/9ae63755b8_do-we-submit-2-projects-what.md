@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 9ae63755b8
 question: Do we submit 2 projects, what does attempt 1 and 2 mean?
 section: Capstone Project
-course: mlops-zoomcamp
 sort_order: 2430
 ---
 

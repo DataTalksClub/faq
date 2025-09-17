@@ -1,8 +1,8 @@
 ---
-id: 23f66acd0a
-question: Q6: ValueError or TypeError while setting xgb.DMatrix(feature_names=)
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: 23f66acd0a
+question: 'Q6: ValueError or TypeError while setting xgb.DMatrix(feature_names=)'
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2450
 ---
 

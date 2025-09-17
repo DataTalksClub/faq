@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 6704978d67
 question: PGCLI -  stuck on password prompt
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1110
 ---
 

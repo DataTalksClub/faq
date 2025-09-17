@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a32ed35da6
 question: Dim_zones.sql Dataset was not found in location US When Running fact_trips.sql
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2270
 ---
 

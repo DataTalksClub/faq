@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c2f713127c
 question: How to get feature importance for XGboost model
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3870
 ---
 

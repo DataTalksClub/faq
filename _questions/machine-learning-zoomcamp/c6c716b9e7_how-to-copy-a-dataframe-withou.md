@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c6c716b9e7
 question: How to copy a dataframe without changing the original dataframe?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 810
 ---
 

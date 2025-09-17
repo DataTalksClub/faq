@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 513410225e
 question: GCP Virtual Machine (VM) Size, Slow, Clean Up
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1500
 ---
 

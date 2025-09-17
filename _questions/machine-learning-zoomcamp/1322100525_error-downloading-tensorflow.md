@@ -1,8 +1,8 @@
 ---
-id: 1322100525
+course: machine-learning-zoomcamp
+id: '1322100525'
 question: Error downloading  tensorflow/serving:2.7.0 on Apple M1 Mac
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3640
 ---
 

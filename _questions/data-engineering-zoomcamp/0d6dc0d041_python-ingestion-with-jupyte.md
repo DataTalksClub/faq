@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0d6dc0d041
 question: Python - Ingestion with Jupyter notebook - missing 100000 records
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1310
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ac12e26845
 question: Metrics not visible in mlflow UI
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 840
 ---
 

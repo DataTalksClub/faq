@@ -1,8 +1,8 @@
 ---
-id: ce188e5db2
-question: RuntimeError: Java gateway process exited before sending its port number
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: ce188e5db2
+question: 'RuntimeError: Java gateway process exited before sending its port number'
+section: 'Module 5: pyspark'
 sort_order: 3380
 ---
 

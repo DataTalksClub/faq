@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 6e251d34b6
 question: How can I read a small number of rows from the parquet file directly?
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3530
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0de998a04e
 question: Java+Spark - Easy setup with miniconda env (worked on MacOS)
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3360
 ---
 

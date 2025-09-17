@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b2eabcd7dc
 question: Docker - Setting up Docker on Mac
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 670
 ---
 

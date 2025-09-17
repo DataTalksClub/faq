@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 4deedf3100
 question: What’s the difference between the 2023 and 2022 course?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 80
 ---
 

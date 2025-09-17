@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e81387d8cf
 question: Windows version might not be up-to-date
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3130
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1ba58ae0e0
 question: GCP VM - Error while saving the file in VM via VS Code
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1560
 ---
 

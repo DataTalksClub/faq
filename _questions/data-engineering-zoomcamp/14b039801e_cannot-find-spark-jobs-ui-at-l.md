@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 14b039801e
 question: Cannot find Spark jobs UI at localhost
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3350
 ---
 

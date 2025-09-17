@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 316180784f
 question: Course - ​​How many hours per week am I expected to spend on this  course?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 110
 ---
 

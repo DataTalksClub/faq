@@ -1,8 +1,8 @@
 ---
-id: fa28f60a1b
-question: NameError: name 'np' is not defined
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: fa28f60a1b
+question: 'NameError: name ''np'' is not defined'
+section: 1. Introduction to Machine Learning
 sort_order: 420
 ---
 

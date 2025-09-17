@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 2dab05f2be
 question: How to Delete an Experiment Permanently from MLFlow UI
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 870
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9db5014252
 question: How to save/download jupyter notebook to python script
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2490
 ---
 

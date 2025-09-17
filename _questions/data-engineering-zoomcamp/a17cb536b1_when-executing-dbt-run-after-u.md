@@ -1,8 +1,9 @@
 ---
-id: a17cb536b1
-question: When executing dbt run after using fhv_tripdata as an external table: you get “Access Denied: BigQuery BigQuery: Permission denied”
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: a17cb536b1
+question: 'When executing dbt run after using fhv_tripdata as an external table: you
+  get “Access Denied: BigQuery BigQuery: Permission denied”'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2850
 ---
 

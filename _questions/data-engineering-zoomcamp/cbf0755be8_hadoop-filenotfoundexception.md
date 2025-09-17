@@ -1,8 +1,9 @@
 ---
-id: cbf0755be8
-question: Hadoop - FileNotFoundException: Hadoop bin directory does not exist , when trying to write (Windows)
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: cbf0755be8
+question: 'Hadoop - FileNotFoundException: Hadoop bin directory does not exist , when
+  trying to write (Windows)'
+section: 'Module 5: pyspark'
 sort_order: 3450
 ---
 

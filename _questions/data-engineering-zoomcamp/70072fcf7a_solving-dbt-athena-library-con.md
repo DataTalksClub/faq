@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 70072fcf7a
 question: Solving dbt-Athena library conflicts
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4350
 ---
 

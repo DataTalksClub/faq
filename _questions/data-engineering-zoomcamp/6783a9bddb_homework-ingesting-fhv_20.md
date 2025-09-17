@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 6783a9bddb
 question: Homework - Ingesting FHV_20?? data
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3110
 ---
 

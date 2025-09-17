@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 296ea7fed1
 question: Adding additional metric
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1990
 ---
 

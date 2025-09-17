@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 89733da275
 question: dbt macro errors with get_payment_type_description(payment_type)
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2790
 ---
 

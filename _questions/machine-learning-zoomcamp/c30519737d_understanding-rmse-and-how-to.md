@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c30519737d
 question: Understanding RMSE and how to calculate RMSE score
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 900
 ---
 

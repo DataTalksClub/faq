@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ebd339f9a5
 question: Error when importing evidently package because of numpy version upgraded
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2060
 ---
 

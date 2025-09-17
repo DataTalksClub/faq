@@ -1,8 +1,8 @@
 ---
-id: 5b7577406d
-question: BigQuery returns an error when i try to run ‘dbt run’:
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 5b7577406d
+question: 'BigQuery returns an error when i try to run ‘dbt run’:'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3020
 ---
 

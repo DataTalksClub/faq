@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5b4c133384
 question: iPython - Pandas parsing dates with ‘read_csv’
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1320
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 6686406223
-question: Setting up Artifacts folders
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: '6686406223'
+question: Setting up Artifacts folders
+section: 'Module 2: Experiment tracking'
 sort_order: 1000
 ---
 

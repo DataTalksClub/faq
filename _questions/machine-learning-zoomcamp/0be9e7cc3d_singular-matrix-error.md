@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0be9e7cc3d
 question: Singular Matrix Error
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 310
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5a491cd847
 question: Can I collaborate with others on the capstone project?
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4190
 ---
 

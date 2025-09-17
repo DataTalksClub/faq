@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 886fddb311
 question: RMSE on test set too high
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 550
 ---
 

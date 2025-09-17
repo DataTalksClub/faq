@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 2ad2052264
 question: How do I get started with Week 5?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1750
 ---
 

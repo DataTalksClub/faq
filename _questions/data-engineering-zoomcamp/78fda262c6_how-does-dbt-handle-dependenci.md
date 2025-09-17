@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 78fda262c6
 question: How does dbt handle dependencies between models?
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3190
 ---
 

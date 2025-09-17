@@ -1,8 +1,9 @@
 ---
-id: 8bfd81c403
-question: GCP BQ - When querying two different tables external and materialized you get the same result when count(distinct(*))
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 8bfd81c403
+question: GCP BQ - When querying two different tables external and materialized you
+  get the same result when count(distinct(*))
+section: 'Module 3: Data Warehousing'
 sort_order: 2180
 ---
 

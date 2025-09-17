@@ -1,8 +1,9 @@
 ---
-id: 385807829b
-question: How to address UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 in labels with no predicted samples?
-section: 4. Evaluation Metrics for Classification
 course: machine-learning-zoomcamp
+id: 385807829b
+question: 'How to address UndefinedMetricWarning: F-score is ill-defined and being
+  set to 0.0 in labels with no predicted samples?'
+section: 4. Evaluation Metrics for Classification
 sort_order: 1730
 ---
 

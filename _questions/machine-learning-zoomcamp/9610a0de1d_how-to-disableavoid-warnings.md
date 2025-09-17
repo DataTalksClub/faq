@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9610a0de1d
 question: How  to Disable/avoid Warnings in Jupyter Notebooks
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1160
 ---
 

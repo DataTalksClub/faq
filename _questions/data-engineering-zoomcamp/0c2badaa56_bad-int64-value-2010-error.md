@@ -1,8 +1,8 @@
 ---
-id: 0c2badaa56
-question: Bad int64 value: 2.0/1.0 error
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 0c2badaa56
+question: 'Bad int64 value: 2.0/1.0 error'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2940
 ---
 

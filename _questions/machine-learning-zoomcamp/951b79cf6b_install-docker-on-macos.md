@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 951b79cf6b
 question: Install docker on MacOS
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1900
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1ba19ed6a0
 question: Git Bash - Backslash as an escape character in Git Bash for Windows
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 540
 ---
 

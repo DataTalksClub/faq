@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: bcd4190972
 question: .gitignore how-to
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 330
 ---
 

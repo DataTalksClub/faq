@@ -1,8 +1,9 @@
 ---
-id: 2fc75f3eed
-question: Error: A module that was compiled using NumPy 1.x cannot be run in NumPy 2.2.0 as it may crash
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: 2fc75f3eed
+question: 'Error: A module that was compiled using NumPy 1.x cannot be run in NumPy
+  2.2.0 as it may crash'
+section: 9. Serverless Deep Learning
 sort_order: 3240
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: f71b6beef0
 question: Login window in Grafana
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1920
 ---
 

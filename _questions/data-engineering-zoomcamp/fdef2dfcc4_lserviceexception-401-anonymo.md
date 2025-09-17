@@ -1,8 +1,10 @@
 ---
-id: fdef2dfcc4
-question: lServiceException: 401 Anonymous caller does not have storage.objects.list access to the Google Cloud Storage bucket. Permission 'storage.objects.list' denied on resource (or it may not exist).
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: fdef2dfcc4
+question: 'lServiceException: 401 Anonymous caller does not have storage.objects.list
+  access to the Google Cloud Storage bucket. Permission ''storage.objects.list'' denied
+  on resource (or it may not exist).'
+section: 'Module 5: pyspark'
 sort_order: 3740
 ---
 

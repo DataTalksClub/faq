@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 0d200c8c58
 question: What is the criteria of scoring home work?
 section: Capstone Project
-course: mlops-zoomcamp
 sort_order: 2450
 ---
 

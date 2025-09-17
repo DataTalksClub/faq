@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: de0726d5ea
 question: How to run a script while a web-server is working?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2090
 ---
 

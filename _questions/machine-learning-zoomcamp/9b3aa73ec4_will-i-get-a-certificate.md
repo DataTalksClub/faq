@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9b3aa73ec4
 question: Will I get a certificate?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 110
 ---
 

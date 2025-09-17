@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0482efe115
 question: Get_feature_names() not found
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4010
 ---
 

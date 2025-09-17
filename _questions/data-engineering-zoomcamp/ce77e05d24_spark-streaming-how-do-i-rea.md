@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ce77e05d24
 question: Spark Streaming - How do I read from multiple topics in the same Spark Session
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4230
 ---
 

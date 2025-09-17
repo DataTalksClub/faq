@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 44cc6eaa10
 question: Error while running python3 stream.py worker
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3930
 ---
 

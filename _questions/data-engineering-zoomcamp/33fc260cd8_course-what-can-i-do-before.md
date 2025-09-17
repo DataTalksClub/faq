@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 33fc260cd8
 question: Course - What can I do before the course starts?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 50
 ---
 

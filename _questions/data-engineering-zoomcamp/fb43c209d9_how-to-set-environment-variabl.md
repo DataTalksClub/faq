@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: fb43c209d9
 question: How to set environment variable easily for any credentials
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3140
 ---
 

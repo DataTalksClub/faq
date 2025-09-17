@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: fa8cbc8f40
 question: Terraform google provider requires credentials.
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1700
 ---
 

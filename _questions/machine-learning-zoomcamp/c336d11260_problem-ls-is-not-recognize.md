@@ -1,8 +1,9 @@
 ---
-id: c336d11260
-question: Problem: 'ls' is not recognized as an internal or external command, operable program or batch file.
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: c336d11260
+question: 'Problem: ''ls'' is not recognized as an internal or external command, operable
+  program or batch file.'
+section: 9. Serverless Deep Learning
 sort_order: 3110
 ---
 

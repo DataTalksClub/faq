@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: ecba2d4d27
 question: Pipenv with Jupyter
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1590
 ---
 

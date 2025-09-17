@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ddc7d09c3d
 question: Sequential vs. Functional Model Modes in Keras (TF2)
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2980
 ---
 

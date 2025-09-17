@@ -1,8 +1,9 @@
 ---
-id: 6cf4287216
-question: Corresponding Scikit-Learn functions for Linear Regression (with and without Regularization)
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: 6cf4287216
+question: Corresponding Scikit-Learn functions for Linear Regression (with and without
+  Regularization)
+section: 2. Machine Learning for Regression
 sort_order: 710
 ---
 

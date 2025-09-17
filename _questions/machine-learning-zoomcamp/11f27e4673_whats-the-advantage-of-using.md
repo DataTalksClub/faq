@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 11f27e4673
 question: What's the advantage of using Gunicorn with Flask in Docker?
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2330
 ---
 

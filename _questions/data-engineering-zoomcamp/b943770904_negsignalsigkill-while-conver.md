@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b943770904
 question: Negsignal:SIGKILL while converting data files to parquet format
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3950
 ---
 

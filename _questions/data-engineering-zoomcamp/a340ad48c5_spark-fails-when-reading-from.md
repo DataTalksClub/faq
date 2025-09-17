@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a340ad48c5
 question: Spark fails when reading from BigQuery and using `.show()` on `SELECT` queries
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3500
 ---
 

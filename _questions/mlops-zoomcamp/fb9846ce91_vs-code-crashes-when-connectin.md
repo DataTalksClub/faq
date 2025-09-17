@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: fb9846ce91
 question: VS Code crashes when connecting to Jupyter
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 420
 ---
 

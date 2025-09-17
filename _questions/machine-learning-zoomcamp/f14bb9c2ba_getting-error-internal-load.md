@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f14bb9c2ba
 question: Getting  ERROR [internal] load metadata for public.ecr.aws/lambda/python:3.8
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3100
 ---
 

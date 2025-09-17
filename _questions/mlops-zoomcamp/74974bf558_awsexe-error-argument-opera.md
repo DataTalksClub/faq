@@ -1,8 +1,9 @@
 ---
-id: 74974bf558
-question: aws.exe: error: argument operation: Invalid choice — Docker can not login to ECR.
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: 74974bf558
+question: 'aws.exe: error: argument operation: Invalid choice — Docker can not login
+  to ECR.'
+section: 'Module 4: Deployment'
 sort_order: 1540
 ---
 

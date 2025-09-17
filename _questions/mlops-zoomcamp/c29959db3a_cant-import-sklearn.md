@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: c29959db3a
 question: Can’t import sklearn
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 700
 ---
 

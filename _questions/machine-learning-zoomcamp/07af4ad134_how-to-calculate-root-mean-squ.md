@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 07af4ad134
 question: How to calculate Root Mean Squared Error?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1310
 ---
 

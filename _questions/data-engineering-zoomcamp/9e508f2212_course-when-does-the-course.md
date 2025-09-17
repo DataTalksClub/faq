@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 9e508f2212
 question: Course - When does the course start?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 10
 ---
 

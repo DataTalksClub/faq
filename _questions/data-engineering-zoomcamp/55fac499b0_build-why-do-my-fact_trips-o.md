@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 55fac499b0
 question: Build - Why do my Fact_trips only contain a few days of data?
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2640
 ---
 

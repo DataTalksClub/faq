@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0a6a3ccf35
 question: PGCLI - error column c.relhasoids does not exist
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1160
 ---
 

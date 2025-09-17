@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 234fd096e4
 question: How to get all classification metrics?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1430
 ---
 

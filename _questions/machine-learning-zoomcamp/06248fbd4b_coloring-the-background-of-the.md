@@ -1,8 +1,9 @@
 ---
-id: 06248fbd4b
-question: Coloring the background of the pandas.DataFrame.corr correlation matrix directly
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: 06248fbd4b
+question: Coloring the background of the pandas.DataFrame.corr correlation matrix
+  directly
+section: 3. Machine Learning for Classification
 sort_order: 1040
 ---
 

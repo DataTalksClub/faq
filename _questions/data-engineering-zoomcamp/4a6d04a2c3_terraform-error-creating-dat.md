@@ -1,8 +1,9 @@
 ---
-id: 4a6d04a2c3
-question: Terraform - Error creating Dataset: googleapi: Error 403: Request had insufficient authentication scopes
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 4a6d04a2c3
+question: 'Terraform - Error creating Dataset: googleapi: Error 403: Request had insufficient
+  authentication scopes'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1680
 ---
 

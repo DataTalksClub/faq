@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: cbd581f803
 question: How to select the alpha parameter in Q6
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1170
 ---
 

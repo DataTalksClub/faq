@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 4eba13edb1
 question: How to ask questions
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 430
 ---
 

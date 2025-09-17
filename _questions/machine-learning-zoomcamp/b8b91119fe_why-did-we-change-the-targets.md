@@ -1,8 +1,9 @@
 ---
-id: b8b91119fe
-question: Why did we change the targets to binary format when calculating mutual information score in the homework?
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: b8b91119fe
+question: Why did we change the targets to binary format when calculating mutual information
+  score in the homework?
+section: 3. Machine Learning for Classification
 sort_order: 1010
 ---
 

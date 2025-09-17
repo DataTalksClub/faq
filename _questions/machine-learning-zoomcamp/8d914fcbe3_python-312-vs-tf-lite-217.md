@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8d914fcbe3
 question: Python 3.12 vs TF Lite 2.17
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3380
 ---
 

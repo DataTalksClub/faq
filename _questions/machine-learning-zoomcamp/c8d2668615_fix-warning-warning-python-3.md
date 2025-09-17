@@ -1,8 +1,9 @@
 ---
-id: c8d2668615
-question: Fix warning Warning: Python 3.12 was not found on your system… Neither 'pyenv' nor 'asdf' could be found to install Python.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: c8d2668615
+question: 'Fix warning Warning: Python 3.12 was not found on your system… Neither
+  ''pyenv'' nor ''asdf'' could be found to install Python.'
+section: 5. Deploying Machine Learning Models
 sort_order: 2340
 ---
 

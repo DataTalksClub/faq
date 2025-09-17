@@ -1,8 +1,9 @@
 ---
-id: e53752c5b7
-question: If you are working in the terminal on your computer in wsl and you want to go to the directory in explorer to upload to github use type explorer.exe .
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: e53752c5b7
+question: If you are working in the terminal on your computer in wsl and you want
+  to go to the directory in explorer to upload to github use type explorer.exe .
+section: Miscellaneous
 sort_order: 4290
 ---
 

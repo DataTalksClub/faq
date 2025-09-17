@@ -1,8 +1,9 @@
 ---
-id: c090262408
-question: Can I share my answers of the Homework with the community to compare before I submit them?
-section: General course-related question review
 course: machine-learning-zoomcamp
+id: c090262408
+question: Can I share my answers of the Homework with the community to compare before
+  I submit them?
+section: General course-related question review
 sort_order: 240
 ---
 

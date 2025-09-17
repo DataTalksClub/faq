@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 67ef81e00a
 question: Can I work with this dataset for midterm project https://www.kaggle.com/datasets/kapoorprakhar/cardio-health-risk-assessment-dataset?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4300
 ---
 

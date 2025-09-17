@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5b1d465332
 question: Spark is working, however, nothing appears in the Spark UI (e.g., .show())?
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3880
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8a23cfbf67
 question: How to test AWS Lambda + Docker locally?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3330
 ---
 

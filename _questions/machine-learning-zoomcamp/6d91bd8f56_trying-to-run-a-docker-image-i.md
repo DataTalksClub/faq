@@ -1,8 +1,9 @@
 ---
-id: 6d91bd8f56
-question: Trying to run a docker image I built but it says it’s unable to start the container process
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 6d91bd8f56
+question: Trying to run a docker image I built but it says it’s unable to start the
+  container process
+section: 5. Deploying Machine Learning Models
 sort_order: 2240
 ---
 

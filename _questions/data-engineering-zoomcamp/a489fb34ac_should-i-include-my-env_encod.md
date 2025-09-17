@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a489fb34ac
 question: Should I include my .env_encoded file in my .gitignore?
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1910
 ---
 

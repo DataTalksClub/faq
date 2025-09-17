@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 8ac65b2225
 question: Course - Which playlist on YouTube should I refer to?
 section: General course-related questions
-course: data-engineering-zoomcamp
 sort_order: 100
 ---
 

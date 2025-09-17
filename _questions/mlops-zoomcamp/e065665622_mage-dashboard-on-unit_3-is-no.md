@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e065665622
 question: Mage Dashboard on unit_3 is not showing charts
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1370
 ---
 

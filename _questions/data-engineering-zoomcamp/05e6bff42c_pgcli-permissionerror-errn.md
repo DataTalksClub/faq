@@ -1,8 +1,8 @@
 ---
-id: 05e6bff42c
-question: PGCLI - PermissionError: [Errno 13] Permission denied: '/some/path/.config/pgcli'
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 05e6bff42c
+question: 'PGCLI - PermissionError: [Errno 13] Permission denied: ''/some/path/.config/pgcli'''
+section: 'Module 1: Docker and Terraform'
 sort_order: 1090
 ---
 

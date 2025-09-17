@@ -1,8 +1,9 @@
 ---
-id: 0beb2b5df7
-question: Docker - "permission denied" error when creating a PostgreSQL Docker with a mounted volume on macOS M1
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 0beb2b5df7
+question: Docker - "permission denied" error when creating a PostgreSQL Docker with
+  a mounted volume on macOS M1
+section: 'Module 1: Docker and Terraform'
 sort_order: 600
 ---
 

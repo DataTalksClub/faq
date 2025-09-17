@@ -1,8 +1,8 @@
 ---
-id: 1355481387
-question: ModuleNotFoundError: No module named 'pipenv.patched.pip._vendor.urllib3.response'
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: '1355481387'
+question: 'ModuleNotFoundError: No module named ''pipenv.patched.pip._vendor.urllib3.response'''
+section: 'Module 4: Deployment'
 sort_order: 1800
 ---
 

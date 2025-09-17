@@ -1,8 +1,9 @@
 ---
-id: 896989c9f1
-question: Question: Error: creating Lambda Function (...): InvalidParameterValueException: The image manifest, config or layer media type for the source image ... is not supported.
-section: Certificates:
 course: mlops-zoomcamp
+id: 896989c9f1
+question: 'Question: Error: creating Lambda Function (...): InvalidParameterValueException:
+  The image manifest, config or layer media type for the source image ... is not supported.'
+section: 'Certificates:'
 sort_order: 2460
 ---
 

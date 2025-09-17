@@ -1,8 +1,11 @@
 ---
-id: e5ceadc2f4
-question: When I plotted using Matplot lib to check if median has a tail, I got the error below how can one bypass? FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: e5ceadc2f4
+question: 'When I plotted using Matplot lib to check if median has a tail, I got the
+  error below how can one bypass? FutureWarning: is_categorical_dtype is deprecated
+  and will be removed in a future version. Use isinstance(dtype, CategoricalDtype)
+  instead'
+section: Miscellaneous
 sort_order: 4170
 ---
 

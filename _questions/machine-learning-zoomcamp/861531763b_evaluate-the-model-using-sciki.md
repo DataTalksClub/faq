@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 861531763b
 question: Evaluate the Model using scikit learn metrics
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1630
 ---
 

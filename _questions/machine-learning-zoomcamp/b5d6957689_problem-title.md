@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b5d6957689
 question: Problem title
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 10
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5a7cdb33f2
 question: Permissions to push docker to Google Container Registry
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3950
 ---
 

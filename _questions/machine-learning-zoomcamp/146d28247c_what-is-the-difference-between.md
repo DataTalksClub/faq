@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 146d28247c
 question: What is the difference between pandas get_dummies and sklearn OnehotEncoder?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1210
 ---
 

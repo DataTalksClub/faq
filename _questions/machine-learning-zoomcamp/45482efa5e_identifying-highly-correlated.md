@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 45482efa5e
 question: Identifying highly correlated feature pairs easily through unstack
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1050
 ---
 

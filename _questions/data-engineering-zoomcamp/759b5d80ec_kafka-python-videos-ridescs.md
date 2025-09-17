@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 759b5d80ec
 question: Kafka Python Videos - Rides.csv
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3980
 ---
 

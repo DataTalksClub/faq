@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: aac6525676
 question: Can I use Scikit-Learn’s train_test_split for this week?
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 690
 ---
 

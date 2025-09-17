@@ -1,8 +1,9 @@
 ---
-id: 109e36c115
-question: Environment - Can DE Zoomcamp course be completed using only the GCP Sandbox option, or is the Free Trial required at any point?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 109e36c115
+question: Environment - Can DE Zoomcamp course be completed using only the GCP Sandbox
+  option, or is the Free Trial required at any point?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 310
 ---
 

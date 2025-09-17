@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f884543e2c
 question: Installing md5sum on Macos
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2080
 ---
 

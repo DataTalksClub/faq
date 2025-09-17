@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: edf5668d39
 question: Homework - What if my answer is not exactly the same as the choices presented?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 120
 ---
 

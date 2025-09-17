@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 884bb9afb7
 question: Passing envs to my docker image
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1760
 ---
 

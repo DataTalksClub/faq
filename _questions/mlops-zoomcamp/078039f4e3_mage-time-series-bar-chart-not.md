@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 078039f4e3
 question: Mage Time Series Bar Chart Not Showing
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1350
 ---
 

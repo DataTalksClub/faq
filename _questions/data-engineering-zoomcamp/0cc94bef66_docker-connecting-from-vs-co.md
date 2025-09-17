@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0cc94bef66
 question: Docker - Connecting from VS Code
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 800
 ---
 

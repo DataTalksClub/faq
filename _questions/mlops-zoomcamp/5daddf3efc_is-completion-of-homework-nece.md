@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 5daddf3efc
 question: Is completion of Homework necessary for a certificate?
-section: Certificates:
-course: mlops-zoomcamp
+section: 'Certificates:'
 sort_order: 2480
 ---
 

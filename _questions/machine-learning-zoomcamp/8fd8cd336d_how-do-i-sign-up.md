@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 8fd8cd336d
 question: How do I sign up?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 20
 ---
 

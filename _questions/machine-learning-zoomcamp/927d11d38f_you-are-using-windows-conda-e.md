@@ -1,8 +1,9 @@
 ---
-id: 927d11d38f
-question: You are using windows. Conda environment. You then use waitress instead of gunicorn. After a few runs, suddenly mlflow server fails to run.
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: 927d11d38f
+question: You are using windows. Conda environment. You then use waitress instead
+  of gunicorn. After a few runs, suddenly mlflow server fails to run.
+section: 5. Deploying Machine Learning Models
 sort_order: 2130
 ---
 

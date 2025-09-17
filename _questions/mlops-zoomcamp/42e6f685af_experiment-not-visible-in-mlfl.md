@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 42e6f685af
 question: Experiment not visible in MLflow UI
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 830
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 92f8926c92
 question: Install Kind via Go package
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3520
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 477b5be8e1
-question: Fatal: Authentication failed for 'https://github.com/username
-section: 1. Introduction to Machine Learning
 course: machine-learning-zoomcamp
+id: 477b5be8e1
+question: 'Fatal: Authentication failed for ''https://github.com/username'
+section: 1. Introduction to Machine Learning
 sort_order: 350
 ---
 

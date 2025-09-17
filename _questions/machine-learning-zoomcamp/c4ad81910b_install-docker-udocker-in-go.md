@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c4ad81910b
 question: Install Docker (udocker) in Google Colab
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3350
 ---
 

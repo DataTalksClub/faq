@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: efae76d03c
 question: Fix error during installation of Pipfile inside Docker container
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2040
 ---
 

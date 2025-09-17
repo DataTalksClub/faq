@@ -1,8 +1,9 @@
 ---
-id: f4dcbdd4ee
-question: Is it mandatory to use a reference dataset when generating a report with Evidently?
-section: Module 5: Monitoring
 course: mlops-zoomcamp
+id: f4dcbdd4ee
+question: Is it mandatory to use a reference dataset when generating a report with
+  Evidently?
+section: 'Module 5: Monitoring'
 sort_order: 2180
 ---
 

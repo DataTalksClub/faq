@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e8dbc40d0c
 question: X has 526 features, but expecting 525 features
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 440
 ---
 

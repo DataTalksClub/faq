@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c0dcde5293
 question: Information Gain
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2650
 ---
 

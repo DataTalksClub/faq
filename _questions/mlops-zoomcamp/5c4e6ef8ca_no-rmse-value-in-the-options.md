@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 5c4e6ef8ca
 question: No RMSE value in the options
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 470
 ---
 

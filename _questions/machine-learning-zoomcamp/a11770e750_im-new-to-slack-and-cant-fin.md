@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a11770e750
 question: I’m new to Slack and can’t find the course channel. Where is it?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 150
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 0f8512fc2a
 question: Spark - Installation Error Code 1603
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3370
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 8c9b0fdaa5
-question: Invalid date types after Ingesting FHV data through CSV files: Could not parse 'pickup_datetime' as a timestamp
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 8c9b0fdaa5
+question: 'Invalid date types after Ingesting FHV data through CSV files: Could not
+  parse ''pickup_datetime'' as a timestamp'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 3150
 ---
 

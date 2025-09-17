@@ -1,8 +1,10 @@
 ---
-id: 2eb2863faf
-question: Why do I get a “ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all()” error when doing unit test that involves comparing two data frames?
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: 2eb2863faf
+question: 'Why do I get a “ValueError: The truth value of a DataFrame is ambiguous.
+  Use a.empty, a.bool(), a.item(), a.any() or a.all()” error when doing unit test
+  that involves comparing two data frames?'
+section: 'Module 6: Best practices'
 sort_order: 2400
 ---
 

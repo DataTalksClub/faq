@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c9f27cb21a
 question: HW10 Autoscaling (optional) command does not work
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3670
 ---
 

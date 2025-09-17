@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 058d1dc710
 question: Dealing with Convergence in Week 3 q6
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1140
 ---
 

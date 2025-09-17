@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: d57d1f7b18
 question: I filled the form, but haven't received a confirmation email. Is it normal?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 80
 ---
 

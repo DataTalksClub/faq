@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: b047f348bc
 question: Certificate - Can I follow the course in a self-paced mode and get a certificate?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 70
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 186389973c
-question: Connection in use: ('127.0.0.1', 5000)
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 186389973c
+question: 'Connection in use: (''127.0.0.1'', 5000)'
+section: 'Module 2: Experiment tracking'
 sort_order: 810
 ---
 

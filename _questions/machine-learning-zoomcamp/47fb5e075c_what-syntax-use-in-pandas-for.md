@@ -1,8 +1,9 @@
 ---
-id: 47fb5e075c
-question: What syntax use in Pandas for multiple conditions using logical AND and OR
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: 47fb5e075c
+question: What syntax use in Pandas for multiple conditions using logical AND and
+  OR
+section: 2. Machine Learning for Regression
 sort_order: 910
 ---
 

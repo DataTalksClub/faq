@@ -1,8 +1,8 @@
 ---
-id: aa8c30b777
-question: PGCLI - pgcli: command not found
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: aa8c30b777
+question: 'PGCLI - pgcli: command not found'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1130
 ---
 

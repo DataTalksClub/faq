@@ -1,8 +1,8 @@
 ---
-id: 76e6d9e8ce
-question: ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 76e6d9e8ce
+question: 'ImportError: urllib3 v2.0 only supports OpenSSL 1.1.1+'
+section: 'Module 2: Experiment tracking'
 sort_order: 1220
 ---
 

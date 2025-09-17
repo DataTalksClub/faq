@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: a63d2734b2
 question: GCP VM - VM connection request timeout
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1570
 ---
 

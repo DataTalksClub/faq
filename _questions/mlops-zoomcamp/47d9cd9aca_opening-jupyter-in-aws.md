@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 47d9cd9aca
 question: Opening Jupyter in AWS
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 300
 ---
 

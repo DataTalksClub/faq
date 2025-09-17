@@ -1,8 +1,9 @@
 ---
-id: c6cd0fedc5
-question: Docker - Cannot install docker on MacOS/Windows 11 VM running on top of Linux (due to Nested virtualization).
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: c6cd0fedc5
+question: Docker - Cannot install docker on MacOS/Windows 11 VM running on top of
+  Linux (due to Nested virtualization).
+section: 'Module 1: Docker and Terraform'
 sort_order: 790
 ---
 

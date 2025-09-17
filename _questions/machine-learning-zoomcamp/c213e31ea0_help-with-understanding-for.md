@@ -1,8 +1,9 @@
 ---
-id: c213e31ea0
-question: Help with understanding: “For each numerical value, use it as score and compute AUC”
-section: 4. Evaluation Metrics for Classification
 course: machine-learning-zoomcamp
+id: c213e31ea0
+question: 'Help with understanding: “For each numerical value, use it as score and
+  compute AUC”'
+section: 4. Evaluation Metrics for Classification
 sort_order: 1490
 ---
 

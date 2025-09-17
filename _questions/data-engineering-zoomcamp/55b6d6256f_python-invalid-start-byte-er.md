@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 55b6d6256f
 question: Python - invalid start byte Error Message
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2370
 ---
 

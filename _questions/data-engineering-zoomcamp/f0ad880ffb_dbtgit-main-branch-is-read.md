@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: f0ad880ffb
 question: Dbt+git - Main branch is “read-only”
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2730
 ---
 

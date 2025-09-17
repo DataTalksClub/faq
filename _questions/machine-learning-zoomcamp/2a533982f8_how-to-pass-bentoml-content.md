@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 2a533982f8
 question: How to pass BentoML content / docker container to Amazon Lambda
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 3980
 ---
 

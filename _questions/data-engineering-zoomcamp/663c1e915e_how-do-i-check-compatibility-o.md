@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 663c1e915e
 question: How do I check compatibility of local and container Spark versions?
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 4140
 ---
 

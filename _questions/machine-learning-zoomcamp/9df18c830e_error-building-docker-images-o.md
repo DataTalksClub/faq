@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 9df18c830e
 question: Error building Docker images on Mac with M1 silicon
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1810
 ---
 

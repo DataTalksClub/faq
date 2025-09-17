@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 26a7d0d9b6
 question: Adminer Not Loaded
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2090
 ---
 

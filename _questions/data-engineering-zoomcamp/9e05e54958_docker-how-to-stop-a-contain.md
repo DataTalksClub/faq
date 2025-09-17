@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 9e05e54958
 question: Docker - How to stop a container?
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 810
 ---
 

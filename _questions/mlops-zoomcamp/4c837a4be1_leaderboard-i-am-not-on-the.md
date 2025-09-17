@@ -1,8 +1,9 @@
 ---
-id: 4c837a4be1
-question: Leaderboard - I am not on the leaderboard / how do I know which one I am on the leaderboard?
-section: General course questions
 course: mlops-zoomcamp
+id: 4c837a4be1
+question: Leaderboard - I am not on the leaderboard / how do I know which one I am
+  on the leaderboard?
+section: General course questions
 sort_order: 250
 ---
 

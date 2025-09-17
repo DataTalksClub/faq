@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 2c1cb358cb
 question: How to conduct peer reviews for projects?
 section: Projects (Midterm and Capstone)
-course: machine-learning-zoomcamp
 sort_order: 3740
 ---
 

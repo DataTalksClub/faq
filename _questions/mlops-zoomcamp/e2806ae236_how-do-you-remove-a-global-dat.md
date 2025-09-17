@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e2806ae236
 question: How do you remove a global data product
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1400
 ---
 

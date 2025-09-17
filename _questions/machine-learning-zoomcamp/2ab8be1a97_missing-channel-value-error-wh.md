@@ -1,8 +1,8 @@
 ---
-id: 2ab8be1a97
-question: Missing channel value error while reloading model:
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 2ab8be1a97
+question: 'Missing channel value error while reloading model:'
+section: 8. Neural Networks and Deep Learning
 sort_order: 2850
 ---
 

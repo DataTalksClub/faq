@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 049c4cee4e
 question: How to solve regression problems with random forest in scikit-learn?
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2420
 ---
 

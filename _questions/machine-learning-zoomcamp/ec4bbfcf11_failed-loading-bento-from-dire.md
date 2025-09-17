@@ -1,8 +1,9 @@
 ---
-id: ec4bbfcf11
-question: Failed loading Bento from directory /home/bentoml/bento: Failed to import module "service": No module named 'sklearn'
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: ec4bbfcf11
+question: 'Failed loading Bento from directory /home/bentoml/bento: Failed to import
+  module "service": No module named ''sklearn'''
+section: Miscellaneous
 sort_order: 3910
 ---
 

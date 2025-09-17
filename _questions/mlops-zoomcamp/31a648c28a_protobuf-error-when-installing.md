@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 31a648c28a
 question: Protobuf error when installing MLflow
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 980
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1075e9e2b6
 question: Make DLT comply with the XDG Base Dir Specification
 section: Workshop 1 - dlthub
-course: data-engineering-zoomcamp
 sort_order: 4440
 ---
 

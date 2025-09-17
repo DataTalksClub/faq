@@ -1,8 +1,9 @@
 ---
-id: a7e230bfb4
-question: Question 6 of HW 3 asks to train a regularized logistic regression with c = 0.
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: a7e230bfb4
+question: Question 6 of HW 3 asks to train a regularized logistic regression with
+  c = 0.
+section: 3. Machine Learning for Classification
 sort_order: 1380
 ---
 

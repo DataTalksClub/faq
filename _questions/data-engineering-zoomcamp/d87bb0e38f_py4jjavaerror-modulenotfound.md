@@ -1,8 +1,9 @@
 ---
-id: d87bb0e38f
-question: Py4JJavaError - ModuleNotFoundError: No module named 'py4j'` while executing `import pyspark`
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: d87bb0e38f
+question: 'Py4JJavaError - ModuleNotFoundError: No module named ''py4j''` while executing
+  `import pyspark`'
+section: 'Module 5: pyspark'
 sort_order: 3400
 ---
 

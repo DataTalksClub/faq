@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 7fa4e026d6
 question: Remove white spaces from column names in Pyspark
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3550
 ---
 

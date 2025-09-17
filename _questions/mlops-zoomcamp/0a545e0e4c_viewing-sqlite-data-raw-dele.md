@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 0a545e0e4c
 question: Viewing SQLite Data Raw & Deleting Experiments Manually
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 1100
 ---
 

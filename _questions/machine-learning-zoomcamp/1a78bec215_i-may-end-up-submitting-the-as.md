@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 1a78bec215
 question: I may end up submitting the assignment late. Would it be evaluated?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4110
 ---
 

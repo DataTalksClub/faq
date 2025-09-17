@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 9d89b52976
 question: Homework - What is the homework URL in the homework link?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 190
 ---
 

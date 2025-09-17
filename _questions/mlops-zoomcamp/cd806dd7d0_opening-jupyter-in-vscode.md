@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: cd806dd7d0
 question: Opening Jupyter in VSCode
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 270
 ---
 

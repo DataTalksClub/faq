@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: af50bd4d07
 question: Meaning of mean in homework 2, question 3
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 780
 ---
 

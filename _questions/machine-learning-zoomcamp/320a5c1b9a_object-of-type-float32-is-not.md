@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 320a5c1b9a
 question: Object of type float32 is not JSON serializable
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3160
 ---
 

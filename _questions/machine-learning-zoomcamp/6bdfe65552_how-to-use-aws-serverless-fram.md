@@ -1,8 +1,9 @@
 ---
-id: 6bdfe65552
-question: How to use AWS Serverless Framework to deploy on AWS Lambda and expose it as REST API through APIGatewayService?
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: 6bdfe65552
+question: How to use AWS Serverless Framework to deploy on AWS Lambda and expose it
+  as REST API through APIGatewayService?
+section: 9. Serverless Deep Learning
 sort_order: 3200
 ---
 

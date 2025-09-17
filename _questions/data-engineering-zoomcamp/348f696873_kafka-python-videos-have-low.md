@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 348f696873
 question: Kafka - python videos have low audio and hard to follow up
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3970
 ---
 

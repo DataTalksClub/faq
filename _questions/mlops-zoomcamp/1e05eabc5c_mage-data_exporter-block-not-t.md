@@ -1,8 +1,9 @@
 ---
-id: 1e05eabc5c
-question: Mage data_exporter block not taking all outputs from previous transformer block
-section: Module 3: Orchestration
 course: mlops-zoomcamp
+id: 1e05eabc5c
+question: Mage data_exporter block not taking all outputs from previous transformer
+  block
+section: 'Module 3: Orchestration'
 sort_order: 1360
 ---
 

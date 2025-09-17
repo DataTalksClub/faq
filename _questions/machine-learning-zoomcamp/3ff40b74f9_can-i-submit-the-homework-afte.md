@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3ff40b74f9
 question: Can I submit the homework after the due date?
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 170
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: ec6d89a462
-question: Access Denied: Table yellow_tripdata: User does not have permission to query table yellow_tripdata, or perhaps it does not exist in location US.
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: ec6d89a462
+question: 'Access Denied: Table yellow_tripdata: User does not have permission to
+  query table yellow_tripdata, or perhaps it does not exist in location US.'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2980
 ---
 

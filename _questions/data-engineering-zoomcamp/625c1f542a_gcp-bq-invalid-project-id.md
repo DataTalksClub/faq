@@ -1,8 +1,9 @@
 ---
-id: 625c1f542a
-question: GCP BQ - Invalid project ID . Project IDs must contain 6-63 lowercase letters, digits, or dashes. Some project
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 625c1f542a
+question: GCP BQ - Invalid project ID . Project IDs must contain 6-63 lowercase letters,
+  digits, or dashes. Some project
+section: 'Module 3: Data Warehousing'
 sort_order: 2200
 ---
 

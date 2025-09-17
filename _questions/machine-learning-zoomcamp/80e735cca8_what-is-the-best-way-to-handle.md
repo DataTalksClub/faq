@@ -1,8 +1,9 @@
 ---
-id: 80e735cca8
-question: What is the best way to handle missing values in the dataset before training a regression model?
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: 80e735cca8
+question: What is the best way to handle missing values in the dataset before training
+  a regression model?
+section: 3. Machine Learning for Classification
 sort_order: 980
 ---
 

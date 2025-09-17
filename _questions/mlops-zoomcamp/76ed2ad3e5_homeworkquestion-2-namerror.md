@@ -1,8 +1,8 @@
 ---
-id: 76ed2ad3e5
-question: Homework/Question 2: Namerror: name ‘year’ is not defined
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: 76ed2ad3e5
+question: 'Homework/Question 2: Namerror: name ‘year’ is not defined'
+section: 'Module 4: Deployment'
 sort_order: 1820
 ---
 

@@ -1,8 +1,8 @@
 ---
-id: 3a1f2deaa8
-question: ValueError: continuous format is not supported
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: 3a1f2deaa8
+question: 'ValueError: continuous format is not supported'
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2510
 ---
 

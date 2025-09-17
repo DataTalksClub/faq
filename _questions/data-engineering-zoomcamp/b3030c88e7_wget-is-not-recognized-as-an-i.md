@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: b3030c88e7
 question: wget is not recognized as an internal or external command
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 520
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: d1b7664c6c
 question: How to Update Git Public Repo Without Overwriting Changes
-section: Module 2: Experiment tracking
-course: mlops-zoomcamp
+section: 'Module 2: Experiment tracking'
 sort_order: 880
 ---
 

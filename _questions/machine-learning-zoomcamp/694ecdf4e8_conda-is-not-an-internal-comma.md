@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 694ecdf4e8
 question: Conda is not an internal command
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 320
 ---
 

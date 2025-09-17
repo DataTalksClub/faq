@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: eecebb4f2f
 question: How to select column by dtype
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 430
 ---
 

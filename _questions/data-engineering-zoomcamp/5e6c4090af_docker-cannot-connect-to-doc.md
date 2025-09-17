@@ -1,8 +1,9 @@
 ---
-id: 5e6c4090af
-question: Docker - Cannot connect to Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 5e6c4090af
+question: Docker - Cannot connect to Docker daemon at unix:///var/run/docker.sock.
+  Is the docker daemon running?
+section: 'Module 1: Docker and Terraform'
 sort_order: 570
 ---
 

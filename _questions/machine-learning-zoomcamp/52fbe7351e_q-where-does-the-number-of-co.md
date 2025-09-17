@@ -1,8 +1,9 @@
 ---
-id: 52fbe7351e
-question: Q: Where does the number of Conv2d layer’s params come from? Where does the number of “features” we get after the Flatten layer come from?
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 52fbe7351e
+question: 'Q: Where does the number of Conv2d layer’s params come from? Where does
+  the number of “features” we get after the Flatten layer come from?'
+section: 8. Neural Networks and Deep Learning
 sort_order: 2970
 ---
 

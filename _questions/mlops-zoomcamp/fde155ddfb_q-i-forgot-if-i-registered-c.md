@@ -1,8 +1,9 @@
 ---
-id: fde155ddfb
-question: Q: I forgot if I registered, can I still join the zoomcampation of this course or that for each module?
-section: General course questions
 course: mlops-zoomcamp
+id: fde155ddfb
+question: 'Q: I forgot if I registered, can I still join the zoomcampation of this
+  course or that for each module?'
+section: General course questions
 sort_order: 20
 ---
 

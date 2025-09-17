@@ -1,8 +1,9 @@
 ---
-id: 50ebc48eea
-question: Cohort - I missed the current cohort, when is the next cohort scheduled for? Will there be a 202x cohort?
-section: General course questions
 course: mlops-zoomcamp
+id: 50ebc48eea
+question: Cohort - I missed the current cohort, when is the next cohort scheduled
+  for? Will there be a 202x cohort?
+section: General course questions
 sort_order: 110
 ---
 

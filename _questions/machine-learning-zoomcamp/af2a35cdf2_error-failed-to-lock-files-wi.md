@@ -1,8 +1,8 @@
 ---
-id: af2a35cdf2
-question: Error: Failed to lock files with Pipfile.lock
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: af2a35cdf2
+question: 'Error: Failed to lock files with Pipfile.lock'
+section: 5. Deploying Machine Learning Models
 sort_order: 1860
 ---
 

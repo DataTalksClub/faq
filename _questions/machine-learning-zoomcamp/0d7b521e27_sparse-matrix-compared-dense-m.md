@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 0d7b521e27
 question: Sparse matrix compared dense matrix
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1150
 ---
 

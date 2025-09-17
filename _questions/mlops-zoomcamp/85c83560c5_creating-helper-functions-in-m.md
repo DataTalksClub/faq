@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 85c83560c5
 question: Creating Helper functions in Mage
-section: Module 3: Orchestration
-course: mlops-zoomcamp
+section: 'Module 3: Orchestration'
 sort_order: 1380
 ---
 

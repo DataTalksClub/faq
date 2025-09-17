@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: d2cdec8f35
 question: Convert dictionary values to Dataframe table
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4060
 ---
 

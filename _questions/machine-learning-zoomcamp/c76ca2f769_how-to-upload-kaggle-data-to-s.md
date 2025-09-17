@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c76ca2f769
 question: How to upload kaggle data to Saturn Cloud?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2780
 ---
 

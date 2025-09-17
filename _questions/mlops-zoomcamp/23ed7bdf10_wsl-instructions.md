@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 23ed7bdf10
 question: WSL instructions
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 310
 ---
 

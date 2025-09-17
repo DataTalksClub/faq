@@ -1,8 +1,9 @@
 ---
-id: 7255a1c3bc
-question: Leaderboard - I am not on the leaderboard / how do I know which one I am on the leaderboard?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 7255a1c3bc
+question: Leaderboard - I am not on the leaderboard / how do I know which one I am
+  on the leaderboard?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 210
 ---
 

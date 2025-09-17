@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 33184c75bd
 question: GCS Bucket - I query my dataset and get a Bad character (ASCII 0) error?
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2030
 ---
 

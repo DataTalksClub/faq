@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 18001c743b
 question: Can BigQuery work with parquet files directly?
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2310
 ---
 

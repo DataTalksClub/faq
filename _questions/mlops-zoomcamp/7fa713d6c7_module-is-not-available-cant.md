@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 7fa713d6c7
 question: module is not available (Can't connect to HTTPS URL)
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1570
 ---
 

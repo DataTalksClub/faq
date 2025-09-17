@@ -1,8 +1,9 @@
 ---
-id: 1c65bb4c0c
-question: Why cpu vals for Kubernetes deployment.yaml look like “100m” and “500m”? What does "m" mean?
-section: 10. Kubernetes and TensorFlow Serving
 course: machine-learning-zoomcamp
+id: 1c65bb4c0c
+question: Why cpu vals for Kubernetes deployment.yaml look like “100m” and “500m”?
+  What does "m" mean?
+section: 10. Kubernetes and TensorFlow Serving
 sort_order: 3560
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c25b3cc5fe
 question: Problem with recent version of protobuf
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3440
 ---
 

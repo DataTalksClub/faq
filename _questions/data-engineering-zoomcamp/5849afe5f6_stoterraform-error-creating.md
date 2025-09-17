@@ -1,8 +1,9 @@
 ---
-id: 5849afe5f6
-question: stoTerraform - Error creating Bucket: googleapi: Error 403: Permission denied to access ‘storage.buckets.create’
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 5849afe5f6
+question: 'stoTerraform - Error creating Bucket: googleapi: Error 403: Permission
+  denied to access ‘storage.buckets.create’'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1690
 ---
 

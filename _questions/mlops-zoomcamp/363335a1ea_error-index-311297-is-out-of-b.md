@@ -1,8 +1,9 @@
 ---
-id: 363335a1ea
-question: Error index 311297 is out of bounds for axis 0 with size 131483 when loading parquet file.
-section: Module 4: Deployment
 course: mlops-zoomcamp
+id: 363335a1ea
+question: Error index 311297 is out of bounds for axis 0 with size 131483 when loading
+  parquet file.
+section: 'Module 4: Deployment'
 sort_order: 1620
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ffab512d4f
 question: Unable to run pip install tflite_runtime from github wheel links?
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3370
 ---
 

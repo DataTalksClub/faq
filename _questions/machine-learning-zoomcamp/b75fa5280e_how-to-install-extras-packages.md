@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b75fa5280e
 question: How to install extras packages on Google Colab or Kaggle?
 section: Miscellaneous
-course: machine-learning-zoomcamp
 sort_order: 4260
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 748ffe7992
 question: waitress-serve shows Malformed application
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2190
 ---
 

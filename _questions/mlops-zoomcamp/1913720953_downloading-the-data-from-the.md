@@ -1,8 +1,8 @@
 ---
-id: 1913720953
-question: Downloading the data from the NY Taxis datasets gives error : 403 Forbidden
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: '1913720953'
+question: 'Downloading the data from the NY Taxis datasets gives error : 403 Forbidden'
+section: 'Module 1: Introduction'
 sort_order: 630
 ---
 

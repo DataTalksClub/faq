@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: bdc4c489fd
 question: Dependence of the F-score on class imbalance
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1670
 ---
 

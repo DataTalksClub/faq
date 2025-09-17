@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: abfdc60e4a
 question: How do you find the correlation matrix?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1030
 ---
 

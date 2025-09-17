@@ -1,8 +1,8 @@
 ---
-id: 639151c1d1
-question: AttributeError: 'DataFrame' object has no attribute 'iteritems'
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 639151c1d1
+question: 'AttributeError: ''DataFrame'' object has no attribute ''iteritems'''
+section: 'Module 5: pyspark'
 sort_order: 3570
 ---
 

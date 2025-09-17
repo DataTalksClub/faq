@@ -1,8 +1,8 @@
 ---
-id: 52858dfd98
-question: Postgres - ModuleNotFoundError: No module named 'psycopg2'
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 52858dfd98
+question: 'Postgres - ModuleNotFoundError: No module named ''psycopg2'''
+section: 'Module 1: Docker and Terraform'
 sort_order: 1230
 ---
 

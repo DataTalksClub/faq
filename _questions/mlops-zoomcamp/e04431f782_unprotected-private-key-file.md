@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: e04431f782
 question: Unprotected private key file!
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 390
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ad33c1d6f5
 question: Checking long tail of data
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 590
 ---
 

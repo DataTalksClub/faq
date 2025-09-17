@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 921879ea38
 question: Why are FPR and TPR equal to 0.0, when threshold = 1.0?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1560
 ---
 

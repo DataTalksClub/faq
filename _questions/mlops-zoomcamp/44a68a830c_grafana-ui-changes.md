@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 44a68a830c
 question: Grafana UI Changes
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 2100
 ---
 

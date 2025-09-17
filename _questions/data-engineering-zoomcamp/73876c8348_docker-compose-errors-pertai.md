@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 73876c8348
 question: Docker-Compose - Errors pertaining to docker-compose.yml and pgadmin setup
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 950
 ---
 

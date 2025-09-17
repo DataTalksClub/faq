@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 139ae54c4f
 question: Difference between predict(X) and predict_proba(X)[:, 1]
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1550
 ---
 

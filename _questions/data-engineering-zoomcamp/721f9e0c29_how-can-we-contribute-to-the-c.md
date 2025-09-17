@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 721f9e0c29
 question: How can we contribute to the course?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 370
 ---
 

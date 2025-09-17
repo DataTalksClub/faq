@@ -1,8 +1,8 @@
 ---
-id: 4e92a486d1
-question: Docker - build error: error checking context: 'can't stat '/home/user/repos/data-engineering/week_1_basics_n_setup/2_docker_sql/ny_taxi_postgres_data''.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 4e92a486d1
+question: 'Docker - build error: error checking context: ''can''t stat ''/home/user/repos/data-engineering/week_1_basics_n_setup/2_docker_sql/ny_taxi_postgres_data''''.'
+section: 'Module 1: Docker and Terraform'
 sort_order: 720
 ---
 

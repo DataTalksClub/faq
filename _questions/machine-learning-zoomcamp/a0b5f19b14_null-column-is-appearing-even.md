@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a0b5f19b14
 question: Null column is appearing even if I applied .fillna()
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 680
 ---
 

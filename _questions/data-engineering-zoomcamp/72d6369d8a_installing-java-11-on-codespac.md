@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 72d6369d8a
 question: Installing Java 11 on codespaces
-section: Module 5: pyspark
-course: data-engineering-zoomcamp
+section: 'Module 5: pyspark'
 sort_order: 3780
 ---
 

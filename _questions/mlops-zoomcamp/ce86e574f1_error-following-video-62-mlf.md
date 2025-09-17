@@ -1,8 +1,8 @@
 ---
-id: ce86e574f1
-question: Error following video 6.2: mlflow=1.27.0
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: ce86e574f1
+question: 'Error following video 6.2: mlflow=1.27.0'
+section: 'Module 6: Best practices'
 sort_order: 2210
 ---
 

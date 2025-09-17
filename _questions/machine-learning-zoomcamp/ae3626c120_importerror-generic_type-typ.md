@@ -1,8 +1,8 @@
 ---
-id: ae3626c120
-question: ImportError: generic_type: type "InterpreterWrapper" is already registered!
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: ae3626c120
+question: 'ImportError: generic_type: type "InterpreterWrapper" is already registered!'
+section: 9. Serverless Deep Learning
 sort_order: 3120
 ---
 

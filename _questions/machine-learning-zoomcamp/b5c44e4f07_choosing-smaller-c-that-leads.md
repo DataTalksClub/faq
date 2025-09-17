@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b5c44e4f07
 question: Choosing smaller C that leads to best accuracy in Homework 3 Question 6
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1260
 ---
 

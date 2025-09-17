@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 3547bb9442
 question: Shuffling data using Numpy’s Generator Feature
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 760
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 148d5d0ed7
 question: Extremely low RSME
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 610
 ---
 

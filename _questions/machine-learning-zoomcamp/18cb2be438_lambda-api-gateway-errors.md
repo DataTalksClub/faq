@@ -1,8 +1,8 @@
 ---
-id: 18cb2be438
-question: Lambda API Gateway errors:
-section: 9. Serverless Deep Learning
 course: machine-learning-zoomcamp
+id: 18cb2be438
+question: 'Lambda API Gateway errors:'
+section: 9. Serverless Deep Learning
 sort_order: 3360
 ---
 

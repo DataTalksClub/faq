@@ -1,8 +1,9 @@
 ---
-id: 4f1fe161b1
-question: Environment - Should I use my local machine, GCP, or GitHub Codespaces for my environment?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 4f1fe161b1
+question: Environment - Should I use my local machine, GCP, or GitHub Codespaces for
+  my environment?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 230
 ---
 

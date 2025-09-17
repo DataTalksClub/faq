@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e35e6adc78
 question: What is the difference between OneHotEncoder and DictVectorizer?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1200
 ---
 

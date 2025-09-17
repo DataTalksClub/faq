@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f3254c8c94
 question: How to install CUDA & cuDNN on Ubuntu 22.04
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2790
 ---
 

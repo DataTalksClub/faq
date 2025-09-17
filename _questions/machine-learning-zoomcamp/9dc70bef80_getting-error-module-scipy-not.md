@@ -1,8 +1,9 @@
 ---
-id: 9dc70bef80
-question: Getting error module scipy not found during model training in Saturn Cloud tensorflow image
-section: 8. Neural Networks and Deep Learning
 course: machine-learning-zoomcamp
+id: 9dc70bef80
+question: Getting error module scipy not found during model training in Saturn Cloud
+  tensorflow image
+section: 8. Neural Networks and Deep Learning
 sort_order: 2770
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 460343cb44
-question: When using Autologging, do I need to set a training parameter to track it on Mlflow UI?
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 460343cb44
+question: When using Autologging, do I need to set a training parameter to track it
+  on Mlflow UI?
+section: 'Module 2: Experiment tracking'
 sort_order: 1240
 ---
 

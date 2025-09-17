@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 1c7bfa9357
 question: Data Transformation from Databricks to Azure SQL DB
 section: Project
-course: data-engineering-zoomcamp
 sort_order: 4240
 ---
 

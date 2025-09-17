@@ -1,8 +1,8 @@
 ---
-id: ea9c96ab72
-question: kafka.errors.NoBrokersAvailable: NoBrokersAvailable
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: ea9c96ab72
+question: 'kafka.errors.NoBrokersAvailable: NoBrokersAvailable'
+section: 'Module 6: streaming with kafka'
 sort_order: 3990
 ---
 

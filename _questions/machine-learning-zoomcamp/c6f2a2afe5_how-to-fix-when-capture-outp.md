@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c6f2a2afe5
 question: How to fix when %%capture output is not working in Google Collab Notebook
 section: 6. Decision Trees and Ensemble Learning
-course: machine-learning-zoomcamp
 sort_order: 2400
 ---
 

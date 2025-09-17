@@ -1,8 +1,9 @@
 ---
-id: dc86b83814
-question: How to ensure "none" values are not interpreted as NaN when reading a CSV file in Pandas
-section: 6. Decision Trees and Ensemble Learning
 course: machine-learning-zoomcamp
+id: dc86b83814
+question: How to ensure "none" values are not interpreted as NaN when reading a CSV
+  file in Pandas
+section: 6. Decision Trees and Ensemble Learning
 sort_order: 2390
 ---
 

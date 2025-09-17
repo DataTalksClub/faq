@@ -1,8 +1,8 @@
 ---
-id: 48b99a69ff
-question: Fix: Add extra_hosts for host.docker.internal on Linux
-section: Module 2: Workflow Orchestration
 course: data-engineering-zoomcamp
+id: 48b99a69ff
+question: 'Fix: Add extra_hosts for host.docker.internal on Linux'
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1940
 ---
 

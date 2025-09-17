@@ -1,8 +1,8 @@
 ---
-id: d3711f6b51
-question: ictVectorizerA: Alexey’s answer
-section: Module 1: Introduction
 course: mlops-zoomcamp
+id: d3711f6b51
+question: 'ictVectorizerA: Alexey’s answer'
+section: 'Module 1: Introduction'
 sort_order: 560
 ---
 

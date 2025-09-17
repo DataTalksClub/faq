@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e1f45bd454
 question: The zoomcamps are spread out throughout the year. See article
 section: General course-related question review
-course: machine-learning-zoomcamp
 sort_order: 40
 ---
 

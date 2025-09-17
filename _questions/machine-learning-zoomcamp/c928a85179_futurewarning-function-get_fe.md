@@ -1,8 +1,9 @@
 ---
-id: c928a85179
-question: FutureWarning: Function get_feature_names is deprecated; get_feature_names is deprecated in 1.0 and will be removed in 1.2
-section: 3. Machine Learning for Classification
 course: machine-learning-zoomcamp
+id: c928a85179
+question: 'FutureWarning: Function get_feature_names is deprecated; get_feature_names
+  is deprecated in 1.0 and will be removed in 1.2'
+section: 3. Machine Learning for Classification
 sort_order: 1090
 ---
 

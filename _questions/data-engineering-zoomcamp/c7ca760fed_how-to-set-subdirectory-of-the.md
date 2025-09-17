@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: c7ca760fed
 question: How to set subdirectory of the github repository as the dbt project root
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2820
 ---
 

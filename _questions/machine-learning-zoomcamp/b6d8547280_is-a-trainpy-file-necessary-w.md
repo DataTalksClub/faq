@@ -1,8 +1,9 @@
 ---
-id: b6d8547280
-question: Is a train.py file necessary when you have a train.ipynb file in your midterm project directory?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: b6d8547280
+question: Is a train.py file necessary when you have a train.ipynb file in your midterm
+  project directory?
+section: Miscellaneous
 sort_order: 3850
 ---
 

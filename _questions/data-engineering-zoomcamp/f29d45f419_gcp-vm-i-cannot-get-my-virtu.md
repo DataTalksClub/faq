@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: f29d45f419
 question: GCP VM - I cannot get my Virtual Machine to start because GCP has no resources.
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 1530
 ---
 

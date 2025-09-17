@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 5baf3e8a5e
 question: Docker engine stopped_failed to fetch extensions
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 900
 ---
 

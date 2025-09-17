@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 76134388e5
 question: How to use Google Colab for Deep Learning?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2740
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 02cd286eb8
 question: Compute Recall, Precision, and F1 Score using scikit-learn library
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1610
 ---
 

@@ -1,8 +1,10 @@
 ---
-id: 409296db3e
-question: Postgres - OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "root"
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 409296db3e
+question: 'Postgres - OperationalError: (psycopg2.OperationalError) connection to
+  server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed
+  for user "root"'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1190
 ---
 

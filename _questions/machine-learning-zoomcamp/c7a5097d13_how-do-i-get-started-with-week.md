@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c7a5097d13
 question: How do I get started with Week 3?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 990
 ---
 

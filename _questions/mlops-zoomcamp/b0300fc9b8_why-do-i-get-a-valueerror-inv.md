@@ -1,8 +1,9 @@
 ---
-id: b0300fc9b8
-question: Why do I get a ValueError: Invalid endpoint error when using Boto3 with Docker Compose services?
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: b0300fc9b8
+question: 'Why do I get a ValueError: Invalid endpoint error when using Boto3 with
+  Docker Compose services?'
+section: 'Module 6: Best practices'
 sort_order: 2390
 ---
 

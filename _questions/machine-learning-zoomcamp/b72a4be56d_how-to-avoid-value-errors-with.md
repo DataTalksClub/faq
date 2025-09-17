@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: b72a4be56d
 question: How to avoid Value errors with array shapes in homework?
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 450
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: f6544a339e
 question: Project - For the final project, is it required to be put on the cloud?
 section: General course questions
-course: mlops-zoomcamp
 sort_order: 220
 ---
 

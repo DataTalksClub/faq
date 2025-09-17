@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 9dedd0bb1c
 question: Evidently Import Error
-section: Module 6: Best practices
-course: mlops-zoomcamp
+section: 'Module 6: Best practices'
 sort_order: 2200
 ---
 

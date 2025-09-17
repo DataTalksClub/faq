@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 1b29ba4c54
 question: Launching Jupyter notebook from codespace VM
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 280
 ---
 

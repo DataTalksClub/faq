@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 6c5a79afd4
 question: Shuffling the initial dataset using pandas built-in function
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 750
 ---
 

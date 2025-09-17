@@ -1,8 +1,8 @@
 ---
-id: d039adfb76
-question: Java Kafka: Tests are not picked up in VSCode
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: d039adfb76
+question: 'Java Kafka: Tests are not picked up in VSCode'
+section: 'Module 6: streaming with kafka'
 sort_order: 4120
 ---
 

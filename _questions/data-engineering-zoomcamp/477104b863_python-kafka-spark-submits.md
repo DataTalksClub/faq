@@ -1,8 +1,9 @@
 ---
-id: 477104b863
-question: Python Kafka: ./spark-submit.sh streaming.py - ERROR StandaloneSchedulerBackend: Application has been killed. Reason: All masters are unresponsive! Giving up.
-section: Module 6: streaming with kafka
 course: data-engineering-zoomcamp
+id: 477104b863
+question: 'Python Kafka: ./spark-submit.sh streaming.py - ERROR StandaloneSchedulerBackend:
+  Application has been killed. Reason: All masters are unresponsive! Giving up.'
+section: 'Module 6: streaming with kafka'
 sort_order: 4040
 ---
 

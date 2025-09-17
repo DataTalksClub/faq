@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 7ab955e247
 question: How to use Kaggle for Deep Learning?
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2730
 ---
 

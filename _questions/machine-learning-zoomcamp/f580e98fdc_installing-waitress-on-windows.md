@@ -1,8 +1,9 @@
 ---
-id: f580e98fdc
-question: Installing waitress on Windows via GitBash: “waitress-serve” command not found
-section: 5. Deploying Machine Learning Models
 course: machine-learning-zoomcamp
+id: f580e98fdc
+question: 'Installing waitress on Windows via GitBash: “waitress-serve” command not
+  found'
+section: 5. Deploying Machine Learning Models
 sort_order: 2150
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: fa23739c18
 question: Empty Records in Kinesis Get Records with LocalStack
-section: Module 6: Best practices
-course: mlops-zoomcamp
+section: 'Module 6: Best practices'
 sort_order: 2270
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: fd3a06c6ee
 question: Kind cannot load docker image
 section: 10. Kubernetes and TensorFlow Serving
-course: machine-learning-zoomcamp
 sort_order: 3570
 ---
 

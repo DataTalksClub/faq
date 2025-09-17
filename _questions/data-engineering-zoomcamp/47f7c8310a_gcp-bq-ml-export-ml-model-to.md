@@ -1,8 +1,9 @@
 ---
-id: 47f7c8310a
-question: GCP BQ ML - Export ML model to make predictions does not work for MacBook with Apple M1 chip (arm architecture).
-section: Module 3: Data Warehousing
 course: data-engineering-zoomcamp
+id: 47f7c8310a
+question: GCP BQ ML - Export ML model to make predictions does not work for MacBook
+  with Apple M1 chip (arm architecture).
+section: 'Module 3: Data Warehousing'
 sort_order: 2280
 ---
 

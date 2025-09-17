@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 78b515b003
 question: ImportError when using ColumnQuantileMetric with Evidently
-section: Module 5: Monitoring
-course: mlops-zoomcamp
+section: 'Module 5: Monitoring'
 sort_order: 1910
 ---
 

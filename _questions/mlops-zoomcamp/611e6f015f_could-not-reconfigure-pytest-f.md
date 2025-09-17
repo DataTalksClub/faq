@@ -1,8 +1,9 @@
 ---
-id: 611e6f015f
-question: Could not reconfigure pytest from zero after getting done with previous folder
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: 611e6f015f
+question: Could not reconfigure pytest from zero after getting done with previous
+  folder
+section: 'Module 6: Best practices'
 sort_order: 2260
 ---
 

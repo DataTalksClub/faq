@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 00b11da94b
 question: Going further with Google Cloud Platform (load and save data to GCS)
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1650
 ---
 

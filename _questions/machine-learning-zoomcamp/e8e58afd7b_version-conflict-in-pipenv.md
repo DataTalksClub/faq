@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: e8e58afd7b
 question: Version-conflict in pipenv
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 2100
 ---
 

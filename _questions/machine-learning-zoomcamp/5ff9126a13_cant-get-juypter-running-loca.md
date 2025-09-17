@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 5ff9126a13
 question: Can’t get Juypter running locally on your machine?
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 560
 ---
 

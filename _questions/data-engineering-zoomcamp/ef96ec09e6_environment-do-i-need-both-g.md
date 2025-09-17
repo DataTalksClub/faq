@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: ef96ec09e6
 question: Environment - Do I need both GitHub Codespaces and GCP?
 section: Course Management Platform for Homeworks, Project and Certificate
-course: data-engineering-zoomcamp
 sort_order: 260
 ---
 

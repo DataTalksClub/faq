@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: f29b4790fc
 question: What is Stratified k-fold?
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1690
 ---
 

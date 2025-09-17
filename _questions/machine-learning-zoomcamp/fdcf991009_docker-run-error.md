@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: fdcf991009
 question: Docker run error
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3250
 ---
 

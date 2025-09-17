@@ -1,8 +1,8 @@
 ---
-id: b1712cc9d5
-question: Shortcut: define functions for faster execution
-section: 2. Machine Learning for Regression
 course: machine-learning-zoomcamp
+id: b1712cc9d5
+question: 'Shortcut: define functions for faster execution'
+section: 2. Machine Learning for Regression
 sort_order: 840
 ---
 

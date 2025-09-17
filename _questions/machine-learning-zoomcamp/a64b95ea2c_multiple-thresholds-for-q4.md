@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: a64b95ea2c
 question: Multiple thresholds for Q4
 section: 4. Evaluation Metrics for Classification
-course: machine-learning-zoomcamp
 sort_order: 1440
 ---
 

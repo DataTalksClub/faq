@@ -1,8 +1,8 @@
 ---
-id: 4d08d35199
-question: AttributeError: 'MlflowClient' object has no attribute 'list_run_infos'
-section: Module 2: Experiment tracking
 course: mlops-zoomcamp
+id: 4d08d35199
+question: 'AttributeError: ''MlflowClient'' object has no attribute ''list_run_infos'''
+section: 'Module 2: Experiment tracking'
 sort_order: 1230
 ---
 

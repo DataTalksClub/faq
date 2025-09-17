@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: c0ceddd1a3
 question: Using multi-threading for data generation in “model.fit()”
 section: 8. Neural Networks and Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 2910
 ---
 

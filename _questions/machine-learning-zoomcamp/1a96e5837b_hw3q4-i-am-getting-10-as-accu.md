@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 1a96e5837b
 question: HW3Q4 I am getting 1.0 as accuracy. Should I use the closest option?
 section: 3. Machine Learning for Classification
-course: machine-learning-zoomcamp
 sort_order: 1300
 ---
 

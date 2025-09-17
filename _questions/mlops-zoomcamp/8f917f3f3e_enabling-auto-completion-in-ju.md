@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 8f917f3f3e
 question: Enabling Auto-completion in jupyter notebook
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 620
 ---
 

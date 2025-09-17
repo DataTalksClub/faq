@@ -1,8 +1,9 @@
 ---
-id: 45bd267149
-question: “Parquet column 'ehail_fee' has type DOUBLE which does not match the target cpp_type INT64”
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 45bd267149
+question: “Parquet column 'ehail_fee' has type DOUBLE which does not match the target
+  cpp_type INT64”
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2530
 ---
 

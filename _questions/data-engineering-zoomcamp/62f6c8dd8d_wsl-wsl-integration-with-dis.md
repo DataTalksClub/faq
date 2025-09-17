@@ -1,8 +1,9 @@
 ---
-id: 62f6c8dd8d
-question: WSL - WSL integration with distro Ubuntu unexpectedly stopped with exit code 1.
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 62f6c8dd8d
+question: WSL - WSL integration with distro Ubuntu unexpectedly stopped with exit
+  code 1.
+section: 'Module 1: Docker and Terraform'
 sort_order: 1030
 ---
 

@@ -77,9 +77,19 @@ If you prefer to run commands manually:
    bundle install
    ```
 
-2. Process FAQ documents:
+2. Process FAQ documents (with automatic cleanup):
    ```bash
+   # Clean questions directory first
+   python clean_questions.py
+   
+   # Extract FAQ data
    uv run python faq_processor.py
+   
+   # Validate compatibility
+   python validate_questions.py
+   
+   # Generate static site
+   python generate.py
    ```
 
 3. Serve the site:
@@ -109,6 +119,66 @@ The content was processed from the original Google Docs FAQ documents using the 
 3. Converts content to individual Jekyll question files
 4. Generates course index pages
 5. Creates the Jekyll site structure
+
+## FAQ Processing Workflow
+
+To ensure compatibility between the FAQ processor and static site generator:
+
+### Available Makefile Targets
+
+```bash
+make help              # Show available commands
+make clean_questions   # Remove all files in _questions/ directory
+make extract          # Clean _questions/ and extract FAQ data from Google Docs
+make validate         # Validate all question files are compatible with generate.py
+make website          # Generate static website from markdown files
+```
+
+### Recommended Workflow
+
+1. **Clean and Extract**: Always start by cleaning the questions directory to prevent leftover files:
+   ```bash
+   make extract  # This automatically runs clean_questions first
+   ```
+
+2. **Validate**: Check that all generated files are compatible:
+   ```bash
+   make validate
+   ```
+
+3. **Generate Site**: Create the static HTML site:
+   ```bash
+   make website
+   ```
+
+### Manual Workflow
+
+If you prefer to run commands individually:
+
+```bash
+# 1. Clean questions directory
+python clean_questions.py
+
+# 2. Extract FAQ data
+python faq_processor.py
+
+# 3. Validate compatibility  
+python validate_questions.py
+
+# 4. Generate static site
+python generate.py
+```
+
+### File Compatibility
+
+The FAQ processor now generates markdown files with properly formatted YAML frontmatter that includes:
+- `id` - Unique identifier for the question
+- `question` - The question text (properly quoted for YAML)
+- `section` - The section/category (properly quoted for YAML)
+- `course` - The course name
+- `sort_order` - Numerical sort order
+
+All string values containing special characters (like colons) are automatically quoted to ensure YAML compatibility.
 
 ## Images
 

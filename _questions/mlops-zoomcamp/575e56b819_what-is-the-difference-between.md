@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: 575e56b819
 question: What is the difference between label and one-hot encoding?
-section: Module 1: Introduction
-course: mlops-zoomcamp
+section: 'Module 1: Introduction'
 sort_order: 530
 ---
 

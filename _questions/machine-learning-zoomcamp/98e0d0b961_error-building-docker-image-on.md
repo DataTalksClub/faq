@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 98e0d0b961
 question: Error building docker image on M1 Mac
 section: 9. Serverless Deep Learning
-course: machine-learning-zoomcamp
 sort_order: 3210
 ---
 

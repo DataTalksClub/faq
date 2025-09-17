@@ -1,8 +1,10 @@
 ---
-id: 78e4da8fa6
-question: When executing dbt run after fact_trips.sql has been created, the task failed with error:  “Access Denied: BigQuery BigQuery: Permission denied while globbing file pattern.”
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 78e4da8fa6
+question: 'When executing dbt run after fact_trips.sql has been created, the task
+  failed with error:  “Access Denied: BigQuery BigQuery: Permission denied while globbing
+  file pattern.”'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2610
 ---
 

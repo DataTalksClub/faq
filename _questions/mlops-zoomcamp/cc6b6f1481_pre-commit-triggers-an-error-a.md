@@ -1,8 +1,9 @@
 ---
-id: cc6b6f1481
-question: Pre-commit triggers an error at every commit: “mapping values are not allowed in this context”
-section: Module 6: Best practices
 course: mlops-zoomcamp
+id: cc6b6f1481
+question: 'Pre-commit triggers an error at every commit: “mapping values are not allowed
+  in this context”'
+section: 'Module 6: Best practices'
 sort_order: 2250
 ---
 

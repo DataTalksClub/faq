@@ -1,8 +1,8 @@
 ---
-id: 55c0047f8b
-question: Terraform - Error 403 : Access denied
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 55c0047f8b
+question: 'Terraform - Error 403 : Access denied'
+section: 'Module 1: Docker and Terraform'
 sort_order: 1640
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: mlops-zoomcamp
 id: afd037e097
 question: Pipenv with Jupyter no output
-section: Module 4: Deployment
-course: mlops-zoomcamp
+section: 'Module 4: Deployment'
 sort_order: 1600
 ---
 

@@ -1,8 +1,9 @@
 ---
-id: 5b4fb0c0a8
-question: Environment - Is GitHub codespaces an alternative to using cli/git bash to ingest the data and create a docker file?
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: 5b4fb0c0a8
+question: Environment - Is GitHub codespaces an alternative to using cli/git bash
+  to ingest the data and create a docker file?
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 240
 ---
 

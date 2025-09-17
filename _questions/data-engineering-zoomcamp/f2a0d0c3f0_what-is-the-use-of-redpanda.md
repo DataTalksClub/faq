@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: f2a0d0c3f0
 question: What is the use of  Redpanda ?
-section: Module 6: streaming with kafka
-course: data-engineering-zoomcamp
+section: 'Module 6: streaming with kafka'
 sort_order: 3940
 ---
 

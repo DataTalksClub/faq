@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 17d0c79f61
 question: Target variable transformation
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 630
 ---
 

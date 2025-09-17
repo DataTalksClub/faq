@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 77517d5e44
 question: wget  hangs on MacOS Ventura M1
 section: 1. Introduction to Machine Learning
-course: machine-learning-zoomcamp
 sort_order: 530
 ---
 

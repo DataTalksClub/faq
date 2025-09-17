@@ -1,8 +1,9 @@
 ---
-id: 14cc6e2060
-question: MemoryManager: Total allocation exceeds 95.00% (1,020,054,720 bytes) of heap memory
-section: Module 5: pyspark
 course: data-engineering-zoomcamp
+id: 14cc6e2060
+question: 'MemoryManager: Total allocation exceeds 95.00% (1,020,054,720 bytes) of
+  heap memory'
+section: 'Module 5: pyspark'
 sort_order: 3660
 ---
 

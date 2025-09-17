@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 29469cf158
 question: Setup - No development environment
-section: Module 4: analytics engineering with dbt
-course: data-engineering-zoomcamp
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2460
 ---
 

@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: 2dc4089953
 question: Why do we need the --rm flag
 section: 5. Deploying Machine Learning Models
-course: machine-learning-zoomcamp
 sort_order: 1880
 ---
 

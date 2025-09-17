@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 8585d2d7f4
 question: Taxi Data - Unzip Parquet file
-section: Module 1: Docker and Terraform
-course: data-engineering-zoomcamp
+section: 'Module 1: Docker and Terraform'
 sort_order: 510
 ---
 

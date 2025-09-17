@@ -1,8 +1,9 @@
 ---
-id: b92da7c113
-question: Environment - Could not establish connection to "MyServerName": Got bad result from install script
-section: Course Management Platform for Homeworks, Project and Certificate
 course: data-engineering-zoomcamp
+id: b92da7c113
+question: 'Environment - Could not establish connection to "MyServerName": Got bad
+  result from install script'
+section: Course Management Platform for Homeworks, Project and Certificate
 sort_order: 270
 ---
 

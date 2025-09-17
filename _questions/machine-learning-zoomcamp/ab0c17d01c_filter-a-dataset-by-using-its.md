@@ -1,8 +1,8 @@
 ---
+course: machine-learning-zoomcamp
 id: ab0c17d01c
 question: Filter a dataset by using its values
 section: 2. Machine Learning for Regression
-course: machine-learning-zoomcamp
 sort_order: 660
 ---
 

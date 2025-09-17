@@ -1,8 +1,9 @@
 ---
-id: 6aa17f1eab
-question: Why do I need to provide a train.py file when I already have the notebook.ipynb file?
-section: Miscellaneous
 course: machine-learning-zoomcamp
+id: 6aa17f1eab
+question: Why do I need to provide a train.py file when I already have the notebook.ipynb
+  file?
+section: Miscellaneous
 sort_order: 3830
 ---
 

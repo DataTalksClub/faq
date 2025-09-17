@@ -1,8 +1,9 @@
 ---
-id: 8b30e50ebe
-question: What’s the difference between the previous iteration of the course (2022) and this one (2023)?
-section: General course-related question review
 course: machine-learning-zoomcamp
+id: 8b30e50ebe
+question: What’s the difference between the previous iteration of the course (2022)
+  and this one (2023)?
+section: General course-related question review
 sort_order: 210
 ---
 

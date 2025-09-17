@@ -1,8 +1,8 @@
 ---
-id: 646e2067e8
-question: Python - ModuleNotFoundError: No module named 'pysqlite2'
-section: Module 1: Docker and Terraform
 course: data-engineering-zoomcamp
+id: 646e2067e8
+question: 'Python - ModuleNotFoundError: No module named ''pysqlite2'''
+section: 'Module 1: Docker and Terraform'
 sort_order: 1300
 ---
 

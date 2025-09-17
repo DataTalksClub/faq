@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: 16b4ae94ef
 question: GCP BQ - Native tables vs External tables in BigQuery?
-section: Module 3: Data Warehousing
-course: data-engineering-zoomcamp
+section: 'Module 3: Data Warehousing'
 sort_order: 2240
 ---
 

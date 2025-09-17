@@ -1,8 +1,8 @@
 ---
-id: 0f6e2d3813
-question: How do I solve the Dbt Cloud error: prod was not found in location?
-section: Module 4: analytics engineering with dbt
 course: data-engineering-zoomcamp
+id: 0f6e2d3813
+question: 'How do I solve the Dbt Cloud error: prod was not found in location?'
+section: 'Module 4: analytics engineering with dbt'
 sort_order: 2450
 ---
 

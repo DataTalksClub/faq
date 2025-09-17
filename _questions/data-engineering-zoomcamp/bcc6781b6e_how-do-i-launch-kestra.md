@@ -1,8 +1,8 @@
 ---
+course: data-engineering-zoomcamp
 id: bcc6781b6e
 question: How do I launch Kestra?
-section: Module 2: Workflow Orchestration
-course: data-engineering-zoomcamp
+section: 'Module 2: Workflow Orchestration'
 sort_order: 1820
 ---
 
