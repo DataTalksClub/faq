@@ -112,15 +112,34 @@ def collect_questions():
                     print(f"⚠️  Skipping {question_file.name}: {error}")
                     continue
                 
-                # Handle missing question field
+                # Handle missing question field - include with placeholder
                 if not frontmatter.get('question'):
                     processing_stats['skipped_missing_question'] += 1
                     skipped_files.append({
                         'file': question_file,
                         'reason': 'Missing question field',
-                        'details': 'No question field found in frontmatter'
+                        'details': 'No question field found in frontmatter - including with placeholder'
                     })
-                    print(f"⚠️  Skipping {question_file.name}: missing question field in frontmatter")
+                    print(f"⚠️  Including {question_file.name} with placeholder: missing question field")
+                    
+                    # Create placeholder question
+                    placeholder_question = f"Question from {question_file.name}"
+                    
+                    # Process markdown to HTML
+                    html_content = process_markdown(markdown_content)
+                    
+                    question_data = {
+                        'question': placeholder_question,
+                        'section': frontmatter.get('section', 'Unknown Section'),
+                        'course': course_name,
+                        'content': html_content + '<p><em>Note: This question was missing a title and has been given a placeholder.</em></p>',
+                        'file': question_file.name,
+                        'is_placeholder': True
+                    }
+                    
+                    section_name = frontmatter.get('section', 'Unknown Section')
+                    courses[course_name][section_name].append(question_data)
+                    processing_stats['processed_files'] += 1
                     continue
                 
                 # Process markdown to HTML
