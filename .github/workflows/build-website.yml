@@ -33,9 +33,6 @@ jobs:
         
     - name: Sync dependencies
       run: uv sync
-        
-    - name: Extract questions from Google Docs
-      run: make extract
       
     - name: Build static website
       run: make website
@@ -51,21 +48,3 @@ jobs:
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
-      
-    - name: Check if there are changes to commit
-      id: verify-changed-files
-      run: |
-        if [ -n "$(git status --porcelain)" ]; then
-          echo "changed=true" >> $GITHUB_OUTPUT
-        else
-          echo "changed=false" >> $GITHUB_OUTPUT
-        fi
-        
-    - name: Commit and push changes
-      if: steps.verify-changed-files.outputs.changed == 'true'
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "Update FAQ website content"
-        git push
