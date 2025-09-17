@@ -14,22 +14,50 @@ from datetime import datetime
 
 
 def parse_frontmatter(content):
-    """Parse YAML frontmatter from markdown content"""
+    """Parse YAML frontmatter from markdown content with improved error handling"""
     if not content.startswith('---'):
-        return {}, content
+        return {}, content, None
     
     try:
         # Split frontmatter and content
         parts = content.split('---', 2)
         if len(parts) < 3:
-            return {}, content
+            return {}, content, "Invalid frontmatter format: missing closing ---"
         
         frontmatter = yaml.safe_load(parts[1])
         markdown_content = parts[2].strip()
         
-        return frontmatter or {}, markdown_content
-    except yaml.YAMLError:
-        return {}, content
+        return frontmatter or {}, markdown_content, None
+    except yaml.YAMLError as e:
+        # Try to fix common YAML issues by quoting unquoted values
+        try:
+            frontmatter_text = parts[1].strip()
+            lines = frontmatter_text.split('\n')
+            fixed_lines = []
+            
+            for line in lines:
+                if ':' in line and not line.strip().startswith('#'):
+                    key, value = line.split(':', 1)
+                    value = value.strip()
+                    
+                    # If value is not already quoted and contains special characters, quote it
+                    if value and not (value.startswith('"') and value.endswith('"')) and not (value.startswith("'") and value.endswith("'")):
+                        # Quote values that contain special characters
+                        if any(char in value for char in [':', '[', ']', '{', '}', '|', '>', '&', '*', '!', '%', '@', '`', '\\', '/', '?', '<', '=', '+', '-', '^', '~']):
+                            value = f'"{value.replace('"', '\\"')}"'
+                    
+                    fixed_lines.append(f"{key}: {value}")
+                else:
+                    fixed_lines.append(line)
+            
+            fixed_frontmatter_text = '\n'.join(fixed_lines)
+            frontmatter = yaml.safe_load(fixed_frontmatter_text)
+            markdown_content = parts[2].strip()
+            
+            return frontmatter or {}, markdown_content, None
+            
+        except Exception:
+            return {}, content, f"YAML parsing error: {str(e)}"
 
 
 def process_markdown(content):
@@ -47,6 +75,14 @@ def collect_questions():
         return {}
     
     courses = defaultdict(lambda: defaultdict(list))
+    skipped_files = []
+    processing_stats = {
+        'total_files': 0,
+        'processed_files': 0,
+        'skipped_yaml_errors': 0,
+        'skipped_missing_question': 0,
+        'skipped_exceptions': 0
+    }
     
     for course_dir in questions_dir.iterdir():
         if not course_dir.is_dir():
@@ -57,14 +93,34 @@ def collect_questions():
         
         # Process all markdown files in course directory
         for question_file in sorted(course_dir.glob('*.md')):
+            processing_stats['total_files'] += 1
+            
             try:
                 with open(question_file, 'r', encoding='utf-8') as f:
                     content = f.read()
                 
-                frontmatter, markdown_content = parse_frontmatter(content)
+                frontmatter, markdown_content, error = parse_frontmatter(content)
                 
+                # Handle YAML parsing errors
+                if error:
+                    processing_stats['skipped_yaml_errors'] += 1
+                    skipped_files.append({
+                        'file': question_file,
+                        'reason': 'YAML parsing error',
+                        'details': error
+                    })
+                    print(f"⚠️  Skipping {question_file.name}: {error}")
+                    continue
+                
+                # Handle missing question field
                 if not frontmatter.get('question'):
-                    print(f"Skipping {question_file}: missing question field in frontmatter")
+                    processing_stats['skipped_missing_question'] += 1
+                    skipped_files.append({
+                        'file': question_file,
+                        'reason': 'Missing question field',
+                        'details': 'No question field found in frontmatter'
+                    })
+                    print(f"⚠️  Skipping {question_file.name}: missing question field in frontmatter")
                     continue
                 
                 # Process markdown to HTML
@@ -80,9 +136,30 @@ def collect_questions():
                 
                 section_name = frontmatter.get('section', 'Unknown Section')
                 courses[course_name][section_name].append(question_data)
+                processing_stats['processed_files'] += 1
                 
             except Exception as e:
-                print(f"Error processing {question_file}: {e}")
+                processing_stats['skipped_exceptions'] += 1
+                skipped_files.append({
+                    'file': question_file,
+                    'reason': 'Processing exception',
+                    'details': str(e)
+                })
+                print(f"❌ Error processing {question_file.name}: {e}")
+    
+    # Print summary of processing
+    print(f"\n📊 Processing Summary:")
+    print(f"   Total files found: {processing_stats['total_files']}")
+    print(f"   Successfully processed: {processing_stats['processed_files']}")
+    print(f"   Skipped due to YAML errors: {processing_stats['skipped_yaml_errors']}")
+    print(f"   Skipped due to missing question field: {processing_stats['skipped_missing_question']}")
+    print(f"   Skipped due to other errors: {processing_stats['skipped_exceptions']}")
+    
+    # Store skipped files information for later reporting
+    if hasattr(collect_questions, 'skipped_files'):
+        collect_questions.skipped_files = skipped_files
+    else:
+        setattr(collect_questions, 'skipped_files', skipped_files)
     
     return courses
 
@@ -190,6 +267,40 @@ def generate_site(courses):
     return site_dir
 
 
+def print_skipped_files_summary():
+    """Print detailed summary of skipped files"""
+    if not hasattr(collect_questions, 'skipped_files') or not collect_questions.skipped_files:
+        return
+    
+    skipped_files = collect_questions.skipped_files
+    print(f"\n📋 Detailed Report of Skipped Files ({len(skipped_files)} total):")
+    print("=" * 60)
+    
+    # Group by reason
+    by_reason = defaultdict(list)
+    for item in skipped_files:
+        by_reason[item['reason']].append(item)
+    
+    for reason, files in by_reason.items():
+        print(f"\n{reason} ({len(files)} files):")
+        for item in files[:10]:  # Show first 10 files for each reason
+            print(f"  • {item['file'].name}")
+            if len(item['details']) < 100:
+                print(f"    {item['details']}")
+            else:
+                print(f"    {item['details'][:100]}...")
+        
+        if len(files) > 10:
+            print(f"  ... and {len(files) - 10} more files")
+    
+    print("\n💡 Recommendations:")
+    if by_reason.get('YAML parsing error'):
+        print("  • For YAML parsing errors: Check for unquoted special characters in frontmatter values")
+        print("  • Consider quoting values that contain colons, brackets, or other special characters")
+    if by_reason.get('Missing question field'):
+        print("  • For missing question fields: Add 'question: <your question>' to the frontmatter")
+
+
 def main():
     """Main execution function"""
     print("DataTalks.Club FAQ Static Site Generator")
@@ -201,6 +312,7 @@ def main():
     
     if not courses:
         print("No courses or questions found!")
+        print_skipped_files_summary()
         return
     
     # Print summary
@@ -218,6 +330,9 @@ def main():
     print("\n✅ Site generation complete!")
     print(f"📁 Output directory: {site_dir.absolute()}")
     print(f"🌐 Open {site_dir.absolute() / 'index.html'} in your browser")
+    
+    # Print summary of skipped files
+    print_skipped_files_summary()
 
 
 if __name__ == '__main__':
