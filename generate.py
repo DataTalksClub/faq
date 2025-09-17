@@ -63,11 +63,15 @@ def collect_questions():
                 
                 frontmatter, markdown_content = parse_frontmatter(content)
                 
+                if not frontmatter.get('question'):
+                    print(f"Skipping {question_file}: missing question field in frontmatter")
+                    continue
+                
                 # Process markdown to HTML
                 html_content = process_markdown(markdown_content)
                 
                 question_data = {
-                    'question': frontmatter.get('question', 'Unknown Question'),
+                    'question': frontmatter['question'],
                     'section': frontmatter.get('section', 'Unknown Section'),
                     'course': course_name,
                     'content': html_content,
