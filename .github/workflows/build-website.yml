@@ -29,9 +29,10 @@ jobs:
         python-version: '3.12'
         
     - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      run: pip install uv
+        
+    - name: Sync dependencies
+      run: uv sync
         
     - name: Extract questions from Google Docs
       run: make extract
