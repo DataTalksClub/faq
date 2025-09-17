@@ -337,8 +337,8 @@ for course, file_id in faq_documents.items():
     # Create metadata file with section order
     create_metadata_file(course_data)
     
-    # Create course index page
-    create_course_index(course_data)
+    # Create course index page - function not implemented yet
+    # create_course_index(course_data)
 
 print(f"\nProcessed {len(documents)} courses successfully!")
 print("Generated files:")
