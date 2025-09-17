@@ -12,16 +12,16 @@ help:
 
 # Clean questions directory before extraction
 clean_questions:
-	python clean_questions.py
+	uv run python clean_questions.py
 
 # Extract FAQ data from Google Docs (with cleanup)
 extract: clean_questions
-	python faq_processor.py
+	uv run python faq_processor.py
 
 # Validate question files
 validate:
-	python validate_questions.py
+	uv run python validate_questions.py
 
 # Generate static website
 website:
-	python generate.py
+	uv run python generate.py
