@@ -1,0 +1,4 @@
+Hello! I was watching the ML Zoomcamp 2.10 video on Youtube - Computing RMSE on Validation Data and have several questions on RMSE implementation: 
+
+1) Would RMSE still be the most appropriate metric if our dataset has some strong outliers or a skewed target distribution? 
+2) How stable is our RMSE across different validation folds or random seeds? Should we average it over multiple runs to get a more reliable estimate?
