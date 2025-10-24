@@ -1,0 +1,18 @@
+| id          | question                                   | sort_order |
+|--------------|---------------------------------------------|-------------|
+| 01aa9d5221  | TypeError while creating OneHotEncoder object | 7           |
+
+You get Type Error when categorical values are oneHotEncoded using sparse as parameter. A sample error message 
+can be found below for reference
+
+TypeError Traceback (most recent call last) 
+Cell In[60], line 4 
+2 scaler = StandardScaler() 
+3 X_train_num = scaler.fit_transform(X_train_num) 
+----> 4 ohe = OneHotEncoder(sparse=False)
+5 X_train_cat = ohe.fit_transform(df_train[categorical_columns].values) 
+6 X_train_cat
+
+This error happens because in scikit-learn ≥1.2, the OneHotEncoder no longer uses the sparse parameter. Instead, it now uses sparse_output.
+So create OneHotEncoder class using spare_output as argument like below,
+ohe = OneHotEncoder(sparse_output=False)
