@@ -1,0 +1,149 @@
+name: FAQ Automation
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  process-faq-proposal:
+    if: contains(github.event.issue.labels.*.name, 'faq-proposal')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        run: |
+          uv sync --no-dev
+
+      - name: Fetch issue body
+        id: fetch_issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body || '';
+
+            // Save issue body to file for Python to parse
+            const fs = require('fs');
+            fs.writeFileSync('/tmp/issue_body.txt', body);
+
+            console.log('Fetched issue body, saved to /tmp/issue_body.txt');
+
+      - name: Process FAQ with AI
+        id: process
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          # Run FAQ automation CLI with full issue body
+          uv run python -m faq_automation.cli \
+            --issue-body "$(cat /tmp/issue_body.txt)" \
+            --issue-number ${{ github.event.issue.number }} \
+            --model "gpt-5-nano" \
+            --output-dir /tmp
+
+          # Write decision output to GitHub Actions
+          uv run scripts/write_faq_decision_output.py
+
+      - name: Handle NEW or UPDATE action
+        if: fromJson(steps.process.outputs.decision).action != 'DUPLICATE'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const decision = ${{ steps.process.outputs.decision }};
+            const action = decision.action;
+            const issueNumber = decision.issue_number;
+            const prBody = decision.pr_body;
+            const filePath = decision.file_path;
+
+            // Create branch name
+            const branchName = `faq-bot/issue-${issueNumber}`;
+
+            // Configure git
+            await exec.exec('git', ['config', 'user.name', 'FAQ Bot']);
+            await exec.exec('git', ['config', 'user.email', 'faq-bot@datatalks.club']);
+
+            // Fetch and checkout main, then create new branch from it
+            await exec.exec('git', ['fetch', 'origin', 'main']);
+            await exec.exec('git', ['checkout', 'main']);
+            await exec.exec('git', ['checkout', '-b', branchName]);
+
+            // Add modified files
+            await exec.exec('git', ['add', filePath]);
+
+            // Commit changes
+            const commitMsg = `${action}: ${decision.decision.question.substring(0, 72)}`;
+            await exec.exec('git', ['commit', '-m', commitMsg]);
+
+            // Push branch
+            await exec.exec('git', ['push', 'origin', branchName]);
+
+            // Create pull request
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[FAQ Bot] ${action}: ${decision.decision.question.substring(0, 72)}`,
+              head: branchName,
+              base: 'main',
+              body: `${prBody}\n\nCloses #${issueNumber}`
+            });
+
+            // Comment on issue with PR link
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `✅ FAQ ${action} proposal created in PR #${pr.number}\n\nPlease review and approve the changes.`
+            });
+
+      - name: Handle DUPLICATE action
+        if: fromJson(steps.process.outputs.decision).action == 'DUPLICATE'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const decision = ${{ steps.process.outputs.decision }};
+            const comment = decision.comment;
+            const issueNumber = decision.issue_number;
+
+            // Post comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: comment
+            });
+
+            // Close issue
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              state: 'closed',
+              state_reason: 'completed'
+            });
+
+      - name: Handle errors
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.payload.issue.number;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: `❌ FAQ Bot encountered an error processing this proposal.\n\nPlease check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.\n\nA maintainer will review this manually.`
+            });

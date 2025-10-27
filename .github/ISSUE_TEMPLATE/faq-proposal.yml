@@ -1,0 +1,64 @@
+name: FAQ Proposal
+description: Propose a new FAQ entry or update to existing FAQ
+title: "[FAQ] "
+labels: ["faq-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## FAQ Proposal
+
+        Thank you for helping improve our FAQ! Please provide a clear question and answer below.
+
+        Our FAQ bot will automatically analyze your proposal and determine if it should:
+        - Create a new FAQ entry
+        - Update an existing FAQ entry
+        - Mark as duplicate of an existing FAQ
+
+  - type: dropdown
+    id: course
+    attributes:
+      label: Course
+      description: Which course is this FAQ for?
+      options:
+        - machine-learning-zoomcamp
+        - data-engineering-zoomcamp
+        - llm-zoomcamp
+        - mlops-zoomcamp
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What is the FAQ question?
+      placeholder: "How do I install the required dependencies?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: answer
+    attributes:
+      label: Answer
+      description: What is the answer to this question?
+      placeholder: |
+        To install the required dependencies, run:
+        ```bash
+        uv pip install -r requirements.txt
+        ```
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing FAQs and this question is not already answered
+          required: true
+        - label: The answer provides accurate, helpful information
+          required: true
+        - label: I have included any relevant code examples or links
+          required: false

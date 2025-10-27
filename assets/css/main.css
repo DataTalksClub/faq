@@ -228,6 +228,25 @@ header h1 {
     text-decoration: underline;
 }
 
+.contribute-banner {
+    margin-bottom: 1.5rem;
+    font-size: 1.17em;
+}
+
+.contribute-banner p {
+    margin: 0;
+    color: #555;
+}
+
+.contribute-banner a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contribute-banner a:hover {
+    text-decoration: underline;
+}
+
 footer {
     text-align: center;
     padding: 2rem 0;

@@ -11,6 +11,9 @@ dependencies = [
     "python-docx>=1.2.0",
     "pyyaml>=6.0.2",
     "requests>=2.32.5",
+    "minsearch>=0.0.7",
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
 ]
 
 [project.optional-dependencies]
@@ -33,3 +36,6 @@ markers = [
 dev = [
     "pytest>=8.4.2",
 ]
+
+[tool.setuptools]
+packages = ["faq_automation"]

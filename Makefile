@@ -5,12 +5,12 @@ website:
 
 test-unit:
 	@echo "🔬 Running unit tests..."
-	python -m uv run pytest tests/unit/ -v
+	uv run pytest tests/unit/ -v
 
 test-int:
 	@echo "🔄 Running integration tests..."
-	python -m uv run pytest tests/integration/ -v
+	uv run pytest tests/integration/ -v
 
 test:
 	@echo "🧪 Running all tests..."
-	python -m uv run pytest tests/ -v
+	uv run pytest tests/ -v
