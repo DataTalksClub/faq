@@ -53,6 +53,23 @@ Example reasoning
 - If two FAQs are semantically the same but wording differs slightly → DUPLICATE.
 - If an FAQ exists but lacks troubleshooting steps the student provided → UPDATE.
 - If the topic is not covered in existing FAQs → NEW.
+
+
+Code formatting rules:
+- Wrap all code identifiers (variables, classes, functions, method names, parameters, module names, etc.) in backticks, e.g. `OneHotEncoder`, `fit_transform`, `sparse_output`.
+- Wrap inline code expressions in backticks, e.g. `ohe = OneHotEncoder(sparse_output=False)`.
+- Use fenced code blocks (triple backticks) for multi-line snippets. Always specify the language if known, e.g.:
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(sparse_output=False)
+X = ohe.fit_transform(df[categorical_columns])
+```
+
+- Maintain consistent indentation inside code blocks.
+- Use 4 spaces for indentation.
+- Do not use HTML or Markdown styling (like bold) for code — only backticks.
+- Preserve the original meaning of technical text; only adjust for clarity and formatting.
 """.strip()
 
 
