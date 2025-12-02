@@ -1,61 +1,103 @@
 ---
 id: 52fbe7351e
-question: Where does the number of Conv2d layer’s params come from? Where does the
-  number of 'features' we get after the Flatten layer come from?
+question: Where does the number of input features to the first Linear layer after
+  a CNN/Flatten come from, and how can I determine it reliably?
 sort_order: 26
 ---
 
-Let's say we define our Conv2d layer like this:
+The number of features input to the first Linear layer (the in_features for the Linear) is the size of the tensor after the CNN/pooling layers and after Flatten. In practice, there are several reliable ways to determine this without manually deriving the dimensions for every layer.
+
+### 1) Use a model summary utility (recommended)
+- torchinfo (formerly torch-summary) can show the output shape of each layer, ending with the Flatten, so you can read off the number of features.
 
 ```python
- tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(150, 150, 3))
+# Install and import
+!pip install torchinfo
+from torchinfo import summary
+
+input_size = (1, 3, 150, 150)  # batch size, channels, height, width
+model = CNN()
+summary(model, input_size=input_size)
 ```
 
-This means our input image is RGB (3 channels, 150 by 150 pixels), the kernel is 3x3, and the number of filters (layer’s width) is 32.
+Output will include an entry for the Flatten layer with its output size, e.g. `(1, 10000)` which indicates `in_features` should be 10000 for the next Linear layer.
 
-If we check `model.summary()` we will get this:
-
+> Note: If you prefer the older torchsummary, you can use it similarly, but be mindful of the batch dimension when supplying `input_size`.
 ```
-_________________________________________________________________
-Layer (type)                Output Shape              Param #
-=================================================================
-conv2d (Conv2D)             (None, 148, 148, 32)      896
+from torchsummary import summary
+summary(model, input_size=(3, 150, 150))
 ```
 
-So where do 896 params come from? It’s computed like this:
+### 2) Forward a dummy input through the CNN up to Flatten
+Create a model that runs the CNN portion and returns the flattened features, then inspect the feature dimension.
 
 ```python
-(3*3*3 + 1) * 32
+model = CNN()  # as defined in your example
+# Create a dummy input matching the CNN's expected input
+dummy_input = torch.randn(1, 3, 150, 150)
+# Forward through the CNN (including Flatten)
+out = model(dummy_input)
+# in_features for the first Linear layer
+in_features_calc = out.size(1)
+print(in_features_calc)  # e.g., 10000
 ```
 
-This results in 896:
+This yields the exact value you should use for `nn.Linear(in_features_calc, ...)`.
 
-- 3x3 kernel
-- 3 channels RGB
-- +1 for bias
-- 32 filters
-
-
-Number of 'Features' after the Flatten Layer
-
-For our homework, `model.summary()` for the last MaxPooling2d and Flatten layers looked like this:
-
-```
-_________________________________________________________________
-Layer (type)                Output Shape              Param #
-=================================================================
-max_pooling2d_3       (None, 7, 7, 128)         0
-flatten (Flatten)           (None, 6272)              0
-```
-
-So where do 6272 vectors come from? It’s computed like this:
+### 3) Use a LazyLinear layer for automatic in_features inference
+If you want to avoid computing the exact dimension, you can use a lazy linear layer for the first fully connected layer:
 
 ```python
-7*7*128
+import torch.nn as nn
+class CNNWithLazy(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conv1 = nn.Conv2d(3, 16, kernel_size=(2, 2), stride=2, padding=2)
+        self.relu = nn.ReLU()
+        self.maxpool = nn.MaxPool2d((3, 3))
+        self.flatten_dim = None  # will be inferred by LazyLinear
+        self.fc = nn.LazyLinear(out_features=10)  # plans to learn 10 classes, features inferred
+    def forward(self, x):
+        x = self.conv1(x)
+        x = self.relu(x)
+        x = self.maxpool(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
+        return x
 ```
 
-This results in 6272:
+> The `nn.LazyLinear` will infer the required `in_features` from the input tensor size during the first forward pass.
 
-- 7x7 "image shape" after several convolutions and poolings
-- 128 filters
+### 4) Reason about shapes with a concrete example
+Consider a CNN where:
+- Input: 3 channels, 150x150 image
+- After Conv2d(in_channels=3, out_channels=16, kernel_size=(2,2), stride=2, padding=2): output shape depends on padding/stride
+- After ReLU and MaxPool2d((3,3)): final feature map size could be e.g. [N, 16, 25, 25]
+- Flatten yields 16 * 25 * 25 = 10000 features
 
+```python
+# Example confirmation
+# Suppose after the CNN layers you get a flattened vector of length 10000
+num_features = 10000
+self.fc = nn.Linear(num_features, num_classes)
+```
+
+In this scenario, the next linear layer should be defined with `in_features = 10000`.
+
+### Practical example with your CNN from the prompt
+Given:
+- Final pooled feature map size: [N, 16, 25, 25]
+- Flatten to [N, 16*25*25] = [N, 10000]
+
+Therefore, the first linear layer should be defined as:
+```python
+self.fc1 = nn.Linear(10000, num_classes)
+```
+
+Note: If your input size or layer parameters differ, recompute the Flatten output accordingly using any of the methods above. The key concept is: in_features equals the total number of elements in the flattened feature tensor per sample (i.e., batch-independent dimension).
+
+### Summary
+- The direct geometric/product approach is accurate but can be error-prone for complex architectures.
+- Use `torchinfo.summary` or a forward pass with a dummy input to read off or compute the flattened feature size.
+- Alternatively, use `nn.LazyLinear` to infer `in_features` automatically.
+- Always ensure your chosen `in_features` matches the actual tensor size just before the first `nn.Linear` to avoid shape mismatches.
