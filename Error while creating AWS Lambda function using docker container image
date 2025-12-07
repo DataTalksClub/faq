@@ -1,0 +1,19 @@
+ISSUE
+
+The docker container image is built and pushed to ECR repository. From there we create a AWS Lambda function using the container image option
+and point to the newly created docker image. In this step, you may encounter below error
+
+The image manifest, config or layer media type for the source image 
+359875384121.dkr.ecr.us-east-1.amazonaws.com/churn-prediction-lambda@sha256:de66b40130cf92606870578b6237fa7d194a35c6a6b035d63fc6c208edc450c4 is not supported
+
+SOLUTION
+
+This error is because the docker image media type that is pushed is in application/vnd.oci.image.index.v1+json format(old deprected format). The AWS Lambda expects the image to be in 
+application/vnd.docker.distribution.manifest.v2+json(new format).
+Ideally a normal docker build -t <tagname> . should create image in application/vnd.docker.distribution.manifest.v2+json but sometimes due to installation/configuration mismatch 
+it doesn't.
+You can check the mediatype of docker image using command - docker inspect <docker-image-name> and confirm the format.
+To force build docker image using manifest.v2 format, use the below command
+
+docker build --platform linux/amd64 --provenance false -t <docker-image-name> .
+Now you can create AWS Lambda function using this docker container image.
