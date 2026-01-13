@@ -4,7 +4,7 @@ question: 'Course: When does the course start?'
 sort_order: 1
 ---
 
-The next cohort starts January 13th, 2025. More info at [DTC](https://datatalks.club/blog/guide-to-free-online-courses-at-datatalks-club.html).
+The next cohort starts January 12th, 2026. More info at [DTC](https://datatalks.club/blog/guide-to-free-online-courses-at-datatalks-club.html).
 
 - Register before the course starts using this [link](https://airtable.com/shr6oVXeQvSI5HuWD).
 - Join the [course Telegram channel with announcements](https://t.me/dezoomcamp).
