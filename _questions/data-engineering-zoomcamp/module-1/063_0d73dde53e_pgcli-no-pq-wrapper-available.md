@@ -1,10 +1,10 @@
 ---
 id: 0d73dde53e
-question: PGCLI - no pq wrapper available.
+question: PGCLI - no pq wrapper available (MacOS UV alternative)
 sort_order: 63
 ---
 
-**Error:**
+**Problem:**
 
 ```
 ImportError: no pq wrapper available.
@@ -12,7 +12,7 @@ ImportError: no pq wrapper available.
 
 ### Problem Details:
 
-- Could not import `\dt`
+- Could not import `\\dt`
 - `opg 'c' implementation: No module named 'psycopg_c'`
 - `couldn't import psycopg 'binary' implementation: No module named 'psycopg_binary'`
 - `couldn't import psycopg 'python' implementation: libpq library not found`
@@ -62,3 +62,15 @@ ImportError: no pq wrapper available.
      ```
 
 If you follow these steps, you should be able to resolve the issue.
+
+6. MacOS Alternative (Python 3.13) using UV:
+
+   - In your virtual environment, ensure you are in your working directory (e.g., pipeline).
+
+   - Add psycopg binary using uv:
+
+   ```bash
+   $ uv add "psycopg[binary]"
+   ```
+
+This MacOS-specific step provides the missing psycopg[binary] installation path when using Python 3.13 with uv. If issues persist after this, consider the standard Linux/macOS library checks and psycopg rebuild steps from sections 1-5 above.
