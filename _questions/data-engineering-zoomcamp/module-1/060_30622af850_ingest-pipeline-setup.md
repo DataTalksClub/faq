@@ -67,4 +67,3 @@ Then, to validate how many rows have been ingested, run the following -
 ```postgres
 SELECT COUNT(*) FROM yellow_taxi_trips
 ```
-```
