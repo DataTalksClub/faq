@@ -1,10 +1,10 @@
 ---
 id: 0d73dde53e
-question: PGCLI - no pq wrapper available.
+question: PGCLI - no pq wrapper available 
 sort_order: 63
 ---
 
-**Error:**
+**Problem:**
 
 ```
 ImportError: no pq wrapper available.
@@ -19,46 +19,11 @@ ImportError: no pq wrapper available.
 
 ### Solution:
 
-1. **Check Python Version:**
-   
-   Ensure your Python version is at least 3.9. The `'psycopg2-binary'` might fail to install on older versions like 3.7.3.
-   
-   ```bash
-   $ python -V
-   ```
+In your virtual environment, ensure you are in your working directory (e.g., pipeline).
 
-2. **Environment Setup:**
+Add psycopg binary using uv:
 
-   - If your Python version is not 3.9, create a new environment:
-     
-     ```bash
-     $ conda create --name de-zoomcamp python=3.9
-     $ conda activate de-zoomcamp
-     ```
+```bash
+$ uv add "psycopg[binary]"
+```
 
-3. **Install Required Libraries:**
-
-   - Install Postgres libraries:
-     
-     ```bash
-     $ pip install psycopg2-binary
-     $ pip install psycopg_binary
-     ```
-
-4. **Upgrade pgcli:**
-
-   - If the above steps do not work, try upgrading `pgcli`:
-     
-     ```bash
-     $ pip install --upgrade pgcli
-     ```
-
-5. **Install pgcli via Conda:**
-
-   - Make sure to also install `pgcli` using conda:
-     
-     ```bash
-     $ conda install -c conda-forge pgcli
-     ```
-
-If you follow these steps, you should be able to resolve the issue.
