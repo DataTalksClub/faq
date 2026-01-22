@@ -9,7 +9,7 @@ This error occurs because psycopg cannot find the PostgreSQL client library (lib
 
 Solution 1: Add psycopg-binary (Recommended)
 ```
-uv add --dev psycopg-binary
+uv add psycopg-binary
 
 uv run pgcli -h localhost -p 5432 -u root -d ny_taxi
 ```
