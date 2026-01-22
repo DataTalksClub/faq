@@ -1,36 +1,73 @@
 ---
 id: 7f7aa5f5e6
-question: 'PGCLI - After installing PGCLI and checking with `pgcli --help` we get
-  the error: `ImportError: no pq wrapper available`'
+question: 'PGCLI - ImportError: no pq wrapper available (including uv package manager
+  fixes)'
 sort_order: 71
 ---
 
-The error persists because the psycopg library cannot find the required libpq library. Ensure the required PostgreSQL client library is installed:
+This error occurs because psycopg cannot find the PostgreSQL client library (libpq). The simplest solution with uv is to install the binary version of psycopg, which bundles the required library.
 
-```bash
-sudo apt install libpq-dev
+Solution 1: Add psycopg-binary (Recommended)
+```
+uv add psycopg-binary
+
+uv run pgcli -h localhost -p 5432 -u root -d ny_taxi
 ```
 
-Rebuild psycopg:
+Solution 2: Manually edit pyproject.toml
+```
+[project]
+dependencies = [
+"pgcli>=4.2.0",
+"psycopg-binary>=3.0.0",
+]
+```
+Then sync your environment:
+```
+uv sync
+```
 
-1. Uninstall the existing packages:
-   
-   ```bash
-   pip uninstall psycopg psycopg_binary psycopg_c -y
-   ```
+Additional troubleshooting steps (not uv-specific) if the issue persists:
 
-2. Reinstall psycopg:
-   
-   ```bash
-   pip install psycopg --no-binary psycopg
-   ```
+1. Check Python Version:
 
-The issue should be resolved by now. However, if you still encounter the error:
+```
+$ python -V
+```
 
-`ModuleNotFoundError: No module named 'psycopg2'`
+Ensure Python is at least 3.9. The 'psycopg2-binary' installation may fail on older versions.
 
-Then run the following:
+2. Environment Setup (if using a non-uv workflow):
 
-```bash
+```
+$ conda create --name de-zoomcamp python=3.9
+$ conda activate de-zoomcamp
+```
+
+3. Install Required Libraries:
+
+```
+pip install psycopg2-binary
+pip install psycopg_binary
+```
+
+4. Upgrade pgcli:
+
+```
+pip install --upgrade pgcli
+```
+
+5. Install pgcli via Conda:
+
+```
+conda install -c conda-forge pgcli
+```
+
+If you still encounter an error like
+```
+ModuleNotFoundError: No module named 'psycopg2'
+```
+then try:
+```
 pip install psycopg2-binary
 ```
