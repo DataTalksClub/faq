@@ -61,6 +61,9 @@ class TestJSONGeneration:
                 })
             ]
             
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
+            
             # Generate JSON data
             generate_json_data(courses, site_dir)
             
@@ -153,6 +156,9 @@ class TestJSONGeneration:
                 })
             ]
             
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
+            
             # Generate JSON data
             generate_json_data(courses, site_dir)
             
@@ -215,6 +221,9 @@ class TestJSONGeneration:
                 })
             ]
             
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
+            
             # Generate JSON data
             generate_json_data(courses, site_dir)
             
@@ -241,6 +250,9 @@ class TestJSONGeneration:
                     'section_order': []
                 })
             ]
+            
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
             
             # Generate JSON data
             generate_json_data(courses, site_dir)
@@ -286,6 +298,9 @@ class TestJSONGeneration:
                 })
             ]
             
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
+            
             # Generate JSON data
             generate_json_data(courses, site_dir)
             
@@ -327,6 +342,9 @@ class TestJSONGeneration:
                     ]
                 })
             ]
+            
+            # Sort sections and questions
+            courses = sort_sections_and_questions(courses)
             
             # Generate JSON data
             generate_json_data(courses, site_dir)

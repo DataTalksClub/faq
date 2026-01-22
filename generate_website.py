@@ -459,12 +459,14 @@ def generate_site(courses):
 
 
 def generate_json_data(courses, site_dir):
-    """Generate JSON files for each course and a courses index"""
+    """Generate JSON files for each course and a courses index
+    
+    Args:
+        courses: List of tuples (course_name, course_data) with already sorted sections
+        site_dir: Path to the site directory
+    """
     json_dir = site_dir / 'json'
     json_dir.mkdir(exist_ok=True)
-    
-    # Sort sections and questions if not already done
-    courses = sort_sections_and_questions(courses)
     
     # List to track all course JSON files
     courses_index = []
