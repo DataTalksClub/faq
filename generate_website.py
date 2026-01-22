@@ -17,6 +17,7 @@ from pygments.formatters import HtmlFormatter
 from pygments.util import ClassNotFound
 from datetime import datetime
 import re
+import json
 
 
 def parse_frontmatter(content):
@@ -291,6 +292,7 @@ def process_question_file(course_name, section_name, question_file):
         'sort_order': frontmatter.get('sort_order', 999999),
         'course': course_name,
         'content': html_content,
+        'answer': markdown_content,  # Store raw markdown for JSON export
         'file_path': str(relative_path).replace('\\', '/'),  # Full path for GitHub link
         'images': images
     }
@@ -456,6 +458,61 @@ def generate_site(courses):
     return site_dir
 
 
+def generate_json_data(courses, site_dir):
+    """Generate JSON files for each course and a courses index"""
+    json_dir = site_dir / 'json'
+    json_dir.mkdir(exist_ok=True)
+    
+    # Sort sections and questions if not already done
+    courses = sort_sections_and_questions(courses)
+    
+    # List to track all course JSON files
+    courses_index = []
+    
+    for course_name, course_data in courses:
+        ordered_sections = course_data['ordered_sections']
+        
+        # Build JSON data for this course
+        course_json_data = []
+        
+        for section in ordered_sections:
+            section_name = section['name']
+            
+            for question in section['questions']:
+                # Create question entry with markdown answer
+                question_entry = {
+                    'id': question['id'],
+                    'course': course_name,
+                    'section': section_name,
+                    'question': question['question'],
+                    'answer': question['answer']  # Raw markdown content
+                }
+                course_json_data.append(question_entry)
+        
+        # Write course JSON file
+        course_json_file = json_dir / f'{course_name}.json'
+        with open(course_json_file, 'w', encoding='utf-8') as f:
+            json.dump(course_json_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"Generated {course_json_file}")
+        
+        # Add to courses index
+        courses_index.append({
+            'course': course_name,
+            'course_name': course_data['course_name'],
+            'path': f'/json/{course_name}.json',
+            'questions_count': len(course_json_data)
+        })
+    
+    # Write courses index JSON file
+    courses_json_file = json_dir / 'courses.json'
+    with open(courses_json_file, 'w', encoding='utf-8') as f:
+        json.dump(courses_index, f, indent=2, ensure_ascii=False)
+    
+    print(f"Generated {courses_json_file}")
+    print(f"\nJSON data generated successfully in {json_dir}")
+
+
 def main():
     """Main execution function"""
     print("DataTalks.Club FAQ Static Site Generator")
@@ -482,6 +539,10 @@ def main():
     # Generate static site
     print("\n2. Generating static site...")
     site_dir = generate_site(courses)
+    
+    # Generate JSON data
+    print("\n3. Generating JSON data...")
+    generate_json_data(courses, site_dir)
     
     print("\nSite generation complete!")
     print(f"Output directory: {site_dir.absolute()}")
