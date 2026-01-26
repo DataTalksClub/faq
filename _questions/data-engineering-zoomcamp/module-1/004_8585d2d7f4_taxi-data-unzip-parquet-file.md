@@ -1,14 +1,16 @@
 ---
 id: 8585d2d7f4
-question: 'Taxi Data: Unzip Parquet file'
+question: 'Taxi Data: Unzip csv.gz file'
 sort_order: 4
 ---
 
-You can unzip the downloaded parquet file from the command line. The result is a CSV file which can be imported with pandas using `pd.read_csv()` as shown in the videos.
+You can `gunzip` the downloaded csv.gz file from the command line. The result is a CSV file which can be imported with pandas using `pd.read_csv()` as shown in the videos.
 
 ```bash
 gunzip green_tripdata_2019-09.csv.gz
 ```
+
+or you can read the gzipped file directly with pandas 
 
 ### Solution for Using Parquet Files Directly in Python Script `ingest_data.py`
 
