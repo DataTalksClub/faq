@@ -7,6 +7,7 @@ sections:
     name: "Module 1: Docker and Terraform"
   - id: module-2
     name: "Module 2: Workflow Orchestration"
+    comment: "Questions about Kestra and workflow orchestration go here" 
   - id: module-3
     name: "Module 3: Data Warehousing"
   - id: module-4
