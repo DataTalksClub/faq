@@ -1,16 +1,15 @@
 ---
 id: dec5edee6a
-question: 'Terraform - Error: Failed to query available provider packages │ Could
-  not retrieve the list of available versions for provider hashicorp/google: could
-  not query │ provider registry for registry.terrafogorm.io/hashicorp/google: the
-  request failed after 2 attempts, │ please try again later'
+question: 'Terraform: Could not reach provider registry in restricted region (e.g.,
+  Iraq) – Invalid provider registry host / Could not query available provider packages'
 sort_order: 114
 ---
 
-This error typically occurs due to internet connectivity issues. Terraform is unable to access the online registry.
+This error can occur when Terraform cannot access the online provider registry, which may happen in restricted regions where registry.terraform.io is blocked. The error messages may include things like "Invalid provider registry host" and "Could not query available versions for provider hashicorp/google".
 
-**Solution:**
+Fix:
 
-- Check your VPN/Firewall settings.
-- Clear cookies or restart your network.
-- Run `terraform init` again after addressing the connection issues.
+- Install and activate a system-wide VPN software (e.g., Proton VPN). Ensure that all traffic from your terminal (where `terraform init` runs) is routed through the VPN.
+- Important: A VPN browser extension is usually not sufficient. Extensions proxy traffic only within the web browser and do not affect terminal/VS Code connections.
+
+After the VPN is active, run `terraform init` again to retry fetching provider packages.
