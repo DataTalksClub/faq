@@ -1,7 +1,7 @@
 ---
 id: 0882fc44fa
 question: How do I manage security and access control in a BigQuery data warehouse?
-sort_order: 46
+sort_order: 47
 ---
 
 BigQuery uses Identity and Access Management (IAM) to control who can view, query, or modify datasets and tables. You can assign roles at the project, dataset, or table level depending on how granular you want permissions to be.
