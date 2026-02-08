@@ -1,7 +1,7 @@
 ---
 id: e6c806f5fe
 question: How do you partition and cluster a table in BigQuery for better performance?
-sort_order: 1
+sort_order: 46
 ---
 
 Overview:
