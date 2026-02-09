@@ -1,0 +1,29 @@
+[project]
+name = "faq-automation"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "minsearch>=0.0.7",
+    "openai>=1.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-mock>=3.10.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "tests_integration"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "integration: Integration tests for FAQ workflows"
+]
+
+[project.scripts]
+faq-bot = "faq_automation.cli:main"

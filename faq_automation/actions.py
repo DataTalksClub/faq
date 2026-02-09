@@ -211,6 +211,6 @@ def get_file_changes_summary(action: str, file_path: Path, course_dir: Path) -> 
 
     return {
         'action': action,
-        'file': str(relative_path),
+        'file': relative_path.as_posix(),  # Use forward slashes for cross-platform compatibility
         'filename': file_path.name,
     }
