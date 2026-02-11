@@ -1,6 +1,6 @@
 ---
 id: 06c61761df
-question: GCP: How do I create a service account key when "service account key creation is disabled"?
+question: "GCP: How do I create a service account key when 'service account key creation is disabled'?"
 sort_order: 138
 ---
 

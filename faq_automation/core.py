@@ -2,6 +2,7 @@
 Core FAQ processing functions extracted from notebooks/rag.ipynb
 """
 
+import frontmatter
 import hashlib
 import yaml
 from pathlib import Path
@@ -15,35 +16,23 @@ def parse_metadata(content: str) -> dict:
 
 def parse_frontmatter(content: str) -> Tuple[dict, str]:
     """
-    Parse YAML frontmatter from markdown content
+    Parse YAML frontmatter from markdown content using python-frontmatter
 
     Returns:
         Tuple of (frontmatter_dict, markdown_content)
     """
-    if not content.startswith('---'):
-        return {}, content
-
     try:
-        # Split frontmatter and content
-        parts = content.split('---', 2)
-        if len(parts) < 3:
-            return {}, content
-
-        frontmatter = yaml.safe_load(parts[1])
-        markdown_content = parts[2].strip()
-
-        return frontmatter or {}, markdown_content
-    except yaml.YAMLError:
+        post = frontmatter.loads(content)
+        return post.metadata, post.content.strip()
+    except Exception:
         return {}, content
 
 
 def write_frontmatter(question_file: Path, frontmatter_data: dict, content: str) -> None:
     """Write frontmatter and content to a markdown file"""
+    post = frontmatter.Post(content, **frontmatter_data)
     with open(question_file, 'w', encoding='utf-8') as f:
-        f.write('---\n')
-        yaml.dump(frontmatter_data, f, default_flow_style=False, allow_unicode=True)
-        f.write('---\n\n')
-        f.write(f'{content}')
+        f.write(frontmatter.dumps(post))
 
 
 def read_metadata(course_dir: Path) -> dict:
