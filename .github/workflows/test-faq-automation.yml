@@ -1,0 +1,53 @@
+name: Test FAQ Automation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'faq_automation/**'
+      - 'website/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'faq_automation/**'
+      - 'website/**'
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        working-directory: ./faq_automation
+        run: uv sync --dev
+
+      - name: Run unit tests
+        working-directory: ./faq_automation
+        run: uv run pytest tests/ -v
+
+  integration-tests:
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        working-directory: ./faq_automation
+        run: uv sync --dev
+
+      - name: Run integration tests
+        working-directory: ./faq_automation
+        run: uv run pytest tests_integration/ -v

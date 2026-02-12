@@ -12,14 +12,19 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "website-generator",
     "pytest>=8.4.2",
     "pytest-mock>=3.10.0",
 ]
 
 [tool.uv]
-package = true
+package = false
+
+[tool.uv.sources]
+website-generator = { path = "../website" }
 
 [tool.pytest.ini_options]
+pythonpath = ["..", "../website"]
 testpaths = ["tests", "tests_integration"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
@@ -28,6 +33,3 @@ addopts = "-v --tb=short"
 markers = [
     "integration: Integration tests for FAQ workflows"
 ]
-
-[project.scripts]
-faq-bot = "faq_automation.cli:main"
