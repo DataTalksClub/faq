@@ -30,10 +30,11 @@ jobs:
         
     - name: Install uv
       run: pip install uv
-        
+
     - name: Sync dependencies
+      working-directory: ./website
       run: uv sync
-      
+
     - name: Build static website
       run: make website
       

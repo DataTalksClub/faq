@@ -27,6 +27,7 @@ jobs:
         uses: astral-sh/setup-uv@v4
 
       - name: Install dependencies
+        working-directory: ./faq_automation
         run: |
           uv sync --no-dev
 
