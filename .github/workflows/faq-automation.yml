@@ -30,6 +30,7 @@ jobs:
         working-directory: ./faq_automation
         run: |
           uv sync --no-dev
+          uv pip install -e .
 
       - name: Fetch issue body
         id: fetch_issue
