@@ -6,6 +6,7 @@ dependencies = [
     "minsearch>=0.0.7",
     "openai>=1.0.0",
     "pydantic>=2.0.0",
+    "python-frontmatter>=1.0.0",
     "pyyaml>=6.0.2",
 ]
 
