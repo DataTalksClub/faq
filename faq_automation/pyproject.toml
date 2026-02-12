@@ -16,6 +16,9 @@ dev = [
     "pytest-mock>=3.10.0",
 ]
 
+[tool.uv]
+package = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests", "tests_integration"]
 python_files = ["test_*.py"]
