@@ -49,7 +49,7 @@ jobs:
         working-directory: ./
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PYTHONPATH: /home/runner/work/faq/faq
+          QUESTIONS_DIR: /home/runner/work/faq/faq/_questions
         run: |
           # Run FAQ automation CLI with full issue body
           uv run --directory faq_automation python -m faq_automation.cli \

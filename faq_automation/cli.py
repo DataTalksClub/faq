@@ -132,7 +132,8 @@ def main():
         print(f"Answer: {answer[:100]}...")
 
         # Set up paths
-        course_dir = Path('_questions') / course
+        questions_dir = Path(os.environ.get('QUESTIONS_DIR', '_questions'))
+        course_dir = questions_dir / course
         if not course_dir.exists():
             print(f"Error: Course directory {course_dir} does not exist", file=sys.stderr)
             sys.exit(1)
