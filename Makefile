@@ -2,7 +2,7 @@
 
 website:
 	@echo "🌐 Generating website..."
-	cd website && uv run python generate_website.py
+	uv run --project website python website/generate_website.py
 
 test-website:
 	@echo "🌐 Running website tests..."
