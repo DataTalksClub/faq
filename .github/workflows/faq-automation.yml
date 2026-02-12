@@ -46,20 +46,20 @@ jobs:
 
       - name: Process FAQ with AI
         id: process
-        working-directory: ./faq_automation
+        working-directory: ./
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PYTHONPATH: /home/runner/work/faq/faq
         run: |
           # Run FAQ automation CLI with full issue body
-          .venv/bin/python -m faq_automation.cli \
+          uv run --directory faq_automation python -m faq_automation.cli \
             --issue-body "$(cat /tmp/issue_body.txt)" \
             --issue-number ${{ github.event.issue.number }} \
             --model "gpt-5-nano" \
             --output-dir /tmp
 
           # Write decision output to GitHub Actions
-          .venv/bin/python ../scripts/write_faq_decision_output.py
+          uv run python scripts/write_faq_decision_output.py
 
       - name: Handle NEW or UPDATE action
         if: fromJson(steps.process.outputs.decision).action != 'DUPLICATE'
