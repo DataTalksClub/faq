@@ -30,7 +30,6 @@ jobs:
         working-directory: ./faq_automation
         run: |
           uv sync --no-dev
-          uv pip install -e .
 
       - name: Fetch issue body
         id: fetch_issue
@@ -52,7 +51,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           # Run FAQ automation CLI with full issue body
-          uv run python -m faq_automation.cli \
+          uv run --no-sync python -m faq_automation.cli \
             --issue-body "$(cat /tmp/issue_body.txt)" \
             --issue-number ${{ github.event.issue.number }} \
             --model "gpt-5-nano" \
