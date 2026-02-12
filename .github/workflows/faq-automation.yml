@@ -46,6 +46,7 @@ jobs:
 
       - name: Process FAQ with AI
         id: process
+        working-directory: ./faq_automation
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -57,7 +58,7 @@ jobs:
             --output-dir /tmp
 
           # Write decision output to GitHub Actions
-          uv run scripts/write_faq_decision_output.py
+          uv run ../scripts/write_faq_decision_output.py
 
       - name: Handle NEW or UPDATE action
         if: fromJson(steps.process.outputs.decision).action != 'DUPLICATE'
