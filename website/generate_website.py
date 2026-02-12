@@ -12,7 +12,7 @@ import mistune
 from mistune.plugins.table import table
 from mistune.plugins.task_lists import task_lists
 from pygments import highlight
-from pygments.lexers import get_lexer_by_name, guess_lexer
+from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 from pygments.util import ClassNotFound
 from datetime import datetime

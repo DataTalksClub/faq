@@ -11,9 +11,7 @@ Tests the complete end-to-end workflow of FAQ automation including:
 import json
 import pytest
 from pathlib import Path
-from unittest.mock import Mock, patch, MagicMock
-import tempfile
-import shutil
+from unittest.mock import Mock, patch
 
 from faq_automation.rag_agent import FAQAgent, FAQDecision, process_faq_proposal
 from faq_automation.actions import (
