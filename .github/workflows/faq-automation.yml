@@ -28,8 +28,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./faq_automation
-        run: |
-          uv sync --no-dev
+        run: uv sync --no-dev
 
       - name: Fetch issue body
         id: fetch_issue
@@ -46,19 +45,18 @@ jobs:
 
       - name: Process FAQ with AI
         id: process
-        working-directory: ./faq_automation
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           # Run FAQ automation CLI with full issue body
-          uv run python -m faq_automation.cli \
+          uv run --project faq_automation python -m faq_automation.cli \
             --issue-body "$(cat /tmp/issue_body.txt)" \
             --issue-number ${{ github.event.issue.number }} \
             --model "gpt-5-nano" \
             --output-dir /tmp
 
           # Write decision output to GitHub Actions
-          uv run ../scripts/write_faq_decision_output.py
+          uv run --project faq_automation python scripts/write_faq_decision_output.py
 
       - name: Handle NEW or UPDATE action
         if: fromJson(steps.process.outputs.decision).action != 'DUPLICATE'
