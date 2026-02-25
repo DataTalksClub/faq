@@ -13,7 +13,7 @@ sections:
     comment: "Questions about BigQuery, data warehousing concepts, and partitioning/clustering go here"
   - id: module-4
     name: "Module 4: Analytics Engineering with dbt"
-    comment: "Questions about dbt (dbt Core, dbt Cloud) go here"
+    comment: "Questions about dbt (dbt Core, dbt Cloud) and DuckDB go here"
   - id: module-5
     name: "Module 5: Data Platforms (Bruin)"
     comment: "Questions about Bruin and data platforms go here"
