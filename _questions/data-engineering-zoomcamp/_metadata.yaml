@@ -10,13 +10,21 @@ sections:
     comment: "Questions about Kestra and workflow orchestration go here" 
   - id: module-3
     name: "Module 3: Data Warehousing"
+    comment: "Questions about BigQuery, data warehousing concepts, and partitioning/clustering go here"
   - id: module-4
     name: "Module 4: Analytics Engineering with dbt"
+    comment: "Questions about dbt (dbt Core, dbt Cloud) go here"
   - id: module-5
-    name: "Module 5: Spark"
+    name: "Module 5: Data Platforms (Bruin)"
+    comment: "Questions about Bruin and data platforms go here"
   - id: module-6
-    name: "Module 6: Streaming with Kafka"
+    name: "Module 6: Spark"
+    comment: "Questions about Apache Spark, PySpark, and Dataproc go here"
+  - id: module-7
+    name: "Module 7: Streaming with Kafka"
+    comment: "Questions about Kafka, streaming, and real-time data processing go here"
   - id: project
     name: "Project"
   - id: workshop-1-dlthub
     name: "Workshop 1 - dlthub"
+    comment: "Questions about dlt (data load tool by dlthub) go here. Do NOT confuse dlt with dbt — they are different tools"
