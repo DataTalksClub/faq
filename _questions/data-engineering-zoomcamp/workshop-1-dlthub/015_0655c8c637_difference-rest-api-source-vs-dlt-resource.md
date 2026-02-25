@@ -2,7 +2,7 @@
 id: 0655c8c637
 question: What is the difference between rest_api_source({...}) and @dlt.resource
   in dlt, and when should I use each?
-sort_order: 50
+sort_order: 15
 ---
 
 - `rest_api_source({...})` is declarative: JSON config, less custom code, and faster setup.
