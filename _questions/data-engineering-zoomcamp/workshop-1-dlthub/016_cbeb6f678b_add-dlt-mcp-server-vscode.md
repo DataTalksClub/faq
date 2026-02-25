@@ -1,7 +1,7 @@
 ---
 id: cbeb6f678b
 question: How do I add the dlt MCP server in VS Code?
-sort_order: 14
+sort_order: 16
 ---
 
 - Open the command palette in VS Code:
