@@ -78,8 +78,8 @@ def parse_full_issue_body(issue_body: str) -> tuple[str, str, str]:
                     question = '\n'.join(current_content).strip()
             current_section = 'answer'
             current_content = []
-        elif line.startswith('###'):
-            # Any other section (like ### Checklist) - stop collecting
+        elif line.startswith('### Checklist'):
+            # Known template section - stop collecting
             if current_section and current_content:
                 if current_section == 'course':
                     course = '\n'.join(current_content).strip()
@@ -89,7 +89,7 @@ def parse_full_issue_body(issue_body: str) -> tuple[str, str, str]:
                     answer = '\n'.join(current_content).strip()
             current_section = None
             current_content = []
-        elif line and current_section:
+        elif current_section:
             current_content.append(line)
 
     # Capture last section

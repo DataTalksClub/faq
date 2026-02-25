@@ -104,6 +104,42 @@ Some answer
         with pytest.raises(ValueError, match="Could not parse"):
             parse_full_issue_body(issue_body)
 
+    def test_parse_full_issue_body_with_markdown_headings_in_content(self):
+        """Test parsing when question/answer contain ### headings (issue #169)"""
+        issue_body = """### Course
+
+data-engineering-zoomcamp
+
+### Question
+
+### 04-analytics-engineering
+
+When setting up **dbt cloud** environment, we need to create a connection to **BigQuery**.
+If you are still **not able to create JSON key** for your BQ service account, **DON'T!**
+
+### Answer
+
+The only solution is to bruteforce delete the iam.disableServiceAccountKeyCreation
+1. Add yourself "Service Account Key Admin" role.
+2. Run:
+```bash
+gcloud org-policies delete iam.disableServiceAccountKeyCreation --organization=[your-org-id]
+```
+
+### Checklist
+
+- [x] I have searched existing FAQs and this question is not already answered
+- [x] The answer provides accurate, helpful information
+"""
+
+        course, question, answer = parse_full_issue_body(issue_body)
+
+        assert course == "data-engineering-zoomcamp"
+        assert "04-analytics-engineering" in question
+        assert "dbt cloud" in question
+        assert "gcloud org-policies delete" in answer
+        assert "Checklist" not in answer
+
     def test_parse_full_issue_body_missing_answer(self):
         """Test parsing with missing answer raises error"""
         issue_body = """### Course
