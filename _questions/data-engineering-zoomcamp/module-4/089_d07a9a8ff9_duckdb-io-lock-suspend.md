@@ -2,7 +2,7 @@
 id: d07a9a8ff9
 question: 'Why does DuckDB show “IO Error: Could not set lock on file” after pressing
   Ctrl+Z in Ubuntu, and how can it be fixed?'
-sort_order: 1
+sort_order: 89
 ---
 
 Pressing `Ctrl+Z` while running:
