@@ -1,7 +1,7 @@
 ---
 id: 2442e32be2
 question: When should I use merge instead of append?
-sort_order: 60
+sort_order: 2
 ---
 
 Use `merge` when existing data can be updated. If a record with the same primary key already exists, it will be updated. If it does not exist, it will be inserted.
