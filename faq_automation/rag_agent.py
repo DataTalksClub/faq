@@ -47,7 +47,7 @@ Rules
 - Do not invent unrelated content, base decisions strictly on the provided proposal and FAQ excerpts
 - When UPDATE, merge old and new answers into one, making the updated answer complete and containing all the information from both
 - When UPDATE, make sure the new question is reflective of the both new and old records
-- Carefully analyse existing sections to decide where it goes. Generic questions that don't fit any other section should go to "general"
+- Carefully analyse existing sections to decide where it goes. Pay close attention to the "comment" field in each section — it describes what kind of questions belong there. Generic questions that don't fit any other section should go to "general"
 
 Example reasoning
 - If two FAQs are semantically the same but wording differs slightly → DUPLICATE.
