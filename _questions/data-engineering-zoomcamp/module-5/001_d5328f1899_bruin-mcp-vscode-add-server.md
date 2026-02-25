@@ -1,7 +1,7 @@
 ---
 id: d5328f1899
 question: How do I add the Bruin MCP server to VS Code?
-sort_order: 58
+sort_order: 1
 ---
 
 1. Open the command palette in your IDE and search for "MCP: Add Server..." 
