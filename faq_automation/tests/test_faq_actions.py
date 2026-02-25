@@ -3,7 +3,7 @@ Unit tests for FAQ automation actions
 """
 
 import pytest
-from faq_automation.actions import generate_pr_body, generate_duplicate_comment
+from faq_automation.actions import generate_pr_body, generate_duplicate_comment, _slugify
 from faq_automation.rag_agent import FAQDecision
 
 
@@ -88,3 +88,30 @@ class TestGenerateDuplicateComment:
         assert 'existing123' in comment
         assert 'https://datatalks.club/faq/machine-learning-zoomcamp.html#existing123' in comment
         assert '_questions/machine-learning-zoomcamp/general/' in comment
+
+
+class TestSlugify:
+    """Test the _slugify helper function"""
+
+    def test_basic_slugify(self):
+        """Test basic text to slug conversion"""
+        assert _slugify("How do I install Docker?") == "how-do-i-install-docker"
+
+    def test_special_characters_removed(self):
+        """Test that special characters are stripped"""
+        assert _slugify("What's the deadline (2024)?") == "whats-the-deadline-2024"
+
+    def test_max_length(self):
+        """Test slug truncation at max_length"""
+        long = "this is a very long question that exceeds the maximum length"
+        result = _slugify(long, max_length=20)
+        assert len(result) <= 20
+        assert not result.endswith('-')
+
+    def test_multiple_spaces(self):
+        """Test multiple spaces collapse to single hyphen"""
+        assert _slugify("too   many    spaces") == "too-many-spaces"
+
+    def test_empty_string(self):
+        """Test empty input"""
+        assert _slugify("") == ""

@@ -4,6 +4,7 @@ GitHub Actions integration for FAQ automation
 Handles creating PRs, adding comments, and managing issues.
 """
 
+import re
 import json
 from pathlib import Path
 from typing import Optional
@@ -16,6 +17,14 @@ from .core import (
     parse_frontmatter,
 )
 from .rag_agent import FAQDecision
+
+
+def _slugify(text: str, max_length: int = 50) -> str:
+    """Convert text to a file-system friendly slug."""
+    slug = text.lower()
+    slug = re.sub(r'[^a-z0-9\s-]', '', slug)
+    slug = re.sub(r'[\s]+', '-', slug).strip('-')
+    return slug[:max_length].rstrip('-')
 
 
 def create_new_faq_file(
@@ -42,7 +51,7 @@ def create_new_faq_file(
     )
 
     sort_order = faq_decision.order
-    doc_slug = faq_decision.filename_slug
+    doc_slug = faq_decision.filename_slug or _slugify(faq_decision.question)
     faq_section = faq_decision.section_id
 
     # If order is -1, append to end of section
