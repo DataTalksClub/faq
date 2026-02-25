@@ -1,7 +1,7 @@
 ---
 id: f04da64de9
 question: Can I have multiple Bruin projects inside the same Git repository?
-sort_order: 58
+sort_order: 3
 ---
 
 Yes, you can have multiple Bruin projects inside the same Git repository. However, bruin init automatically places the **.bruin.yml** config in the Git root, so you need to manually relocate the config file and explicitly tell Bruin where it lives.
