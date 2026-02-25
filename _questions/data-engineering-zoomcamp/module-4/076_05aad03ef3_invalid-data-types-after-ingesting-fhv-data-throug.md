@@ -10,29 +10,17 @@ If you uploaded the FHV 2019 parquet files manually after downloading from [this
 
 ```sql
 CREATE OR REPLACE EXTERNAL TABLE `dw-bigquery-week-3.trips_data_all.external_tlc_fhv_trips_2019` (
-
   dispatching_base_num STRING,
-
   pickup_datetime TIMESTAMP,
-
   dropoff_datetime TIMESTAMP,
-
   PUlocationID FLOAT64,
-
   DOlocationID FLOAT64,
-
   SR_Flag FLOAT64,
-
   Affiliated_base_number STRING
-
 )
-
 OPTIONS (
-
   format = 'PARQUET',
-
   uris = ['gs://project id/fhv_2019_8.parquet']
-
 );
 ```
 

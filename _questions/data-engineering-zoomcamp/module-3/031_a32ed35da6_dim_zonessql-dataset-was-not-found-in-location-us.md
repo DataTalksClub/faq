@@ -8,11 +8,8 @@ To solve this error, specify the location as `US` when creating the `dim_zones` 
 
 ```sql
 {{ config(
-
-materialized='table',
-
-location='US'
-
+    materialized='table',
+    location='US'
 ) }}
 ```
 

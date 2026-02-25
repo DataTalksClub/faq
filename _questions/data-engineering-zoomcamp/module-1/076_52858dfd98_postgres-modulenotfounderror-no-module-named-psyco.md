@@ -1,12 +1,5 @@
 ---
 id: 52858dfd98
-images:
-- description: 'image #1'
-  id: image_1
-  path: images/data-engineering-zoomcamp/image_b7e005cb.png
-- description: 'image #2'
-  id: image_2
-  path: images/data-engineering-zoomcamp/image_c56a8539.png
 question: 'Postgres - ModuleNotFoundError: No module named ''psycopg2'''
 sort_order: 76
 ---
@@ -16,10 +9,6 @@ Issue:
 ```
 ModuleNotFoundError: No module named 'psycopg2'
 ```
-
-<IMAGE:image_1>
-
-<IMAGE:image_2>
 
 Solution:
 

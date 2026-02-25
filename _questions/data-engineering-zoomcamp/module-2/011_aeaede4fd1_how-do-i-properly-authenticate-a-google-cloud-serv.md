@@ -28,16 +28,4 @@ Update your `docker-compose.yml` file as needed.
 
 4. **Verify it’s Working in a Testing GCP Workflow**
 
-### Additional FAQs:
-
-**Question:** How do I update the Service Account key?
-
-**Answer:** Generate a new key, re-run the Base64 command, and restart Kestra.
-
-**Question:** Why use secrets instead of embedding the JSON key in the task?
-
-**Answer:** Secrets prevent credential exposure and make workflows easier to manage.
-
-**Question:** Can I apply this method to other GCP tasks?
-
-**Answer:** Yes, all GCP plugins will automatically inherit the secret.
+See also related FAQs on updating the service account key, using secrets, and applying this method to other GCP tasks.

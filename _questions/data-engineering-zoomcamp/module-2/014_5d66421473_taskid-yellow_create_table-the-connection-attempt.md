@@ -1,9 +1,5 @@
 ---
 id: 5d66421473
-images:
-- description: 'image #1'
-  id: image_1
-  path: images/data-engineering-zoomcamp/image_e66c0b8d.png
 question: 'taskid: yellow_create_table The connection attempt failed. Host.docker.internal'
 sort_order: 14
 ---
@@ -21,4 +17,13 @@ Make sure to modify the `pluginDefaults` in the following files:
 - `2_postgres_taxi_scheduled.yaml`
 - `02_postgres_taxi.yaml`
 
-<{IMAGE:image_1}>
+Example `pluginDefaults` configuration:
+
+```yaml
+pluginDefaults:
+  - type: io.kestra.plugin.jdbc.postgresql
+    values:
+      url: jdbc:postgresql://postgres_zoomcamp:5432/postgres-zoomcamp
+      username: kestra
+      password: k3str4
+```
