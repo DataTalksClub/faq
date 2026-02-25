@@ -1,7 +1,7 @@
 ---
 id: 3a53549d08
 question: How does dlt handle schema evolution?
-sort_order: 40
+sort_order: 14
 ---
 
 dlt automatically detects and adapts to most schema changes during ingestion, so you usually don't need to manually alter tables.
