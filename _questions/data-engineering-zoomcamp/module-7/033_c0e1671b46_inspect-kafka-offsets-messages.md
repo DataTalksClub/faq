@@ -1,7 +1,7 @@
 ---
 id: c0e1671b46
 question: How to Inspect Messages in a Kafka Topic Using Offsets?
-sort_order: 16
+sort_order: 33
 ---
 
 An offset in Kafka is a per-partition sequence number that uniquely identifies messages within that partition. There is no global offset for the entire topic, and consumers use offsets to track what they have processed.
