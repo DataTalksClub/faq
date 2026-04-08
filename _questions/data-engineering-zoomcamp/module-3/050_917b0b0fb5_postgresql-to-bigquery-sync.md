@@ -1,7 +1,7 @@
 ---
 id: 917b0b0fb5
 question: How can I sync data from PostgreSQL to BigQuery for analytical workloads?
-sort_order: 25
+sort_order: 50
 ---
 
 Overview:
