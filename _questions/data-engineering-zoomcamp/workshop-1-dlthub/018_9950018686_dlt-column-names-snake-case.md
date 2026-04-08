@@ -1,7 +1,7 @@
 ---
 id: '9950018686'
 question: How to query data when dlt normalizes column names to lowercase and snake_case?
-sort_order: 1
+sort_order: 18
 ---
 
 DLT normalizes column names to lowercase and converts them to snake_case. For example, Trip_Pickup_DateTime becomes trip_pickup_date_time. When querying, use the normalized column names.
