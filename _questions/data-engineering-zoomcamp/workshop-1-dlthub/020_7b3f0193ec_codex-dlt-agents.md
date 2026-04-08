@@ -1,7 +1,7 @@
 ---
 id: 7b3f0193ec
 question: How do I generate the AGENTS.md file for Codex in dlt?
-sort_order: 58
+sort_order: 20
 ---
 
 To generate the AGENTS.md file for Codex in dlt, follow these steps:
