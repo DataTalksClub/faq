@@ -1,7 +1,7 @@
 ---
 id: a71d2105aa
 question: Why does Spark write multiple parquet files after repartitioning a DataFrame?
-sort_order: 60
+sort_order: 64
 ---
 
 Spark processes data in partitions. When you write a DataFrame to disk, Spark writes each partition as a separate output file. For example:
