@@ -2,7 +2,7 @@
 id: a198f6959c
 question: How do I structure a layered data warehouse (raw, clean, analytics) for
   a batch pipeline?
-sort_order: 15
+sort_order: 51
 ---
 
 - Raw layer: store ingested data exactly as received
