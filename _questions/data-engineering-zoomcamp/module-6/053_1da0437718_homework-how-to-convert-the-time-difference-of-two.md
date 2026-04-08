@@ -1,14 +1,40 @@
 ---
 id: 1da0437718
-question: 'Homework: how to convert the time difference of two timestamps to hours'
+question: How can I calculate the duration between two Spark timestamp columns in
+  hours (e.g., tpep_pickup_datetime and tpep_dropoff_datetime)?
 sort_order: 53
 ---
 
-Pyspark converts the difference of two `TimestampType` values to Python's native `datetime.timedelta` object. The `timedelta` object stores the duration in terms of days, seconds, and microseconds. Each of these units must be manually converted into hours to express the total duration between the two timestamps using only hours.
+You can compute the duration in hours between two Spark timestamp columns in several ways. Choose the approach that best fits your workflow:
 
-Another method to achieve this is using the `datediff` SQL function. It requires the following parameters:
+- Using unix_timestamp (per-row hours as a floating-point value):
+````python
+from pyspark.sql import functions as F
 
-- **Upper Date**: The closer date, e.g., `dropoff_datetime`.
-- **Lower Date**: The farther date, e.g., `pickup_datetime`.
+trip_duration_hours = (
+    F.unix_timestamp("tpep_dropoff_datetime") -
+    F.unix_timestamp("tpep_pickup_datetime")
+) / 3600
+````
+This yields the duration in hours for each row as a numeric value.
 
-The result is returned in days, so you can multiply the result by 24 to get the duration in hours.
+- Using datediff (hours approximation via days):
+````python
+from pyspark.sql import functions as F
+
+# difference in days, then multiply by 24 to get hours
+hours = F.datediff("tpep_dropoff_datetime", "tpep_pickup_datetime") * 24
+````
+Note that datediff returns whole days; if you need sub-day precision, prefer the unix_timestamp method above or compute seconds directly.
+
+- Working with Python timedelta after collecting (Python-side calculation):
+````python
+# after collecting to Python (e.g., with toPandas or collect):
+# delta is a Python datetime.timedelta object between dropoff and pickup
+hours = delta.total_seconds() / 3600
+````
+
+Each approach has trade-offs:
+- unix_timestamp gives per-row exact hours including minutes and seconds.
+- datediff provides a quick day-based delta (multiplying by 24 to get hours) but loses sub-day precision.
+- Python-side timedelta is useful when you're operating outside Spark/after collecting, but it requires moving data to the driver.
