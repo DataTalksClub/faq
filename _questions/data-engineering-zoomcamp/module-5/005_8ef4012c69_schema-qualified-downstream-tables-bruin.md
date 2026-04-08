@@ -2,7 +2,7 @@
 id: 8ef4012c69
 question: Why do downstream Bruin assets fail with 'Table does not exist' error even
   though the upstream ingestion asset succeeded?
-sort_order: 4
+sort_order: 5
 ---
 
 Bruin creates tables inside schemas (for example ingestion, staging, reports). If you reference a table without its schema, DuckDB will not find it and will raise a “Table does not exist” error, even if the upstream ingestion asset ran successfully. Always use schema-qualified names in downstream assets. You can verify existing tables with:
