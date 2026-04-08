@@ -2,7 +2,7 @@
 id: 79792b53fc
 question: Why does my Bruin seed asset fail with a timeout error related to ingestr
   or duckdb installation?
-sort_order: 4
+sort_order: 6
 ---
 
 ### Summary
