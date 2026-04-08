@@ -2,7 +2,7 @@
 id: 53f31cd33c
 question: Why might some API response fields be missing after a dlt pipeline run,
   and how can I fix it?
-sort_order: 1
+sort_order: 19
 ---
 
 Root cause:
