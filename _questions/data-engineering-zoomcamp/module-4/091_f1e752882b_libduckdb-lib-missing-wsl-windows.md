@@ -2,7 +2,7 @@
 id: f1e752882b
 question: 'libduckdb.so: cannot open shared object file error when running Bruin with
   DuckDB on Windows 10 / WSL Ubuntu 24.04'
-sort_order: 90
+sort_order: 91
 ---
 
 The error occurs because the system cannot locate the DuckDB shared library. Resolve by downloading and moving the library to the system's library path:
