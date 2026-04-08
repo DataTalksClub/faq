@@ -2,7 +2,7 @@
 id: 6b4bd387cf
 question: Why does the PyFlink streaming job fail with a JSON deserialization error
   when consuming records from the Kafka/Redpanda topic?
-sort_order: 30
+sort_order: 32
 ---
 
 Problem
