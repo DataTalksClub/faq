@@ -2,7 +2,7 @@
 id: c2c5634e36
 question: Why does casting TIMESTAMP_NTZ to BIGINT fail in Spark, and how can I convert
   it to a numeric value?
-sort_order: 62
+sort_order: 63
 ---
 
 TIMESTAMP_NTZ cannot be cast directly to numeric types like BIGINT in Spark. To convert to a numeric representation (epoch seconds), use the to_unix_timestamp function.
