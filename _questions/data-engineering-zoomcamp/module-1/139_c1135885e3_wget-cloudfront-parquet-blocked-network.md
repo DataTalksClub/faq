@@ -2,7 +2,7 @@
 id: c1135885e3
 question: Why does wget fail to download the CloudFront parquet file even with --no-check-certificate,
   and how can I work around network blocks?
-sort_order: 58
+sort_order: 139
 ---
 
 The download may fail not because of SSL verification but because the network blocks requests to the CloudFront domain. In some networks, requests to the dataset URL are redirected to a block page such as https://blocked.sbmd.cicc.gov.ph/.
