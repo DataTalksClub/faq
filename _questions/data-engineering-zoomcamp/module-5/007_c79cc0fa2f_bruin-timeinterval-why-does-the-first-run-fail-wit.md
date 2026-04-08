@@ -2,7 +2,7 @@
 id: c79cc0fa2f
 question: 'Bruin time_interval: Why does the first run fail with a ''table does not
   exist'' catalog error?'
-sort_order: 4
+sort_order: 7
 ---
 
 The time_interval materialization strategy deletes the target table before loading data for the requested time window. On the first run, the table does not exist yet, so the DELETE statement fails with a catalog error.
