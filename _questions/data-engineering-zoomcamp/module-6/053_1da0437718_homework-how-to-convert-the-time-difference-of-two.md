@@ -37,4 +37,4 @@ hours = delta.total_seconds() / 3600
 Each approach has trade-offs:
 - unix_timestamp gives per-row exact hours including minutes and seconds.
 - datediff provides a quick day-based delta (multiplying by 24 to get hours) but loses sub-day precision.
-- Python-side timedelta is useful when you’re operating outside Spark/after collecting, but it requires moving data to the driver.
+- Python-side timedelta is useful when you're operating outside Spark/after collecting, but it requires moving data to the driver.
