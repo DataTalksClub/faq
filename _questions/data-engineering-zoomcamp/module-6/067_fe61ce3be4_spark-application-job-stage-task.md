@@ -1,7 +1,7 @@
 ---
 id: fe61ce3be4
 question: What is the difference between a Spark application, job, stage, and task?
-sort_order: 15
+sort_order: 67
 ---
 
 One of the first places where Spark concepts appear is in the graphical interface. There we see terms like application, job, stage, or task, but at first it's not always clear how they relate to each other. Understanding this hierarchy is very useful because it allows us to interpret what Spark is doing internally, debug problems, and better understand the performance of our processes.
