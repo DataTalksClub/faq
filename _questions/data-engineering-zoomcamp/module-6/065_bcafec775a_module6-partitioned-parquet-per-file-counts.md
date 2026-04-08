@@ -2,7 +2,7 @@
 id: bcafec775a
 question: How many records are stored in each partition/parquet file when writing
   a Spark DataFrame with repartition?
-sort_order: 62
+sort_order: 65
 ---
 
 When you repartition a DataFrame and write it to Parquet, Spark writes one Parquet file per partition. The total number of rows in the dataset is distributed across those files, so each partition file contains roughly N / num_partitions rows (where N is the total row count and num_partitions is the number of partitions you repartitioned to). The exact counts per file depend on the data distribution and the chosen number of partitions.
