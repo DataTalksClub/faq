@@ -3,8 +3,25 @@ course_name: "Data Engineering Zoomcamp"
 sections:
   - id: general
     name: "General Course-Related Questions"
-  - id: module-1
-    name: "Module 1: Docker and Terraform"
+    comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, project rules, contributing"
+  - id: environment
+    name: "Environment & Setup"
+    comment: "Where/how to run the course: local vs Codespaces vs GCP VM, Python version, Windows/WSL/Mac, troubleshooting workflow, IDE/editor tips"
+  - id: module-1-data
+    name: "Module 1: Taxi Data (download & handling)"
+    comment: "How to download / unzip / handle the NY taxi datasets used throughout the course (CSV.GZ, Parquet, wget/curl issues)"
+  - id: module-1-docker
+    name: "Module 1: Docker"
+    comment: "Docker engine, Docker Compose, volumes, networking, WSL — anything containerization-related in module 1"
+  - id: module-1-postgres
+    name: "Module 1: Postgres, pgAdmin & Python ingestion"
+    comment: "Postgres, pgcli, pgAdmin, Python ingestion (pandas, SQLAlchemy, psycopg), and SQL"
+  - id: module-1-gcp
+    name: "Module 1: GCP setup & VM"
+    comment: "GCP account, billing, free trial, SDK install, service accounts, VM (Compute Engine) setup, SSH"
+  - id: module-1-terraform
+    name: "Module 1: Terraform"
+    comment: "Terraform IaC for GCP — provider, credentials, errors, state, teardown"
   - id: module-2
     name: "Module 2: Workflow Orchestration"
     comment: "Questions about Kestra and workflow orchestration go here" 
@@ -21,8 +38,8 @@ sections:
     name: "Module 6: Spark"
     comment: "Questions about Apache Spark, PySpark, and Dataproc go here"
   - id: module-7
-    name: "Module 7: Streaming with Kafka"
-    comment: "Questions about Kafka, streaming, and real-time data processing go here"
+    name: "Module 7: Streaming"
+    comment: "Questions about streaming and real-time data processing go here. Do not name specific tools (Kafka, PyFlink, Spark Streaming, Redpanda, etc.) in the section name — the course's streaming stack changes between cohorts."
   - id: project
     name: "Project"
   - id: workshop-1-dlthub

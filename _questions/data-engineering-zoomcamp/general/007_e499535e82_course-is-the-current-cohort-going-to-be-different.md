@@ -4,6 +4,6 @@ question: 'Course: Is the current cohort going to be different from the previous
 sort_order: 7
 ---
 
-For the 2025 edition, we are using Kestra (see [Demo](https://www.youtube.com/watch?v=R0JAFvDCmSY)) instead of MageAI (Module 2). Look out for new videos. See [Playlist](https://www.youtube.com/playlist?list=PLEK3H8YwZn1oPPShk2p5k3E9vO-gPnUCf).
+Most of the syllabus stays consistent year to year, but the tooling for some modules evolves between cohorts — especially the orchestrator (Module 2) and analytics engineering (Module 4) tools. For the current cohort's exact tooling and any new lessons, check the [course repo README](https://github.com/DataTalksClub/data-engineering-zoomcamp) and the [`cohorts/` folder](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/cohorts) — it lists what changed for each year.
 
-For the 2024 edition, we used Mage AI instead of Prefect and re-recorded the Terraform videos. For 2023, we used Prefect instead of Airflow. See playlists on YouTube and the [cohorts folder in the GitHub repo](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/cohorts).
+Past tool changes have included Airflow → Prefect → Mage → Kestra for orchestration. Old cohort materials remain available, so you can still follow them if you find an older video easier to learn from, but the homework is graded against the current cohort's stack.

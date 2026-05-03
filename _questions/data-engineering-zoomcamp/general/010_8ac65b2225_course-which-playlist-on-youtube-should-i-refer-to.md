@@ -1,16 +1,11 @@
 ---
 id: 8ac65b2225
-question: 'Course: Which playlist on YouTube should I refer to?'
+question: 'Course: Which YouTube playlist should I follow?'
 sort_order: 10
 ---
 
-All the main videos are stored in the "DATA ENGINEERING ZOOMCAMP" main playlist. The GitHub repository is updated to include each video with a thumbnail, linking directly to the relevant playlist.
+The canonical place to find the videos is the [DATA ENGINEERING ZOOMCAMP main playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb). It always points at the current cohort's lessons.
 
-Refer to the Main Playlist for the core content, and then check specific year playlists for additional videos such as office hours.
+The [course repo README](https://github.com/DataTalksClub/data-engineering-zoomcamp) embeds the up-to-date video links per module — that's the easiest way to navigate to the right video for each lesson.
 
-- [Data Engineering Zoomcamp](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb)
-- [Data Engineering Zoomcamp 2022](https://www.youtube.com/playlist?list=PL3MmuxUbc_hKVX8VnwWCPaWlIHf1qmg8s)
-- [Data Engineering Zoomcamp 2023](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJjEePXIdE-LVUx_1ZZjYGW)
-- Data Engineering Bootcamp 2024
-- [Data Engineering Bootcamp 2025](https://www.youtube.com/playlist?list=PL3MmuxUbc_hJZdpLpRHp7dg6EOx828q6y)
-- [DE Zoomcamp 2025 (Module 2 Kestra)](https://www.youtube.com/playlist?list=PLEK3H8YwZn1oPPShk2p5k3E9vO-gPnUCf)
+Per-cohort playlists (with office-hour recordings and any cohort-specific extras) are linked from the [`cohorts/` folder](https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/cohorts) in the repo.

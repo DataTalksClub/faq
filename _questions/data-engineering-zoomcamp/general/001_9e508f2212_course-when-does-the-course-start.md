@@ -4,8 +4,8 @@ question: 'Course: When does the course start?'
 sort_order: 1
 ---
 
-The next cohort starts January 12th, 2026. More info at [DTC](https://datatalks.club/blog/guide-to-free-online-courses-at-datatalks-club.html).
+A new cohort runs roughly January–April every year. For the current cohort's exact start date and registration link, check the [course repo README](https://github.com/DataTalksClub/data-engineering-zoomcamp).
 
-- Register before the course starts using this [link](https://airtable.com/shr6oVXeQvSI5HuWD).
-- Join the [course Telegram channel with announcements](https://t.me/dezoomcamp).
-- Don’t forget to register in DataTalks.Club's Slack and [join](https://datatalks.club/docs/general/slack/) the channel.
+- Register via the link in the course repo before the cohort starts.
+- Join the [course Telegram channel](https://t.me/dezoomcamp) for announcements.
+- Join DataTalks.Club's [Slack](https://datatalks.club/docs/general/slack/) and the `#course-data-engineering` channel.
