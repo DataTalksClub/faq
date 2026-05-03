@@ -4,4 +4,4 @@ question: Do I need any special hardware?
 sort_order: 12
 ---
 
-For the Machine Learning part, all you need is a working laptop with an internet connection. The Deep Learning part is more resource intensive, but for that you can use a cloud. We use SaturnCloud, but it can be anything else.
+For the classical Machine Learning part, all you need is a working laptop with an internet connection. The Deep Learning part is more resource intensive — for that, use any cloud GPU service (Google Colab, AWS, GCP, etc.).

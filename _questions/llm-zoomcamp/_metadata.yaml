@@ -3,19 +3,27 @@ course_name: "LLM Zoomcamp"
 sections:
   - id: general
     name: "General Course-Related Questions"
+    comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, project rules. Technical questions belong in the module sections."
   - id: module-1
-    name: "Module 1: Introduction"
+    name: "Module 1: Introduction to LLMs and RAG"
+    comment: "Basics of LLMs and RAG, OpenAI API, text search. Includes setup-related issues (API keys, ElasticSearch, Ollama, etc.)"
   - id: module-2
-    name: "Module 2: Vector Search"
+    name: "Module 2: Agents"
+    comment: "Adding agentic functionality to RAG, function calling, MCP, tool use"
   - id: module-3
-    name: "Module 3: Evaluation"
+    name: "Module 3: Vector Search"
+    comment: "Vector search, embeddings, indexing, Qdrant, semantic search"
   - id: module-4
-    name: "Module 4: Monitoring"
+    name: "Module 4: Evaluation"
+    comment: "Search evaluation, online vs offline evaluation, LLM as a judge, hit rate / MRR / ROUGE"
+  - id: module-5
+    name: "Module 5: Monitoring"
+    comment: "Online evaluation techniques, Phoenix, dashboards, monitoring user feedback"
   - id: module-6
-    name: "Module 6: X"
+    name: "Module 6: Best Practices"
+    comment: "Hybrid search, document reranking, advanced RAG techniques"
   - id: project
     name: "Capstone Project"
   - id: workshops-dlthub
-    name: "Workshops: dlthub"
-  - id: workshops-agents
-    name: "Workshops: Agents"
+    name: "Workshop: Open-Source Data Ingestion (dlt)"
+    comment: "Workshop on using dlt for ingesting data into RAG systems"
