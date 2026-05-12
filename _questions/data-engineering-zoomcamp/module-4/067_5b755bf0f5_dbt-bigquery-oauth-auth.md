@@ -2,7 +2,7 @@
 id: 5b755bf0f5
 question: How do I authenticate dbt with BigQuery when service account key creation
   is disabled and switch to OAuth?
-sort_order: 66
+sort_order: 67
 ---
 
 When running dbt debug with BigQuery, authentication issues can occur if your dbt profile uses method: service-account but Google Cloud enforces iam.disableServiceAccountKeyCreation. In that case, use Google Application Default Credentials / OAuth instead.
