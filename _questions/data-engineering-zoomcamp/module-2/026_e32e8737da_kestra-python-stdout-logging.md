@@ -1,7 +1,7 @@
 ---
 id: e32e8737da
 question: How to fix Python logs shown as Kestra error messages?
-sort_order: 27
+sort_order: 26
 ---
 
 The issue comes down to how Unix processes produce output and how Kestra interprets it:
@@ -19,9 +19,9 @@ import sys
 import logging
 
 logging.basicConfig(
-level=logging.INFO,
-format="%(asctime)s %(levelname)s %(message)s",
-stream=sys.stdout,
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+    stream=sys.stdout,
 )
 ```
 
