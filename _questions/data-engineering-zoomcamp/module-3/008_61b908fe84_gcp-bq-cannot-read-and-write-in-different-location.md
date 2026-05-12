@@ -11,8 +11,6 @@ BigQuery cannot load data from a GCS bucket into a dataset in a different region
 Cannot read and write in different locations: source: <region-A>, destination: <region-B>
 ```
 
-## Fix
-
 1. Check the bucket's region in the GCS console (the "Location" field on the bucket details page).
 2. Create a BigQuery dataset in the same region. Click the three-dot menu next to your project → "Create dataset" → set "Data location" to match the bucket exactly (e.g. `us-central1`, not just `US`).
 3. Load the data into this newly-created dataset.

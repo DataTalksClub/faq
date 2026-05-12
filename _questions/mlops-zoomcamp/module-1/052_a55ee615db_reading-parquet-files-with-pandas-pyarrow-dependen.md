@@ -4,15 +4,11 @@ question: Reading parquet files with Pandas (pyarrow dependency)
 sort_order: 52
 ---
 
-### Error
-
 A module that was compiled using NumPy 1.x cannot be run in NumPy 2.2.4 as it may crash.
 
 ```
 AttributeError: module 'pyarrow' has no attribute '__version__'
 ```
-
-### Solution
 
 Downgrade the version of your numpy:
 

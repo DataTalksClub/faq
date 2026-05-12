@@ -17,8 +17,6 @@ BigQuery cannot read and write across regions in a single query, and dbt creates
 Access Denied: ... or perhaps it does not exist in location <region>
 ```
 
-## Fix
-
 1. Find the location of your source dataset in the BigQuery console (open the dataset → "Details" → "Data location"). Note the exact region string, e.g. `EU`, `US`, `europe-west6`, `us-central1`.
 
 2. Set dbt's connection location to the same value:
@@ -33,7 +31,7 @@ Access Denied: ... or perhaps it does not exist in location <region>
 
 5. If you genuinely need cross-region data (e.g. source is in `EU` but you want results in `US`), copy or replicate the source dataset into the target region first using BigQuery's dataset-copy feature. Don't try to query across regions.
 
-## In a dbt model
+**In a dbt model**
 
 You can also pin a specific model's location via `config()`:
 
@@ -46,7 +44,7 @@ You can also pin a specific model's location via `config()`:
 
 But it's cleaner to fix this once at the connection level than to repeat it in every model.
 
-## Common variants
+**Common variants**
 
 - "prod was not found in location EU" → step 2: set connection location to EU, then step 3.
 - "Access Denied: ... or perhaps it does not exist in location US" → same, plus check the service account has access.

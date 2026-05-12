@@ -5,7 +5,7 @@ question: How do I ensure that the ingestion pipeline runs successfully and in w
 sort_order: 2
 ---
 
-### Step 1: Create a common network
+**Step 1: Create a common network**
 
 Ensure that you have created a common network (`pg-network`). This allows several containers to communicate with each other. On top of this network you will run:
 
@@ -17,7 +17,7 @@ Ensure that you have created a common network (`pg-network`). This allows severa
 docker network create pg-network
 ```
 
-### Step 2: Run the Postgres container
+**Step 2: Run the Postgres container**
 
 Once you’ve created the network, start running each container one by one. First, run the Postgres container:
 
@@ -35,7 +35,7 @@ docker run -it \
 
 If `postgres:18` causes issues, use `postgres:16` as shown above.
 
-### Step 3: Build the Docker container for the pipeline
+**Step 3: Build the Docker container for the pipeline**
 
 Ensure your current working directory is `/pipeline`, then build:
 
@@ -43,7 +43,7 @@ Ensure your current working directory is `/pipeline`, then build:
 docker build -t taxi_ingest:v001 .
 ```
 
-### Step 4: Run the ingestion container
+**Step 4: Run the ingestion container**
 
 ```bash
 docker run -it \
@@ -61,7 +61,7 @@ docker run -it \
 
 Make sure that you use the parameters in the command exactly as defined in your script. For example, if your script uses `--pg_user` then use `--pg_user`; if it uses `--user` then change the command accordingly.
 
-### Step 5 (Optional): Validate the ingested records
+**Step 5 (Optional): Validate the ingested records**
 
 To check if your records reached the Postgres table, run pgcli:
 

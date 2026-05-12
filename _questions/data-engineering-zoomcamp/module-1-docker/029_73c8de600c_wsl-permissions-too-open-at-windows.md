@@ -4,14 +4,11 @@ question: 'WSL: Permissions too open at Windows'
 sort_order: 29
 ---
 
-
 Issue when trying to run the GPC VM through SSH via WSL2, likely because WSL2 isn’t looking for .ssh keys in the correct folder. The command attempted:
 
 ```bash
 ssh -i gpc [username]@[my external IP]
 ```
-
-### Solutions
 
 1. **Use `sudo` Command**
    

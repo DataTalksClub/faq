@@ -11,15 +11,11 @@ If you try to read parquets directly from nyc.gov’s cloudfront into pandas, yo
 pyarrow.lib.ArrowInvalid: Casting from timestamp[us] to timestamp[ns] would result in out of bounds
 ```
 
-### Cause:
-
 There is a data record where `dropOff_datetime` is set to the year 3019 instead of 2019. 
 
 Pandas uses "timestamp[ns]" and `int64` only allows a ~580-year range, centered on 2000. See `pd.Timestamp.max` and `pd.Timestamp.min`.
 
 This becomes out of bounds when pandas tries to read it because 3019 > 2300 (approx value of `pd.Timestamp.max`).
-
-### Fix:
 
 1. **Use pyarrow to read the data:**
 

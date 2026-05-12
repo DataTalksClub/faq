@@ -5,8 +5,6 @@ question: Pytest error 'module not found' when using custom packages in the sour
 sort_order: 11
 ---
 
-### Problem Description
-
 Project structure:
 
 ```
@@ -23,15 +21,11 @@ from production.model_service import ModelService
 - Running `python test_model_service.py` from the `sources` directory works.
 - Running `pytest ./test/unit_tests` fails with: `No module named 'production'`.
 
-### Solution
-
 - Use the following command:
   
   ```bash
   python -m pytest ./test/unit_tests
   ```
-
-#### Explanation
 
 - `pytest` does not automatically add to the `sys.path` the path where it is run.
 - Alternatives include:

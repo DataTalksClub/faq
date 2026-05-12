@@ -8,8 +8,6 @@ question: Protobuf error when installing MLflow
 sort_order: 21
 ---
 
-### Error:
-
 I installed all the libraries from the `requirements.txt` document in a new environment with the following command:
 
 ```bash
@@ -25,8 +23,6 @@ mlflow
 I get this error:
 
 <{IMAGE:image_1}>
-
-### Solution:
 
 You need to downgrade the version of the `protobuf` module to 3.20.x or lower. Initially, it was version 4.21. Use the following command to install the compatible version:
 

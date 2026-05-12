@@ -6,7 +6,7 @@ sort_order: 3
 
 To launch Kestra, follow these instructions:
 
-### For Linux
+**For Linux**
 
 Start Docker with the following command:
 
@@ -24,10 +24,9 @@ docker run \
 
 Once it is running, you can log in to the dashboard at `localhost:8080`.
 
-### For Windows
+**For Windows**
 
 Refer to the Kestra GitHub repository for detailed instructions: [https://github.com/kestra-io/kestra](https://github.com/kestra-io/kestra)
-
 
 Sample `docker-compose` for Kestra:
 

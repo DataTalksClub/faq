@@ -10,7 +10,7 @@ PermissionError: [Errno 13] Permission denied: '/Users/<you>/.config/pgcli'
 
 This means pgcli can't write its config dir. Two common causes.
 
-## Cause 1: someone ran pgcli with sudo earlier
+**Cause 1: someone ran pgcli with sudo earlier**
 
 Running `sudo pgcli ...` once creates `~/.config/pgcli` owned by root. Subsequent runs as your normal user can't write there. Fix the ownership:
 
@@ -20,7 +20,7 @@ sudo chown -R "$USER" ~/.config/pgcli
 
 Going forward, install and run pgcli without `sudo` — install it into a project venv (recommended) or `pip install --user pgcli` so you don't need root.
 
-## Cause 2: pgcli installed into a system Python you can't write to
+**Cause 2: pgcli installed into a system Python you can't write to**
 
 Install pgcli into an isolated environment instead. Recommended path is `uv`:
 

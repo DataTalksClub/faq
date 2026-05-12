@@ -6,8 +6,6 @@ sort_order: 16
 
 If you are trying to run Flask with Gunicorn and an MLFlow server from the same container, defining both services in the Dockerfile with CMD will only run MLFlow and not Flask.
 
-### Solution
-
 1. **Create separate shell scripts with server run commands**:
    
    - **For Flask with Gunicorn:**

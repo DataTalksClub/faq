@@ -4,17 +4,13 @@ question: 'Postgres: bind: address already in use'
 sort_order: 9
 ---
 
-### Issue
-
 When attempting to start the Docker Postgres container, you may encounter the error message:
 
 ```
 Error - postgres port is already in use.
 ```
 
-### Solutions
-
-#### Option 1: Identify and Stop the Service
+**Option 1: Identify and Stop the Service**
 
 1. Determine which service is using the port by running:
    
@@ -28,7 +24,7 @@ Error - postgres port is already in use.
    sudo service postgresql stop
    ```
 
-#### Option 2: Map to a Different Port
+**Option 2: Map to a Different Port**
 
 For a more long-term solution, consider mapping to a different port:
 

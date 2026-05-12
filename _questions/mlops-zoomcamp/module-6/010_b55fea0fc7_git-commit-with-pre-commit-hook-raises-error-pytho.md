@@ -5,8 +5,6 @@ question: 'Git: Commit with pre-commit hook raises error ‘''PythonInfo'' objec
 sort_order: 10
 ---
 
-### Problem Description
-
 When attempting to commit in Git, the following error occurs:
 
 ```bash
@@ -23,8 +21,6 @@ expected return code: 0
 stdout:
 AttributeError: 'PythonInfo' object has no attribute 'version_nodot'
 ```
-
-### Solution
 
 To resolve this issue, clear the app-data of the virtual environment using the following command:
 

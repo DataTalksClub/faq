@@ -16,8 +16,6 @@ By default, Pandas truncates text content in a column to 50 characters. To view 
 pd.set_option('display.max_colwidth', None)
 ```
 
-### Explanation:
-
 - **Option:** `display.max_colwidth`
 - **Type:** `int` or `None`
 - **Description:** Sets the maximum width in characters of a column in the representation of a pandas data structure. When a column overflows, a "..." placeholder is used in the output. Setting it to 'None' allows unlimited width.

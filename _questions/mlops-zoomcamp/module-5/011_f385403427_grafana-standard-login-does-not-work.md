@@ -6,8 +6,6 @@ sort_order: 11
 
 When trying to log in to Grafana with the standard credentials (admin/admin), an error occurs.
 
-### Solution
-
 1. To reset the admin password, use the following command inside the Grafana container:
 
    ```bash

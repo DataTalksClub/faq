@@ -17,7 +17,7 @@ failed to read dockerfile: error from sender: open ny_taxi_postgres_data: permis
 
 You may also be unable to delete the host folder later because it's owned by UID 999.
 
-## Recommended fix: use a named Docker volume instead of a host-bind mount
+**Recommended fix: use a named Docker volume instead of a host-bind mount**
 
 Named volumes are managed by Docker and don't have the cross-OS permission problems:
 
@@ -51,7 +51,7 @@ volumes:
 
 The volume's data lives inside Docker's storage area (find it with `docker volume inspect pg-data`).
 
-## If you must use a host-bind mount (Linux)
+**If you must use a host-bind mount (Linux)**
 
 Grant the container access to the directory:
 
@@ -69,11 +69,11 @@ To delete a folder that Docker created (now owned by UID 999):
 sudo rm -rf ny_taxi_postgres_data/
 ```
 
-## On macOS specifically
+**On macOS specifically**
 
 If you see the chown error and you're using Rancher Desktop or another Docker alternative, switch to Docker Desktop. Some non-Docker-Desktop runtimes don't handle the chown into bind mounts.
 
-## "directory ... exists but is not empty"
+**"directory ... exists but is not empty"**
 
 ```
 initdb: error: directory "/var/lib/postgresql/data" exists but is not empty
@@ -84,7 +84,7 @@ This means the volume already has Postgres data from a previous run with differe
 - Clear the volume and let Postgres re-initialise it: `docker volume rm dtc_postgres_volume_local` (or `docker compose down -v` for a compose volume).
 - Or use the same `POSTGRES_USER` / `POSTGRES_PASSWORD` you used the first time the data was initialised. The `POSTGRES_*` env vars only take effect on first init — after that they're ignored.
 
-## "build error checking context"
+**"build error checking context"**
 
 If `docker build` fails with `can't stat '.../ny_taxi_postgres_data'` or "permission denied" on the data folder, the build context (the directory you ran `docker build` from) includes the data dir, and the build can't read it.
 

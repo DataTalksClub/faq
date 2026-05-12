@@ -10,7 +10,7 @@ Two main encoding approaches are generally used to handle categorical data: labe
 
 - **One-Hot Encoding**: Creates new variables using 0s and 1s to represent original categorical data. Useful when there is no inherent order or logic to the categories.
 
-### Tools and Implementation
+**Tools and Implementation**
 
 - **Sci-kit Learn**:
   - Dictionary Vectorizer: Handles categorical data and generates arrays based on unique instances in a DataFrame or other data structures.

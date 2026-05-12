@@ -4,11 +4,7 @@ question: RMSE on test set too high
 sort_order: 30
 ---
 
-### Problem
-
 RMSE on the test set was too high when hot encoding the validation set using a previously fitted `OneHotEncoder(handle_unknown='ignore')` on the training set. In contrast, `DictVectorizer` yielded the correct RMSE.
-
-### Explanation
 
 In principle, both transformers should behave identically when treating categorical features, especially in scenarios where there are no sequences of strings in each row (as in this week’s homework):
 

@@ -13,7 +13,7 @@ This feature is only available for dbt repositories connected through dbt Cloud'
 
 The dbt Cloud Developer plan also doesn't support CI jobs — you need Team or Enterprise. (See the [dbt Cloud CI prerequisites](https://docs.getdbt.com/docs/deploy/ci-jobs#prerequisites).)
 
-## Switch from Git Clone to native GitHub integration
+**Switch from Git Clone to native GitHub integration**
 
 1. Connect your GitHub account in dbt Cloud: Profile Settings → Linked Accounts → connect GitHub and grant the requested permissions. ([dbt docs](https://docs.getdbt.com/docs/collaborate/git/connect-github))
 
@@ -25,7 +25,7 @@ The dbt Cloud Developer plan also doesn't support CI jobs — you need Team or E
 
 5. In Deploy → Job → Configuration → Triggers, you should now see "Run on Pull Requests" as an available toggle.
 
-## CI job runs but says "valid dbt project was not found"
+**CI job runs but says "valid dbt project was not found"**
 
 Usually one of:
 

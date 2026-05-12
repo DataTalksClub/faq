@@ -18,9 +18,7 @@ Bad int64 value: 0.0
 Bad int64 value: 1.0
 ```
 
-## Fixes
-
-### Option 1: Use `safe_cast` in your dbt model
+**Option 1: Use `safe_cast` in your dbt model**
 
 `safe_cast` returns NULL instead of erroring on a failed cast:
 
@@ -36,7 +34,7 @@ safe_cast(ehail_fee as numeric) as ehail_fee
 
 For `ehail_fee` specifically, prefer `numeric` over `integer` — fees aren't always whole numbers.
 
-### Option 2: Drop the column
+**Option 2: Drop the column**
 
 If the column isn't used downstream, just drop it:
 
@@ -44,7 +42,7 @@ If the column isn't used downstream, just drop it:
 SELECT * EXCEPT (ehail_fee) FROM ...
 ```
 
-### Option 3: Strip the trailing `.0` before casting
+**Option 3: Strip the trailing `.0` before casting**
 
 Useful for fields like `ratecodeid` and `trip_type` where the values really are integers but stored as floats:
 
@@ -59,7 +57,7 @@ CAST(
 ) AS trip_type
 ```
 
-### Option 4: Fix the upstream Parquet schema
+**Option 4: Fix the upstream Parquet schema**
 
 If you control the ingestion, cast to `Int64` (pandas nullable int) before writing:
 

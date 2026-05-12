@@ -26,7 +26,7 @@ If you need to view the model inside the Docker container for the image `svizor/
 
    The output should include `model.bin`, confirming the model is present.
 
-### Additional Instructions
+**Additional Instructions**
 
 - You can copy files into the Docker image by adding lines like `COPY myfile .` to the Dockerfile, and then run a script with arguments: 
 
@@ -36,7 +36,7 @@ If you need to view the model inside the Docker container for the image `svizor/
 
 - Remember, a new build is required whenever the Dockerfile is modified.
 
-### Alternative Method
+**Alternative Method**
 
 To list the contents of `/app` when the container runs, modify the Dockerfile:
 

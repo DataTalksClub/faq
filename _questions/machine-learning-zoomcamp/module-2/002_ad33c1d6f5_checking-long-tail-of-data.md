@@ -6,7 +6,7 @@ sort_order: 2
 
 To analyze the long tail of data, you can use a histogram or check skewness and descriptive statistics.
 
-#### Using Histogram
+**Using Histogram**
 
 ```python
 import pandas as pd
@@ -22,7 +22,7 @@ sns.histplot(df['median_house_value'], kde=False)
 plt.show()
 ```
 
-#### Check Skewness and Descriptive Statistics
+**Check Skewness and Descriptive Statistics**
 
 ```python
 # Describe the 'median_house_value'

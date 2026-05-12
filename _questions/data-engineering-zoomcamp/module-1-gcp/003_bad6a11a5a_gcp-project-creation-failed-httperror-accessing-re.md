@@ -20,11 +20,7 @@ WARNING: Project creation failed: HttpError accessing cloudresourcemanager.googl
 }
 ```
 
-### Explanation
-
 This error occurs when the project ID you are trying to use is already taken. Project IDs are unique across all GCP projects. If any user ever had a project with that ID, you cannot use it.
-
-### Solution
 
 - Choose a different, more unique project ID. Avoid common names like `testproject` as they are likely to be already in use.
 

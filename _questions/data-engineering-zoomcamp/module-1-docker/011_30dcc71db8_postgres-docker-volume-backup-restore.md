@@ -4,7 +4,7 @@ question: How can I back up and restore PostgreSQL data stored in a Docker volum
 sort_order: 11
 ---
 
-### Method 1: Docker volume backup
+**Method 1: Docker volume backup**
 
 List Docker volumes:
 
@@ -30,7 +30,7 @@ docker run --rm \
     ubuntu tar xzf /backup/postgres_backup.tar.gz -C /
 ```
 
-### Method 2: Using `pg_dump`
+**Method 2: Using `pg_dump`**
 
 Backup:
 
@@ -44,7 +44,7 @@ Restore:
 docker exec -i postgres_container psql -U root -d ny_taxi < ny_taxi_backup.sql
 ```
 
-### Method 3: Copying the host directory
+**Method 3: Copying the host directory**
 
 When using a host-mounted directory in `docker-compose.yaml`:
 

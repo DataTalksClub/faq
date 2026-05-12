@@ -7,8 +7,6 @@ sort_order: 12
 
 When you encounter this BigQuery error, it typically relates to how timestamps are stored in Parquet files.
 
-### Solution:
-
 To resolve this issue, you can modify the Parquet writing configuration by adding `use_deprecated_int96_timestamps=True` to the `pq.write_to_dataset` function. This setting writes timestamps in the INT96 format, which can be more compatible with BigQuery.
 
 Here’s how you can adjust the function:
@@ -21,8 +19,6 @@ pq.write_to_dataset(
     use_deprecated_int96_timestamps=True  # Write timestamps to INT96 Parquet format
 )
 ```
-
-### References
 
 - [Stack Overflow - Parquet compatibility with PyArrow vs PySpark](https://stackoverflow.com/questions/48314880/are-parquet-file-created-with-pyarrow-vs-pyspark-compatible)
 - [Stack Overflow - Editing Parquet files and datetime format errors](https://stackoverflow.com/questions/57798479/editing-parquet-files-with-python-causes-errors-to-datetime-format)

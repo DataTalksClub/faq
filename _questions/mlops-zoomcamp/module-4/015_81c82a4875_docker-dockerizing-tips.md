@@ -9,7 +9,7 @@ Ensure the correct image is being used to derive from.
 - Copy the data from local to the Docker image using the `COPY` command to a relative path. Using absolute paths within the image might be troublesome.
 - Use paths starting from `/app` and don’t forget to do `WORKDIR /app` before actually performing the code execution.
 
-### Most Common Commands
+**Most Common Commands**
 
 - Build container:
 

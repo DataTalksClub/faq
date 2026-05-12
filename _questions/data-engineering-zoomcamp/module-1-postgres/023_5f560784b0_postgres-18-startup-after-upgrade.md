@@ -7,12 +7,12 @@ sort_order: 23
 
 Postgres 18 changes how the data directory is structured inside Docker containers. While Postgres ≤16 stored data under /var/lib/postgresql/data, Postgres 18 expects the volume to be mounted at /var/lib/postgresql. If an existing volume created with an older Postgres version is reused without updating the mount path, Postgres 18 will detect an incompatible layout and exit during startup. This can appear as DNS resolution errors or failed connections from pgAdmin or ingestion jobs. For Week 1 setups, the fix is to update the volume mount path, remove the old volume, and recreate the containers so Postgres 18 can initialize a new data directory.
 
-## Proposed Fix (Week 1 setups)
+**Proposed Fix (Week 1 setups)**
 - Update the volume mount path to /var/lib/postgresql (instead of /var/lib/postgresql/data).
 - Remove the old volume that was created with Postgres 16.
 - Recreate the containers so Postgres 18 initializes a fresh data directory.
 
-### Example commands
+**Example commands**
 - Running with docker run (adjust as needed):
 ```
 docker run -it \
@@ -52,6 +52,5 @@ docker-compose down
 docker-compose up -d
 ```
 
-### Notes
 - Ensure you have a backup of any important data before removing volumes.
 - After restarting, verify that Postgres starts and the data directory is initialized under /var/lib/postgresql.

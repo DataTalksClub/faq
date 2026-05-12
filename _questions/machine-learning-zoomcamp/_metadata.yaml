@@ -3,6 +3,7 @@ course_name: "ML Zoomcamp"
 sections:
   - id: general
     name: "General Course-Related Questions"
+    comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, project rules. Technical questions belong in the module sections."
   - id: module-1
     name: "Module 1. Introduction to Machine Learning"
   - id: module-1-homework
@@ -21,23 +22,23 @@ sections:
     name: "Module 4 Homework"
   - id: module-5
     name: "Module 5. Deploying Machine Learning Models"
+    comment: "Flask + gunicorn/waitress + Docker, plus the uv + FastAPI workshop"
   - id: module-5-homework
-    name: "Module 5 Homework"  
+    name: "Module 5 Homework"
   - id: module-6
-    name: "Module 6. Decision Trees and Ensemble Learning"
+    name: "Module 6. Decision Trees, Ensembles & Gradient Boosting"
+    comment: "Decision trees, Random Forest, XGBoost. Module 7 (standalone Gradient Boosting) was folded into Module 6."
   - id: module-6-homework
     name: "Module 6 Homework"
-  - id: module-7
-    name: "Module 7. Gradient Boosting"
   - id: projects
     name: "Projects (Midterm and Capstone)"
   - id: module-8
     name: "Module 8. Neural Networks and Deep Learning"
+    comment: "TensorFlow / Keras and PyTorch — neural network basics, CNNs, transfer learning"
   - id: module-9
     name: "Module 9. Serverless Deep Learning"
+    comment: "AWS Lambda + API Gateway for serving ML/DL models"
   - id: module-10
     name: "Module 10. Kubernetes and TensorFlow Serving"
-  - id: module-11
-    name: "Module 11. KServe"
   - id: misc
     name: "Miscellaneous"

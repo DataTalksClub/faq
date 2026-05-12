@@ -6,7 +6,7 @@ sort_order: 13
 
 I am using a Mac Pro device and connect to the GCP Compute Engine via Remote SSH - VSCode. But when trying to run the PgAdmin container via `docker run` or `docker compose`, I couldn't access the PgAdmin address via my browser. After modifications, I was able to access it.
 
-### Solution #1:
+**Solution #1:**
 
 Modify the `docker run` command:
 
@@ -24,7 +24,7 @@ docker run --rm -it \
   -t dpage/pgadmin4
 ```
 
-### Solution #2:
+**Solution #2:**
 
 Modify the `docker-compose.yaml` configuration and use the `docker compose up` command:
 

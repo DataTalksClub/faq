@@ -12,7 +12,7 @@ sort_order: 28
 
 If WSL integration keeps stopping with exit code 1, try these in order.
 
-## Toggle the DNS cache service
+**Toggle the DNS cache service**
 
 This [Reddit fix](https://www.reddit.com/r/docker/comments/p98xq6/docker_failed_to_start_exit_code_1/) works for some users:
 
@@ -28,6 +28,6 @@ reg add "HKLM\System\CurrentControlSet\Services\Dnscache" /v "Start" /t REG_DWOR
 
 Restart Windows again.
 
-## Switch Docker Desktop to Linux containers
+**Switch Docker Desktop to Linux containers**
 
 Right-click the Docker tray icon and choose "Switch to Linux containers" if it isn't already.

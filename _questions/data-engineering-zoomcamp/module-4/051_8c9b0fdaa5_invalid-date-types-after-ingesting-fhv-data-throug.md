@@ -7,7 +7,7 @@ sort_order: 51
 
 The FHV 2019 dataset has multiple schema gotchas. The fix depends on which file format you ingested.
 
-## CSV: timestamps fail to parse
+**CSV: timestamps fail to parse**
 
 ```
 Could not parse 'pickup_datetime' as a timestamp
@@ -43,7 +43,7 @@ FROM {{ ref('stg_fhv_tripdata') }}
 
 To skip type-detection issues entirely, you can also load with `bq load --autodetect --allow_quoted_newlines --source_format=CSV` from a `.csv.gz` file in GCS — see the BigQuery CLI external-table FAQ.
 
-## Parquet: column type mismatch (FLOAT vs INT) or NULL location IDs
+**Parquet: column type mismatch (FLOAT vs INT) or NULL location IDs**
 
 ```
 Parquet column 'PULocationID' has type INT64 which does not match the target cpp_type DOUBLE
@@ -89,7 +89,7 @@ df = df.replace(-999999, None)
 
 This produces a Parquet file with the right INT64 schema and avoids the issue downstream.
 
-## When the column types differ between months
+**When the column types differ between months**
 
 Some FHV month files have `PUlocationID` as INT, others as FLOAT, leading to:
 
@@ -99,6 +99,6 @@ error: Error while reading data: Parquet column 'PUlocationID' has type INT whic
 
 The first file BigQuery loads defines the table schema, and subsequent files with a different schema fail. Force consistent types when generating the Parquet (option b above) or load the months that have the same schema in groups.
 
-## "Bad int64 value" on cast in the dbt model
+**"Bad int64 value" on cast in the dbt model**
 
 For `ehail_fee`, `ratecodeid`, `trip_type`, etc. — see the dedicated bad-int64 / parquet-schema FAQ.

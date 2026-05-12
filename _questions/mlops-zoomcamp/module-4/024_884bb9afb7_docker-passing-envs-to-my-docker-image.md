@@ -12,8 +12,6 @@ I was having issues because my Python script was not reading AWS credentials fro
 docker run -it homework-04 -e AWS_ACCESS_KEY_ID=xxxxxxxx -e AWS_SECRET_ACCESS_KEY=xxxxxx
 ```
 
-### Solutions:
-
 1. **Environment Variables Order: **
    
    You can set environment variables like `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `AWS_SESSION_TOKEN` (if using AWS STS). Ensure these variables are passed before the image name:

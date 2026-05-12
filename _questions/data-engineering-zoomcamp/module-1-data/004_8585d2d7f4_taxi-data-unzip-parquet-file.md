@@ -12,7 +12,7 @@ gunzip green_tripdata_2019-09.csv.gz
 
 or you can read the gzipped file directly with pandas 
 
-### Solution for Using Parquet Files Directly in Python Script `ingest_data.py`
+**Solution for Using Parquet Files Directly in Python Script `ingest_data.py`**
 
 1. In the `def main(params)`, add this line:
    

@@ -78,7 +78,7 @@ To install pip, run:
 sudo apt install python3-pip
 ```
 
-#### Possible Error
+**Possible Error**
 
 You might encounter the following error when installing pipenv:
 ```bash

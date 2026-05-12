@@ -8,11 +8,7 @@ question: Access Denied at Localhost:5000 - Authorization Issue
 sort_order: 3
 ---
 
-### Problem
-
 Localhost:5000 Unavailable // Access to Localhost Denied // You don’t have authorization to view this page (127.0.0.1:5000)
-
-### Solution
 
 If you are using Chrome, follow these steps:
 

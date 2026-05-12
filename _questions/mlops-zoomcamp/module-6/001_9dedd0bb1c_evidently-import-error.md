@@ -4,8 +4,6 @@ question: 'Evidently: Import Error'
 sort_order: 1
 ---
 
-### Problem Description
-
 When running the command:
 
 ```python
@@ -17,8 +15,6 @@ The following import error occurs:
 ```plaintext
 ImportError: cannot import name 'ColumnMapping' from 'evidently'
 ```
-
-### Solution
 
 1. Uninstall the latest version of `evidently`:
    

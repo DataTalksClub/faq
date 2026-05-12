@@ -4,15 +4,11 @@ question: Hash Mismatch Error with Package Installation
 sort_order: 9
 ---
 
-### Problem:
-
 When attempting to install MLFlow using `pip install mlflow`, an error occurs related to a hash mismatch for the Numpy package:
 
 ```plaintext
 ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE.
 ```
-
-### Error Details:
 
 During the installation on 27th May 2022, the following occurred while Numpy was being installed:
 
@@ -26,8 +22,6 @@ If you have updated the package versions, please update the hashes. Otherwise, e
 
 - **Expected SHA256**: `3e1ffa4748168e1cc8d3cde93f006fe92b5421396221a02f2274aab6ac83b077`
 - **Got**: `15e691797dba353af05cf51233aefc4c654ea7ff194b3e7435e6eec321807e90`
-
-### Solution:
 
 1. **Install Numpy Separately**:
    

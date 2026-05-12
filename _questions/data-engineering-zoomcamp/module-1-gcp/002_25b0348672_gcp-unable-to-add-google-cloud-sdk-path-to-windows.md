@@ -23,7 +23,7 @@ Add the SDK's `bin/` directory to `PATH` manually:
    gcloud --version
    ```
 
-## Tips for a smoother Windows shell setup
+**Tips for a smoother Windows shell setup**
 
 The course's command-line examples assume a Unix-like shell. On Windows the easiest options are:
 

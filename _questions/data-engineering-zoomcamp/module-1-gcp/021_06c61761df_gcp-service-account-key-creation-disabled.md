@@ -6,7 +6,7 @@ sort_order: 21
 
 This error occurs when your organization has a policy that disables service account key creation. You can disable this policy using either the GCP Console or gcloud CLI.
 
-### Option 1: Using GCP Console
+**Option 1: Using GCP Console**
 
 1. Go to the [IAM dashboard](https://console.cloud.google.com/iam-admin/iam) (IAM & Admin > IAM)
 2. Press Ctrl + O and make sure you select your organization
@@ -17,7 +17,7 @@ This error occurs when your organization has a policy that disables service acco
 7. Click on "Manage policy" then click on the drop down that says "Enforced", set it to "Off"
 8. Click "Done" and then the blue "Set policy" button
 
-### Option 2: Using gcloud CLI
+**Option 2: Using gcloud CLI**
 
 ```bash
 # Get your organization ID

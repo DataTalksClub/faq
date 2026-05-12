@@ -11,8 +11,6 @@ When using AWS CLI on Windows, you might encounter the following error:
 aws.exe: error: argument operation: Invalid choice
 ```
 
-### Solution
-
 1. Check your AWS CLI version. For example:
    
    ```

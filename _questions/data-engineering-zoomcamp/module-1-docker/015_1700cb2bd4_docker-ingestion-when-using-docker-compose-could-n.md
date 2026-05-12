@@ -13,15 +13,13 @@ Unable to connect to server: could not translate host name 'pg-database' to addr
 network <hash> not found
 ```
 
-## What's happening
+**What's happening**
 
 Docker network DNS only resolves service names within the same network. Two reasons it might fail:
 
 1. The ingestion container was started with `--network <name>` but `<name>` doesn't match the network compose actually created. By default, `docker compose` creates a network named after the project directory plus `_default` (e.g. `2docker_default`).
 
 2. Your ingestion script is hardcoded to use a host name like `pgdatabase`, but the compose service is actually called `pgdatabase-1`, or you're running the script outside Docker entirely.
-
-## Fix
 
 1. List networks and confirm the actual name compose created:
 
@@ -49,7 +47,7 @@ Docker network DNS only resolves service names within the same network. Two reas
 
 4. If `docker network ls` shows a stale network from a previous run, prune it: `docker network prune` (after stopping the relevant containers).
 
-## Working compose snippet
+**Working compose snippet**
 
 ```yaml
 services:

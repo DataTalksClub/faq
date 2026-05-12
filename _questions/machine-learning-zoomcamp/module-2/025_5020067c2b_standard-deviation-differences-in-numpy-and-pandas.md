@@ -13,11 +13,11 @@ sort_order: 25
 
 Numpy and Pandas use different equations to compute the standard deviation. Numpy uses the population standard deviation by default, whereas Pandas uses the sample standard deviation.
 
-### Numpy
+**Numpy**
 
 <{IMAGE:image_1}>
 
-### Pandas
+**Pandas**
 
 <{IMAGE:image_2}>
 

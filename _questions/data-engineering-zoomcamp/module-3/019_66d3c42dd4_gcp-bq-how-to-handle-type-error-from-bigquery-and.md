@@ -10,7 +10,6 @@ When injecting data into GCS using Pandas, some datasets might have missing valu
 error: Error while reading table: trips_data_all.external_fhv_tripdata, error message: Parquet column 'DOlocationID' has type INT64 which does not match the target cpp_type DOUBLE.
 ```
 
-### Solution:
 Fix the data type issue in the data pipeline:
 
 1. Before injecting data into GCS, use `astype` and `Int64` (which is different from `int64` and accepts both missing values and integers) to cast the columns.

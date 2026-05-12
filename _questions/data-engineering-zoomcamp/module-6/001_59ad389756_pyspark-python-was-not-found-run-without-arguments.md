@@ -9,8 +9,6 @@ PySpark spawns Python workers via `python.exe`, and on Windows that often resolv
 
 `PYSPARK_PYTHON` tells Spark which interpreter to use; setting it explicitly fixes this.
 
-## Fix
-
 In the same shell where you launch PySpark, set `PYSPARK_PYTHON` to your project's Python:
 
 ```bash

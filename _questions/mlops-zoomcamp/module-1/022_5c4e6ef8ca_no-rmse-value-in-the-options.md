@@ -14,7 +14,7 @@ Another option:
 - You will get an RMSE which is (almost) the same as in the options.
 - Use the `.round(2)` method to round it to 2 decimal points.
 
-### Warning Deprecation
+**Warning Deprecation**
 
 The Python interpreter warns of modules that have been deprecated and will be removed in future releases while also suggesting how to update your code. For example:
 

@@ -10,17 +10,13 @@ sort_order: 28
 
 You will face this issue if you copied and pasted the exact macro directly from the data-engineering-zoomcamp repo.
 
-### Error Message
-
 ```
 BigQuery adapter: Retry attempt 1 of 1 after error: BadRequest('No matching signature for operator CASE for argument types: STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, NULL at [35:5]; reason: invalidQuery, location: query, message: No matching signature for operator CASE for argument types: STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, INT64, STRING, NULL at [35:5]')
 ```
 
-### Solution
-
 To resolve this issue, change the data type of the numbers (1, 2, 3, etc.) to text by enclosing them in quotes. The `payment_type` data type should be a string.
 
-#### Updated Macro
+**Updated Macro**
 
 ```jinja
 {#

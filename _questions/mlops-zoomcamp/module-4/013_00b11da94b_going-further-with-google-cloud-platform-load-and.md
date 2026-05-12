@@ -38,7 +38,7 @@ There is a possibility to load and store data in a Google Cloud Storage bucket. 
    !pip install google-cloud-storage
    ```
 
-### Example Script
+**Example Script**
 
 Here's how to load a CSV file from Google Cloud Storage into a pandas DataFrame:
 

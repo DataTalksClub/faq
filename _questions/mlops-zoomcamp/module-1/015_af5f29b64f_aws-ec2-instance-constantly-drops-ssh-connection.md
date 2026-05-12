@@ -25,12 +25,10 @@ I've checked the steps at AWS's troubleshooting page: [AWS SSH Connection Errors
 
 Inbound rule should allow all IPs for SSH.
 
-### Expected Behavior:
+**Expected Behavior:**
 
 - SSH connection should remain active while using the instance.
 - Should be able to reconnect if disconnected.
-
-### Solution:
 
 - **Memory Issue**: Disconnections may occur if the instance runs out of memory. Use EC2's screenshot feature to troubleshoot. If it's an OS out-of-memory issue, consider:
   - Using a higher compute VM with more RAM.

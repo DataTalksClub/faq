@@ -8,7 +8,7 @@ sort_order: 35
 
 **Answer:** No, LinearRegression is a deterministic model; it should always output the same results when given the same inputs.
 
-### Check the Following:
+**Check the Following:**
 
 - Ensure outliers are properly treated in both the train and validation sets.
 - Verify that one-hot encoding is correctly applied by inspecting the shape of the one-hot encoded feature matrix. If it shows 2 features, there may be an issue.

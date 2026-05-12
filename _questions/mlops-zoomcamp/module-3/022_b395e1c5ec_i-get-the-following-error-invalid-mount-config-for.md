@@ -12,7 +12,7 @@ You should not run `docker compose up` for the mage repo directly. Instead, use:
 bash ./scripts/start.sh
 ```
 
-### Additional Information
+**Additional Information**
 
 - The `start.sh` script handles necessary environment variable settings before executing `docker compose up`.
 - Key environment variables such as `PROJECT_NAME` and `MAGE_CODE_PATH` should be set, potentially in your `.env` file.

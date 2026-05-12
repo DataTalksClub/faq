@@ -13,7 +13,7 @@ could not translate host name "host.docker.internal" to address: Name or service
 
 You have two options.
 
-## Option 1 (recommended): use the container service name
+**Option 1 (recommended): use the container service name**
 
 If Kestra and Postgres are in the same `docker-compose.yml`, just refer to Postgres by its service name. Replace `host.docker.internal` with the service name (e.g. `postgres_zoomcamp`) in `pluginDefaults`:
 
@@ -28,7 +28,7 @@ pluginDefaults:
 
 Apply this in flows like `02_postgres_taxi.yaml` and `2_postgres_taxi_scheduled.yaml`.
 
-## Option 2: add `extra_hosts` so `host.docker.internal` resolves on Linux
+**Option 2: add `extra_hosts` so `host.docker.internal` resolves on Linux**
 
 Add an `extra_hosts` entry to the Kestra service in `docker-compose.yml`:
 

@@ -47,7 +47,7 @@ while True:
         break
 ```
 
-### Order of Execution:
+**Order of Execution:**
 
 1. Open the terminal in the `2_docker_sql` folder and run: `docker compose up`
 2. Ensure no other containers are running except the ones you just executed (pgAdmin and pgdatabase).

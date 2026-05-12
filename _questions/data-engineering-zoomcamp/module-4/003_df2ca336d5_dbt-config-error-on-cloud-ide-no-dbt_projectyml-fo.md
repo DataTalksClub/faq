@@ -4,13 +4,9 @@ question: 'DBT-Config ERROR on CLOUD IDE: No dbt_project.yml found at expected p
 sort_order: 3
 ---
 
-### Error Details
-
 ```
 No dbt_project.yml found at expected path /usr/src/develop/user-70471823426120/environment-70471823422561/repository-70471823410839/dbt_project.yml
 ```
-
-### Solution Steps
 
 1. **Verify Packages**:
    - Confirm that every entry in `packages.yml` (and their transitive dependencies) includes a `dbt_project.yml` file.

@@ -26,7 +26,7 @@ volumes:
 
 After this, your pgAdmin servers and dashboards survive `docker compose down` and `docker compose up`.
 
-## If you really want a host-bind mount
+**If you really want a host-bind mount**
 
 You'll need to fix permissions before mounting. pgAdmin's container user is 5050:
 
@@ -44,6 +44,6 @@ volumes:
 
 If you skip the chown step, pgAdmin will fail to start with a permission error.
 
-## On GCP / cloud VMs
+**On GCP / cloud VMs**
 
 Same approach works — use a named volume rather than host-bind to avoid filesystem permission quirks on the cloud disk.

@@ -11,7 +11,7 @@ Access Denied: BigQuery: Permission denied while globbing file pattern
 Database Error: Access Denied: User does not have bigquery.jobs.create permission ...
 ```
 
-## Required roles
+**Required roles**
 
 Grant these to the service account dbt is using (IAM & Admin → IAM in GCP console):
 
@@ -22,6 +22,6 @@ Grant these to the service account dbt is using (IAM & Admin → IAM in GCP cons
 
 The course's full setup typically uses BigQuery Admin + Storage Object Admin + Storage Admin to avoid hitting permission walls partway through.
 
-## After updating IAM
+**After updating IAM**
 
 Roles take effect almost immediately, but if dbt was already running, restart the dbt session / job. If you regenerated the service account key, re-upload the JSON in dbt Cloud (Profile → Credentials → Analytics → BigQuery → Edit) so dbt uses the latest credentials.

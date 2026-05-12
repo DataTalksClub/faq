@@ -4,8 +4,6 @@ question: 'Github actions: Permission denied error when executing script file'
 sort_order: 13
 ---
 
-### Problem Description
-
 This issue occurs when running the following step in the CI YAML file definition:
 
 ```yaml
@@ -22,8 +20,6 @@ When executing the GitHub CI action, the following error occurs:
 
 Error: Process completed with error code 126
 ```
-
-### Solution
 
 To resolve this issue, add execution permission to the script and commit the changes:
 

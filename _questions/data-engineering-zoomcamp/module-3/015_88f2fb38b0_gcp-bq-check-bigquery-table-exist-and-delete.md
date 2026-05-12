@@ -4,11 +4,7 @@ question: 'GCP BQ: Check BigQuery Table Exist And Delete'
 sort_order: 15
 ---
 
-### Reference
-
 [Stack Overflow - BigQuery Overwrite Table](https://stackoverflow.com/questions/60941726/can-bigquery-api-overwrite-existing-table-view-with-create-table-tables-inser)
-
-### Solution
 
 To check if a BigQuery table exists and possibly delete it, utilize the following Python function before using `client.create_table`:
 

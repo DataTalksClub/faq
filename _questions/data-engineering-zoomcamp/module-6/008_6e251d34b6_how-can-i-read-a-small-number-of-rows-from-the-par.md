@@ -6,7 +6,7 @@ sort_order: 8
 
 To read a small number of rows from a parquet file, you can use PyArrow or Apache Spark:
 
-### Using PyArrow
+**Using PyArrow**
 
 ```python
 from pyarrow.parquet import ParquetFile
@@ -22,7 +22,7 @@ tbl_small = next(pf.iter_batches(batch_size=1000))
 df = tbl_small.to_pandas()
 ```
 
-### Alternatively, without PyArrow
+**Alternatively, without PyArrow**
 
 ```python
 df = spark.read.parquet('fhvhv_tripdata_2021-01.parquet')

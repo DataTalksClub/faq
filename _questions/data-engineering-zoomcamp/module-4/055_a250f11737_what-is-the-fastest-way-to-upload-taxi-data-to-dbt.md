@@ -6,7 +6,7 @@ sort_order: 55
 
 Use the PostgreSQL `COPY FROM` feature, which is compatible with CSV files.
 
-### Steps:
+**Steps:**
 
 1. **Create the Table**
    

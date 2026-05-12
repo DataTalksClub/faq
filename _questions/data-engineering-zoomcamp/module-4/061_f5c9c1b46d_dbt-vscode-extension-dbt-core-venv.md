@@ -5,10 +5,9 @@ question: Power user for dbt vscode extension keeps asking to install dbt core e
 sort_order: 61
 ---
 
-## Problem
 Power user for the dbt VS Code extension keeps prompting to install dbt core even though dbt is already installed in your virtual environment.
 
-## Steps to resolve
+**Steps to resolve**
 - Activate your virtual environment:
 
 ```

@@ -4,13 +4,9 @@ question: Found array with 0 sample(s)
 sort_order: 9
 ---
 
-### Problem Description
-
 ```python
 ValueError: Found array with 0 sample(s) (shape=(0, 6)) while a minimum of 1 is required by LinearRegression.
 ```
-
-### Solution Description
 
 This error occurs because the generated data is based on an early date, resulting in an empty training dataset.
 

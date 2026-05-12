@@ -16,7 +16,7 @@ FATAL: database "ny_taxi" does not exist
 psycopg2.OperationalError: connection to server at "localhost" (::1), port 5432 failed
 ```
 
-## Step 1: confirm the right Postgres is reachable
+**Step 1: confirm the right Postgres is reachable**
 
 Run:
 
@@ -33,7 +33,7 @@ docker run -it -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -e POSTGRES_DB=ny
   -v ny_taxi_postgres_data:/var/lib/postgresql/data -p 5432:5432 postgres:16
 ```
 
-## Step 2: check whether port 5432 is already taken on your host
+**Step 2: check whether port 5432 is already taken on your host**
 
 A locally installed Postgres ("Postgres.app", `apt install postgresql`, the Windows installer, the Mac Homebrew formula) often listens on 5432. When you map the Docker container to the same port, the connection silently goes to the wrong instance — which is usually the source of "FATAL: password authentication failed for user root" or "role root does not exist" (the local install doesn't know about the `root` user).
 
@@ -60,7 +60,7 @@ You have two options:
   pgcli -h localhost -p 5433 -u root -d ny_taxi
   ```
 
-## Step 3: match host names between the script and the runtime
+**Step 3: match host names between the script and the runtime**
 
 If the connection error mentions a host name like `pgdatabase` or `pg-database` and says "could not translate host name", you are running an ingestion script that points at a Docker service name from outside the Docker network. Pick one:
 
@@ -69,7 +69,7 @@ If the connection error mentions a host name like `pgdatabase` or `pg-database` 
 
 For the Dockerized ingestion job the course shows, both the container and the Postgres container must share a Docker network — `--network=pg-network` on `docker run`, or the implicit network in `docker compose`.
 
-## Step 4: persistent data corruption / "database ny_taxi does not exist"
+**Step 4: persistent data corruption / "database ny_taxi does not exist"**
 
 If the database existed before but the `FATAL: database ny_taxi does not exist` error appears now, your Postgres container probably started with an empty data directory. Two common reasons:
 
@@ -84,7 +84,7 @@ docker compose up -d
 # then re-run the ingestion script
 ```
 
-## Step 5: client-side issues (pgcli specifically)
+**Step 5: client-side issues (pgcli specifically)**
 
 If pgcli prints `ImportError: no pq wrapper available`, it can't find `libpq` — install the binary psycopg:
 
@@ -102,7 +102,7 @@ winpty pgcli -h localhost -p 5432 -u root -d ny_taxi
 
 Or use Windows Terminal / VS Code's integrated terminal instead of Git Bash.
 
-## Quick reference
+**Quick reference**
 
 - `Connection refused` → Postgres isn't running, or it's on a different port. Check `docker ps`.
 - `FATAL: password authentication failed for user "root"` → almost always a port collision with a locally-installed Postgres.

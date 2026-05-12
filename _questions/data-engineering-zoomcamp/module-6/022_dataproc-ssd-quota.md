@@ -10,7 +10,7 @@ The default per-region quota for SSD persistent disk is limited (often 250 or 50
 Error: Insufficient 'SSD_TOTAL_GB' quota. Requested 500.0, available 250.0.
 ```
 
-## Options
+**Options**
 
 1. Wait and retry — the message can also indicate transient resource pressure in the region.
 2. Reduce the cluster's disk usage so it fits within your quota:

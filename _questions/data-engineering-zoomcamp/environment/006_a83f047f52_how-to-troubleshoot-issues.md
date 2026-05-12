@@ -4,7 +4,7 @@ question: How to troubleshoot issues and ask good questions
 sort_order: 6
 ---
 
-## Try to solve it yourself first
+**Try to solve it yourself first**
 
 - Read the error message carefully — it usually includes a line number, a stack trace, and a description of what went wrong.
 - Search the message: copy the most specific part of the error (not the whole stack trace) into Google. The format `<tool> <error message>` works well, e.g. `pgcli error column c.relhasoids does not exist`.
@@ -13,7 +13,7 @@ sort_order: 6
 - Restart the process / container / shell / VM and try once more — many transient errors resolve this way.
 - If you suspect the install is broken, uninstall first, then reinstall. Reinstalling on top of a broken install rarely helps.
 
-## Asking for help in Slack / forums
+**Asking for help in Slack / forums**
 
 When the troubleshooting steps don't help and you need another pair of eyes, include enough info that someone can actually help without going back and forth:
 
@@ -25,6 +25,6 @@ When the troubleshooting steps don't help and you need another pair of eyes, inc
 
 If the same problem recurs, post in the same thread with what changed in your environment since last time.
 
-## Help others by contributing back
+**Help others by contributing back**
 
 If your problem isn't yet covered in this FAQ, consider [opening a PR](https://github.com/DataTalksClub/faq) so the next student doesn't have to debug it from scratch.

@@ -23,11 +23,7 @@ After loading, you should have a total of 8 records, and ID 3 should have age 33
 
 ---
 
-### Issue:
-
 I'm having an issue with the DLT workshop notebook, specifically in the 'Load to Parquet file' section. No matter what I change the file path to, it's still saving the DLT files directly to my C drive.
-
-### Solution:
 
 Use a raw string and keep the `file:///` at the start of your file path.
 

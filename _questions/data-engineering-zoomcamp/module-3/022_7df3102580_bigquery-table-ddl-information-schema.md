@@ -4,7 +4,6 @@ question: How to obtain the DDL of a table in BigQuery?
 sort_order: 22
 ---
 
-### Goal
 To reproduce a BigQuery table's schema and data layout, you can query the INFORMATION_SCHEMA.TABLES to retrieve the DDL needed to recreate the table.
 
 **For a normal (native) table in a dataset**

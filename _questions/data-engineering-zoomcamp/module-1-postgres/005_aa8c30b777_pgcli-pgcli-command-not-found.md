@@ -8,8 +8,6 @@ question: 'PGCLI - pgcli: command not found'
 sort_order: 5
 ---
 
-### Problem
-
 If you have already installed `pgcli` but Bash or the Windows Terminal doesn't recognize the command:
 
 - On Git Bash: 
@@ -20,8 +18,6 @@ If you have already installed `pgcli` but Bash or the Windows Terminal doesn't r
   ```
   pgcli: The term 'pgcli' is not recognized…
   ```
-
-### Solution
 
 Try adding the Python path to the Windows PATH variable:
 
@@ -46,12 +42,10 @@ In that case, you should add:
 
 - `c:\python310\lib\Scripts` to PATH.
 
-### Instructions
+**Instructions**
 
 - Add the determined path to `Path` (or `PATH`) in System Variables.
 
 <{IMAGE:image_1}>
-
-### Reference
 
 [Stack Overflow Reference](https://stackoverflow.com/a/68233660)

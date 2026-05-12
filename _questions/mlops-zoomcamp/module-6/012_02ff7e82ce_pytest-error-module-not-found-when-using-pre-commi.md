@@ -5,8 +5,6 @@ question: Pytest error ‘module not found’ when using pre-commit hooks if usi
 sort_order: 12
 ---
 
-### Problem Description
-
 Project structure:
 
 ```
@@ -36,8 +34,6 @@ A `git commit -t ‘test’` raises `No module named ‘production’` when call
         "tests/"
       ]
 ```
-
-### Solution Description
 
 Use this hook instead:
 

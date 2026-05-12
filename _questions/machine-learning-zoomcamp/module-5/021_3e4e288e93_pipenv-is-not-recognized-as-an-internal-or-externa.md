@@ -32,7 +32,7 @@ or
 pipenv shell
 ```
 
-### Solution for Windows:
+**Solution for Windows:**
 
 1. Open this option:
    

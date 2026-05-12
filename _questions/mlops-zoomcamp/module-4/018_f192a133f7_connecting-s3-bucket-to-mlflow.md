@@ -4,11 +4,7 @@ question: Connecting s3 bucket to MLFLOW
 sort_order: 18
 ---
 
-### Problem Description
-
 How can we connect an S3 bucket to MLflow?
-
-### Solution
 
 To connect an S3 bucket to MLflow, use `boto3` and AWS CLI to store access keys. These access keys allow `boto3` (AWS' Python API tool) to authenticate and connect with AWS servers. Without access keys, access to the bucket cannot be verified, which could prevent connection attempts by unauthorized individuals.
 

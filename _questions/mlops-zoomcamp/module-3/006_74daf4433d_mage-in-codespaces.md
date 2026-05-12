@@ -6,7 +6,7 @@ sort_order: 6
 
 The below errors seem to occur only when using Mage in Codespaces.
 
-### Errors
+**Errors**
 
 1. **Error (1)**
    

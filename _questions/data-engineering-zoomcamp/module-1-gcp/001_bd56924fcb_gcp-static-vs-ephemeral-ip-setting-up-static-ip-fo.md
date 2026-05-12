@@ -6,7 +6,7 @@ sort_order: 1
 
 When you set up a VM in Google Cloud Platform (GCP), it initially uses an ephemeral IP address, which changes each time you start or stop the VM. If you need a consistent IP for your configuration file, you should set up a static IP address.
 
-### Steps to Set Up a Static IP Address
+**Steps to Set Up a Static IP Address**
 
 1. Navigate to **VPC Network** > **IP addresses** in the GCP console.
 2. Allocate a new static IP address.

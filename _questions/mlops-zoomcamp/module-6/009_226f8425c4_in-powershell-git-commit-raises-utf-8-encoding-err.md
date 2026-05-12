@@ -5,8 +5,6 @@ question: In Powershell, Git commit raises utf-8 encoding error after creating p
 sort_order: 9
 ---
 
-### Problem Description
-
 When executing the following command in PowerShell, an error occurs:
 
 ```bash
@@ -22,8 +20,6 @@ An error has occurred: InvalidConfigError:
 
 =====> 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
 ```
-
-### Solution Description
 
 Set UTF-8 encoding when creating the pre-commit YAML file:
 

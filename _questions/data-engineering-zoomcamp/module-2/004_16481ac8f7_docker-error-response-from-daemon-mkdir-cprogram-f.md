@@ -5,8 +5,6 @@ question: 'docker: Error response from daemon: mkdir C:\Program Files\Git\var: A
 sort_order: 4
 ---
 
-### Description:
-
 When running the following Docker command in Bash with Docker and WSL2 installed, you may encounter an error. Running Bash as admin will not resolve the issue:
 
 ```bash
@@ -28,7 +26,6 @@ Status: Image is up to date for kestra/kestra:latest
 docker: Error response from daemon: mkdir C:\\Program Files\\Git\\var: Access is denied.
 See 'docker run --help'.
 ```
-
 
 To resolve this issue, run Command Prompt as an administrator and use the following command:
 
