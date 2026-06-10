@@ -1,0 +1,22 @@
+course: ai-dev-tools-zoomcamp
+course_name: "AI Dev Tools Zoomcamp"
+sections:
+  - id: general
+    name: "General Course-Related Questions"
+    comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, homework submission, prerequisites."
+  - id: module-1
+    name: "Module 1. Introduction to Vibe Coding / AI Tools Overview"
+  - id: module-2
+    name: "Module 2. End-to-End Project"
+  - id: module-3
+    name: "Module 3. Model-Context Protocol"
+  - id: module-4
+    name: "Module 4. Build an AI Coding Agent (Django)"
+  - id: module-5
+    name: "Module 5. AI for Testing, CI/CD & DevOps"
+  - id: module-6
+    name: "Module 6. Automation with Low-Code and No-Code AI"
+  - id: projects
+    name: "Projects"
+  - id: misc
+    name: "Miscellaneous"
