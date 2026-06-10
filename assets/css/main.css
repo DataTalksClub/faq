@@ -1,10 +1,61 @@
 /* Main application styles */
+
+:root {
+    --bg: #f8f9fa;
+    --surface: #ffffff;
+    --surface-alt: #f8f9fa;
+    --border: #dee2e6;
+    --border-soft: #ecf0f1;
+    --text: #24292f;
+    --text-muted: #555555;
+    --text-faint: #6a737d;
+    --heading: #2c3e50;
+    --heading-2: #34495e;
+    --header-bg: #2c3e50;
+    --header-text: #ffffff;
+    --accent: #2563eb;
+    --accent-hover: #1e40af;
+    --on-accent: #ffffff;
+    --code-bg: #f4f4f4;
+    --highlight-bg: #f8f8f8;
+    --highlight-border: #cccccc;
+    --edit-link: #95a5a6;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --shadow-hover: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="dark"] {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface-alt: #1c2128;
+    --border: #30363d;
+    --border-soft: #21262d;
+    --text: #c9d1d9;
+    --text-muted: #b1bac4;
+    --text-faint: #8b949e;
+    --heading: #e6edf3;
+    --heading-2: #c9d1d9;
+    --header-bg: #161b22;
+    --header-text: #e6edf3;
+    --accent: #58a6ff;
+    --accent-hover: #79c0ff;
+    --on-accent: #0d1117;
+    --code-bg: #1f2630;
+    --highlight-bg: #1f2630;
+    --highlight-border: #30363d;
+    --edit-link: #8b949e;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --shadow-hover: rgba(0, 0, 0, 0.55);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .container {
@@ -14,15 +65,75 @@ body {
 }
 
 header {
-    background: #2c3e50;
-    color: white;
+    background: var(--header-bg);
+    color: var(--header-text);
     padding: 1rem 0;
     margin-bottom: 2rem;
+}
+
+.header-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
     margin: 0;
     text-align: center;
+}
+
+/* Theme toggle */
+.theme-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--header-text);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.theme-toggle-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.theme-toggle-icon-light {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: none;
+}
+
+.theme-toggle-icon-dark {
+    fill: currentColor;
+    stroke: none;
+    display: block;
+}
+
+[data-theme="dark"] .theme-toggle-icon-light {
+    display: block;
+}
+
+[data-theme="dark"] .theme-toggle-icon-dark {
+    display: none;
 }
 
 .course-nav {
@@ -34,22 +145,22 @@ header h1 {
     display: inline-block;
     padding: 8px 16px;
     margin: 4px;
-    background: #3498db;
-    color: white;
+    background: var(--accent);
+    color: var(--on-accent);
     text-decoration: none;
     border-radius: 4px;
     transition: background 0.3s;
 }
 
 .course-nav a:hover {
-    background: #2980b9;
+    background: var(--accent-hover);
 }
 
 .content {
-    background: white;
+    background: var(--surface);
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px var(--shadow);
     font-size: 1.05em;
 }
 
@@ -58,15 +169,15 @@ header h1 {
 }
 
 .section h2 {
-    color: #2c3e50;
-    border-bottom: 2px solid #3498db;
+    color: var(--heading);
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 0.5rem;
 }
 
 .question {
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #ecf0f1;
+    border-bottom: 1px solid var(--border-soft);
 }
 
 .question:last-child {
@@ -74,7 +185,7 @@ header h1 {
 }
 
 .question h3 {
-    color: #34495e;
+    color: var(--heading-2);
     margin-bottom: 1rem;
     position: relative;
 }
@@ -83,7 +194,7 @@ header h1 {
     position: absolute;
     left: -30px;
     top: 0;
-    color: #3498db;
+    color: var(--accent);
     text-decoration: none;
     font-weight: normal;
     opacity: 0;
@@ -99,7 +210,7 @@ header h1 {
 }
 
 .question-content {
-    color: #555;
+    color: var(--text-muted);
 }
 
 .question-content img {
@@ -107,26 +218,26 @@ header h1 {
     height: auto;
     margin: 1rem 0;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px var(--shadow);
 }
 
 .question-content > pre {
-    background: #f4f4f4;
+    background: var(--code-bg);
     padding: 1rem;
     border-radius: 4px;
     overflow-x: auto;
 }
 
 .inline-code {
-    background: #f4f4f4;
+    background: var(--code-bg);
     padding: 2px 4px;
     border-radius: 2px;
     font-family: 'Monaco', 'Consolas', monospace;
 }
 
 .highlight {
-    background: #f8f8f8;
-    border: 1px solid #ccc;
+    background: var(--highlight-bg);
+    border: 1px solid var(--highlight-border);
     border-radius: 4px;
     padding: 1rem;
     margin: 1rem 0;
@@ -141,7 +252,7 @@ header h1 {
 }
 
 .question-content a {
-    color: #3498db;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -155,14 +266,14 @@ header h1 {
 }
 
 .edit-link {
-    color: #95a5a6;
+    color: var(--edit-link);
     text-decoration: none;
     font-size: 0.85em;
     font-style: italic;
 }
 
 .edit-link:hover {
-    color: #3498db;
+    color: var(--accent);
     text-decoration: underline;
 }
 
@@ -175,15 +286,15 @@ header h1 {
 
 .course-link {
     padding: 1.5rem;
-    background: #f8f9fa;
+    background: var(--surface-alt);
     border-radius: 8px;
-    border: 1px solid #dee2e6;
+    border: 1px solid var(--border);
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .course-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px var(--shadow-hover);
 }
 
 .course-link a {
@@ -194,17 +305,17 @@ header h1 {
 
 .course-link h3 {
     margin: 0 0 0.5rem 0;
-    color: #2c3e50;
+    color: var(--heading);
     font-size: 1.2em;
 }
 
 .course-description {
-    color: #666;
+    color: var(--text-faint);
     font-size: 0.9em;
 }
 
 .table-of-contents {
-    background: #f8f9fa;
+    background: var(--surface-alt);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 2rem;
@@ -220,7 +331,7 @@ header h1 {
 }
 
 .table-of-contents a {
-    color: #3498db;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -235,11 +346,11 @@ header h1 {
 
 .contribute-banner p {
     margin: 0;
-    color: #555;
+    color: var(--text-muted);
 }
 
 .contribute-banner a {
-    color: #3498db;
+    color: var(--accent);
     text-decoration: none;
 }
 
@@ -250,14 +361,17 @@ header h1 {
 footer {
     text-align: center;
     padding: 2rem 0;
-    color: #7f8c8d;
-    border-top: 1px solid #ecf0f1;
+    color: var(--text-faint);
+    border-top: 1px solid var(--border-soft);
     margin-top: 3rem;
 }
 
 @media (max-width: 768px) {
     .container {
         padding: 10px;
+    }
+    header h1 {
+        font-size: 1.4rem;
     }
     .content {
         padding: 1rem;
