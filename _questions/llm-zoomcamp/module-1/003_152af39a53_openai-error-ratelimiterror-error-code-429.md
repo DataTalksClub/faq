@@ -17,7 +17,7 @@ The above errors are related to your OpenAI API account’s quota. There is no f
 Steps to resolve:
 
 1. Add credits to your account [here](https://platform.openai.com/settings/organization/billing/overview) (min $5).
-2. In `chat.completions.create(model='gpt-4o', …)` specify one of the models available to you:
+2. In `responses.create(model='gpt-4o', …)` specify one of the models available to you:
 
    <{IMAGE:image_1}>
 
