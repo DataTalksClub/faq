@@ -93,6 +93,10 @@ header h1 a {
     transition: opacity 0.2s;
 }
 
+header h1 a:visited {
+    color: inherit;
+}
+
 header h1 a:hover {
     opacity: 1;
     text-decoration: underline;
@@ -167,6 +171,10 @@ header h1 a:hover {
     transition: background 0.3s;
 }
 
+.course-nav a:visited {
+    color: var(--on-accent);
+}
+
 .course-nav a:hover {
     background: var(--accent-hover);
 }
@@ -177,6 +185,22 @@ header h1 a:hover {
     border-radius: 8px;
     box-shadow: 0 2px 4px var(--shadow);
     font-size: 1.05em;
+}
+
+.content > p a,
+.content > ul a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.content > p a:visited,
+.content > ul a:visited {
+    color: var(--accent);
+}
+
+.content > p a:hover,
+.content > ul a:hover {
+    text-decoration: underline;
 }
 
 .section {
@@ -214,6 +238,10 @@ header h1 a:hover {
     font-weight: normal;
     opacity: 0;
     transition: opacity 0.2s;
+}
+
+.anchor-link:visited {
+    color: var(--accent);
 }
 
 .question:hover .anchor-link {
@@ -271,6 +299,10 @@ header h1 a:hover {
     text-decoration: none;
 }
 
+.question-content a:visited {
+    color: var(--accent);
+}
+
 .question-content a:hover {
     text-decoration: underline;
 }
@@ -285,6 +317,10 @@ header h1 a:hover {
     text-decoration: none;
     font-size: 0.85em;
     font-style: italic;
+}
+
+.edit-link:visited {
+    color: var(--edit-link);
 }
 
 .edit-link:hover {
@@ -316,6 +352,10 @@ header h1 a:hover {
     text-decoration: none;
     color: inherit;
     display: block;
+}
+
+.course-link a:visited {
+    color: inherit;
 }
 
 .course-link h3 {
@@ -350,6 +390,10 @@ header h1 a:hover {
     text-decoration: none;
 }
 
+.table-of-contents a:visited {
+    color: var(--accent);
+}
+
 .table-of-contents a:hover {
     text-decoration: underline;
 }
@@ -369,6 +413,10 @@ header h1 a:hover {
     text-decoration: none;
 }
 
+.contribute-banner a:visited {
+    color: var(--accent);
+}
+
 .contribute-banner a:hover {
     text-decoration: underline;
 }
@@ -379,6 +427,19 @@ footer {
     color: var(--text-faint);
     border-top: 1px solid var(--border-soft);
     margin-top: 3rem;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+footer a:visited {
+    color: var(--accent);
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
