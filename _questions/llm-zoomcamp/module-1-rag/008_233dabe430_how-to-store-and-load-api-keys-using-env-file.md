@@ -4,25 +4,36 @@ question: How to store and load API keys using .env file
 sort_order: 8
 ---
 
-Store the API key in a `.env` file, then use the following steps to load it:
+Store API keys in a `.env` file and load them with `python-dotenv`, as recommended in the course.
 
-1. Import the necessary modules:
-   
-   ```python
-   import os
-   from dotenv import load_dotenv
-   ```
+Add `.env` to `.gitignore` so keys are never committed:
 
-2. Load the `.env` file:
-   
-   ```python
-   load_dotenv(os.path.abspath("<path-to-.env>"))
-   ```
+```gitignore
+.env
+```
 
-3. Retrieve the API key:
-   
-   ```python
-   os.getenv("API_KEY_abc")
-   ```
+Create a `.env` file:
 
-- Ensure to add the `.env` file to your `.gitignore` to prevent it from being checked into version control.
+```bash
+OPENAI_API_KEY=sk-...
+GROQ_API_KEY=gsk_...
+GEMINI_API_KEY=...
+```
+
+Install `python-dotenv` if needed:
+
+```bash
+pip install python-dotenv
+```
+
+Load the keys in Python:
+
+```python
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
+```

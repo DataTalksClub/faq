@@ -4,7 +4,7 @@ question: 'I am using Azure OpenAI and I am still getting an error of Error code
   400 - {''error'': {''message'': "Missing required parameter: ''tools[0].function''.",
   ''type'': ''invalid_request_error'', ''param'': ''tools[0].function'', ''code'':
   ''missing_required_parameter''}}?'
-sort_order: 11
+sort_order: 4
 ---
 
 Modify the `get_weather_tool` JSON to be the following:

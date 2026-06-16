@@ -2,7 +2,7 @@
 id: 9e7b3f0c25
 question: 'Agents: "AttributeError: ''str'' object has no attribute ''output''" when
   using OpenAI''s Responses API on a non-OpenAI model'
-sort_order: 7
+sort_order: 3
 ---
 
 The new OpenAI Responses API (`client.responses.create(...)`, accessed via `response.output`) is OpenAI-specific. Other providers (Mistral, Groq, Gemini, etc.) don't implement it.

@@ -4,20 +4,24 @@ question: 'API keys: how do I set them once and not re-export every terminal?'
 sort_order: 19
 ---
 
-Use [`direnv`](https://direnv.net/) to scope env vars to a project directory. It loads them automatically when you `cd` in:
+Use [`dirdotenv`](https://github.com/alexeygrigorev/dirdotenv). It is like `direnv`, but works with both `.env` and `.envrc`, and is more portable across shells and operating systems.
 
 ```bash
-# install direnv (Linux: apt/brew; macOS: brew install direnv)
+uv tool install dirdotenv
+
 # add this line to your ~/.bashrc or ~/.zshrc:
-eval "$(direnv hook bash)"   # or zsh
+eval "$(dirdotenv hook bash)"   # or zsh
 
 # inside your project:
-echo 'export OPENAI_API_KEY=sk-...' > .envrc
-echo '.envrc' >> .gitignore
-direnv allow
+echo 'OPENAI_API_KEY=sk-...' > .env
+echo '.env' >> .gitignore
 ```
 
-Important: always add `.envrc` (and `.env`) to `.gitignore` so the key never lands on GitHub.
+After that, the key is loaded automatically when you `cd` into the project directory.
+
+Important: always add `.env` and `.envrc` to `.gitignore` so keys never land on GitHub.
+
+`direnv` is also fine if you already use it. In that case, create `.envrc`, add your exports there, and run `direnv allow`.
 
 For GitHub Codespaces, use the built-in [Codespaces secrets](https://docs.github.com/en/codespaces/managing-your-codespaces/managing-your-account-specific-secrets-for-github-codespaces) instead of files in the repo.
 

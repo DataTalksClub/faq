@@ -2,7 +2,7 @@
 id: f3dd94f323
 question: 'WSL2: ResponseError: model requires more system memory (X.X GiB) than is
   available (Y.Y GiB). My system has more than X.X GiB.'
-sort_order: 11
+sort_order: 28
 ---
 
 Your WSL2 is set to use Y.Y GiB, not all your computer memory. To allocate more RAM, follow these steps:

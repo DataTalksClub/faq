@@ -2,10 +2,8 @@
 id: 0ae5c221b9
 question: How do I start using Google Gemini models in the Module 1 notebook through
   the OpenAI-compatible endpoint?
-sort_order: 9
+sort_order: 10
 ---
-
-# Using Google Gemini models via the OpenAI-compatible endpoint in Module 1
 
 To get started you need three things:
 

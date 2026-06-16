@@ -1,7 +1,7 @@
 ---
 id: 1d0b969028
 question: 'Ollama: How to install Ollama?'
-sort_order: 20
+sort_order: 11
 ---
 
 First, install Ollama by visiting [https://ollama.com/download](https://ollama.com/download) and choosing your operating system:

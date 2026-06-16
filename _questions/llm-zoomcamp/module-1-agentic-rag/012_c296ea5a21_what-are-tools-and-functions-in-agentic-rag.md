@@ -1,7 +1,7 @@
 ---
 id: c296ea5a21
 question: What are tools and functions in agentic RAG?
-sort_order: 12
+sort_order: 1
 ---
 
 In the context of this course, tools and functions are closely related terms. Do not worry too much about the naming difference.
