@@ -4,8 +4,8 @@ question: Are there any lectures/videos? Where are they?
 sort_order: 10
 ---
 
-Use the [LLM Zoomcamp GitHub repository](https://github.com/DataTalksClub/llm-zoomcamp) as the main reference. It links the lessons, videos, homework, and cohort-specific materials.
+Use the [LLM Zoomcamp GitHub repository](https://github.com/DataTalksClub/llm-zoomcamp) as the main entry point.
 
-The YouTube playlist is also available: [LLM Zoomcamp playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv).
+Open the lesson folders in the repo. Each lesson page has the relevant videos linked at the top.
 
-When in doubt, follow the GitHub repo first, because it is easier to keep updated than the video playlist.
+When in doubt, follow the GitHub repo first, because it is easier to keep updated than the YouTube playlist.
