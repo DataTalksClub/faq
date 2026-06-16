@@ -1,27 +1,43 @@
 course: llm-zoomcamp
 course_name: "LLM Zoomcamp"
+slack_channel: course-llm-zoomcamp
 sections:
   - id: general
     name: "General Course-Related Questions"
     comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, project rules. Technical questions belong in the module sections."
-  - id: module-1
-    name: "Module 1: Introduction to LLMs and RAG"
-    comment: "Basics of LLMs and RAG, OpenAI API, text search. Includes setup-related issues (API keys, ElasticSearch, Ollama, etc.)"
-  - id: module-2
-    name: "Module 2: Agents"
-    comment: "Adding agentic functionality to RAG, function calling, MCP, tool use"
-  - id: module-3
-    name: "Module 3: Vector Search"
+  - id: module-1-rag
+    name: "Module 1: RAG"
+    comment: "Module 1 part 1: LLM basics, environment setup, keyword search, minsearch, prompt building, fixed RAG pipelines, sqlitesearch, and setup-related issues."
+  - id: module-1-agentic-rag
+    name: "Module 1: Agentic RAG"
+    comment: "Module 1 part 2: agents, function/tool calling, agentic loops, MCP, and framework-related issues."
+  - id: module-1-homework
+    name: "Module 1 Homework"
+  - id: module-2-vector-search
+    name: "Module 2: Vector Search"
     comment: "Vector search, embeddings, indexing, Qdrant, semantic search"
+  - id: module-2-homework
+    name: "Module 2 Homework"
+  - id: module-3
+    name: "Module 3: Orchestration"
+    comment: "AI orchestration with Kestra"
+  - id: module-3-homework
+    name: "Module 3 Homework"
   - id: module-4
     name: "Module 4: Evaluation"
     comment: "Search evaluation, online vs offline evaluation, LLM as a judge, hit rate / MRR / ROUGE"
+  - id: module-4-homework
+    name: "Module 4 Homework"
   - id: module-5
     name: "Module 5: Monitoring"
     comment: "Online evaluation techniques, Phoenix, dashboards, monitoring user feedback"
+  - id: module-5-homework
+    name: "Module 5 Homework"
   - id: module-6
     name: "Module 6: Best Practices"
     comment: "Hybrid search, document reranking, advanced RAG techniques"
+  - id: module-6-homework
+    name: "Module 6 Homework"
   - id: project
     name: "Capstone Project"
   - id: workshops-dlthub

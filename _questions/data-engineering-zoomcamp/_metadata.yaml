@@ -1,5 +1,6 @@
 course: data-engineering-zoomcamp
 course_name: "Data Engineering Zoomcamp"
+slack_channel: course-data-engineering
 sections:
   - id: general
     name: "General Course-Related Questions"

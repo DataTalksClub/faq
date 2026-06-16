@@ -19,3 +19,5 @@ return response.choices[0].message.content
 ```
 
 You'll also have to adapt the tools schema to whatever shape your provider expects.
+
+It is okay to use the older `chat.completions` API for homework or projects if your provider supports that interface better than the Responses API.

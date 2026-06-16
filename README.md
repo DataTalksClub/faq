@@ -83,6 +83,27 @@ uv run python -m faq_automation.cli \
   --issue-number 42
 ```
 
+### Fetching FAQ Candidates From Slack
+
+Maintainers can pull recent Slack activity into local review files:
+
+```bash
+cp .env.example .env
+# Edit .env and set SLACK_BOT_TOKEN
+
+uv run python -m faq_automation.slack_fetch
+```
+
+By default this reads `_questions/llm-zoomcamp/_metadata.yaml`, fetches Slack channel `course-llm-zoomcamp`, checks the last 7 days, and writes JSON and Markdown exports to `.tmp/`. To fetch another course, pass its course directory name:
+
+```bash
+uv run python -m faq_automation.slack_fetch --course data-engineering-zoomcamp
+```
+
+Each course metadata file has a `slack_channel` field. Use `--channel another-channel` only when you need to override the metadata for one run. Ask Codex to review the generated export, identify missing FAQs for that course, and add the approved ones.
+
+Find the Slack bot token in your Slack app at <https://api.slack.com/apps> under OAuth & Permissions. Use the Bot User OAuth Token value, which starts with `xoxb-`.
+
 ### Testing
 
 ```bash

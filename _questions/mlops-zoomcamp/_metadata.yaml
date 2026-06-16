@@ -1,5 +1,6 @@
 course: mlops-zoomcamp
 course_name: "MLOps Zoomcamp"
+slack_channel: course-mlops-zoomcamp
 sections:
   - id: general
     name: "General Course-Related Questions"

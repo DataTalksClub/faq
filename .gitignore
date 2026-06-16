@@ -1,6 +1,8 @@
 .venv
 _site
 __pycache__
+.env
+.tmp/
 .envrc
 .ipynb_checkpoints/
 CLAUDE.md

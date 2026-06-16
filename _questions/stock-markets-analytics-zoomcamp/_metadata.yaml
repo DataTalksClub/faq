@@ -1,5 +1,6 @@
 course: stock-markets-analytics-zoomcamp
 course_name: "Stock Markets Analytics Zoomcamp"
+slack_channel: course-stock-markets-analytics
 sections:
   - id: general
     name: "General Course-Related Questions"

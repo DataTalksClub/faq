@@ -23,3 +23,5 @@ For other providers, use their native tokenizer:
 - Mistral: use the official `mistral-common` tokenizer package.
 
 Don't use `cl100k_base` as a generic fallback — token counts will diverge from what the provider actually bills.
+
+If a homework question asks for token counts and you are using a different provider, your value may not match exactly. It should still be in the same order of magnitude. If the answer is multiple choice, choose the closest option.

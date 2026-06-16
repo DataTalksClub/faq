@@ -1,5 +1,6 @@
 course: ai-dev-tools-zoomcamp
 course_name: "AI Dev Tools Zoomcamp"
+slack_channel: course-ai-dev-tools
 sections:
   - id: general
     name: "General Course-Related Questions"

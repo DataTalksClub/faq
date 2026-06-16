@@ -1,5 +1,6 @@
 course: machine-learning-zoomcamp
 course_name: "ML Zoomcamp"
+slack_channel: course-ml-zoomcamp
 sections:
   - id: general
     name: "General Course-Related Questions"
