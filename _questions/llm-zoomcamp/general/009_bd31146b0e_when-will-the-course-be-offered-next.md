@@ -4,4 +4,4 @@ question: When will the course be offered next?
 sort_order: 9
 ---
 
-Summer 2025.
+Summer 2027.
