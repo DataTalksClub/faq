@@ -4,7 +4,7 @@ question: Do I have to use OpenAI or Gemini, or can I use a different provider?
 sort_order: 30
 ---
 
-You can use any LLM from any provider for the course — it isn't tied to OpenAI or Gemini. So if a provider is blocked in your region (or you simply prefer another one), just switch to something else:
+If the providers used in the course aren't available or are blocked in your region (or you simply prefer another one), you can use any other LLM provider — the course isn't tied to OpenAI or Gemini. Just switch to something else:
 
 - Hosted, OpenAI-compatible providers — e.g. Groq, OpenRouter, DeepSeek, Z.ai, Mistral. The course code uses the OpenAI client, so you usually only need to change the `base_url`, the API key, and the model name.
 - Open models via Hugging Face (e.g. Qwen, Llama) if you prefer hosted open-source models.
