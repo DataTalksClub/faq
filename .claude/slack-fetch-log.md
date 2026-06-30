@@ -24,6 +24,7 @@ Most recent at the top. `date` is UTC run date.
 
 | date (UTC)  | course                    | days | limit | messages | export                                                                                  | note                                                              |
 | ----------- | ------------------------- | ---- | ----- | -------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 2026-06-30  | llm-zoomcamp              | 13   | 1000  | 476      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260630T093805Z.md`                       | Covered 06-17→06-30 (overlaps last fetch at 06-18).               |
 | 2026-06-18  | llm-zoomcamp              | 3    | 500   | 89       | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260618T152321Z.md`                       | Covered 06-15→06-18 (overlaps last fetch at 06-16).               |
 | 2026-06-18  | data-engineering-zoomcamp | 40   | 1000  | 164      | `.tmp/slack-data-engineering-zoomcamp-course-data-engineering-20260618T152346Z.md`      | First tool-based fetch. Covered 05-10→06-17. Recurring certificate/self-paced questions flagged. |
 
