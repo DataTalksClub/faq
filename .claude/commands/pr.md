@@ -38,7 +38,11 @@ After showing each PR, ask: "Merge, close, or needs changes?"
 
 ## 4. Actions
 - **Merge**: `gh pr merge <number> --delete-branch --squash --subject "..." --body "..."`
-- **Close**: `gh pr close <number> --comment "reason"`
+  - The PR body's `Closes #<issue>` auto-closes the related issue on merge — no manual step needed.
+- **Close**: put the reasoning on the **issue**, not the PR, since closing a PR (unlike merging) does NOT auto-close its linked issue. Steps:
+  1. `gh issue comment <issue> --body "reason..."` — explain why, grounded in the course material.
+  2. `gh issue close <issue> --reason "not planned"`
+  3. `gh pr close <number>` — close the PR with no comment (or a one-line pointer to the issue).
 - **Move section**: Checkout branch, `git mv` file, update sort_order, push, then merge
 - **Fix content**: Checkout branch, edit file, commit, push, then merge
 
