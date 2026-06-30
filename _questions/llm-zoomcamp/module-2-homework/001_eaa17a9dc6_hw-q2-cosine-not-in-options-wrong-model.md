@@ -2,7 +2,7 @@
 id: eaa17a9dc6
 question: My Module 2 homework cosine similarity (Q2) isn't any of the options — what
   am I doing wrong?
-sort_order: 10
+sort_order: 1
 ---
 
 The most common cause is using a different embedding model than the homework specifies. Homework 2 tells you **not** to use `sentence-transformers` and to use the lightweight ONNX `Embedder` from `embedder.py` instead:
