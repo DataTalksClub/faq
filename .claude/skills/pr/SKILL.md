@@ -1,6 +1,9 @@
 ---
-description: Review and process open FAQ PRs
+name: pr
+description: Review and process open FAQ pull requests one by one — show details, check placement/relevance/duplicates/quality, then merge, close (with reasoning on the issue), or fix. Use when the user wants to go through open FAQ PRs, review proposed FAQ entries, or asks to "go through PRs".
 ---
+
+# Process FAQ PRs
 
 Go through all open pull requests one by one. For each PR:
 
@@ -32,6 +35,7 @@ Go through all open pull requests one by one. For each PR:
 - Python code must have proper indentation
 - Check for file corruption (garbage characters at end)
 - Code blocks should be syntactically correct
+- Verify claims against the actual course repo (e.g. `~/git/llm-zoomcamp`) before accepting — don't trust the proposed answer's framing
 
 ## 3. Ask User
 After showing each PR, ask: "Merge, close, or needs changes?"
@@ -45,6 +49,8 @@ After showing each PR, ask: "Merge, close, or needs changes?"
   3. `gh pr close <number>` — close the PR with no comment (or a one-line pointer to the issue).
 - **Move section**: Checkout branch, `git mv` file, update sort_order, push, then merge
 - **Fix content**: Checkout branch, edit file, commit, push, then merge
+
+> ⚠️ When committing on a checked-out PR branch, stage **only** the specific FAQ file (`git add <path>`). NEVER `git add -A` / `git add .` — the working tree carries unrelated uncommitted changes (e.g. `faq_automation/`, `_metadata.yaml`) that will otherwise leak into the squash-merge and land on `main`. Run `git status` before committing to confirm only the intended file is staged.
 
 ## 5. Sort Order Guidelines
 - Find highest number in target section: `ls _questions/<course>/<section>/`
