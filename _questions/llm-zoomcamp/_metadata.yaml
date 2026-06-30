@@ -1,6 +1,7 @@
 course: llm-zoomcamp
 course_name: "LLM Zoomcamp"
 slack_channel: course-llm-zoomcamp
+telegram_channel: llm_zoomcamp
 sections:
   - id: general
     name: "General Course-Related Questions"
