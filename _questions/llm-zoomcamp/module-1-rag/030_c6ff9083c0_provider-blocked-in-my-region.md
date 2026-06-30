@@ -13,3 +13,5 @@ If the provider used in the course isn't available or is blocked in your region 
 - A VPN also works if you just need to reach a provider that's blocked at the network level.
 
 Anything with an OpenAI-compatible endpoint (or a locally served model) will work — pick whatever is available and convenient for you.
+
+For a curated list of options, see [Awesome LLMs](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/awesome-llms.md) in the course repo, which collects OpenAI API alternatives and tools for running models locally.
