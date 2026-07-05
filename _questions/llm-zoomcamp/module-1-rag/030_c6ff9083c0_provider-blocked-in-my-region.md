@@ -1,17 +1,45 @@
 ---
 id: c6ff9083c0
-question: Do I have to use OpenAI, or can I use a different provider?
+question: How can I configure Kestra to use a different LLM provider instead of Google
+  Gemini?
 sort_order: 30
 ---
 
-If the provider used in the course isn't available or is blocked in your region (or you simply prefer another one), you can use any other LLM provider — the course isn't tied to OpenAI. Just switch to something else:
+Kestra supports multiple LLM providers via its AI Provider plugins, not just Google Gemini. To configure a different provider:
 
-- Hosted, OpenAI-compatible providers — e.g. Groq, OpenRouter, DeepSeek, Gemini, Z.ai, Mistral. The course code uses the OpenAI client, so you usually only need to change the `base_url`, the API key, and the model name.
-- Open models via Hugging Face (e.g. Qwen, Llama) if you prefer hosted open-source models.
-- Serve a model locally with [Ollama](https://ollama.com/), [vLLM](https://github.com/vllm-project/vllm), LM Studio, or anything else — no external API call at all, so regional blocks don't apply and you don't need a paid key. Most of these also expose an OpenAI-compatible endpoint, so the course code works with only a `base_url` change.
-- Rent a GPU machine and serve the model there (e.g. with vLLM) if your own machine can't run the model you want. This gives you a private OpenAI-compatible endpoint to point the course code at — just remember to stop/delete the instance when you're done so you don't keep paying for it.
-- A VPN also works if you just need to reach a provider that's blocked at the network level.
+- Pick a provider from the supported list (including Google Gemini, OpenAI, Anthropic, OpenRouter, DeepSeek, Ollama, Hugging Face, Mistral AI, Azure OpenAI, Amazon Bedrock, GitHub Models, Google Vertex AI, LocalAI, IBM watsonx.ai, Cloudflare Workers AI, DashScope, OCI Generative AI, ZhiPu AI).
+- Create or obtain the required credentials (API key, endpoint, or other secrets) for the chosen provider and store them as Kestra secrets or environment variables per your workflow.
+- Update the Kestra flow or configuration to use the selected provider instead of GoogleGemini. In practice:
+  - For hosted providers with an OpenAI-compatible endpoint (OpenAI, OpenRouter, DeepSeek, Gemini, Mistral, and others), you typically change:
+    - base_url (to point to the provider's API endpoint)
+    - the API key
+    - the model name
+    - and any provider-specific field names as documented.
+  - For open models or local options (Hugging Face hosted models, Ollama, LocalAI, LM Studio, etc.), configure the provider to point to the local or hosted endpoint and ensure the model/container is accessible.
+  - For example, to use OpenRouter, configure the OpenRouter provider and supply your OpenRouter API key.
+  - If you want to run models on your own machine, you can use Ollama (or vLLM, etc.) by pointing Kestra to your local endpoint.
+  - If you need private networking (VPN) to reach a provider, set up the networking accordingly.
 
-Anything with an OpenAI-compatible endpoint (or a locally served model) will work — pick whatever is available and convenient for you.
+- Important: The code in many courses uses an OpenAI-compatible client, so you usually only need to adjust base_url, API key, and model name. Some providers may require different fields; consult the provider's Kestra plugin docs for the exact configuration.
 
-For a curated list of options, see [Awesome LLMs](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/awesome-llms.md) in the course repo, which collects OpenAI API alternatives and tools for running models locally.
+- For the latest configuration examples for each provider, refer to the Kestra AI Provider documentation: https://kestra.io/plugins/plugin-ai/provider
+
+Current supported providers include:
+- Google Gemini
+- OpenAI
+- Anthropic
+- OpenRouter
+- DeepSeek
+- Ollama
+- Hugging Face
+- Mistral AI
+- Azure OpenAI
+- Amazon Bedrock
+- GitHub Models
+- Google Vertex AI
+- LocalAI
+- IBM watsonx.ai
+- Cloudflare Workers AI
+- DashScope
+- OCI Generative AI
+- ZhiPu AI
