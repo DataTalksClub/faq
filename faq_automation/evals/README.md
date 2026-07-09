@@ -144,6 +144,21 @@ or check the file's frontmatter `id`. To fetch the answer from GitHub:
 
 ### RAG cases
 
+How the eval data was created:
+
+1. Listed all faq-proposal issues: `gh issue list --state all --label faq-proposal --limit 200`
+2. For each issue, fetched the body to get the question and answer:
+   `gh issue view <N> --json body` then parse `### Question` and `### Answer` sections
+3. Traced the issue to its PR to find the outcome (NEW/UPDATE/DUPLICATE):
+   `gh pr list --state all --search <issue_number>` then read the PR body
+4. For merged PRs, extracted the `doc_id` from the created file's frontmatter
+5. Checked git history for correction commits after the bot's merge — these
+   reveal section misplacements, content fixes, etc. that became test cases
+6. Determined expected_action and expected_section from the issue content and
+   the course's `_metadata.yaml` section comments
+7. Added `relevant_doc_id` for NEW cases so the runner can hide the entry
+8. Tagged each case based on the failure pattern it represents
+
 Add an `EvalCase` to `cases.py`:
 
 ```python
