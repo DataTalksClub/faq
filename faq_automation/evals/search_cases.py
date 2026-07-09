@@ -1,109 +1,103 @@
 """
 Ground-truth dataset for search/retrieval eval.
 
-Each case is a real FAQ proposal issue paired with the doc_id of the FAQ entry
-it became (for NEW/UPDATE) or duplicated. The eval checks whether the FAQ agent's
-search index returns the right doc_id in the top-k results.
+Each case is a tuple: (course, question, answer, doc_id, issue_number, note)
 
-Cases are built from GitHub issues + git history. Synthetic edge cases are appended
-to test specific retrieval failure modes (vague queries, cross-module confusion, etc.)
+- course: course directory under _questions/
+- question: the issue question (reworded for some cases to avoid trivial self-match)
+- answer: the proposed answer from the issue body (from GitHub ### Answer section)
+- doc_id: the 10-char id from the FAQ entry's frontmatter
+- issue_number: GitHub issue number (0 = synthetic)
+- note: optional note (e.g. "reworded", edge case description)
+
+## How the data was collected
+
+1. Listed all faq-proposal issues: `gh issue list --state all --label faq-proposal --limit 200`
+2. For each issue, extracted the question and answer from the body:
+   `gh issue view <N> --json body` then parse ### Question and ### Answer sections
+3. Traced the issue to its PR to find the doc_id of the FAQ entry it became:
+   `gh pr list --state all --search <issue_number>` then extract the file's frontmatter id
+4. Synthetic edge cases added for vague queries, cross-module confusion, exact errors,
+   paraphrases, and negative cases.
+
+To extend coverage: add more issues following the same process, or add synthetic cases
+to test specific retrieval failure modes.
 """
 
-# Real cases: (course, query_text, relevant_doc_id, issue_number, note)
-# The query_text is the issue's question (or question + answer prefix for richer context).
-# The relevant_doc_id is the 10-char id from the FAQ file's frontmatter.
-
+# Real cases: (course, question, answer, doc_id, issue_number, note)
 REAL_CASES = [
-    # llm-zoomcamp
-    ("llm-zoomcamp", "How do I get structured output (Pydantic objects) from Gemini through the OpenAI-compatible endpoint?", "341f71f28c", 301, ""),
-    ("llm-zoomcamp", "Why does a generic AI assistant generate invalid Kestra plugin properties?", "93a3e8b98c", 297, ""),
-    ("llm-zoomcamp", "Why is token usage monitored in Kestra workflows?", "a4adc70f41", 293, ""),
-    ("llm-zoomcamp", "How do I fix the Docker error mounts denied path not shared from the host?", "dd8b4c9fda", 291, ""),
-    ("llm-zoomcamp", "Why do I get IndexError list index out of range when accessing the best chunk?", "1a7b27c4df", 289, ""),
-    ("llm-zoomcamp", "Why does download.py hang at 0% when downloading model.onnx from Hugging Face?", "29b69fbe0b", 285, ""),
-    ("llm-zoomcamp", "Why use uv package manager instead of pip venv poetry?", "f81dea8f7e", 278, ""),
-    ("llm-zoomcamp", "Why can np.allclose return False comparing matrix vs loop vector search?", "e889793af9", 276, ""),
-    ("llm-zoomcamp", "OpenRouter Error code 402 when calling responses.create max_output_tokens", "cfb07a27d5", 274, ""),
-    ("llm-zoomcamp", "How do I start using Google Gemini models through the OpenAI-compatible endpoint?", "0ae5c221b9", 272, ""),
-    ("llm-zoomcamp", "How to fix Python logs shown as Kestra error messages?", "8d33e30f9a", 262, ""),
-
-    # data-engineering-zoomcamp
-    ("data-engineering-zoomcamp", "How do I use Spark with BigQuery as a data source and sink?", "f57e5cb1f4", 256, ""),
-    ("data-engineering-zoomcamp", "How can I edit Kestra flows locally with Docker Compose?", "e14f6a8ed9", 258, ""),
-    ("data-engineering-zoomcamp", "How do I authenticate dbt with BigQuery when service account key creation is disabled?", "5039707c1a", 268, ""),
-    ("data-engineering-zoomcamp", "Why use dbt and BigQuery instead of handling all transformations in Python?", "8c9c97f690", 266, ""),
-    ("data-engineering-zoomcamp", "Why is the pipeline structured into multiple layers instead of directly analyzing raw data?", "a198f6959c", 264, ""),
-    ("data-engineering-zoomcamp", "How to sync data from PostgreSQL to BigQuery for analytics?", "9950018686", 254, ""),
-    ("data-engineering-zoomcamp", "How to structure a layered data warehouse raw clean analytics in a batch pipeline?", "a198f6959c", 252, ""),
-    ("data-engineering-zoomcamp", "Unable to download parquet file using wget from the TLC Trip Record Data website.", "f6dedaf769", 250, ""),
-    ("data-engineering-zoomcamp", "PyFlink session window aggregation fails with declare primary key for sink table", "1da0437718", 248, ""),
-    ("data-engineering-zoomcamp", "Flink tumbling window job runs but the PostgreSQL table is empty", "b7ff18706c", 246, ""),
-    ("data-engineering-zoomcamp", "PyFlink job keeps restarting with JSON deserialization error", "5e953f0e8e", 244, ""),
-    ("data-engineering-zoomcamp", "How to inspect messages in a Kafka topic using offsets?", "9116d0a2a1", 242, ""),
-    ("data-engineering-zoomcamp", "Spark error when casting TIMESTAMP_NTZ to BIGINT", "d845dedf73", 240, ""),
-    ("data-engineering-zoomcamp", "Why does Spark write multiple parquet files after repartitioning a dataset?", "236aa3c6e4", 237, ""),
-    ("data-engineering-zoomcamp", "How to calculate trip duration using Spark timestamps?", "8d33e30f9a", 235, ""),
-    ("data-engineering-zoomcamp", "What is the difference between a Spark application job stage and task?", "4d5aa45b03", 228, ""),
-    ("data-engineering-zoomcamp", "Incomplete data ingestion due to incorrect pagination starting point", "f97bbac843", 225, ""),
-    ("data-engineering-zoomcamp", "Column name from API not found when querying dlt-loaded table", "3b78e09b80", 224, ""),
-    ("data-engineering-zoomcamp", "dlt does not create some columns in DuckDB when loading REST API data", "1d0b969028", 222, ""),
-    ("data-engineering-zoomcamp", "How do I generate the AGENTS.md file for Codex in dlt?", "f97bbac843", 221, ""),
-    ("data-engineering-zoomcamp", "Bruin Python asset fails with ArrowInvalid Cannot locate timezone UTC", "e955c6b69e", 219, ""),
-    ("data-engineering-zoomcamp", "Bruin seed timeout with ingestr and DuckDB", "79792b53fc", 217, ""),
-    ("data-engineering-zoomcamp", "Fix Bruin time_interval first-run failure", "a500273add", 215, ""),
-    ("data-engineering-zoomcamp", "Fix libduckdb.so missing on WSL Windows", "81eb85c2dd", 213, ""),
-    ("data-engineering-zoomcamp", "When should I use merge instead of append?", "2442e32be2", 198, ""),
-    ("data-engineering-zoomcamp", "What is the difference between rest_api_source and @dlt.resource?", "0655c8c637", 200, ""),
-    ("data-engineering-zoomcamp", "How does dlt handle schema evolution?", "3a53549d08", 202, ""),
-    ("data-engineering-zoomcamp", "Why does DuckDB show IO Error Could not set lock on file after pressing Ctrl+Z?", "d07a9a8ff9", 187, ""),
-    ("data-engineering-zoomcamp", "How do I add the Bruin MCP server to VS Code?", "d5328f1899", 204, ""),
-    ("data-engineering-zoomcamp", "Can I have multiple Bruin projects inside the same Git repository?", "f04da64de9", 189, ""),
-    ("data-engineering-zoomcamp", "Can I run my dbt project from Kestra?", "e14f6a8ed9", 167, ""),
-    ("data-engineering-zoomcamp", "How do I add the dlt MCP server in VS Code?", "cbeb6f678b", 196, ""),
-    ("data-engineering-zoomcamp", "How to obtain the DDL of a table in BigQuery?", "7df3102580", 146, ""),
-
-    # machine-learning-zoomcamp
-    ("machine-learning-zoomcamp", "When running parse_xg_output I get an error with XGB evals result", "91ff5cb6b6", 35, ""),
-    ("machine-learning-zoomcamp", "FastAPI deployment pickle model issues", "69e5f9cbf8", 33, ""),
-    ("machine-learning-zoomcamp", "Docker file has a new pipenv grpcio conflict for module 10", "0b60cbb594", 29, ""),
-    ("machine-learning-zoomcamp", "What if my answer doesn't match the options in the Homework?", "917b0b0fb5", 25, ""),
-    ("machine-learning-zoomcamp", "TypeError while creating OneHotEncoder object", "548dcc8a3c", 23, ""),
+    ('llm-zoomcamp', 'How do I get structured output (Pydantic objects) from Gemini through the OpenAI-compatible endpoint?', 'To get parsed structured output, use the OpenAI SDK’s chat-completions parsing flow instead of the newer Responses API. This is the right choice when you want to stay on the OpenAI SDK but call a chat-completions-compatible model like Gemini through the OpenAI-compatible endpoint.  Example code:  ``', '341f71f28c', 301, ''),
+    ('llm-zoomcamp', 'Why does a generic AI assistant generate invalid Kestra plugin properties?', "A generic assistant isn't grounded in Kestra's current plugin documentation, so it invents plausible-looking property names instead of the real ones.  Concrete example: for `io.kestra.plugin.gcp.gcs.Upload`, a generic assistant may invent `bucket:`/`name:` properties — the real (and only) destinatio", '93a3e8b98c', 297, ''),
+    ('llm-zoomcamp', 'In the Kestra module, why do we track how many tokens the LLM uses?', 'Token usage tracking helps measure cost and efficiency of LLM-based workflows. It allows developers to optimize prompts, reduce unnecessary output, and control operational expenses in production systems.', 'a4adc70f41', 293, 'reworded'),
+    ('llm-zoomcamp', 'How do I fix the Docker error mounts denied path not shared from the host?', "### Add the path to Docker File Sharing (Recommended) You need to explicitly tell Docker Desktop that it is allowed to access your host's /tmp directory. 1. Open Docker Desktop. 2. Click the Gear icon (Settings) in the top right corner. 3. Navigate to Resources > File Sharing. 4. Click the + (Add) b", 'dd8b4c9fda', 291, ''),
+    ('llm-zoomcamp', 'My RAG code crashes when I try to get the top result — it says list index out of range', 'This usually happens when the number of embeddings does not match the number of document chunks.  Make sure you create embeddings directly from the chunk list:  contents = [chunk[\\"content\\"] for chunk in chunks] X = embedder.encode_batch(contents)  The number of rows in X should be equal to len(chu', '1a7b27c4df', 289, 'reworded'),
+    ('llm-zoomcamp', 'Why does download.py hang at 0% when downloading model.onnx from Hugging Face?', 'e.g. \\"This can happen due to a slow or blocked connection to HuggingFace\'s CDN. Fix: download the file directly from your browser at https://huggingface.co/Xenova/all-MiniLM-L6-v2/resolve/main/onnx/model.onnx and save it to models/Xenova/all-MiniLM-L6-v2/model.onnx. The script checks if the file ex', '29b69fbe0b', 285, ''),
+    ('llm-zoomcamp', 'Why use uv package manager instead of pip venv poetry?', 'uv is better in a variety of ways, but there are two main reasons:  - Speed: much faster than pip - Simplicity: uv replaces pip, pip-tools, pipx, poetry, pyenv, twine, virtualenv, and  other alternative tools.  Basically, you get a fast all-in-package of basic software functionalities you need for m', 'f81dea8f7e', 278, ''),
+    ('llm-zoomcamp', 'Why can np.allclose return False comparing matrix vs loop vector search?', 'Yes, they are doing the same math. The difference comes from floating-point precision and the order in which numbers are added.  The matrix version `X.dot(v_query)` is handled by optimized low-level numerical code, while the Python loop adds values sequentially. That can produce tiny differences in ', 'e889793af9', 276, ''),
+    ('llm-zoomcamp', 'OpenRouter Error code 402 when calling responses.create max_output_tokens', "If you use OpenRouter as your LLM provider with the course's OpenAI-compatible client, you may see this error when calling `responses.create()`:  ```text APIStatusError: Error code: 402 This request requires more credits, or fewer max_tokens. You requested up to 65536 tokens, but can only afford 888", 'cfb07a27d5', 274, ''),
+    ('llm-zoomcamp', 'How do I start using Google Gemini models through the OpenAI-compatible endpoint?', 'To get started, you need three things:  1. A Gemini API key saved in your `.env` file, for example as `GEMINI_API_KEY`. 2. An OpenAI client pointed at Google’s OpenAI-compatible base URL. 3. Your selected Google Gemini model name in your request.  Here is example code that loads the API key from `.e', '0ae5c221b9', 272, ''),
+    ('llm-zoomcamp', 'How to fix Python logs shown as Kestra error messages?', 'Some times you trigger a Python script from Kestra (either via a Docker, or Script task) and everything works: exit code 0, data processed, no exceptions. But every log line in the Kestra execution view is tagged **ERROR** in red, even the ones that clearly say **INFO** in the message body:  ``` 202', '8d33e30f9a', 262, ''),
+    ('data-engineering-zoomcamp', 'How do I use Spark with BigQuery as a data source and sink?', 'You can use the Spark BigQuery connector to read and write data between Spark and BigQuery.  1. Add the connector package: com.google.cloud.spark:spark-bigquery-with-dependencies_2.12  2. Read from BigQuery:  ```python df = spark.read.format(\\"bigquery\\") \\     .option(\\"table\\", \\"project.dataset.t', 'f57e5cb1f4', 256, ''),
+    ('data-engineering-zoomcamp', 'How can I edit Kestra flows locally with Docker Compose?', 'By default, Kestra stores its flow definitions in a database. This means that every time you edit a flow through the web UI, the source of truth lives inside the container, not in your repository. That is fine for quick experiments, but for a real project you want flows version-controlled alongside ', 'e14f6a8ed9', 258, ''),
+    ('data-engineering-zoomcamp', 'How do I authenticate dbt with BigQuery when service account key creation is disabled?', 'If service account key creation is disabled, use Google Application Default Credentials / OAuth instead. Update profiles.yml from:  method: service-account keyfile: \\"{{ env_var(\'GOOGLE_APPLICATION_CREDENTIALS\') }}\\"  to: method: oauth  Example BigQuery profile: default:   target: dev   outputs:    ', '5039707c1a', 268, ''),
+    ('data-engineering-zoomcamp', 'Why use dbt and BigQuery instead of handling all transformations in Python?', 'While Python is effective for initial data processing, it does not scale well for:  - declarative transformations   - dependency management   - testing and documentation    dbt provides:  - **modular SQL transformations**   - **built-in testing (data quality checks)**   - **lineage tracking**   - **', '8c9c97f690', 266, ''),
+    ('data-engineering-zoomcamp', 'Why is the pipeline structured into multiple layers instead of directly analyzing raw data?', 'Direct analysis on raw data creates tight coupling between ingestion format and analytical logic.  This leads to:  - repeated cleaning logic across queries   - inconsistent metric definitions   - difficulty scaling transformations    By introducing layers:  - **canonical layer** enforces schema cons', 'a198f6959c', 264, ''),
+    ('data-engineering-zoomcamp', 'How to sync data from PostgreSQL to BigQuery for analytics?', 'You can sync data from PostgreSQL to BigQuery by extracting tables and loading them into BigQuery datasets.  One approach is:  1. Connect to PostgreSQL using a Python script 2. Read tables into pandas DataFrames 3. Use the Google Cloud BigQuery client to load data  Example:  ```python from google.cl', '9950018686', 254, ''),
+    ('data-engineering-zoomcamp', 'How to structure a layered data warehouse raw clean analytics in a batch pipeline?', 'You can structure your warehouse into separate layers to isolate responsibilities and improve data reliability.  A common approach is:  - Raw layer: store ingested data exactly as received - Clean layer: filter invalid records and enforce basic constraints - Data quality layer: validate completeness', 'a198f6959c', 252, ''),
+    ('data-engineering-zoomcamp', 'Unable to download parquet file using wget from the TLC Trip Record Data website.', 'Even when using `--no-check-certificate`, the download may still fail because the issue is not related to SSL verification but network-level blocking of Amazon CloudFront domains.  In some networks, requests to the dataset URL may be redirected to a block page such as `https://blocked.sbmd.cicc.gov.', 'f6dedaf769', 250, ''),
+    ('data-engineering-zoomcamp', 'PyFlink session window aggregation fails with declare primary key for sink table', 'Session window aggregations produce updates while the session is still open. The JDBC sink needs a primary key so it knows which row should be updated in the table. Without a primary key, Flink cannot apply the updates and the job fails. Define a primary key in the sink table using the window bounda', '1da0437718', 248, ''),
+    ('data-engineering-zoomcamp', 'Flink tumbling window job runs but the PostgreSQL table is empty', 'Flink streaming jobs emit results only after the window closes. With event-time processing and watermarks, the window will not close until the watermark passes the window end. If you query the PostgreSQL table too early, it may still be empty even though the job is running correctly. Let the job run', 'b7ff18706c', 246, ''),
+    ('data-engineering-zoomcamp', 'PyFlink job keeps restarting with JSON deserialization error', 'The Green Taxi dataset contains NaN values in some numeric fields (for example passenger_count). When the producer serializes rows to JSON and sends them to the Kafka topic, those NaN values appear in the payload. Flink’s JSON parser does not accept NaN because it is not valid JSON, so the Kafka sou', '5e953f0e8e', 244, ''),
+    ('data-engineering-zoomcamp', 'How to inspect messages in a Kafka topic using offsets?', 'When working with **Apache Kafka**, one of the most common tasks when debugging data streams is **inspecting specific messages within a topic**. In many cases, errors or unexpected behaviors are associated with a specific `offset` within a partition.  ### 1. What is an `offset` in Kafka  In Kafka, e', '9116d0a2a1', 242, ''),
+    ('data-engineering-zoomcamp', 'Spark error when casting TIMESTAMP_NTZ to BIGINT', 'Because the column type is TIMESTAMP_NTZ (timestamp without timezone). Spark does not allow direct casting from TIMESTAMP_NTZ to numeric types like BIGINT.  Use `to_unix_timestamp` functions to convert:  ```sql SELECT to_unix_timestamp(tpep_pickup_datetime) FROM yellow_2025_11 ```', 'd845dedf73', 240, ''),
+    ('data-engineering-zoomcamp', 'Why does Spark write multiple parquet files after repartitioning a dataset?', 'Spark processes data in partitions. When a DataFrame is written to disk, each partition is written as a separate output file.  For example:  ``` trips.repartition(4).write.parquet(\\"output/\\") ``` This creates four parquet files because the DataFrame now has four partitions.  This behavior allows Sp', '236aa3c6e4', 237, ''),
+    ('data-engineering-zoomcamp', 'How to calculate trip duration using Spark timestamps?', 'Spark timestamps cannot be subtracted directly to obtain durations in hours.  To compute trip duration, convert the timestamps to Unix time (seconds) first and then divide by 3600.  Example:  from pyspark.sql import functions as F  trip_duration_hours = (     F.unix_timestamp(\\"tpep_dropoff_datetime', '8d33e30f9a', 235, ''),
+    ('data-engineering-zoomcamp', 'What is the difference between a Spark application job stage and task?', "## Basic Spark Concepts  When we start working with **Apache Spark**, one of the first places where many new concepts appear is the graphical interface. There we see terms like **application**, **job**, **stage**, or **task**, but at first it's not always clear how they relate to each other. Underst", '4d5aa45b03', 228, ''),
+    ('data-engineering-zoomcamp', 'Incomplete data ingestion due to incorrect pagination starting point', 'For this API, pagination starts at page=1. page=0 returns an empty list.  Correct implementation:  Start from page=1  Continue requesting pages  Stop when the API returns an empty list  Always test API behaviour manually before implementing pagination logic.', 'f97bbac843', 225, ''),
+    ('data-engineering-zoomcamp', 'Column name from API not found when querying dlt-loaded table', "dlt normalizes column names to lowercase and converts them to snake_case.  Example:  Trip_Pickup_DateTime → trip_pickup_date_time  Inspect the schema using:  ``` SELECT column_name FROM information_schema.columns WHERE table_schema = 'taxi_data' ``` Use the normalized column names in your queries.", '3b78e09b80', 224, ''),
+    ('data-engineering-zoomcamp', 'dlt does not create some columns in DuckDB when loading REST API data', 'dlt infers column types from actual data in the current load. If a column contains only NULL values in that load, dlt cannot infer its type and the column will not be materialized.  To fix:  Provide explicit type hints using the columns argument in the @dlt.resource decorator, or  Ensure at least on', '1d0b969028', 222, ''),
+    ('data-engineering-zoomcamp', 'How do I generate the AGENTS.md file for Codex in dlt?', '', 'f97bbac843', 221, ''),
+    ('data-engineering-zoomcamp', 'Bruin Python asset fails with ArrowInvalid Cannot locate timezone UTC', '', 'e955c6b69e', 219, ''),
+    ('data-engineering-zoomcamp', 'Bruin seed timeout with ingestr and DuckDB', '', '79792b53fc', 217, ''),
+    ('data-engineering-zoomcamp', 'Fix Bruin time_interval first-run failure', '', 'a500273add', 215, ''),
+    ('data-engineering-zoomcamp', 'Fix libduckdb.so missing on WSL Windows', '', '81eb85c2dd', 213, ''),
+    ('data-engineering-zoomcamp', 'When should I use merge instead of append?', 'Use `merge` when existing data **can be updated**. If a record with the same primary key already exists, it will be updated. If it does not exist, it will be inserted.  Common use cases:  * Order status updates * User profile changes * CDC-based data processing  ```yaml materialization:   type: merg', '2442e32be2', 198, ''),
+    ('data-engineering-zoomcamp', 'What is the difference between rest_api_source and @dlt.resource?', 'Both are official dlt patterns. The main difference is **level of control**.  - JSON config (`rest_api_source`) is declarative. - Custom code (`@dlt.resource`) is programmatic and more flexible.  Use JSON config when: - API is simple and consistent - pagination/params/selectors are standard - you wa', '0655c8c637', 200, ''),
+    ('data-engineering-zoomcamp', 'How does dlt handle schema evolution?', "The good news is that dlt automatically detects and adapts to most schema changes during ingestion, so you usually don't need to manually alter tables.  ## What happens when the source schema changes?  * If **new columns appear**, dlt adds the new columns to the destination table. * If **new nested ", '3a53549d08', 202, ''),
+    ('data-engineering-zoomcamp', 'Why does DuckDB show IO Error Could not set lock on file after pressing Ctrl+Z?', 'Why does DuckDB show “IO Error: Could not set lock on file” after pressing Ctrl+Z in Ubuntu, and how can it be fixed?  Pressing `Ctrl+Z` while running: ``` duckdb data.duckdb ``` does not exit DuckDB.  It only suspends the process and returns to the shell. The DuckDB process continues running in the', 'd07a9a8ff9', 187, ''),
+    ('data-engineering-zoomcamp', 'How do I add the Bruin MCP server to VS Code?', 'To add the Bruin MCP server to VS Code:  1. Open the command palette in your IDE and search for \\"MCP: Add Server...\\" 2. Choose \\"Command (stdio)\\" 3. Enter the following command: `bruin mcp` 4. Name the server \\"bruin\\" 5. Choose to add it:    - Globally: If you are doing local development    - Re', 'd5328f1899', 204, ''),
+    ('data-engineering-zoomcamp', 'Can I have multiple Bruin projects inside the same Git repository?', 'Yes, but because `bruin init` automatically places the **.bruin.yml** in the Git root, you need to manually relocate the config file and explicitly tell Bruin where it lives. Why does this happen?  When you run:  ```bash bruin init ```  Bruin detects the nearest `.git` directory in the parent folder', 'f04da64de9', 189, ''),
+    ('data-engineering-zoomcamp', 'Can I run my dbt project from Kestra?', "Yes, you can integrate dbt with Kestra to combine dbt's transformation capabilities with Kestra's orchestration, monitoring, and Git integration. There are three main capabilities worth highlighting:  ### Import your dbt project from Git directly into Kestra  Kestra can clone or synchronize a Git re", 'e14f6a8ed9', 167, ''),
+    ('data-engineering-zoomcamp', 'How do I add the dlt MCP server in VS Code?', 'To add the dlt MCP server in VS Code you can use the command \\"MCP: Add Server...\\":  1. Open the command palette     - Windows: Ctrl + Shift + P      - Mac: Cmd + Shift + P 2. Type \\"MCP: add Server...\\" 3. Select \\"Command (stdio)\\" 4. Type `uv run --with dlt[duckdb] --with dlt-mcp[search] python ', 'cbeb6f678b', 196, ''),
+    ('data-engineering-zoomcamp', 'How to obtain the DDL of a table in BigQuery?', 'In BigQuery the DDL statement that would be needed to recreate a table can be obtained by querying the `INFORMATION_SCHEMA.TABLES` metadata table. Assuming that we are in the `zoomcamp` dataset and we want to know the DDL of the `yellow_tripdata_parquet` table, we could run:  ```sql SELECT table_nam', '7df3102580', 146, ''),
+    ('machine-learning-zoomcamp', 'When running parse_xg_output I get an error with XGB evals result', 'Check the following outputs: ```python print(repr(output.stdout)) ``` and ```python print(repr(output.stderr)) ``` If they are empty, this means XGBoost does not print training logs to stdout. One solution is to use the training results returned by the Python API: ```python evals_result = {}  model ', '91ff5cb6b6', 35, ''),
+    ('machine-learning-zoomcamp', 'FastAPI deployment pickle model issues', 'Make sure you run the `uv` command with `fastapi` with port, for example:  ``` uv run fastapi run .\\your-script-fastapi-app.py --port 9696 ```', '69e5f9cbf8', 33, ''),
+    ('machine-learning-zoomcamp', 'Docker file has a new pipenv grpcio conflict for module 10', "Replace opening pipeline_v1.bin with pipeline_v2.bin: ```python3 with open('pipeline_v2.bin', 'rb') as f_in:     pipeline = pickle.load(f_in) ```", '0b60cbb594', 29, ''),
+    ('machine-learning-zoomcamp', "What if my answer doesn't match the options in the Homework?", "If your answer doesn't match the options given in the homework, 1.choose the closest option. 2.If your answer value lies in between two options, choose the option which is more than your value.", '917b0b0fb5', 25, ''),
+    ('machine-learning-zoomcamp', 'TypeError while creating OneHotEncoder object', 'If you get Type Error when categorical values are oneHotEncoded using sparse as parameter, as below then here is the reason  TypeError Traceback (most recent call last) Cell In[60], line 4 2 scaler = StandardScaler() 3 X_train_num = scaler.fit_transform(X_train_num) ----> 4 ohe = OneHotEncoder(spars', '548dcc8a3c', 23, ''),
 ]
 
-# Synthetic edge cases: test specific retrieval failure modes
+# Synthetic edge cases: (course, question, answer, doc_id, issue_number, note)
+# answer is empty for synthetic cases
 SYNTHETIC_CASES = [
-    # Vague queries — should still find the right entry
-    ("llm-zoomcamp", "It crashes when I try to search", "1a7b27c4df", 0, "vague: IndexError search crash"),
-    ("llm-zoomcamp", "the download just hangs", "29b69fbe0b", 0, "vague: ONNX hang"),
-    ("llm-zoomcamp", "getting a 402 error", "cfb07a27d5", 0, "vague: OpenRouter 402"),
-    ("data-engineering-zoomcamp", "docker compose won't start", "30dcc71db8", 0, "vague: Docker volume backup"),
-    ("data-engineering-zoomcamp", "my data is wrong after loading", "52e74f0053", 0, "vague: BigQuery unexpected years"),
-
-    # Cross-module confusion — tool name appears in multiple modules
-    ("data-engineering-zoomcamp", "DuckDB connection error in dbt", "d07a9a8ff9", 0, "cross-module: DuckDB in dbt context"),
-    ("data-engineering-zoomcamp", "Kestra Docker volume not working", "e14f6a8ed9", 0, "cross-module: Kestra+Docker"),
-
-    # Error message exact match — should retrieve the matching troubleshooting entry
-    ("llm-zoomcamp", "IndexError: list index out of range", "1a7b27c4df", 0, "exact error message"),
-    ("data-engineering-zoomcamp", "IO Error: Could not set lock on file", "d07a9a8ff9", 0, "exact error message"),
-    ("llm-zoomcamp", "APIStatusError: Error code: 402", "cfb07a27d5", 0, "exact error message"),
-
-    # Homework-specific — should find homework section entries
-    ("llm-zoomcamp", "Module 2 homework vector search results don't match", "e889793af9", 0, "homework context"),
-    ("data-engineering-zoomcamp", "homework 6 Spark record counts don't match", "4d5aa45b03", 0, "homework context"),
-
-    # Negative case — query that shouldn't match anything strongly
-    ("llm-zoomcamp", "What is the meaning of life?", "NONE", 0, "negative: should return no strong match"),
-
-    # Paraphrased — different wording, same concept
-    ("data-engineering-zoomcamp", "How to get the table creation SQL from BigQuery", "7df3102580", 0, "paraphrased: DDL query"),
-    ("data-engineering-zoomcamp", "Running dbt transformations inside Kestra orchestrator", "e14f6a8ed9", 0, "paraphrased: dbt+Kestra"),
-    ("llm-zoomcamp", "Parse JSON response into Python objects with Gemini", "341f71f28c", 0, "paraphrased: structured output"),
-
-    # Real duplicate: issue #300 closed as duplicate of two existing Kestra secret entries.
-    # Ground truth: primary match is the API key config entry, secondary is the base64 fix.
-    ("llm-zoomcamp", "How to set GEMINI_API_KEY secret for the Kestra flows in Module 3 homework?", "3860e5fe8b", 300, "duplicate: Kestra secrets, two relevant docs"),
-    ("llm-zoomcamp", "Kestra flow fails with missing GEMINI_API_KEY secret using docker compose", "c8ca21af33", 300, "duplicate: Kestra base64 secret, second relevant doc"),
+    ('llm-zoomcamp', 'It crashes when I try to search', '', '1a7b27c4df', 0, 'vague: IndexError search crash'),
+    ('llm-zoomcamp', 'the download just hangs', '', '29b69fbe0b', 0, 'vague: ONNX hang'),
+    ('llm-zoomcamp', 'getting a 402 error', '', 'cfb07a27d5', 0, 'vague: OpenRouter 402'),
+    ('data-engineering-zoomcamp', "docker compose won't start", '', '30dcc71db8', 0, 'vague: Docker volume backup'),
+    ('data-engineering-zoomcamp', 'my data is wrong after loading', '', '52e74f0053', 0, 'vague: BigQuery unexpected years'),
+    ('data-engineering-zoomcamp', 'DuckDB connection error in dbt', '', 'd07a9a8ff9', 0, 'cross-module: DuckDB in dbt context'),
+    ('data-engineering-zoomcamp', 'Kestra Docker volume not working', '', 'e14f6a8ed9', 0, 'cross-module: Kestra+Docker'),
+    ('llm-zoomcamp', 'IndexError: list index out of range', '', '1a7b27c4df', 0, 'exact error message'),
+    ('data-engineering-zoomcamp', 'IO Error: Could not set lock on file', '', 'd07a9a8ff9', 0, 'exact error message'),
+    ('llm-zoomcamp', 'APIStatusError: Error code: 402', '', 'cfb07a27d5', 0, 'exact error message'),
+    ('llm-zoomcamp', "Module 2 homework vector search results don't match", '', 'e889793af9', 0, 'homework context'),
+    ('data-engineering-zoomcamp', "homework 6 Spark record counts don't match", '', '4d5aa45b03', 0, 'homework context'),
+    ('llm-zoomcamp', 'What is the meaning of life?', '', 'NONE', 0, 'negative: should return no strong match'),
+    ('data-engineering-zoomcamp', 'How to get the table creation SQL from BigQuery', '', '7df3102580', 0, 'paraphrased: DDL query'),
+    ('data-engineering-zoomcamp', 'Running dbt transformations inside Kestra orchestrator', '', 'e14f6a8ed9', 0, 'paraphrased: dbt+Kestra'),
+    ('llm-zoomcamp', 'Parse JSON response into Python objects with Gemini', '', '341f71f28c', 0, 'paraphrased: structured output'),
+    ('llm-zoomcamp', 'How to set GEMINI_API_KEY secret for the Kestra flows in Module 3 homework?', '', '3860e5fe8b', 300, 'duplicate: Kestra secrets, two relevant docs'),
+    ('llm-zoomcamp', 'Kestra flow fails with missing GEMINI_API_KEY secret using docker compose', '', 'c8ca21af33', 300, 'duplicate: Kestra base64 secret, second relevant doc'),
 ]
 
 ALL_CASES = REAL_CASES + SYNTHETIC_CASES
