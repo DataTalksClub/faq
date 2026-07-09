@@ -2,6 +2,28 @@
 
 Two eval suites for the FAQ merge agent, each testing a different layer.
 
+## The feedback loop
+
+The evals are part of a continuous improvement loop:
+
+1. New FAQ proposals arrive as GitHub issues. The bot processes them
+   automatically (search + LLM decision + PR creation).
+2. A human reviews the PRs using the `pr` skill (`.claude/skills/pr/SKILL.md`),
+   which checks section placement, duplicates, sort order collisions, content
+   quality, and code correctness. Problems are fixed before merging.
+3. The fixes reveal patterns the bot gets wrong. These become new eval cases:
+   the issue question/answer becomes the input, the corrected outcome becomes
+   the expected result, and the failure pattern becomes a tag.
+4. The search eval and RAG eval are run to measure the bot's performance on
+   the accumulated cases. The search eval (fast, no LLM) tunes the index.
+   The RAG eval (slow, full pipeline) validates end-to-end.
+5. Based on eval results, the agent prompt, search index config, or section
+   metadata comments are adjusted. The evals are re-run to confirm the fix
+   worked without regressing other cases.
+
+This loop means every PR review directly improves the bot — each human
+correction becomes a permanent regression test.
+
 ## Overview
 
 | Eval | What it tests | Cases | Runtime | Metrics |
