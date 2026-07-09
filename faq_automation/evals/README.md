@@ -110,14 +110,6 @@ Entries we merged already exist in the FAQ. For DUPLICATE cases this is correct
 — the agent should find and cite the existing entry. For NEW cases, we hide the
 target doc so the agent sees the "before" state.
 
-What we can and can't test:
-- Can test: section placement (always testable regardless of whether the
-  entry exists), content quality (code, headers, formatting), sort order
-  handling, rejection of irrelevant proposals.
-- Can't test: whether the agent would correctly choose NEW for a question
-  whose answer is already in the FAQ (it should say DUPLICATE, and it does).
-  The doc-hiding trick handles most of these cases.
-
 ### Tags
 
 Each case has tags for failure analysis:
@@ -160,19 +152,4 @@ EvalCase(
 Available check predicates: `action_is`, `section_is`, `no_structural_headers`,
 `content_is_runnable_python`, `content_is_concise`, `has_filename_slug`,
 `has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.
-
-## Changes made during this session
-
-- Removed `section` from search text_fields: the section name ("Module 1:
-  Docker") was being tokenized and matched against queries, causing false matches.
-  Keeping only `question` and `answer` as text fields improved recall 0.745 -> 0.830.
-- Improved agent prompt: explicit tool-to-section mapping (dlt -> workshop,
-  Bruin -> module-5, DuckDB -> module-4), section placement based on SECTIONS
-  metadata not search results, content quality rules (define all code variables,
-  no structural headers, concise answers), rejection of transient questions.
-- Collision-safe sort order: `_shift_section_files` bumps existing entries
-  when a new entry collides, so the agent can freely place entries by logical
-  position without manual renumbering.
-- Removed 4 real duplicate FAQ entries: ML Zoomcamp HPA (module-6 copy),
-  ML Zoomcamp deployment (module-6 copy), MLOps MLflow exception (duplicate),
-  MLOps cohort diff (outdated 2022/2023 entry).
+`has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.

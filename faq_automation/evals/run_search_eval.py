@@ -96,28 +96,28 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
 
     results = []
 
-    for course, query, answer, relevant_id, issue_num, note in cases:
-        if course not in indices:
+    for case in cases:
+        if case.course not in indices:
             continue
 
-        all_docs = docs_by_course[course]
+        all_docs = docs_by_course[case.course]
         existing_ids = set(d['document_id'] for d in all_docs)
-        if relevant_id not in existing_ids:
+        if case.doc_id not in existing_ids:
             continue
 
-        relevant_ids = {relevant_id}
-        index = indices[course]
-        proposal = f"## {query}\n\n{answer}" if answer else f"## {query}\n\n{query}"
+        relevant_ids = {case.doc_id}
+        index = indices[case.course]
+        proposal = f"## {case.question}\n\n{case.answer}" if case.answer else f"## {case.question}\n\n{case.question}"
         raw = index.search(proposal, num_results=num_results)
         ranked = [r.get('document_id', '') for r in raw]
 
         row = {
-            'issue': issue_num,
-            'course': course,
-            'query': query[:70],
-            'relevant_id': relevant_id,
+            'issue': case.issue_number,
+            'course': case.course,
+            'query': case.question[:70],
+            'relevant_id': case.doc_id,
             'ranked': ranked[:5],
-            'note': note,
+            'note': case.note,
         }
         for k in k_values:
             row[f'recall@{k}'] = recall_at_k(ranked, relevant_ids, k)
