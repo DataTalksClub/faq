@@ -12,22 +12,22 @@ sections:
   - id: module-1-agentic-rag
     name: "Module 1: Agentic RAG"
     comment: "Module 1 part 2: agents, function/tool calling, agentic loops, MCP, and framework-related issues."
- - id: module-1-homework
-   name: "Module 1 Homework"
+  - id: module-1-homework
+    name: "Module 1 Homework"
     comment: "Issues encountered while running Module 1 homework code or scripts."
- - id: module-2-vector-search
+  - id: module-2-vector-search
     name: "Module 2: Vector Search"
     comment: "Vector search, embeddings, embedding models (including ONNX downloads), indexing, Qdrant, semantic search, chunking errors, embedding dimension mismatches."
- - id: module-2-homework
-   name: "Module 2 Homework"
+  - id: module-2-homework
+    name: "Module 2 Homework"
     comment: "Issues encountered while running Module 2 homework code or scripts."
- - id: module-3
+  - id: module-3
     name: "Module 3: Orchestration"
     comment: "AI orchestration with Kestra, including Docker setup, secrets, flows, and token usage monitoring."
- - id: module-3-homework
-   name: "Module 3 Homework"
+  - id: module-3-homework
+    name: "Module 3 Homework"
     comment: "Issues encountered while running Module 3 homework or submitting Kestra flows."
- - id: module-4
+  - id: module-4
     name: "Module 4: Evaluation"
     comment: "Search evaluation, online vs offline evaluation, LLM as a judge, hit rate / MRR / ROUGE"
   - id: module-4-homework
