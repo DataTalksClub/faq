@@ -12,7 +12,7 @@ import json
 import argparse
 from pathlib import Path
 
-from .rag_agent import process_faq_proposal
+from .rag_agent import process_faq_proposal, DEFAULT_MODEL
 from .core import find_question_files
 from .actions import (
     create_new_faq_file,
@@ -66,7 +66,7 @@ def main():
     parser = argparse.ArgumentParser(description='Process FAQ proposal from GitHub issue')
     parser.add_argument('--issue-body', required=True, help='GitHub issue body text')
     parser.add_argument('--issue-number', type=int, required=True, help='GitHub issue number')
-    parser.add_argument('--model', default='gpt-5-nano', help='OpenAI model to use')
+    parser.add_argument('--model', default=DEFAULT_MODEL, help='OpenAI model to use')
     parser.add_argument('--output-dir', default='.', help='Output directory for results')
 
     args = parser.parse_args()

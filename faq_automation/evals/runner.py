@@ -33,7 +33,7 @@ import sys
 from pathlib import Path
 from collections import defaultdict
 
-from faq_automation.rag_agent import FAQAgent
+from faq_automation.rag_agent import FAQAgent, DEFAULT_MODEL
 from faq_automation.core import read_questions
 
 from faq_automation.evals.cases import CASES, EvalCase
@@ -105,7 +105,7 @@ def run_case(case, agent, existing_ids, section_sort_orders):
     }
 
 
-def run_all(model="gpt-5.4-nano"):
+def run_all(model=DEFAULT_MODEL):
     print(f"Running FAQ merge agent evals")
     print(f"  model: {model}")
     print(f"Total cases: {len(CASES)}")
@@ -216,7 +216,7 @@ def run_all(model="gpt-5.4-nano"):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
-    parser.add_argument('--model', default='gpt-5.4-nano')
+    parser.add_argument('--model', default=DEFAULT_MODEL)
     args = parser.parse_args()
 
     success = run_all(model=args.model)

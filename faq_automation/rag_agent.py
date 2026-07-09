@@ -4,6 +4,7 @@ RAG Agent for FAQ Triage
 Uses LLM and retrieval to decide how to handle new FAQ proposals.
 """
 
+import os
 import json
 from typing import List, Optional, Literal
 from pathlib import Path
@@ -13,6 +14,11 @@ from openai import OpenAI
 from minsearch import Index
 
 from .core import read_questions, read_metadata, keep_relevant
+
+
+# Single source of truth for the model used by both automation and evals.
+# Override per-run with the FAQ_MODEL environment variable.
+DEFAULT_MODEL = os.environ.get("FAQ_MODEL", "gpt-5-nano")
 
 
 # Prompt templates
@@ -139,14 +145,14 @@ class FAQDecision(BaseModel):
 class FAQAgent:
     """Agent for processing FAQ proposals using RAG and LLM"""
 
-    def __init__(self, course_dir: Path, openai_api_key: str, model: str = "gpt-5-nano"):
+    def __init__(self, course_dir: Path, openai_api_key: str, model: str = DEFAULT_MODEL):
         """
         Initialize the FAQ Agent
 
         Args:
             course_dir: Path to the course directory (e.g., _questions/machine-learning-zoomcamp)
             openai_api_key: OpenAI API key
-            model: OpenAI model to use (default: gpt-4)
+            model: OpenAI model to use (default: DEFAULT_MODEL)
         """
         self.course_dir = course_dir
         self.openai_client = OpenAI(api_key=openai_api_key)
@@ -210,7 +216,7 @@ def process_faq_proposal(
     question: str,
     answer: str,
     openai_api_key: str,
-    model: str = "gpt-5-nano"
+    model: str = DEFAULT_MODEL
 ) -> FAQDecision:
     """
     Convenience function to process a single FAQ proposal
@@ -220,7 +226,7 @@ def process_faq_proposal(
         question: The proposed question
         answer: The proposed answer
         openai_api_key: OpenAI API key
-        model: OpenAI model to use (default: gpt-4)
+        model: OpenAI model to use (default: DEFAULT_MODEL)
 
     Returns:
         FAQDecision object
