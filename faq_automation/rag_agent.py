@@ -158,7 +158,7 @@ class FAQAgent:
 
         # Build search index
         self.index = Index(
-            text_fields=['section', 'question', 'answer'],
+            text_fields=['question', 'answer'],
             keyword_fields=['course', 'section_id'],
         )
         self.index.fit(self.documents)

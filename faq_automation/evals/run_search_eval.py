@@ -5,7 +5,7 @@ Two complementary measurements:
 
   1. FIND eval (recall for DUPLICATE detection):
      The target doc is IN the index. Can search find it?
-     Metrics: recall@k, precision@k, MRR@k.
+     Metrics: recall@k, hit_rate@k, MRR@k.
 
   2. NOISE eval (false-positive rate for NEW discrimination):
      The target doc is REMOVED from the index (simulating the "before" state
@@ -19,7 +19,7 @@ Two complementary measurements:
 Most proposals that the bot processes are NEW — the relevant doc doesn't exist
 yet. For those queries, the search is NOT expected to return a relevant doc;
 returning nothing useful is the correct outcome. Traditional IR metrics
-(precision/recall) assume every query has at least one relevant doc, which
+(hit_rate/recall) assume every query has at least one relevant doc, which
 isn't the case here.
 
 We solve this by splitting the eval into two passes (FIND and NOISE) that
@@ -63,7 +63,7 @@ from minsearch import Index
 
 def build_index(documents):
     index = Index(
-        text_fields=['section', 'question', 'answer'],
+        text_fields=['question', 'answer'],
         keyword_fields=['course', 'section_id'],
     )
     index.fit(documents)
@@ -78,44 +78,12 @@ def recall_at_k(ranked_ids, relevant_ids, k):
     return found / len(relevant_ids)
 
 
-def precision_at_k(ranked_ids, relevant_ids, k):
-    """Fraction of top-k results that are relevant."""
-    if k == 0:
-        return 0.0
-    relevant_in_topk = sum(1 for rid in ranked_ids[:k] if rid in relevant_ids)
-    return relevant_in_topk / k
-
-
 def mrr_at_k(ranked_ids, relevant_ids, k):
     """Reciprocal rank of the first relevant doc in top-k."""
     for i, rid in enumerate(ranked_ids[:k], 1):
         if rid in relevant_ids:
             return 1.0 / i
     return 0.0
-
-
-def section_accuracy_at_k(ranked_docs, relevant_section, k):
-    """Fraction of top-k results from the same section as the target.
-
-    This is the metric that directly predicts RAG pipeline section-misplacement
-    failures. The LLM picks a section based on where the retrieved results live,
-    so if the search returns results from the wrong section, the LLM follows.
-    A high score means the search points the LLM toward the right neighborhood.
-    """
-    if not relevant_section or not ranked_docs:
-        return 0.0
-    same = sum(1 for _, sec in ranked_docs[:k] if sec == relevant_section)
-    return same / min(k, len(ranked_docs))
-
-
-def top1_section_hit(ranked_docs, relevant_section):
-    """1.0 if the top-1 result is from the relevant section, else 0.0.
-
-    The top result has the strongest influence on the LLM's section choice.
-    """
-    if not relevant_section or not ranked_docs:
-        return 0.0
-    return 1.0 if ranked_docs[0][1] == relevant_section else 0.0
 
 
 def simulate_action(ranked_ids, relevant_ids, k):
@@ -175,31 +143,19 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         proposal = f"## {query}\n\n{query}"
         raw = index_full.search(proposal, num_results=num_results)
         ranked = [r.get('document_id', '') for r in raw]
-        ranked_docs = [(r.get('document_id', ''), r.get('section_id', '')) for r in raw]
-
-        # Find the section of the relevant doc
-        relevant_section = None
-        for d in all_docs:
-            if d['document_id'] in relevant_ids:
-                relevant_section = d['section_id']
-                break
 
         row = {
             'issue': issue_num,
             'course': course,
             'query': query[:70],
             'relevant_id': relevant_id,
-            'relevant_section': relevant_section,
             'ranked': ranked[:5],
             'note': note,
             'simulated_action': simulate_action(ranked, relevant_ids, 5),
         }
         for k in k_values:
             row[f'recall@{k}'] = recall_at_k(ranked, relevant_ids, k)
-            row[f'precision@{k}'] = precision_at_k(ranked, relevant_ids, k)
             row[f'mrr@{k}'] = mrr_at_k(ranked, relevant_ids, k)
-            row[f'section_acc@{k}'] = section_accuracy_at_k(ranked_docs, relevant_section, k)
-        row['top1_section_hit'] = top1_section_hit(ranked_docs, relevant_section)
         find_results.append(row)
 
     n_find = len(find_results)
@@ -209,18 +165,13 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         for r in find_results:
             rank = r['ranked'].index(r['relevant_id']) + 1 if r['relevant_id'] in r['ranked'] else -1
             note = f" [{r['note']}]" if r['note'] else ""
-            print(f"  #{r['issue']:<5} {r['course'][:12]:<14} {r['recall@5']:<7.1f} {r['precision@5']:<7.1f} {r['mrr@5']:<7.3f} {rank:<5} {r['query'][:45]}{note}")
+            print(f"  #{r['issue']:<5} {r['course'][:12]:<14} {r['recall@5']:<7.1f} {r['mrr@5']:<7.3f} {rank:<5} {r['query'][:45]}{note}")
 
         print(f"\nAggregate metrics ({n_find} cases):")
         for k in k_values:
             avg_recall = sum(r[f'recall@{k}'] for r in find_results) / n_find
-            avg_precision = sum(r[f'precision@{k}'] for r in find_results) / n_find
             avg_mrr = sum(r[f'mrr@{k}'] for r in find_results) / n_find
-            avg_sec = sum(r[f'section_acc@{k}'] for r in find_results) / n_find
-            print(f"  @{k}:  recall={avg_recall:.3f}  precision={avg_precision:.3f}  mrr={avg_mrr:.3f}  section_acc={avg_sec:.3f}")
-
-        top1_sec = sum(r['top1_section_hit'] for r in find_results) / n_find
-        print(f"\n  top1_section_hit: {top1_sec:.3f}  (does the top result point to the right section?)")
+            print(f"  @{k}:  recall={avg_recall:.3f}  mrr={avg_mrr:.3f}")
 
         # Simulated action accuracy: all positive cases should be FOUND at k=5
         correct = sum(1 for r in find_results if r['simulated_action'] == 'FOUND')
@@ -235,9 +186,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
             nc = len(rows)
             rc = sum(r['recall@5'] for r in rows) / nc
             mc = sum(r['mrr@5'] for r in rows) / nc
-            sc = sum(r['section_acc@5'] for r in rows) / nc
-            t1 = sum(r['top1_section_hit'] for r in rows) / nc
-            print(f"  {course}: recall@5={rc:.3f}  mrr@5={mc:.3f}  section_acc@5={sc:.3f}  top1_sec={t1:.3f}  ({nc} cases)")
+            print(f"  {course}: recall@5={rc:.3f}  mrr@5={mc:.3f}  ({nc} cases)")
 
         failures = [r for r in find_results if r['recall@5'] == 0.0]
         if failures:

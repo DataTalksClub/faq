@@ -1,180 +1,159 @@
 # FAQ Automation Evals
 
-Two eval suites for the FAQ merge agent, each testing a different layer of the
-pipeline.
+Two eval suites for the FAQ merge agent, each testing a different layer.
 
-## Why two eval suites?
+## Overview
 
-The merge agent is a two-stage pipeline: **search** (minsearch retrieves the
-top-k most similar existing FAQs) then **LLM** (decides NEW/UPDATE/DUPLICATE,
-picks a section, generates content based on those results).
+| Eval | What it tests | Cases | Runtime | Metrics |
+|------|--------------|-------|---------|---------|
+| **Search eval** (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, simulated action accuracy |
+| **RAG eval** (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 39 | ~70s | action correctness, section placement, code quality, formatting |
 
-When we first built a single end-to-end RAG eval, the dominant failure was
-section misplacement: 13 of 19 failures were the agent placing an entry in the
-wrong section. Tracing those failures showed the root cause was in the search
-layer — the index returned results from wrong sections, and the LLM followed
-the results it was given.
+## Search eval (`run_search_eval.py`)
 
-But the RAG eval is expensive and slow to iterate on: 33 cases x ~5s per LLM
-call = ~3 minutes per run. We couldn't use it to tune search parameters
-(boosts, text fields, filters) that need rapid iteration.
-
-So we split the evals:
-
-- **Search eval**: tests retrieval in isolation, no LLM calls, runs in ~4 seconds.
-  Lets us iterate on index configuration and immediately see the impact on recall,
-  section accuracy, and simulated action accuracy.
-- **RAG eval**: tests the full pipeline end-to-end. Validates that search
-  improvements actually translate to better agent decisions, and catches content
-  quality issues (code, formatting, headers) that the search eval can't see.
-
-The search eval is for fast iteration on retrieval tuning. The RAG eval is the
-integration test that confirms the full pipeline works.
-
-## The historical-data problem
-
-Our eval cases come from real GitHub issues — proposals that students submitted
-through the FAQ form. For each issue we know the ground truth: which FAQ entry
-it became (for NEW/UPDATE) or which existing entry it duplicated (for DUPLICATE).
-
-The challenge is that we merged those entries into the FAQ after processing them.
-So when we run the eval against the current `_questions/` directory, the answer
-already exists in the index. This creates two problems depending on what we're
-measuring:
-
-1. **For the RAG/merge agent eval**: the agent sees the entry and correctly calls
-   DUPLICATE — but the original issue was supposed to create a NEW entry. We can't
-   evaluate whether the agent would have made the right NEW decision if the entry
-   didn't exist yet, because it does.
-
-2. **For the search retrieval eval**: if the target doc is in the index, the search
-   trivially finds it by keyword overlap with its own question text. That measures
-   self-match, not retrieval quality.
-
-### Our solution
-
-We handle this differently per eval suite:
-
-**Search eval** — run each query twice:
-
-- **FIND**: keep the target doc *in* the index. This tests whether the search would
-  surface the right entry if a student asks a similar question later (the DUPLICATE
-  detection use case). Metric: hit@k, MRR@k.
-- **NOISE**: *remove* the target doc from the index, then search. This tests what
-  the agent saw when the proposal was first processed (the doc didn't exist yet).
-  If the top results are strong same-topic matches, the agent would have been
-  tempted to call DUPLICATE on a genuinely NEW question — a false positive.
-
-This two-pass approach lets us evaluate both DUPLICATE detection (FIND) and
-NEW discrimination (NOISE) using the current FAQ corpus without needing historical
-git snapshots.
-
-**RAG/merge agent eval** — run against the current FAQ state and accept the
-tradeoff that entries which already exist will be marked DUPLICATE by the agent.
-
-What we measure vs what we skip:
-
-- **Action decision (NEW vs DUPLICATE)**: for cases where the answer is already
-  in the FAQ, a DUPLICATE response is correct — we can't test whether the agent
-  would have correctly chosen NEW in the original "before" state. For cases where
-  the answer should NOT be an FAQ entry (irrelevant proposals, transient questions),
-  we still test that the agent rejects them.
-- **Section placement**: always testable. If the agent returns NEW or UPDATE, the
-  section it picks must be correct regardless of whether the entry exists.
-- **Content quality**: always testable. When the agent generates content, we check
-  that code is runnable, headers are absent, answers are concise, and the filename
-  slug is present.
-- **Sort order collision**: always testable via the collision-safe
-  `_shift_section_files` logic — the agent should never produce a duplicate
-  sort_order.
-
-In the future we could snapshot `_questions/` at per-case base commits to recreate
-the exact "before" state, but the current approach is simpler and still surfaces
-the dominant failure patterns (section misplacement, code quality, formatting).
-
-## Metrics and what to optimize
-
-The search layer feeds the LLM the top-k results. The LLM then decides the action
-(NEW/UPDATE/DUPLICATE) and the section placement. We measure three things:
-
-### recall@k — can the search find the right doc? (DUPLICATE detection)
-
-For positive cases (the relevant doc IS in the index): did the search surface it
-in the top-k? This directly controls DUPLICATE detection. Low recall means genuine
-duplicates slip through as NEW.
-
-Baseline: recall@5 = 0.745
-
-### section_acc@k — do the results point to the right section? (section placement)
-
-For each result in the top-k, is it from the same section as the target doc?
-This is the metric that predicts RAG pipeline section-misplacement failures.
-The LLM picks its section based on where the retrieved results live — if the
-search returns results from the wrong section, the LLM follows. We found that
-13 of 19 RAG eval failures were section misplacement caused by the search
-returning wrong-section results.
-
-**This is the primary metric to optimize.** Even if the exact doc isn't in the
-top-k (recall miss), if the top results are from the right section, the LLM is
-likely to place the new entry correctly.
-
-Baseline: section_acc@5 = 0.477, top1_section_hit = 0.745
-
-### top1_section_hit — does the single strongest result point the right way?
-
-The top-1 result dominates the LLM's context window. If it's from the wrong
-section, it anchors the LLM toward a wrong placement even when lower-ranked
-results are correct.
-
-Baseline: top1_section_hit = 0.745 (llm-zoomcamp 0.947, data-engineering 0.667)
-
-### The combined metric: simulated action accuracy
-
-We simulate the action decision from search results alone (no LLM): if the
-relevant doc is in top-5 -> FOUND (should be DUPLICATE/UPDATE), otherwise -> NEW.
-This is a cheap proxy for the full RAG pipeline's action accuracy.
-
-Baseline: 0.745 (35/47 positive cases correctly FOUND)
-
-### The evaluation challenge: most queries are NEW
-
-Most proposals the bot processes are NEW — the relevant doc doesn't exist yet.
-For those, the search is NOT expected to return a relevant doc. Traditional IR
-metrics (precision/recall) assume every query has at least one relevant doc.
-
-We handle this with the two-pass design:
-- FIND eval (positive cases): doc IS in the index. We measure recall and section accuracy.
-- NOISE eval (doc removed): simulates the NEW state. We measure false-positive risk:
-  does the search return same-section matches that would trick the LLM into DUPLICATE?
-
-The NOISE eval doesn't have a single number metric yet — it reports the rate at
-which the top-1 result comes from the same section as the (removed) target, which
-indicates false-positive risk.
-
-## 1. Search retrieval eval (`run_search_eval.py`)
-
-Tests the **retrieval layer** (minsearch index) in isolation — no LLM calls, runs
-in seconds.
+Tests retrieval in isolation — no LLM calls, runs in ~4 seconds. Lets us
+iterate on index configuration (text fields, boosts) and immediately see the
+impact on recall and simulated action accuracy.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 ```
 
-Cases live in `search_cases.py` — real issue questions paired with ground-truth
-doc_ids, plus synthetic edge cases (vague queries, cross-module confusion, exact
-error strings, paraphrases, negative cases).
+### How it works
 
-## 2. Merge agent eval (`runner.py`)
+Each eval case is a real GitHub issue (the question a student asked) paired with
+the `doc_id` of the FAQ entry that was eventually created from it. For example,
+issue #289 ("Why do I get IndexError: list index out of range?") became FAQ entry
+`1a7b27c4df` in `module-2-vector-search`.
 
-Tests the **full pipeline** (search + LLM decision + content generation). Each
-case is a real issue proposal processed end-to-end.
+The search index is the current `_questions/` directory, which already contains
+that entry (we merged it). This creates a problem: if we just search the index,
+the query will trivially match the entry's own question text. To get meaningful
+results, we run two passes:
+
+**FIND pass** — the target doc stays in the index.
+
+This simulates a future student asking a similar question. If a student asks
+"Why do I get IndexError when accessing chunks?", the search should surface
+the existing FAQ entry `1a7b27c4df` so the agent can mark it as DUPLICATE
+instead of creating a redundant new entry. We measure whether the target
+doc appears in the top-k results (recall@k) and how high it ranks (MRR@k).
+
+If the FIND pass fails (recall miss), it means the search can't find an
+existing entry even when it's there — genuine duplicates would slip through
+as NEW.
+
+**NOISE pass** — the target doc is removed from the index.
+
+This simulates the state the agent was in when the proposal was first
+processed: the entry didn't exist yet. The question is: what does the search
+return instead? If the top results are strong matches from the same topic
+(e.g. other vector-search entries about embeddings or chunking), the LLM
+might look at them and decide "this is already covered" — calling DUPLICATE
+on a genuinely NEW question. That's a false positive.
+
+We don't have a single-number metric for the NOISE pass. Instead we show what
+the top-5 results are when the target is removed, so we can spot cases where
+topical keyword overlap creates false confidence. This is the more important
+pass for improving NEW/DUPLICATE discrimination.
+
+### Metrics
+
+- **recall@k** (same as hit rate with one relevant doc): did the search surface
+  the relevant doc in the top-k? This directly controls DUPLICATE detection.
+  Low recall means genuine duplicates slip through as NEW.
+  Baseline: recall@5 = 0.830
+
+- **MRR@k**: mean reciprocal rank of the relevant doc. Higher is better — the
+  relevant doc should appear early so the LLM sees it in context.
+  Baseline: MRR@5 = 0.777
+
+- **Simulated action accuracy**: if the relevant doc is in top-5 -> FOUND
+  (should be DUPLICATE/UPDATE), otherwise -> NEW. Cheap proxy without needing
+  the LLM.
+  Baseline: 0.830 (39/47)
+
+Note: with a single relevant doc per case, precision@k would just be recall/k,
+which is not informative. The NOISE eval (doc removed) covers the false-positive
+side by showing what the search returns when nothing relevant exists.
+
+### The historical-data problem
+
+Our eval cases come from real GitHub issues — proposals that students submitted
+through the FAQ form. We merged the resulting FAQ entries after processing them,
+so the answer already exists in the current index.
+
+We handle this with the two-pass design above: FIND (doc in index) tests whether
+the search can find an entry that exists, and NOISE (doc removed) simulates the
+"before" state to test false-positive risk for genuinely new proposals.
+
+### Tuning harness (`tune_search.py`)
+
+Sweeps boost configurations and text-field selections against the same cases.
+No LLM calls, runs all configs in seconds.
+
+```bash
+uv run --project faq_automation python -m faq_automation.evals.tune_search
+```
+
+Key finding: removing `section` from text_fields (keeping only `question` and
+`answer`) improved recall from 0.745 to 0.830. The section name was adding noise
+— queries mentioning "Docker" would match the section name "Module 1: Docker"
+even for unrelated entries.
+
+## RAG eval (`runner.py`)
+
+Tests the full pipeline end-to-end: search + LLM decision + content generation.
+Each case is a real issue proposal processed through the agent, then checked
+against expected outcomes.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.runner
 ```
 
-Cases live in `cases.py`. Each case has tags for failure analysis
-(`section-misplacement`, `code-quality`, `content-formatting`, etc.).
+### How it works
+
+Each case is a real issue with known ground truth (the action, section, and
+content quality expected). The runner:
+
+1. For NEW cases: **hides the target doc** from a temporary copy of the course
+   directory, so the agent can't trivially find it as a duplicate. This
+   simulates the state the agent was in when the proposal was first processed.
+2. For DUPLICATE cases: runs against the full index (doc is present).
+3. Runs the agent end-to-end and checks the decision against expected outcomes.
+
+### What it checks
+
+- **Action correctness**: NEW, UPDATE, or DUPLICATE — does the agent make the
+  right call?
+- **Section placement**: does the entry land in the right section? The agent
+  uses the SECTIONS metadata (with comment fields describing what belongs
+  where), not the search results, for this decision.
+- **Content quality**: is the code runnable (all variables defined)? Are there
+  structural headers? Is the answer concise? Is the filename slug present?
+- **Sort order**: the collision-safe `_shift_section_files` logic should prevent
+  any sort_order collision.
+
+### The historical-data problem
+
+Same as the search eval: entries we merged already exist in the FAQ. For DUPLICATE
+cases this is correct — the agent should find and cite the existing entry. For NEW
+cases, we hide the target doc (see above) so the agent sees the "before" state.
+
+What we can and can't test:
+- **Can test**: section placement (always testable regardless of whether the
+  entry exists), content quality (code, headers, formatting), sort order
+  handling, rejection of irrelevant proposals.
+- **Can't test**: whether the agent would correctly choose NEW for a question
+  whose answer is already in the FAQ (it should say DUPLICATE, and it does).
+  The doc-hiding trick handles most of these cases.
+
+### Tags
+
+Each case has tags for failure analysis:
+`duplicate-detection`, `section-misplacement`, `code-quality`,
+`content-formatting`, `correct-new`, `false-duplicate`, `relevance`,
+`duplicate-verify`, `dlt`, `bruin`, `verbosity`, `filename-slug`.
 
 ## Adding cases
 
@@ -186,11 +165,10 @@ Add a tuple to `search_cases.py`:
 ("course", "query text", "relevant_doc_id", issue_number, "optional note")
 ```
 
-Use doc_id `"NONE"` for negative cases (query that should return no strong match).
-To find the doc_id for a merged entry: `grep -r '<question text>' _questions/` or
-search the file's frontmatter `id` field.
+Use doc_id `"NONE"` for negative cases. To find the doc_id for a merged entry:
+`grep -r '<question text>' _questions/` or check the file's frontmatter `id`.
 
-### Merge agent cases
+### RAG cases
 
 Add an `EvalCase` to `cases.py`:
 
@@ -204,9 +182,26 @@ EvalCase(
     expected_section="module-3",
     checks=[action_is("NEW"), section_is("module-3")],
     tags=["section-placement"],
+    relevant_doc_id="abc1234567",  # hidden from index for NEW cases
 )
 ```
 
 Available check predicates: `action_is`, `section_is`, `no_structural_headers`,
 `content_is_runnable_python`, `content_is_concise`, `has_filename_slug`,
 `has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.
+
+## Changes made during this session
+
+- **Removed `section` from search text_fields**: the section name ("Module 1:
+  Docker") was being tokenized and matched against queries, causing false matches.
+  Keeping only `question` and `answer` as text fields improved recall 0.745 -> 0.830.
+- **Improved agent prompt**: explicit tool-to-section mapping (dlt -> workshop,
+  Bruin -> module-5, DuckDB -> module-4), section placement based on SECTIONS
+  metadata not search results, content quality rules (define all code variables,
+  no structural headers, concise answers), rejection of transient questions.
+- **Collision-safe sort order**: `_shift_section_files` bumps existing entries
+  when a new entry collides, so the agent can freely place entries by logical
+  position without manual renumbering.
+- **Removed 4 real duplicate FAQ entries**: ML Zoomcamp HPA (module-6 copy),
+  ML Zoomcamp deployment (module-6 copy), MLOps MLflow exception (duplicate),
+  MLOps cohort diff (outdated 2022/2023 entry).
