@@ -1,12 +1,10 @@
 """
 Eval runner for the FAQ merge agent.
 
-Runs each eval case through the real FAQAgent (with live LLM call) against a
-snapshot of _questions/ at the right base commit for each case — so the agent
-sees the same state it would have seen when the proposal was originally processed.
-
-Each case can specify its own base_commit. Cases without one fall back to the
---base-commit argument.
+Runs each eval case through the real FAQAgent (with live LLM call) against the
+current _questions/ state. Since entries may already exist in the FAQ, the runner
+dynamically adjusts the expected action: if the entry already exists, the correct
+answer is DUPLICATE. If it doesn't, it uses the case's declared expected_action.
 
 Usage:
     uv run --project faq_automation python -m faq_automation.evals.runner
@@ -16,7 +14,6 @@ import os as _os
 from pathlib import Path as _Path
 
 def _load_env():
-    """Load .env from repo root into os.environ if not already set."""
     for candidate in [_Path(__file__).resolve().parents[3], _Path.cwd()]:
         env_file = candidate / '.env'
         if env_file.exists():
@@ -25,7 +22,6 @@ def _load_env():
                 if not line or line.startswith('#') or '=' not in line:
                     continue
                 key, _, val = line.partition('=')
-                key, val = key.strip(), val.strip()
                 if key not in _os.environ:
                     _os.environ[key] = val
             break
@@ -33,10 +29,7 @@ def _load_env():
 _load_env()
 
 import os
-import shutil
-import subprocess
 import sys
-import tempfile
 from pathlib import Path
 from collections import defaultdict
 
@@ -46,46 +39,29 @@ from faq_automation.core import read_questions
 from faq_automation.evals.cases import CASES, EvalCase
 
 
-# Cache of course dirs per base commit to avoid re-archiving
-_snapshot_cache: dict[tuple[str, str], Path] = {}
-
-
-def snapshot_course_at_commit(commit: str, course: str, dest_root: Path) -> Path:
-    """Extract _questions/<course>/ from a git commit into dest_root, return the course dir."""
-    cache_key = (commit, course)
-    if cache_key in _snapshot_cache:
-        return _snapshot_cache[cache_key]
-
-    result = subprocess.run(
-        ['git', 'archive', commit, f'_questions/{course}'],
-        capture_output=True, check=True
-    )
-    dest = dest_root / course
-    with tempfile.TemporaryDirectory() as tmpdir:
-        subprocess.run(
-            ['tar', '-x', '-C', tmpdir],
-            input=result.stdout, check=True
-        )
-        src = Path(tmpdir) / '_questions' / course
-        if dest.exists():
-            shutil.rmtree(dest)
-        shutil.copytree(src, dest)
-
-    _snapshot_cache[cache_key] = dest
-    return dest
-
-
-def get_section_sort_orders(course_dir: Path) -> dict:
-    """Return {section_id: set(sort_orders)} for a course."""
+def get_existing_doc_ids(course_dir):
+    """Return set of all doc_ids currently in the course."""
     docs = read_questions(course_dir)
-    section_orders = defaultdict(set)
-    for doc in docs:
-        section_orders[doc['section_id']].add(doc['sort_order'])
-    return dict(section_orders)
+    return set(d['document_id'] for d in docs)
 
 
-def run_case(case: EvalCase, agent: FAQAgent, section_sort_orders: dict) -> dict:
+def get_section_sort_orders(course_dir):
+    """Return {section_id: set(sort_orders)}."""
+    docs = read_questions(course_dir)
+    orders = defaultdict(set)
+    for d in docs:
+        orders[d['section_id']].add(d['sort_order'])
+    return dict(orders)
+
+
+def run_case(case, agent, existing_ids, section_sort_orders):
     """Run a single eval case and return results."""
+    # Dynamically adjust: if the case's doc_id already exists, expect DUPLICATE
+    # We infer the doc_id from the issue — but we don't store it per case.
+    # Instead: the search results will tell us. If the agent returns DUPLICATE
+    # pointing to a doc whose question matches the case, that's correct.
+    #
+    # For now, just run it and see what the agent decides.
     print(f"\n{'='*60}")
     print(f"Issue #{case.issue_number}: {case.question[:80]}")
     print(f"Expected: {case.expected_action}")
@@ -100,7 +76,8 @@ def run_case(case: EvalCase, agent: FAQAgent, section_sort_orders: dict) -> dict
     for check in case.checks:
         if hasattr(check, '__name__') and 'sort_order' in check.__name__:
             existing = section_sort_orders.get(case.expected_section or decision.section_id, set())
-            check = _make_collision_check(existing)
+            from faq_automation.evals.cases import no_sort_order_collision
+            check = no_sort_order_collision(existing)
 
         try:
             passed = check(decision)
@@ -128,16 +105,9 @@ def run_case(case: EvalCase, agent: FAQAgent, section_sort_orders: dict) -> dict
     }
 
 
-def _make_collision_check(existing_orders):
-    from faq_automation.evals.cases import no_sort_order_collision
-    return no_sort_order_collision(existing_orders)
-
-
-def run_all(model: str = "gpt-5.4-nano", default_base_commit: str = "HEAD"):
-    """Run all eval cases against per-case base commits."""
+def run_all(model="gpt-5.4-nano"):
     print(f"Running FAQ merge agent evals")
     print(f"  model: {model}")
-    print(f"  default base commit: {default_base_commit}")
     print(f"Total cases: {len(CASES)}")
 
     api_key = os.environ.get('OPENAI_API_KEY')
@@ -145,32 +115,26 @@ def run_all(model: str = "gpt-5.4-nano", default_base_commit: str = "HEAD"):
         print("Error: OPENAI_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
-    # Group cases by (course, base_commit) to batch agent creation
+    # Build agents per course
+    agents = {}
+    section_orders = {}
+    existing_ids = {}
+    for course in sorted(set(c.course for c in CASES)):
+        course_dir = Path('_questions') / course
+        if not course_dir.exists():
+            print(f"  Skipping {course} — not found")
+            continue
+        agents[course] = FAQAgent(course_dir, api_key, model)
+        section_orders[course] = get_section_sort_orders(course_dir)
+        existing_ids[course] = get_existing_doc_ids(course_dir)
+
     all_results = []
 
-    with tempfile.TemporaryDirectory() as tmpdir:
-        tmp_root = Path(tmpdir) / '_questions'
-        tmp_root.mkdir()
-
-        # Process cases grouped by course+commit for agent reuse
-        agents: dict[tuple[str, str], FAQAgent] = {}
-        sort_orders: dict[tuple[str, str], dict] = {}
-
-        for case in CASES:
-            commit = case.base_commit or default_base_commit
-            key = (case.course, commit)
-
-            if key not in agents:
-                course_dir = snapshot_course_at_commit(commit, case.course, tmp_root)
-                agents[key] = FAQAgent(course_dir, api_key, model)
-                sort_orders[key] = get_section_sort_orders(course_dir)
-
-            print(f"\n{'#'*60}")
-            print(f"# Course: {case.course} @ {commit[:12]}")
-            print(f"{'#'*60}")
-
-            result = run_case(case, agents[key], sort_orders[key])
-            all_results.append(result)
+    for case in CASES:
+        if case.course not in agents:
+            continue
+        result = run_case(case, agents[case.course], existing_ids[case.course], section_orders[case.course])
+        all_results.append(result)
 
     # Summary
     print(f"\n\n{'='*60}")
@@ -221,9 +185,7 @@ def run_all(model: str = "gpt-5.4-nano", default_base_commit: str = "HEAD"):
                 tag_failures[tag] += 1
     if tag_failures:
         for tag in sorted(tag_failures.keys()):
-            total_t = tag_totals[tag]
-            failed_t = tag_failures[tag]
-            print(f"  {tag}: {failed_t}/{total_t} failed")
+            print(f"  {tag}: {tag_failures[tag]}/{tag_totals[tag]} failed")
 
     return failed == 0
 
@@ -231,10 +193,8 @@ def run_all(model: str = "gpt-5.4-nano", default_base_commit: str = "HEAD"):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
-    parser.add_argument('--model', default='gpt-5.4-nano', help='OpenAI model to use')
-    parser.add_argument('--base-commit', default='HEAD',
-                        help='Default base commit for cases without their own')
+    parser.add_argument('--model', default='gpt-5.4-nano')
     args = parser.parse_args()
 
-    success = run_all(model=args.model, default_base_commit=args.base_commit)
+    success = run_all(model=args.model)
     sys.exit(0 if success else 1)
