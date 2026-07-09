@@ -27,13 +27,49 @@ def _slugify(text: str, max_length: int = 50) -> str:
     return slug[:max_length].rstrip('-')
 
 
+def _shift_section_files(section_dir: Path, from_order: int) -> None:
+    """
+    Rename all files in section_dir with sort_order >= from_order,
+    bumping each up by 1 to make room for a new entry at from_order.
+    """
+    import frontmatter
+
+    files_to_shift = []
+    for f in section_dir.glob('*.md'):
+        parts = f.name.split('_', maxsplit=2)
+        if len(parts) >= 2:
+            order = int(parts[0])
+            if order >= from_order:
+                files_to_shift.append((order, f))
+
+    # Shift from highest to lowest to avoid temporary collisions
+    for order, f in sorted(files_to_shift, key=lambda x: -x[0]):
+        new_order = order + 1
+        parts = f.name.split('_', maxsplit=2)
+        rest = parts[1] + '_' + parts[2] if len(parts) > 2 else parts[1]
+        new_name = f'{new_order:03d}_{rest}'
+        new_path = f.parent / new_name
+
+        # Update sort_order in frontmatter
+        content = f.read_text(encoding='utf-8')
+        post = frontmatter.loads(content)
+        post.metadata['sort_order'] = new_order
+        f.write_text(frontmatter.dumps(post), encoding='utf-8')
+
+        f.rename(new_path)
+
+
 def create_new_faq_file(
     course_dir: Path,
     doc_index: dict,
     faq_decision: FAQDecision
 ) -> Path:
     """
-    Create a new FAQ file based on the decision
+    Create a new FAQ file based on the decision.
+
+    If the agent chose a specific sort_order that collides with an existing
+    entry, existing entries from that position onward are shifted up by one
+    to make room. If order is -1, the file is appended to the end.
 
     Args:
         course_dir: Path to course directory
@@ -53,11 +89,20 @@ def create_new_faq_file(
     sort_order = faq_decision.order
     doc_slug = faq_decision.filename_slug or _slugify(faq_decision.question)
     faq_section = faq_decision.section_id
+    section_dir = course_dir / faq_section
 
     # If order is -1, append to end of section
     if sort_order == -1:
-        section_dir = course_dir / faq_section
         sort_order = find_largest_sort_order(section_dir)
+    else:
+        # Check for collision and shift existing entries to make room
+        existing_orders = set()
+        for f in section_dir.glob('*.md'):
+            parts = f.name.split('_', maxsplit=2)
+            if len(parts) >= 2:
+                existing_orders.add(int(parts[0]))
+        if sort_order in existing_orders:
+            _shift_section_files(section_dir, sort_order)
 
     # Create frontmatter
     fm = {
@@ -68,7 +113,7 @@ def create_new_faq_file(
 
     # Create file
     filename = f'{sort_order:03d}_{doc_id}_{doc_slug}.md'
-    f_out = course_dir / faq_section / filename
+    f_out = section_dir / filename
     write_frontmatter(f_out, fm, faq_decision.proposed_content)
 
     return f_out
