@@ -24,6 +24,17 @@ The evals are part of a continuous improvement loop:
 This loop means PR reviews directly improve the bot — human corrections that
 represent recurring patterns become permanent regression tests.
 
+We don't add every correction as a test case. We select cases that:
+
+- Represent a recurring pattern (not a one-off mistake), so fixing it helps
+  broadly. For example, the bot repeatedly placed dlt questions in module-3
+  instead of the workshop — one representative case covers the pattern.
+- Cover diverse scenarios: different courses, different sections, different
+  action types (NEW vs DUPLICATE vs UPDATE), different failure modes
+  (section placement, code quality, false duplicates, content formatting).
+- Have a clear, unambiguous expected outcome that can be checked
+  programmatically (correct section, correct action, runnable code).
+
 ## Overview
 
 | Eval | What it tests | Cases | Runtime | Metrics |
