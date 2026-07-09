@@ -232,6 +232,19 @@ CASES.append(EvalCase(
     tags=["correct-new"],
 ))
 
+
+# Case 6: Issue #300 — duplicate of existing Kestra secrets entries (closed manually)
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=300,
+    question="The provided Kestra flows reference {{ secret('GEMINI_API_KEY') }} but the lesson docs don't spell out where/how to register that secret when running Kestra locally via Docker Compose.",
+    answer="""Kestra reads secrets from environment variables prefixed with SECRET_, base64-encoded. So for GEMINI_API_KEY, set export SECRET_GEMINI_API_KEY=$(echo -n "your-real-key" | base64). Add that under the Kestra service environment block, restart the container.""",
+    expected_action="DUPLICATE",
+    description="Kestra secret config — should be DUPLICATE (already covered by module-3 entries about API key config and base64 secrets)",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-detection"],
+))
+
 # Case 5: PR #271 — should be DUPLICATE or not NEW (asking for project examples)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",

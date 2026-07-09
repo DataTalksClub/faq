@@ -99,6 +99,11 @@ SYNTHETIC_CASES = [
     ("data-engineering-zoomcamp", "How to get the table creation SQL from BigQuery", "7df3102580", 0, "paraphrased: DDL query"),
     ("data-engineering-zoomcamp", "Running dbt transformations inside Kestra orchestrator", "e14f6a8ed9", 0, "paraphrased: dbt+Kestra"),
     ("llm-zoomcamp", "Parse JSON response into Python objects with Gemini", "341f71f28c", 0, "paraphrased: structured output"),
+
+    # Real duplicate: issue #300 closed as duplicate of two existing Kestra secret entries.
+    # Ground truth: primary match is the API key config entry, secondary is the base64 fix.
+    ("llm-zoomcamp", "How to set GEMINI_API_KEY secret for the Kestra flows in Module 3 homework?", "3860e5fe8b", 300, "duplicate: Kestra secrets, two relevant docs"),
+    ("llm-zoomcamp", "Kestra flow fails with missing GEMINI_API_KEY secret using docker compose", "c8ca21af33", 300, "duplicate: Kestra base64 secret, second relevant doc"),
 ]
 
 ALL_CASES = REAL_CASES + SYNTHETIC_CASES
