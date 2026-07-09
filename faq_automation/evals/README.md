@@ -9,6 +9,10 @@ Two eval suites for the FAQ merge agent, each testing a different layer.
 | Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
 | RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 39 | ~70s | action correctness, section placement, code quality, formatting |
 
+Current results: 29/39 pass (74%). Remaining failures are mostly action
+decisions (false DUPLICATE on genuinely new proposals) and content quality
+(code variables undefined, filename slug).
+
 ## Search eval (`run_search_eval.py`)
 
 Tests retrieval in isolation — no LLM calls, runs in ~4 seconds. Lets us
