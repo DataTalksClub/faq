@@ -21,8 +21,8 @@ The evals are part of a continuous improvement loop:
    metadata comments are adjusted. The evals are re-run to confirm the fix
    worked without regressing other cases.
 
-This loop means every PR review directly improves the bot — each human
-correction becomes a permanent regression test.
+This loop means PR reviews directly improve the bot — human corrections that
+represent recurring patterns become permanent regression tests.
 
 ## Overview
 
