@@ -35,7 +35,10 @@ class EvalCase:
     description:  short human-readable description of what this case tests
     checks:       list of (name, predicate) pairs. The predicate receives the
                   FAQDecision object and returns True if the check passes.
-    tags:         categorization tags for pattern analysis
+    tags:            categorization tags for pattern analysis
+    relevant_doc_id: the 10-char doc_id of the FAQ entry this issue became.
+                     For NEW cases, the runner removes this doc from the index
+                     so the agent can't trivially find it as a duplicate.
     """
     course: str
     issue_number: int
@@ -46,6 +49,7 @@ class EvalCase:
     description: str = ""
     checks: list = field(default_factory=list)
     tags: list = field(default_factory=list)
+    relevant_doc_id: str = ""
 
 
 # -- Check predicates --------------------------------------------------------
@@ -217,6 +221,7 @@ CASES.append(EvalCase(
     description="IndexError vector search — valid NEW for module-2",
     checks=[action_is("NEW"), section_is("module-2-vector-search")],
     tags=["correct-new"],
+    relevant_doc_id="1a7b27c4df",
 ))
 
 # Case 4: PR #292 — valid NEW
@@ -230,6 +235,7 @@ CASES.append(EvalCase(
     description="Docker mounts denied — valid NEW for module-3",
     checks=[action_is("NEW"), section_is("module-3")],
     tags=["correct-new"],
+    relevant_doc_id="dd8b4c9fda",
 ))
 
 
@@ -243,6 +249,7 @@ CASES.append(EvalCase(
     description="Kestra secret config — should be DUPLICATE (already covered by module-3 entries about API key config and base64 secrets)",
     checks=[action_is("DUPLICATE")],
     tags=["duplicate-detection"],
+    relevant_doc_id="c8ca21af33",
 ))
 
 # Case 5: PR #271 — should be DUPLICATE or not NEW (asking for project examples)
@@ -272,6 +279,7 @@ CASES.append(EvalCase(
     description="Merge vs append — dlt topic, should go to workshop-1-dlthub, NOT module-3 (bot placed in module-3, human moved it)",
     checks=[action_is("NEW"), section_is("workshop-1-dlthub")],
     tags=["section-misplacement", "dlt"],
+    relevant_doc_id="2442e32be2",
 ))
 
 # Case 7: Issue #201 — rest_api_source vs @dlt.resource placed in general, should be workshop-1-dlthub
@@ -285,6 +293,7 @@ CASES.append(EvalCase(
     description="dlt rest_api_source vs @dlt.resource — bot put in general, human moved to workshop-1-dlthub",
     checks=[action_is("NEW"), section_is("workshop-1-dlthub")],
     tags=["section-misplacement", "dlt"],
+    relevant_doc_id="0655c8c637",
 ))
 
 # Case 8: Issue #203 — dlt schema evolution placed in module-3, should be workshop-1-dlthub
@@ -298,6 +307,7 @@ CASES.append(EvalCase(
     description="dlt schema evolution — bot put in module-3, human moved to workshop-1-dlthub",
     checks=[action_is("NEW"), section_is("workshop-1-dlthub")],
     tags=["section-misplacement", "dlt"],
+    relevant_doc_id="3a53549d08",
 ))
 
 # Case 9: Issue #188 — DuckDB lock placed in general, should be module-4 (dbt/DuckDB)
@@ -311,6 +321,7 @@ CASES.append(EvalCase(
     description="DuckDB lock error — bot put in general, human moved to module-4 (dbt/DuckDB)",
     checks=[action_is("NEW"), section_is("module-4")],
     tags=["section-misplacement"],
+    relevant_doc_id="d07a9a8ff9",
 ))
 
 # Case 10: Issue #205 — Bruin MCP placed in general, should be module-5
@@ -324,6 +335,7 @@ CASES.append(EvalCase(
     description="Bruin MCP server — bot put in general, human moved to module-5 (Data Platforms)",
     checks=[action_is("NEW"), section_is("module-5")],
     tags=["section-misplacement", "bruin"],
+    relevant_doc_id="d5328f1899",
 ))
 
 # Case 11: Issue #189 — Bruin multi-projects placed in general, should be module-5
@@ -337,6 +349,7 @@ CASES.append(EvalCase(
     description="Bruin multi-projects — bot put in general, human moved to module-5",
     checks=[action_is("NEW"), section_is("module-5")],
     tags=["section-misplacement", "bruin"],
+    relevant_doc_id="f04da64de9",
 ))
 
 # Case 12: Issue #168 — dbt from Kestra, should be module-2 (orchestration)
@@ -350,6 +363,7 @@ CASES.append(EvalCase(
     description="dbt from Kestra — valid NEW for module-2 (orchestration)",
     checks=[action_is("NEW"), section_is("module-2")],
     tags=["section-placement"],
+    relevant_doc_id="e14f6a8ed9",
 ))
 
 # Case 13: HW Q2 cosine — should be module-2-homework not module-2-vector-search
@@ -386,6 +400,7 @@ result = response.choices[0].message.parsed
     description="Structured output from Gemini — code must define Pydantic model and messages",
     checks=[action_is("NEW"), section_is("module-1-rag"), content_is_runnable_python, no_structural_headers],
     tags=["code-quality"],
+    relevant_doc_id="341f71f28c",
 ))
 
 # Case 15: PR #298 — structural headers in content
@@ -399,6 +414,7 @@ CASES.append(EvalCase(
     description="Kestra YAML hallucinated properties — content should not have structural headers",
     checks=[action_is("NEW"), section_is("module-3"), no_structural_headers],
     tags=["content-formatting"],
+    relevant_doc_id="93a3e8b98c",
 ))
 
 # Case 16: PR #294 — verbose/generic content
@@ -412,6 +428,7 @@ CASES.append(EvalCase(
     description="Token usage — should be concise, no structural headers, not verbose",
     checks=[action_is("NEW"), section_is("module-3"), no_structural_headers, content_is_concise],
     tags=["content-formatting", "verbosity"],
+    relevant_doc_id="a4adc70f41",
 ))
 
 # Case 17: Issue #202 — content with ## headers (schema evolution)
@@ -432,6 +449,7 @@ dlt uses a schema propagation mechanism that tracks column types.""",
     description="dlt schema evolution — proposed answer has ## headers that should be stripped",
     checks=[action_is("NEW"), no_structural_headers],
     tags=["content-formatting"],
+    relevant_doc_id="3a53549d08",
 ))
 
 # Case 18: Issue #194 — None filename slug
@@ -461,6 +479,7 @@ CASES.append(EvalCase(
     description="OpenRouter 402 error — valid NEW for module-1-homework",
     checks=[action_is("NEW"), section_is("module-1-homework")],
     tags=["correct-new"],
+    relevant_doc_id="cfb07a27d5",
 ))
 
 # Case 20: PR #277 — np.allclose precision
@@ -474,6 +493,7 @@ CASES.append(EvalCase(
     description="np.allclose precision — valid NEW for module-2",
     checks=[action_is("NEW"), section_is("module-2-vector-search")],
     tags=["correct-new"],
+    relevant_doc_id="e889793af9",
 ))
 
 # Case 21: PR #279 — why uv
@@ -487,6 +507,7 @@ CASES.append(EvalCase(
     description="Why uv — valid NEW for module-1-rag",
     checks=[action_is("NEW"), section_is("module-1-rag")],
     tags=["correct-new"],
+    relevant_doc_id="f81dea8f7e",
 ))
 
 # Case 22: PR #263 — Kestra error messages
@@ -500,6 +521,7 @@ CASES.append(EvalCase(
     description="Kestra error messages — valid NEW for module-3",
     checks=[action_is("NEW"), section_is("module-3")],
     tags=["correct-new"],
+    relevant_doc_id="8d33e30f9a",
 ))
 
 # Case 23: PR #257 — Spark with BigQuery
@@ -513,6 +535,7 @@ CASES.append(EvalCase(
     description="Spark + BigQuery — valid NEW for module-6 (Spark)",
     checks=[action_is("NEW"), section_is("module-6")],
     tags=["correct-new"],
+    relevant_doc_id="f57e5cb1f4",
 ))
 
 # Case 24: PR #259 — edit Kestra flows locally
@@ -526,6 +549,7 @@ CASES.append(EvalCase(
     description="Edit Kestra flows locally — valid NEW for module-2 (orchestration)",
     checks=[action_is("NEW"), section_is("module-2")],
     tags=["correct-new"],
+    relevant_doc_id="e14f6a8ed9",
 ))
 
 # ========================================================================== #
@@ -555,6 +579,7 @@ CASES.append(EvalCase(
     description="dlt MCP server VS Code — should go to workshop-1-dlthub",
     checks=[action_is("NEW"), section_is("workshop-1-dlthub")],
     tags=["section-placement", "dlt"],
+    relevant_doc_id="cbeb6f678b",
 ))
 
 # Case 27: Issue #147 — BigQuery DDL
@@ -568,6 +593,7 @@ CASES.append(EvalCase(
     description="BigQuery DDL — valid NEW for module-3 (Data Warehousing)",
     checks=[action_is("NEW"), section_is("module-3")],
     tags=["correct-new"],
+    relevant_doc_id="7df3102580",
 ))
 
 # Case 28: Issue #108 — docker -i vs -t (DE zoomcamp)
@@ -605,6 +631,7 @@ dlt uses a schema propagation mechanism that tracks column types.""",
     description="dlt schema evolution — bold-only lines as headers should be converted to prose",
     checks=[action_is("NEW"), content_has_no_bold_headers],
     tags=["content-formatting"],
+    relevant_doc_id="3a53549d08",
 ))
 
 # Case 30: Outdated API reference (chat.completions vs Responses)
@@ -636,6 +663,7 @@ CASES.append(EvalCase(
     description="ONNX download hang — valid NEW for module-2-vector-search",
     checks=[action_is("NEW"), section_is("module-2-vector-search")],
     tags=["correct-new"],
+    relevant_doc_id="29b69fbe0b",
 ))
 
 # Case 32: PR #249 — PyFlink session window (DE streaming)
@@ -649,6 +677,7 @@ CASES.append(EvalCase(
     description="PyFlink session window — valid NEW for module-7 (Streaming)",
     checks=[action_is("NEW"), section_is("module-7")],
     tags=["correct-new"],
+    relevant_doc_id="1da0437718",
 ))
 
 # Case 33: PR #251 — wget CloudFront download
@@ -662,4 +691,5 @@ CASES.append(EvalCase(
     description="wget CloudFront — valid NEW for module-1-data (download/handling)",
     checks=[action_is("NEW"), section_is("module-1-data")],
     tags=["correct-new"],
+    relevant_doc_id="f6dedaf769",
 ))

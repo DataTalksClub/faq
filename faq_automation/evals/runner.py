@@ -115,25 +115,48 @@ def run_all(model="gpt-5.4-nano"):
         print("Error: OPENAI_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
-    # Build agents per course
+    # Build agents per (course, removed_doc) combo
+    # When a case expects NEW and has a relevant_doc_id, we remove that doc
+    # so the agent can't trivially find it as a duplicate — same as the NOISE eval.
     agents = {}
-    section_orders = {}
-    existing_ids = {}
-    for course in sorted(set(c.course for c in CASES)):
-        course_dir = Path('_questions') / course
-        if not course_dir.exists():
-            print(f"  Skipping {course} — not found")
-            continue
-        agents[course] = FAQAgent(course_dir, api_key, model)
-        section_orders[course] = get_section_sort_orders(course_dir)
-        existing_ids[course] = get_existing_doc_ids(course_dir)
+    section_orders_cache = {}
+    existing_ids_cache = {}
+
+    def get_agent(course, remove_doc_id):
+        """Get or create an agent for a course, optionally with a doc removed."""
+        key = (course, remove_doc_id)
+        if key not in agents:
+            course_dir = Path('_questions') / course
+            if not course_dir.exists():
+                return None, None, None
+            if remove_doc_id:
+                # Create a temp copy with the doc removed
+                import tempfile, shutil
+                tmpdir = tempfile.mkdtemp()
+                tmp_course = Path(tmpdir) / course
+                shutil.copytree(course_dir, tmp_course)
+                # Remove the file matching the doc_id
+                for f in tmp_course.glob('*/*.md'):
+                    parts = f.name.split('_', maxsplit=2)
+                    if len(parts) >= 2 and parts[1] == remove_doc_id:
+                        f.unlink()
+                        print(f"  [hidden] removed {f.name} from {course} for eval")
+                        break
+                course_dir = tmp_course
+            agents[key] = FAQAgent(course_dir, api_key, model)
+            section_orders_cache[key] = get_section_sort_orders(course_dir)
+            existing_ids_cache[key] = get_existing_doc_ids(course_dir)
+        return agents[key], section_orders_cache[key], existing_ids_cache[key]
 
     all_results = []
 
     for case in CASES:
-        if case.course not in agents:
+        # Hide the relevant doc when we expect NEW (so the agent can't find it)
+        remove_doc = case.relevant_doc_id if case.expected_action == 'NEW' and case.relevant_doc_id else None
+        agent, section_orders, existing_ids = get_agent(case.course, remove_doc)
+        if agent is None:
             continue
-        result = run_case(case, agents[case.course], existing_ids[case.course], section_orders[case.course])
+        result = run_case(case, agent, existing_ids, section_orders)
         all_results.append(result)
 
     # Summary
