@@ -41,6 +41,20 @@ Most recent at the top. `date` is UTC run date.
 - **Data Engineering — dbt `analyses` subfolder (single report):** a learner couldn't find
   the `analyses`/deduplication for `fct_trips` committed to the repo. Not matched by
   existing `module-4` entries (closest: `035` inconsistent rows on re-run).
+- **Data Engineering — self-paced eligibility (recurring, 2026-07-09):** four+ messages
+  asking whether the course can still be done self-paced after the 2026 cohort closed,
+  whether materials stay relevant, and whether a project done now counts toward a future
+  cohort. Already partly covered by `general/015_certificate-can-i-follow-the-course-in-a-self-pace`,
+  `general/006_course-how-many-zoomcamps-in-a-year`, `general/009_course-can-i-get-support-…`;
+  no new FAQ needed unless a "can a self-paced project count for a future cohort?" entry
+  is wanted (that specific angle isn't covered).
+- **Data Engineering — module-4 playlist confusion (single report, 2026-06-26):** learner
+  unsure whether to follow Juan's 8-video dbt set or Victoria's 69-video playlist.
+  Closest existing entry is `general/010_…-which-playlist-on-youtube-…`; low priority.
+- **LLM Zoomcamp — HW4 hybrid_search `k` values (single report, 2026-07-01):** question
+  about what "evaluate hybrid_search for k = 1,50,100,200" means given per-doc RRF.
+  Homework-specific; better suited to the module-4 homework thread than an FAQ unless it
+  recurs. ONNX/MRR divergence (07-08) is also single-report.
 - **Data Engineering — prerequisites:** one detailed "is my SQL/Python enough, and where
   to learn Git/Linux before starting" question. Check whether an existing prerequisites
   FAQ covers it before adding.
