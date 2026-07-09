@@ -37,10 +37,8 @@ def write_frontmatter(question_file: Path, frontmatter_data: dict, content: str)
 
 def read_metadata(course_dir: Path) -> dict:
     """Read course metadata from _metadata.yaml"""
-    metadata_file = course_dir / '_metadata.yaml'
-    content = metadata_file.read_text(encoding='utf8')
-    metadata = parse_metadata(content)
-    return metadata
+    content = (course_dir / '_metadata.yaml').read_text(encoding='utf8')
+    return parse_metadata(content)
 
 
 def read_questions(course_dir: Path) -> List[dict]:
@@ -51,7 +49,6 @@ def read_questions(course_dir: Path) -> List[dict]:
         List of document dictionaries with course, section, question, answer, etc.
     """
     course_id = course_dir.name
-
     metadata = read_metadata(course_dir)
     course_sections = {d['id']: d['name'] for d in metadata['sections']}
 
@@ -60,25 +57,17 @@ def read_questions(course_dir: Path) -> List[dict]:
     for question_file in course_dir.glob('*/*.md'):
         content = question_file.read_text(encoding='utf8')
         fm, answer = parse_frontmatter(content)
+        section_id = question_file.parent.name
 
-        section_dir = question_file.parent
-        section_id = section_dir.name
-        course_dir_from_file = section_dir.parent
-        course_id = course_dir_from_file.name
-
-        section_name = course_sections.get(section_id, section_id)
-
-        document = {
+        documents.append({
             'course': course_id,
-            'section': section_name,
+            'section': course_sections.get(section_id, section_id),
             'section_id': section_id,
             'question': fm['question'],
             'answer': answer,
             'document_id': fm['id'],
-            'sort_order': fm['sort_order']
-        }
-
-        documents.append(document)
+            'sort_order': fm['sort_order'],
+        })
 
     return documents
 
@@ -133,17 +122,11 @@ def find_largest_sort_order(section_dir: Path) -> int:
 
 
 def keep_relevant(results: List[dict]) -> List[dict]:
-    """
-    Filter search results to keep only relevant fields
-
-    Removes 'course' and 'section' fields from results
-    """
+    """Drop the 'course' and 'section' fields from each search result."""
     new_results = []
-
     for d in results:
         d = d.copy()
-        del d['course']
-        del d['section']
+        d.pop('course', None)
+        d.pop('section', None)
         new_results.append(d)
-
     return new_results

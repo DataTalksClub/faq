@@ -6,6 +6,7 @@ Handles creating PRs, adding comments, and managing issues.
 
 import re
 import json
+import frontmatter
 from pathlib import Path
 from typing import Optional
 
@@ -27,28 +28,30 @@ def _slugify(text: str, max_length: int = 50) -> str:
     return slug[:max_length].rstrip('-')
 
 
+def _file_order(faq_file: Path) -> Optional[int]:
+    """Return the leading sort_order of a `NNN_id_slug.md` file, or None."""
+    head = faq_file.name.split('_', maxsplit=1)[0]
+    if head.isdigit():
+        return int(head)
+    return None
+
+
 def _shift_section_files(section_dir: Path, from_order: int) -> None:
     """
     Rename all files in section_dir with sort_order >= from_order,
     bumping each up by 1 to make room for a new entry at from_order.
     """
-    import frontmatter
-
     files_to_shift = []
     for f in section_dir.glob('*.md'):
-        parts = f.name.split('_', maxsplit=2)
-        if len(parts) >= 2:
-            order = int(parts[0])
-            if order >= from_order:
-                files_to_shift.append((order, f))
+        order = _file_order(f)
+        if order is not None and order >= from_order:
+            files_to_shift.append((order, f))
 
     # Shift from highest to lowest to avoid temporary collisions
-    for order, f in sorted(files_to_shift, key=lambda x: -x[0]):
+    for order, f in sorted(files_to_shift, reverse=True):
         new_order = order + 1
-        parts = f.name.split('_', maxsplit=2)
-        rest = parts[1] + '_' + parts[2] if len(parts) > 2 else parts[1]
-        new_name = f'{new_order:03d}_{rest}'
-        new_path = f.parent / new_name
+        rest = f.name.split('_', maxsplit=1)[1]
+        new_path = f.parent / f'{new_order:03d}_{rest}'
 
         # Update sort_order in frontmatter
         content = f.read_text(encoding='utf-8')
@@ -98,9 +101,9 @@ def create_new_faq_file(
         # Check for collision and shift existing entries to make room
         existing_orders = set()
         for f in section_dir.glob('*.md'):
-            parts = f.name.split('_', maxsplit=2)
-            if len(parts) >= 2:
-                existing_orders.add(int(parts[0]))
+            order = _file_order(f)
+            if order is not None:
+                existing_orders.add(order)
         if sort_order in existing_orders:
             _shift_section_files(section_dir, sort_order)
 

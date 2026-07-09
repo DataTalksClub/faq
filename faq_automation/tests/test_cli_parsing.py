@@ -151,3 +151,52 @@ Some question
 
         with pytest.raises(ValueError, match="Could not parse"):
             parse_full_issue_body(issue_body)
+
+    def test_parse_full_issue_body_empty_answer(self):
+        """A present-but-empty section is treated as missing and raises"""
+        issue_body = """### Course
+machine-learning-zoomcamp
+
+### Question
+Some question
+
+### Answer
+
+### Checklist
+- [x] done
+"""
+
+        with pytest.raises(ValueError, match="Could not parse"):
+            parse_full_issue_body(issue_body)
+
+    def test_parse_full_issue_body_out_of_order(self):
+        """Sections may appear in any order"""
+        issue_body = """### Answer
+Run pip install.
+
+### Course
+machine-learning-zoomcamp
+
+### Question
+How do I install?
+"""
+
+        course, question, answer = parse_full_issue_body(issue_body)
+
+        assert course == "machine-learning-zoomcamp"
+        assert question == "How do I install?"
+        assert answer == "Run pip install."
+
+    def test_parse_full_issue_body_crlf_line_endings(self):
+        """Windows/GitHub CRLF line endings parse the same as LF"""
+        issue_body = (
+            "### Course\r\nmachine-learning-zoomcamp\r\n\r\n"
+            "### Question\r\nHow do I install?\r\n\r\n"
+            "### Answer\r\nRun pip install.\r\n"
+        )
+
+        course, question, answer = parse_full_issue_body(issue_body)
+
+        assert course == "machine-learning-zoomcamp"
+        assert question == "How do I install?"
+        assert answer == "Run pip install."

@@ -6,6 +6,7 @@ Used by GitHub Actions to process FAQ proposals from issues.
 """
 
 import os
+import re
 import sys
 import json
 import argparse
@@ -22,84 +23,37 @@ from .actions import (
 )
 
 
+# Only these template headers act as delimiters; a "### ..." line inside the
+# question or answer body is kept as content (see issue #169).
+_HEADER_RE = re.compile(r'###\s+(Course|Question|Answer|Checklist)\b', re.IGNORECASE)
+
+
 def parse_full_issue_body(issue_body: str) -> tuple[str, str, str]:
     """
-    Parse structured issue body to extract course, question, and answer
+    Parse a structured GitHub issue body into (course, question, answer).
 
-    Expected format from GitHub issue template:
-    ### Course
-    <course name>
-
-    ### Question
-    <question text>
-
-    ### Answer
-    <answer text>
-
-    Returns:
-        Tuple of (course, question, answer)
+    Expected sections: `### Course`, `### Question`, `### Answer` (a trailing
+    `### Checklist` is ignored). Raises ValueError if any of the three is
+    missing or empty.
     """
-    lines = issue_body.strip().split('\n')
+    sections: dict[str, list[str]] = {}
+    current = None
 
-    course = None
-    question = None
-    answer = None
-    current_section = None
-    current_content = []
+    for line in issue_body.strip().splitlines():
+        header = _HEADER_RE.match(line.strip())
+        if header:
+            current = header.group(1).lower()
+            sections.setdefault(current, [])
+        elif current:
+            sections[current].append(line.strip())
 
-    for line in lines:
-        line = line.strip()
+    parsed = {}
+    for name, lines in sections.items():
+        parsed[name] = '\n'.join(lines).strip()
 
-        if line.startswith('### Course'):
-            if current_section and current_content:
-                if current_section == 'course':
-                    course = '\n'.join(current_content).strip()
-                elif current_section == 'question':
-                    question = '\n'.join(current_content).strip()
-                elif current_section == 'answer':
-                    answer = '\n'.join(current_content).strip()
-            current_section = 'course'
-            current_content = []
-        elif line.startswith('### Question'):
-            if current_section and current_content:
-                if current_section == 'course':
-                    course = '\n'.join(current_content).strip()
-                elif current_section == 'question':
-                    question = '\n'.join(current_content).strip()
-                elif current_section == 'answer':
-                    answer = '\n'.join(current_content).strip()
-            current_section = 'question'
-            current_content = []
-        elif line.startswith('### Answer'):
-            if current_section and current_content:
-                if current_section == 'course':
-                    course = '\n'.join(current_content).strip()
-                elif current_section == 'question':
-                    question = '\n'.join(current_content).strip()
-            current_section = 'answer'
-            current_content = []
-        elif line.startswith('### Checklist'):
-            # Known template section - stop collecting
-            if current_section and current_content:
-                if current_section == 'course':
-                    course = '\n'.join(current_content).strip()
-                elif current_section == 'question':
-                    question = '\n'.join(current_content).strip()
-                elif current_section == 'answer':
-                    answer = '\n'.join(current_content).strip()
-            current_section = None
-            current_content = []
-        elif current_section:
-            current_content.append(line)
-
-    # Capture last section
-    if current_section and current_content:
-        if current_section == 'course':
-            course = '\n'.join(current_content).strip()
-        elif current_section == 'question':
-            question = '\n'.join(current_content).strip()
-        elif current_section == 'answer':
-            answer = '\n'.join(current_content).strip()
+    course = parsed.get('course')
+    question = parsed.get('question')
+    answer = parsed.get('answer')
 
     if not course or not question or not answer:
         raise ValueError("Could not parse course, question and answer from issue body")
@@ -161,27 +115,19 @@ def main():
         }
 
         # Handle different actions
-        if faq_decision.action == 'NEW':
-            print("\nCreating new FAQ file...")
+        if faq_decision.action in ('NEW', 'UPDATE'):
+            print(f"\nApplying {faq_decision.action} to FAQ file...")
             doc_index = find_question_files(course_dir)
-            file_path = create_new_faq_file(course_dir, doc_index, faq_decision)
+            if faq_decision.action == 'NEW':
+                file_path = create_new_faq_file(course_dir, doc_index, faq_decision)
+            else:
+                file_path = update_existing_faq_file(course_dir, doc_index, faq_decision)
 
             output['file_path'] = str(file_path)
             output['pr_body'] = generate_pr_body(faq_decision, args.issue_number, course)
-            output['changes'] = get_file_changes_summary('NEW', file_path, course_dir)
+            output['changes'] = get_file_changes_summary(faq_decision.action, file_path, course_dir)
 
-            print(f"Created: {file_path}")
-
-        elif faq_decision.action == 'UPDATE':
-            print("\nUpdating existing FAQ file...")
-            doc_index = find_question_files(course_dir)
-            file_path = update_existing_faq_file(course_dir, doc_index, faq_decision)
-
-            output['file_path'] = str(file_path)
-            output['pr_body'] = generate_pr_body(faq_decision, args.issue_number, course)
-            output['changes'] = get_file_changes_summary('UPDATE', file_path, course_dir)
-
-            print(f"Updated: {file_path}")
+            print(f"{faq_decision.action}: {file_path}")
 
         elif faq_decision.action == 'DUPLICATE':
             print("\nGenerating duplicate comment...")
