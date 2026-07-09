@@ -146,18 +146,36 @@ or check the file's frontmatter `id`. To fetch the answer from GitHub:
 
 How the eval data was created:
 
-1. Listed all faq-proposal issues: `gh issue list --state all --label faq-proposal --limit 200`
-2. For each issue, fetched the body to get the question and answer:
-   `gh issue view <N> --json body` then parse `### Question` and `### Answer` sections
-3. Traced the issue to its PR to find the outcome (NEW/UPDATE/DUPLICATE):
-   `gh pr list --state all --search <issue_number>` then read the PR body
-4. For merged PRs, extracted the `doc_id` from the created file's frontmatter
-5. Checked git history for correction commits after the bot's merge — these
-   reveal section misplacements, content fixes, etc. that became test cases
-6. Determined expected_action and expected_section from the issue content and
-   the course's `_metadata.yaml` section comments
-7. Added `relevant_doc_id` for NEW cases so the runner can hide the entry
-8. Tagged each case based on the failure pattern it represents
+The eval cases come from two sources:
+
+1. GitHub issues: listed all faq-proposal issues with
+   `gh issue list --state all --label faq-proposal --limit 200`, then fetched
+   each issue body with `gh issue view <N> --json body` to get the question and
+   answer. Traced each issue to its PR to find the outcome (NEW/UPDATE/DUPLICATE)
+   and the `doc_id` of the created file.
+
+2. Git log corrections: the most valuable test cases come from commits where a
+   human had to fix the bot's output after merging. We traced these by finding
+   all commits by `github-actions[bot]` and `FAQ Bot` that created `_questions/`
+   files, then searching for subsequent commits touching the same file:
+
+   ```bash
+   # Find bot commits
+   git log --all --format="%H|%an|%s" | grep "github-actions\|FAQ Bot"
+   # Find corrections to a bot-created file
+   git log --oneline --all <bot_commit>..HEAD -- <file>
+   ```
+
+   These correction commits reveal the patterns the bot gets wrong: section
+   misplacements (e.g. "Move dlt schema evolution FAQ from module-3 to
+   workshop-1-dlthub"), sort order collisions ("Renumber to avoid collision"),
+   content fixes ("strip headers"), etc. Each correction became a test case with
+   the expected outcome set to what the bot should have done.
+
+For each case, the expected_action and expected_section were determined from the
+issue content and the course's `_metadata.yaml` section comments. NEW cases got a
+`relevant_doc_id` so the runner can hide the entry. Cases were tagged based on the
+failure pattern they represent.
 
 Add an `EvalCase` to `cases.py`:
 
