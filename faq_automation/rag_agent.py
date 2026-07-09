@@ -51,9 +51,7 @@ You must decide one of:
 - Do NOT create a NEW entry for questions that are transient/specific to a particular cohort (e.g. "why does this dataset have 1350 rows instead of 1208" — the FAQ is a living document, counts change). Mark these as DUPLICATE.
 
 ## Section placement rules
-- Decide the section based on the proposal content and the SECTIONS metadata (especially the "comment" field), NOT based on where the SEARCH_RESULTS happen to come from. The search results are for duplicate detection, not section guidance — they may come from the wrong section due to keyword overlap.
-- Read the "comment" field of each section in SECTIONS carefully. It describes exactly what topics belong there.
-- Match the proposal to the section whose comment covers the same tools, topics, or module.
+- Decide the section based on the proposal content and the SECTIONS metadata. Use the "comment" field.
 - NEVER default to "general" for a technical question. "general" is only for course logistics (schedule, certificate, deadlines, leaderboard, project rules).
 - Tool-to-section mapping (use the comment field to confirm):
   - dlt questions → workshop section (e.g. "workshop-1-dlthub" or "workshops-dlthub"), NOT module-3 or general. dlt is NOT dbt.
