@@ -3,11 +3,11 @@ Search/retrieval eval for the FAQ merge agent.
 
 Two complementary measurements:
 
-  1. FIND eval (recall for DUPLICATE detection):
-     The target doc is IN the index. Can search find it?
-     Metrics: recall@k, hit_rate@k, MRR@k.
+  1. positive eval (recall for DUPLICATE detection):
+The target doc is IN the index. Can search find it?
+     Metrics: recall@k, MRR@k.
 
-  2. NOISE eval (false-positive rate for NEW discrimination):
+  2. negative eval (false-positive rate for NEW discrimination):
      The target doc is REMOVED from the index (simulating the "before" state
      when the proposal was genuinely new). What does search return?
      If the top results are strong same-topic matches, the agent would wrongly
@@ -19,14 +19,14 @@ Two complementary measurements:
 Most proposals that the bot processes are NEW — the relevant doc doesn't exist
 yet. For those queries, the search is NOT expected to return a relevant doc;
 returning nothing useful is the correct outcome. Traditional IR metrics
-(hit_rate/recall) assume every query has at least one relevant doc, which
+(recall) assume every query has at least one relevant doc, which
 isn't the case here.
 
-We solve this by splitting the eval into two passes (FIND and NOISE) that
+We solve this by splitting the eval into two passes (positive and negative) that
 each have a clear ground truth, rather than mixing them into one metric:
 
-  - FIND: the relevant doc IS in the index. Recall@k = "did we find it?"
-  - NOISE: the relevant doc is NOT in the index. The question is whether the
+  - positive: the relevant doc IS in the index. Recall@k = "did we find it?"
+  - negative: the relevant doc is NOT in the index. The question is whether the
     search returns a false positive strong enough to mislead the LLM.
 
 Usage:
@@ -122,13 +122,13 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         else:
             positive_cases.append((course, query, relevant_id, issue_num, note))
 
-    # ===== FIND EVAL =====
+    # ===== POSITIVE EVAL =====
     print(f"\n{'='*60}")
-    print(f"FIND EVAL — {len(positive_cases)} positive cases")
+    print(f"POSITIVE EVAL — {len(positive_cases)} positive cases")
     print("(target doc IN index — can search find it?)")
     print(f"{'='*60}")
 
-    find_results = []
+    positive_results = []
 
     for course, query, relevant_id, issue_num, note in positive_cases:
         all_docs = docs_by_course[course]
@@ -156,31 +156,31 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         for k in k_values:
             row[f'recall@{k}'] = recall_at_k(ranked, relevant_ids, k)
             row[f'mrr@{k}'] = mrr_at_k(ranked, relevant_ids, k)
-        find_results.append(row)
+        positive_results.append(row)
 
-    n_find = len(find_results)
-    if n_find:
-        print(f"\n{'issue':<7} {'course':<14} {'rec@5':<7} {'prec@5':<7} {'mrr@5':<7} {'rank':<5} {'query'}")
+    n_positive = len(positive_results)
+    if n_positive:
+        print(f"\n{'issue':<7} {'course':<14} {'rec@5':<7} {'mrr@5':<7} {'rank':<5} {'query'}")
         print("-" * 95)
-        for r in find_results:
+        for r in positive_results:
             rank = r['ranked'].index(r['relevant_id']) + 1 if r['relevant_id'] in r['ranked'] else -1
             note = f" [{r['note']}]" if r['note'] else ""
             print(f"  #{r['issue']:<5} {r['course'][:12]:<14} {r['recall@5']:<7.1f} {r['mrr@5']:<7.3f} {rank:<5} {r['query'][:45]}{note}")
 
-        print(f"\nAggregate metrics ({n_find} cases):")
+        print(f"\nAggregate metrics ({n_positive} cases):")
         for k in k_values:
-            avg_recall = sum(r[f'recall@{k}'] for r in find_results) / n_find
-            avg_mrr = sum(r[f'mrr@{k}'] for r in find_results) / n_find
+            avg_recall = sum(r[f'recall@{k}'] for r in positive_results) / n_positive
+            avg_mrr = sum(r[f'mrr@{k}'] for r in positive_results) / n_positive
             print(f"  @{k}:  recall={avg_recall:.3f}  mrr={avg_mrr:.3f}")
 
         # Simulated action accuracy: all positive cases should be FOUND at k=5
-        correct = sum(1 for r in find_results if r['simulated_action'] == 'FOUND')
-        print(f"\n  simulated action accuracy: {correct}/{n_find} = {correct/n_find:.3f}")
+        correct = sum(1 for r in positive_results if r['simulated_action'] == 'FOUND')
+        print(f"\n  simulated action accuracy: {correct}/{n_positive} = {correct/n_positive:.3f}")
         print(f"  (FOUND = relevant doc in top-5; in production the LLM would decide DUPLICATE/UPDATE)")
 
         print(f"\nBy course:")
         by_course = defaultdict(list)
-        for r in find_results:
+        for r in positive_results:
             by_course[r['course']].append(r)
         for course, rows in sorted(by_course.items()):
             nc = len(rows)
@@ -188,15 +188,15 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
             mc = sum(r['mrr@5'] for r in rows) / nc
             print(f"  {course}: recall@5={rc:.3f}  mrr@5={mc:.3f}  ({nc} cases)")
 
-        failures = [r for r in find_results if r['recall@5'] == 0.0]
+        failures = [r for r in positive_results if r['recall@5'] == 0.0]
         if failures:
             print(f"\nMisses ({len(failures)} — relevant doc not in top-5):")
             for r in failures:
                 print(f"  #{r['issue']} expected={r['relevant_id']} got={r['ranked'][:3]}")
 
-    # ===== NOISE EVAL =====
+    # ===== NEGATIVE EVAL =====
     print(f"\n{'='*60}")
-    print(f"NOISE EVAL — {len(positive_cases)} + {len(negative_cases)} cases")
+    print(f"NEGATIVE EVAL — {len(positive_cases)} + {len(negative_cases)} cases")
     print("(target doc REMOVED — testing false-positive risk for NEW proposals)")
     print(f"{'='*60}")
 
@@ -207,7 +207,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
     # DUPLICATE? We measure: what fraction of top-1 results come from the same
     # section as the removed doc? (Same-section = more likely to look relevant.)
 
-    noise_results = []
+    negative_results = []
 
     for course, query, relevant_id, issue_num, note in positive_cases + negative_cases:
         all_docs = docs_by_course[course]
@@ -216,8 +216,8 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         filtered_docs = [d for d in all_docs if d['document_id'] not in relevant_ids]
         index_filtered = build_index(filtered_docs)
         proposal = f"## {query}\n\n{query}"
-        raw_noise = index_filtered.search(proposal, num_results=num_results)
-        noise_ranked = [(r.get('document_id', ''), r.get('section_id', '')) for r in raw_noise]
+        raw_negative = index_filtered.search(proposal, num_results=num_results)
+        negative_ranked = [(r.get('document_id', ''), r.get('section_id', '')) for r in raw_negative]
 
         # Find the section of the removed doc (for positive cases)
         removed_section = None
@@ -229,35 +229,35 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
 
         # Check if top result is from the same section (potential false positive)
         top1_same_section = False
-        if noise_ranked and removed_section:
-            top1_same_section = noise_ranked[0][1] == removed_section
+        if negative_ranked and removed_section:
+            top1_same_section = negative_ranked[0][1] == removed_section
 
-        noise_row = {
+        negative_row = {
             'issue': issue_num,
             'course': course,
             'query': query[:70],
             'relevant_id': relevant_id,
             'removed_section': removed_section,
-            'top5': noise_ranked[:5],
+            'top5': negative_ranked[:5],
             'top1_same_section': top1_same_section,
             'note': note,
             'type': 'positive' if relevant_id != 'NONE' else 'negative',
         }
-        noise_results.append(noise_row)
+        negative_results.append(negative_row)
 
     # Summary
-    pos_noise = [r for r in noise_results if r['type'] == 'positive']
-    neg_noise = [r for r in noise_results if r['type'] == 'negative']
+    pos_negative = [r for r in negative_results if r['type'] == 'positive']
+    neg_negative = [r for r in negative_results if r['type'] == 'negative']
 
-    if pos_noise:
-        fp_rate = sum(1 for r in pos_noise if r['top1_same_section']) / len(pos_noise)
-        print(f"\nPositive cases (doc removed, {len(pos_noise)} total):")
+    if pos_negative:
+        fp_rate = sum(1 for r in pos_negative if r['top1_same_section']) / len(pos_negative)
+        print(f"\nPositive cases (doc removed, {len(pos_negative)} total):")
         print(f"  Top-1 from same section as removed doc: {fp_rate:.1%}")
         print(f"  (High rate = search returns same-topic matches that could trigger false DUPLICATE)")
 
-    if neg_noise:
-        print(f"\nNegative cases (no relevant doc, {len(neg_noise)} total):")
-        for r in neg_noise:
+    if neg_negative:
+        print(f"\nNegative cases (no relevant doc, {len(neg_negative)} total):")
+        for r in neg_negative:
             top = r['top5'][:3]
             top_str = ', '.join(f'{did}({sec[:8]})' for did, sec in top)
             print(f"  {r['query'][:50]}")
@@ -265,7 +265,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
 
     # Show examples of potential false positives
     print(f"\nPotential false-positive examples (top-1 same section as removed doc):")
-    fp_examples = [r for r in pos_noise if r['top1_same_section']][:10]
+    fp_examples = [r for r in pos_negative if r['top1_same_section']][:10]
     for r in fp_examples:
         top1 = r['top5'][0] if r['top5'] else ('?', '?')
         print(f"  #{r['issue']} removed={r['relevant_id']}({r['removed_section']})")
@@ -273,8 +273,8 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         print(f"    got:   {top1[0]}({top1[1]})")
         print()
 
-    total = len(find_results)
-    passed = sum(1 for r in find_results if r['recall@5'] > 0)
+    total = len(positive_results)
+    passed = sum(1 for r in positive_results if r['recall@5'] > 0)
     return passed == total
 
 
