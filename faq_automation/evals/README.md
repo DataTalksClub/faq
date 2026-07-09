@@ -3,6 +3,34 @@
 Two eval suites for the FAQ merge agent, each testing a different layer of the
 pipeline.
 
+## Why two eval suites?
+
+The merge agent is a two-stage pipeline: **search** (minsearch retrieves the
+top-k most similar existing FAQs) then **LLM** (decides NEW/UPDATE/DUPLICATE,
+picks a section, generates content based on those results).
+
+When we first built a single end-to-end RAG eval, the dominant failure was
+section misplacement: 13 of 19 failures were the agent placing an entry in the
+wrong section. Tracing those failures showed the root cause was in the search
+layer — the index returned results from wrong sections, and the LLM followed
+the results it was given.
+
+But the RAG eval is expensive and slow to iterate on: 33 cases x ~5s per LLM
+call = ~3 minutes per run. We couldn't use it to tune search parameters
+(boosts, text fields, filters) that need rapid iteration.
+
+So we split the evals:
+
+- **Search eval**: tests retrieval in isolation, no LLM calls, runs in ~4 seconds.
+  Lets us iterate on index configuration and immediately see the impact on recall,
+  section accuracy, and simulated action accuracy.
+- **RAG eval**: tests the full pipeline end-to-end. Validates that search
+  improvements actually translate to better agent decisions, and catches content
+  quality issues (code, formatting, headers) that the search eval can't see.
+
+The search eval is for fast iteration on retrieval tuning. The RAG eval is the
+integration test that confirms the full pipeline works.
+
 ## The historical-data problem
 
 Our eval cases come from real GitHub issues — proposals that students submitted
