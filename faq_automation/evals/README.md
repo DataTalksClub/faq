@@ -59,20 +59,6 @@ in the note field), rather than copying the FAQ question verbatim.
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
   Baseline: hit_rate@5 = 0.830
 
-### Tuning harness (`tune_search.py`)
-
-Sweeps boost configurations and text-field selections against the same cases.
-No LLM calls, runs all configs in seconds.
-
-```bash
-uv run --project faq_automation python -m faq_automation.evals.tune_search
-```
-
-Key finding: removing `section` from text_fields (keeping only `question` and
-`answer`) improved recall from 0.745 to 0.830. The section name was adding noise
-— queries mentioning "Docker" would match the section name "Module 1: Docker"
-even for unrelated entries.
-
 ## RAG eval (`runner.py`)
 
 Tests the full pipeline end-to-end: search + LLM decision + content generation.
@@ -112,19 +98,40 @@ target doc so the agent sees the "before" state.
 
 ### Tags
 
-Each case has tags for failure analysis:
-`duplicate-detection`, `section-misplacement`, `code-quality`,
-`content-formatting`, `correct-new`, `false-duplicate`, `relevance`,
-`duplicate-verify`, `dlt`, `bruin`, `verbosity`, `filename-slug`.
+Each case is tagged for failure analysis:
+
+| Tag | Cases | What it tests |
+|-----|-------|---------------|
+| correct-new | 13 | Valid NEW proposals — agent should create them |
+| section-misplacement | 7 | Bot historically placed in wrong section |
+| duplicate-verify | 5 | Doc in index — agent should find it as DUPLICATE |
+| false-duplicate | 4 | Genuine NEW that agent wrongly calls DUPLICATE |
+| dlt | 4 | dlt-specific placement (workshop vs module-3) |
+| content-formatting | 4 | No structural headers, proper formatting |
+| duplicate-detection | 3 | Agent should correctly identify duplicates |
+| bruin | 2 | Bruin-specific placement (module-5) |
+| code-quality | 2 | Generated code must be runnable |
+| section-placement | 2 | Tests correct section selection |
+| relevance | 2 | Agent should reject irrelevant proposals |
+| update-quality | 1 | UPDATE should not degrade existing content |
+| verbosity | 1 | Answer should be concise |
+| filename-slug | 1 | Filename slug should not be None |
 
 ## Adding cases
 
 ### Search cases
 
-Add a tuple to `search_cases.py`:
+Add a `SearchCase` to `search_cases.py`:
 
 ```python
-("course", "question", "answer", "doc_id", issue_number, "note")
+SearchCase(
+    course="llm-zoomcamp",
+    question="...",
+    answer="...",
+    doc_id="abc1234567",
+    issue_number=123,
+    note="reworded",
+)
 ```
 
 To find the doc_id for a merged entry: `grep -r '<question text>' _questions/`
@@ -151,5 +158,4 @@ EvalCase(
 
 Available check predicates: `action_is`, `section_is`, `no_structural_headers`,
 `content_is_runnable_python`, `content_is_concise`, `has_filename_slug`,
-`has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.
 `has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.
