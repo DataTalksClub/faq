@@ -65,7 +65,7 @@ For each candidate, check it isn't already covered:
 grep -ri "<keyword>" _questions/<course>/
 ```
 
-Prioritize questions that recur across multiple messages — those signal a real gap. When adding a new FAQ, follow the repo conventions:
+Add any question that is **real, answerable, and not already covered** by an existing FAQ — it does **not** need to recur. A single good question is worth an FAQ if the answer can be reused the next time someone asks. Search first with `grep -ri "<keyword>" _questions/<course>/` to avoid duplicating an existing entry. When adding a new FAQ, follow the repo conventions:
 - File at `_questions/<course>/<section>/<NNN>_<docid>_<slug>.md` where `NNN` = next `sort_order` (highest in the section + 1) and `<docid>` is a fresh 10-char id.
 - Frontmatter: `question`, `id`, `sort_order` (and any existing keys in that section's files). Section id/name/comment come from `_questions/<course>/_metadata.yaml`.
 
