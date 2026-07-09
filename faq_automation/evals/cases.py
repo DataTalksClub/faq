@@ -532,10 +532,10 @@ CASES.append(EvalCase(
     answer="""Use the spark-bigquery-connector to read from and write to BigQuery from Spark.""",
     expected_action="NEW",
     expected_section="module-6",
-    description="Spark + BigQuery — valid NEW for module-6 (Spark)",
+    description="Spark + BigQuery — valid NEW for module-6 (Spark). Agent falsely matches dbt+BigQuery entry as duplicate.",
     checks=[action_is("NEW"), section_is("module-6")],
-    tags=["correct-new"],
-    relevant_doc_id="f57e5cb1f4",
+    tags=["correct-new", "false-duplicate"],
+    relevant_doc_id="2b59e8e6c1",
 ))
 
 # Case 24: PR #259 — edit Kestra flows locally
@@ -546,10 +546,10 @@ CASES.append(EvalCase(
     answer="""Mount your flows directory as a volume in docker-compose.yml so Kestra reads from your local files.""",
     expected_action="NEW",
     expected_section="module-2",
-    description="Edit Kestra flows locally — valid NEW for module-2 (orchestration)",
+    description="Edit Kestra flows locally — valid NEW. Agent falsely matches dbt+Kestra entry as duplicate.",
     checks=[action_is("NEW"), section_is("module-2")],
-    tags=["correct-new"],
-    relevant_doc_id="e14f6a8ed9",
+    tags=["correct-new", "false-duplicate"],
+    relevant_doc_id="958ab42c43",
 ))
 
 # ========================================================================== #
@@ -674,10 +674,10 @@ CASES.append(EvalCase(
     answer="""The error occurs because the sink table needs a primary key declaration for upsert mode.""",
     expected_action="NEW",
     expected_section="module-7",
-    description="PyFlink session window — valid NEW for module-7 (Streaming)",
+    description="PyFlink session window — valid NEW for module-7. Agent falsely matches Spark timestamp entry.",
     checks=[action_is("NEW"), section_is("module-7")],
-    tags=["correct-new"],
-    relevant_doc_id="1da0437718",
+    tags=["correct-new", "false-duplicate"],
+    relevant_doc_id="e08b9c753f",
 ))
 
 # Case 33: PR #251 — wget CloudFront download
@@ -685,11 +685,77 @@ CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
     issue_number=250,
     question="Why does wget fail to download the CloudFront parquet file even with --no-check-certificate?",
-    answer="""CloudFront may block wget's default user agent. Use a browser user agent: wget --header='User-Agent: Mozilla/5.0'""",
+    answer="""CloudFront may block wget's default user agent. Use a browser user agent.""",
     expected_action="NEW",
     expected_section="module-1-data",
-    description="wget CloudFront — valid NEW for module-1-data (download/handling)",
+    description="wget CloudFront — valid NEW. No duplicate exists (f6dedaf769 not in current FAQ).",
     checks=[action_is("NEW"), section_is("module-1-data")],
-    tags=["correct-new"],
-    relevant_doc_id="f6dedaf769",
+    tags=["correct-new", "false-duplicate"],
+    relevant_doc_id="",
 ))
+
+# ========================================================================== #
+# GROUP 7: DUPLICATE verification (doc IN index — agent should find it)
+# These confirm the agent correctly identifies existing entries.
+# ========================================================================== #
+
+# Verify: IndexError vector search entry exists -> should be DUPLICATE
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=289,
+    question="Why do I get IndexError: list index out of range when accessing the best chunk?",
+    answer="The number of embeddings does not match the number of document chunks.",
+    expected_action="DUPLICATE",
+    description="DUPLICATE verification — IndexError entry exists in FAQ, agent should find it",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-verify"],
+))
+
+# Verify: Bruin MCP entry exists -> should be DUPLICATE
+CASES.append(EvalCase(
+    course="data-engineering-zoomcamp",
+    issue_number=204,
+    question="How do I add the Bruin MCP server to VS Code?",
+    answer="Open command palette, MCP Add Server, choose Command stdio, enter bruin mcp.",
+    expected_action="DUPLICATE",
+    description="DUPLICATE verification — Bruin MCP entry exists in FAQ, agent should find it",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-verify"],
+))
+
+# Verify: DuckDB lock entry exists -> should be DUPLICATE
+CASES.append(EvalCase(
+    course="data-engineering-zoomcamp",
+    issue_number=187,
+    question="Why does DuckDB show IO Error Could not set lock on file after pressing Ctrl+Z?",
+    answer="Pressing Ctrl+Z suspends the process instead of exiting.",
+    expected_action="DUPLICATE",
+    description="DUPLICATE verification — DuckDB lock entry exists in FAQ, agent should find it",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-verify"],
+))
+
+# Verify: OpenRouter 402 entry exists -> should be DUPLICATE
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=274,
+    question="OpenRouter Error code 402 when calling responses.create max_output_tokens",
+    answer="Pass a lower max_output_tokens limit in your responses.create call.",
+    expected_action="DUPLICATE",
+    description="DUPLICATE verification — OpenRouter 402 entry exists in FAQ, agent should find it",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-verify"],
+))
+
+# Verify: dlt schema evolution entry exists -> should be DUPLICATE
+CASES.append(EvalCase(
+    course="data-engineering-zoomcamp",
+    issue_number=202,
+    question="How does dlt handle schema evolution?",
+    answer="dlt automatically detects and adapts to most schema changes.",
+    expected_action="DUPLICATE",
+    description="DUPLICATE verification — dlt schema evolution entry exists in FAQ",
+    checks=[action_is("DUPLICATE")],
+    tags=["duplicate-verify"],
+))
+
