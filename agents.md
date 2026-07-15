@@ -6,6 +6,10 @@ periodically commit to git. use double quotes for commit messages, and put the e
 
 Skills live in `.claude/skills/` and codify repeatable workflows for this repo:
 
+- **add-faq-record** (`.claude/skills/add-faq-record/SKILL.md`) — Add or update one
+  FAQ entry from a question, screenshot, chat thread, issue, or other source; check
+  placement and duplicates, assign a collision-free filename and sort order, and validate
+  the result.
 - **pr** (`.claude/skills/pr/SKILL.md`) — Review and process open FAQ pull requests:
   check section placement, duplicates, sort_order collisions, and content quality, then
   merge or close with the related issue cleaned up.
