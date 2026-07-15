@@ -24,6 +24,12 @@ Most recent at the top. `date` is UTC run date.
 
 | date (UTC)  | course                    | days | limit | messages | export                                                                                  | note                                                              |
 | ----------- | ------------------------- | ---- | ----- | -------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 2026-07-15  | llm-zoomcamp              | 7    | 1000  | 168      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260715T095558Z.md`                       | One actionable correction: only the capstone project is required for the certificate. |
+| 2026-07-15  | data-engineering-zoomcamp | 7    | 1000  | 17       | `.tmp/slack-data-engineering-zoomcamp-course-data-engineering-20260715T095544Z.md`      | No new reusable FAQ gap found.                                    |
+| 2026-07-15  | machine-learning-zoomcamp | 7    | 1000  | 5        | `.tmp/slack-machine-learning-zoomcamp-course-ml-zoomcamp-20260715T095541Z.md`           | July 9 certificate clarification was already inside the previous fetch window. |
+| 2026-07-15  | mlops-zoomcamp            | 7    | 1000  | 0        | `.tmp/slack-mlops-zoomcamp-course-mlops-zoomcamp-20260715T095541Z.md`                   | No channel activity in the window.                                |
+| 2026-07-15  | ai-dev-tools-zoomcamp     | 7    | 1000  | 1        | `.tmp/slack-ai-dev-tools-zoomcamp-C09HWT76L95-20260715T100219Z.md`                      | Fetched by channel ID; only an automated Telegram link, no question. |
+| 2026-07-15  | stock-markets-analytics-zoomcamp | 7 | 1000 | 0      | `.tmp/slack-stock-markets-analytics-zoomcamp-C06L1RTF10F-20260715T100219Z.md`           | Fetched by channel ID; no channel activity in the window.         |
 | 2026-07-09  | machine-learning-zoomcamp | 24   | 1000  | 22       | `.tmp/slack-machine-learning-zoomcamp-course-ml-zoomcamp-20260709T150147Z.md`           | First tool-based fetch. Covered 06-15→07-09 (baseline from git 06-16). |
 | 2026-07-09  | llm-zoomcamp              | 10   | 1000  | 213      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260709T145556Z.md`                       | Covered 06-29→07-09 (overlaps last fetch at 06-30).               |
 | 2026-07-09  | data-engineering-zoomcamp | 22   | 1000  | 62       | `.tmp/slack-data-engineering-zoomcamp-course-data-engineering-20260709T145543Z.md`      | Covered 06-17→07-09 (overlaps last fetch at 06-18).               |
@@ -33,6 +39,13 @@ Most recent at the top. `date` is UTC run date.
 
 ## Findings / follow-ups
 
+- **LLM Zoomcamp — certificate requirement (corrected, 2026-07-14):** the bot said
+  peer-reviewing three capstones was required. Alexey clarified that students only
+  need to finish a project. Updated the stale self-paced certificate FAQ.
+- **Channel metadata (2026-07-15):** the Slack token could not resolve the names
+  `course-ai-dev-tools` or `course-stock-markets-analytics`, so those exports were
+  fetched successfully with their configured channel IDs instead. Updated both
+  course metadata files to their current `*-zoomcamp` channel names.
 - **Data Engineering — certificate for self-paced learners (recurring):** 5+ messages
   from self-paced learners who submitted the project before the deadline but see
   "Certificate Not available" / leaderboard score still zero after peer review. Likely a

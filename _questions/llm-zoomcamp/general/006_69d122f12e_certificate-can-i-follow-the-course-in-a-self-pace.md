@@ -6,6 +6,7 @@ sort_order: 6
 
 No, you can only get a certificate if you finish the course with a "live" cohort.
 
-We don't award certificates for the self-paced mode. The reason is you need to peer-review 3 capstone(s) after submitting your project.
-
-You can only peer-review projects at the time the course is running; after the form is closed and the peer-review list is compiled.
+To get the certificate, you only need to finish a capstone project. Homework is
+not required. You can work through the material and prepare your project in
+self-paced mode, but you need to submit the project while a live cohort is
+accepting submissions.
