@@ -120,6 +120,18 @@ make test-unit
 make test-int
 ```
 
+Run the FAQ agent's live RAG eval suite (requires `OPENAI_API_KEY`):
+
+```bash
+# Run every eval case
+uv run --project faq_automation python -m faq_automation.evals.runner
+
+# Run only cases originating from one GitHub issue
+uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+```
+
+See the [FAQ automation eval documentation](faq_automation/evals/README.md) for details.
+
 See [testing documentation](tests/README.md) for detailed information about the test suite, including how to run specific test files or methods, test coverage details, and guidelines for adding new tests.
 
 ## Architecture

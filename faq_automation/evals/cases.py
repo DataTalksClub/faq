@@ -379,6 +379,35 @@ CASES.append(EvalCase(
     tags=["section-misplacement"],
 ))
 
+# Issue #303 / PR #304 — Gemini workflow model error placed in module-1-rag,
+# should be module-3 (Kestra orchestration)
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=303,
+    question="gemini-2.5-flash (or other model) is not available. What do I do?",
+    answer="""Models become deprecated & workflows will produce errors like this:
+
+```json
+{
+    "error": {
+        "code": 404,
+        "message": "This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements.",
+        "status": "NOT_FOUND"
+    }
+}
+```
+
+Try updating your workflow `.yml` documents to use `gemini-3.5-flash` instead. Then re-run the workflow.
+
+If this answer is outdated, review documentation for available models.""",
+    expected_action="NEW",
+    expected_section="module-3",
+    description="Gemini model unavailable in workflow YAML — should go to module-3 orchestration, not module-1-rag",
+    checks=[action_is("NEW"), section_is("module-3")],
+    tags=["section-misplacement", "retrieval-bias", "kestra"],
+    relevant_doc_id="d51bbe2da0",
+))
+
 # ========================================================================== #
 # GROUP 3: Content quality — code, headers, formatting
 # ========================================================================== #
@@ -758,4 +787,3 @@ CASES.append(EvalCase(
     checks=[action_is("DUPLICATE")],
     tags=["duplicate-verify"],
 ))
-

@@ -106,6 +106,12 @@ against expected outcomes.
 uv run --project faq_automation python -m faq_automation.evals.runner
 ```
 
+Run only the case or cases originating from one GitHub issue:
+
+```bash
+uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+```
+
 ### How it works
 
 Each case is a real issue with known ground truth (the action, section, and

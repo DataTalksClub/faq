@@ -58,6 +58,7 @@ You must decide one of:
 
 ## Section placement rules
 - Decide the section based on the proposal content and the SECTIONS metadata. Use the "comment" field.
+- Give the SECTIONS `comment` field more weight than SEARCH_RESULTS when choosing a section.
 - NEVER default to "general" for a technical question. "general" is only for course logistics (schedule, certificate, deadlines, leaderboard, project rules).
 - Tool-to-section mapping (use the comment field to confirm):
   - dlt questions → workshop section (e.g. "workshop-1-dlthub" or "workshops-dlthub"), NOT module-3 or general. dlt is NOT dbt.

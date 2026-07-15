@@ -8,6 +8,7 @@ answer is DUPLICATE. If it doesn't, it uses the case's declared expected_action.
 
 Usage:
     uv run --project faq_automation python -m faq_automation.evals.runner
+    uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
 """
 
 import os as _os
@@ -105,10 +106,19 @@ def run_case(case, agent, existing_ids, section_sort_orders):
     }
 
 
-def run_all(model=DEFAULT_MODEL):
+def run_all(model=DEFAULT_MODEL, issue_number=None):
+    cases = CASES
+    if issue_number is not None:
+        cases = [case for case in CASES if case.issue_number == issue_number]
+        if not cases:
+            print(f"Error: no eval case found for issue #{issue_number}", file=sys.stderr)
+            return False
+
     print(f"Running FAQ merge agent evals")
     print(f"  model: {model}")
-    print(f"Total cases: {len(CASES)}")
+    if issue_number is not None:
+        print(f"  issue: #{issue_number}")
+    print(f"Total cases: {len(cases)}")
 
     api_key = os.environ.get('OPENAI_API_KEY')
     if not api_key:
@@ -150,7 +160,7 @@ def run_all(model=DEFAULT_MODEL):
 
     all_results = []
 
-    for case in CASES:
+    for case in cases:
         # Hide the relevant doc when we expect NEW (so the agent can't find it)
         remove_doc = case.relevant_doc_id if case.expected_action == 'NEW' and case.relevant_doc_id else None
         agent, section_orders, existing_ids = get_agent(case.course, remove_doc)
@@ -217,7 +227,8 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
     parser.add_argument('--model', default=DEFAULT_MODEL)
+    parser.add_argument('--issue', type=int, help='Run only eval cases from this GitHub issue')
     args = parser.parse_args()
 
-    success = run_all(model=args.model)
+    success = run_all(model=args.model, issue_number=args.issue)
     sys.exit(0 if success else 1)
