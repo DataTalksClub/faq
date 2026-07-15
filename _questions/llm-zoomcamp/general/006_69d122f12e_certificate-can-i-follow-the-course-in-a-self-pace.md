@@ -6,7 +6,7 @@ sort_order: 6
 
 No, you can only get a certificate if you finish the course with a "live" cohort.
 
-To get the certificate, you only need to finish a capstone project. Homework is
-not required. You can work through the material and prepare your project in
-self-paced mode, but you need to submit the project while a live cohort is
-accepting submissions.
+To get the certificate, you need to finish a capstone project and complete the
+required peer reviews. Homework is not required. You can work through the
+material and prepare your project in self-paced mode, but project submission and
+peer review must happen while a live cohort is accepting them.

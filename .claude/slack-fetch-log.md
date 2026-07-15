@@ -24,7 +24,7 @@ Most recent at the top. `date` is UTC run date.
 
 | date (UTC)  | course                    | days | limit | messages | export                                                                                  | note                                                              |
 | ----------- | ------------------------- | ---- | ----- | -------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| 2026-07-15  | llm-zoomcamp              | 7    | 1000  | 168      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260715T095558Z.md`                       | One actionable correction: only the capstone project is required for the certificate. |
+| 2026-07-15  | llm-zoomcamp              | 7    | 1000  | 168      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260715T095558Z.md`                       | One clarification: homework is optional; the capstone and required peer reviews determine certificate eligibility. |
 | 2026-07-15  | data-engineering-zoomcamp | 7    | 1000  | 17       | `.tmp/slack-data-engineering-zoomcamp-course-data-engineering-20260715T095544Z.md`      | No new reusable FAQ gap found.                                    |
 | 2026-07-15  | machine-learning-zoomcamp | 7    | 1000  | 5        | `.tmp/slack-machine-learning-zoomcamp-course-ml-zoomcamp-20260715T095541Z.md`           | July 9 certificate clarification was already inside the previous fetch window. |
 | 2026-07-15  | mlops-zoomcamp            | 7    | 1000  | 0        | `.tmp/slack-mlops-zoomcamp-course-mlops-zoomcamp-20260715T095541Z.md`                   | No channel activity in the window.                                |
@@ -39,9 +39,10 @@ Most recent at the top. `date` is UTC run date.
 
 ## Findings / follow-ups
 
-- **LLM Zoomcamp — certificate requirement (corrected, 2026-07-14):** the bot said
-  peer-reviewing three capstones was required. Alexey clarified that students only
-  need to finish a project. Updated the stale self-paced certificate FAQ.
+- **LLM Zoomcamp — certificate requirement (clarified, 2026-07-14):** students do
+  not need to complete homework, but they must finish a capstone project and its
+  required peer reviews to receive a certificate. Clarified the self-paced
+  certificate FAQ.
 - **Channel metadata (2026-07-15):** the Slack token could not resolve the names
   `course-ai-dev-tools` or `course-stock-markets-analytics`, so those exports were
   fetched successfully with their configured channel IDs instead. Updated both
