@@ -3,7 +3,12 @@ Unit tests for FAQ automation actions
 """
 
 import pytest
-from faq_automation.actions import generate_pr_body, generate_duplicate_comment, _slugify
+from faq_automation.actions import (
+    _slugify,
+    create_new_faq_file,
+    generate_duplicate_comment,
+    generate_pr_body,
+)
 from faq_automation.rag_agent import FAQDecision
 
 
@@ -115,3 +120,27 @@ class TestSlugify:
     def test_empty_string(self):
         """Test empty input"""
         assert _slugify("") == ""
+
+
+def test_create_new_faq_file_sanitizes_model_provided_slug(tmp_path):
+    section_dir = tmp_path / "module-4"
+    section_dir.mkdir()
+    decision = FAQDecision(
+        action="NEW",
+        rationale="New evaluation question.",
+        document_id="unused",
+        section_rationale="Evaluation metrics belong in Module 4.",
+        section_id="module-4",
+        order=1,
+        question="Why can MRR improve while Hit Rate stays the same?",
+        proposed_content="MRR also considers the first relevant result's rank.",
+        filename_slug="mrr-vs-hit-rate}>" + "unexpected-model-output-" * 100,
+        warnings=[],
+    )
+
+    faq_file = create_new_faq_file(tmp_path, {}, decision)
+    slug = faq_file.stem.split("_", maxsplit=2)[2]
+
+    assert faq_file.parent == section_dir
+    assert len(slug) <= 50
+    assert slug == _slugify(decision.filename_slug)

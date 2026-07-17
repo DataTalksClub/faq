@@ -90,7 +90,7 @@ def create_new_faq_file(
     )
 
     sort_order = faq_decision.order
-    doc_slug = faq_decision.filename_slug or _slugify(faq_decision.question)
+    doc_slug = _slugify(faq_decision.filename_slug or faq_decision.question)
     faq_section = faq_decision.section_id
     section_dir = course_dir / faq_section
 
