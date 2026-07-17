@@ -1,4 +1,4 @@
 interface:
   display_name: "Add FAQ Record"
-  short_description: "Create a validated FAQ entry in this repository"
-  default_prompt: "Use $add-faq-record to add this question and answer to the correct FAQ section."
+  short_description: "Add an FAQ or fix its source cause"
+  default_prompt: "Use $add-faq-record to decide whether this needs an FAQ or a fix to the canonical source, then implement the appropriate change."
