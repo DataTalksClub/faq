@@ -11,6 +11,7 @@ from faq_automation.core import (
     parse_frontmatter,
     write_frontmatter,
     generate_document_id,
+    find_largest_sort_order,
     keep_relevant,
 )
 
@@ -102,6 +103,21 @@ class TestGenerateDocumentId:
 
         assert doc_id1 != doc_id2
         assert len(doc_id2) == 10
+
+
+class TestFindLargestSortOrder:
+    """Test finding the next order in a section directory."""
+
+    def test_empty_section_starts_at_one(self, tmp_path):
+        (tmp_path / ".gitkeep").touch()
+
+        assert find_largest_sort_order(tmp_path) == 1
+
+    def test_non_faq_files_are_ignored(self, tmp_path):
+        (tmp_path / ".gitkeep").touch()
+        (tmp_path / "003_abc_question.md").touch()
+
+        assert find_largest_sort_order(tmp_path) == 4
 
 
 class TestKeepRelevant:

@@ -116,7 +116,11 @@ def find_largest_sort_order(section_dir: Path) -> int:
     Returns:
         Next sort_order number (largest + 1)
     """
-    last = sorted(section_dir.iterdir())[-1]
+    question_files = sorted(section_dir.glob('*.md'))
+    if not question_files:
+        return 1
+
+    last = question_files[-1]
     sort_order, _ = last.name.split('_', maxsplit=1)
     return int(sort_order) + 1
 
