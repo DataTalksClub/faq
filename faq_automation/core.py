@@ -1,5 +1,5 @@
 """
-Core FAQ processing functions extracted from notebooks/rag.ipynb
+Core FAQ processing functions: frontmatter, course metadata, and sort order.
 """
 
 import frontmatter
