@@ -40,10 +40,12 @@ We don't add every correction as a test case. We select cases that:
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
 | Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 51 | a few min | action correctness, section placement, code quality, formatting |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 51 | ~2 min | action correctness, section placement, code quality, formatting |
 
-Remaining failures are mostly action decisions (false DUPLICATE on genuinely
-new proposals) and content quality (code variables undefined, filename slug).
+Current results on `gpt-5-nano`: 35/51 (69%). Remaining failures are mostly
+action decisions (false DUPLICATE on genuinely new proposals), content quality
+(code variables undefined, filename slug), and WRONG_COURSE recall — see below
+for why that last one is deliberately allowed to fail.
 
 ## Search eval (`run_search_eval.py`)
 
@@ -111,23 +113,36 @@ Run only the case or cases originating from one GitHub issue:
 uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
 ```
 
-### Batch API
+### Flex and Batch
 
-The whole suite goes out as a single Batch API job (`batch.py`), which costs
-roughly half the standard rate and usually returns within a few minutes. Only the
-model calls are batched — retrieval and prompt assembly still run locally, so the
-requests are byte-for-byte what `process_proposal` would have sent live.
+Evals are the ideal shape for OpenAI's discounted tiers: many independent
+requests, and nobody waiting on any single one. Both tiers below bill at the same
+rate, roughly half of standard, so the choice is purely about latency.
 
-Submitting is the part you pay for, so if a run dies while polling, score the
-finished job instead of resubmitting:
+Cases run on the **flex tier** by default (`flex.py`). Flex answers in real time
+but individual requests are slower and can be refused with a 429 when capacity is
+tight, so requests retry with backoff and run 8 at a time to win the wall-clock
+back. The last attempt falls back to the standard tier rather than lose the case:
+one case at full price beats a hole in the results.
+
+`--batch` submits the whole suite as a single Batch API job instead (`batch.py`).
+Same price, but the job is queued and OpenAI promises only "within 24h" — a run
+during this feature's development sat at 0/51 completed for over two hours. Use
+it when nothing is waiting on the result; use flex when you are iterating.
+
+Either way, retrieval and prompt assembly happen locally, so the requests are
+byte-for-byte what `process_proposal` would have sent.
+
+Submitting a batch is the part you pay for, so if a run dies while polling, score
+the finished job instead of resubmitting:
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.runner --batch-id batch_abc123
 ```
 
-The batch id is printed right after submission. A case whose request failed is
-scored as a failure rather than skipped, so a partial job can never look like a
-clean run.
+The batch id is printed right after submission. In both modes, a case whose
+request failed is scored as a failure rather than skipped, so a partial run can
+never look like a clean one.
 
 ### How it works
 
@@ -164,9 +179,16 @@ about one course filed against another. The agent only ever sees the selected
 course's entries and sections, so a misfiled proposal gets forced into whichever
 section fits least badly. WRONG_COURSE closes the issue instead.
 
-The two failure modes are not equal. A missed WRONG_COURSE produces a PR a human
-closes; a false WRONG_COURSE rejects a student's valid contribution with an
-incorrect explanation. The eval is deliberately lopsided about this:
+The two failure modes are not equal, and only one of them is expensive.
+
+A missed WRONG_COURSE costs a maintainer one PR close — the same review that
+already happens for every proposal, and the reviewer is looking at the course
+anyway. A false WRONG_COURSE closes a student's valid contribution and tells
+them, wrongly, that they filed against the wrong course. Nobody reviews a closed
+issue, so the mistake is invisible until the student complains or walks away.
+
+So the two rates get treated differently: false positives are a release gate,
+recall is a nice-to-have. The eval is deliberately lopsided about this:
 
 - The `wrong-course` tag holds the positive cases (5 real, 2 synthetic).
 - The `wrong-course-guard` tag holds deliberate near misses that must come back
@@ -177,6 +199,39 @@ incorrect explanation. The eval is deliberately lopsided about this:
   injects a `not_wrong_course` check into each one, so any case that unexpectedly
   comes back WRONG_COURSE fails. That makes the whole suite the false-positive
   budget, not just the cases written for it.
+
+Where it stands on `gpt-5-nano`:
+
+| | Result |
+|---|---|
+| False positives | 0 of 44 non-wrong-course cases |
+| Recall | 2 of 7 wrong-course cases |
+
+That recall is low on purpose and is fine to ship. The rules demand positive
+evidence of another course and tell the model to prefer NEW/UPDATE/DUPLICATE when
+unsure, so a borderline call lands on "file it" rather than "close it". The five
+misses become PRs that a human closes, which is exactly what happened before this
+action existed — the bot is no worse than the status quo on them. The zero is the
+number that has to hold.
+
+Two caveats for whoever tunes this next:
+
+- The zero is one run, not a proof. The model is genuinely non-deterministic near
+  the boundary — issue #311 flipped between NEW and WRONG_COURSE across repeats of
+  an identical prompt. The same flakiness that costs recall could produce a false
+  positive on a case that has passed before, so re-run the suite after any prompt
+  change rather than trusting a previous green.
+- Do not chase recall by softening the "when unsure, prefer NEW" hedge or by
+  dropping the demand for positive evidence. Those are what buy the zero. If recall
+  ever needs to be better, a stronger model for this decision is the safer lever
+  than a more aggressive prompt.
+
+Catch-all sections are a trap worth knowing about: ML Zoomcamp has a `misc`
+section and every course has `general`. A catch-all can plausibly hold anything,
+which silently satisfies "no section fits" and lets a misfiled proposal land there
+instead of being caught — the first version of this prompt dropped the #311 RAG
+question into `misc` for exactly that reason. The rules now tell the model to
+decide as if those sections did not exist.
 
 ### Tags
 

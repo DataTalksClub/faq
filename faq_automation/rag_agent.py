@@ -60,11 +60,20 @@ You must decide one of:
 - `DUPLICATE:<document_id>`: the proposal is already fully covered, no need to update or add
 - `WRONG_COURSE`: the proposal is about a different course and cannot be filed here at all
 
-## Action rules
+## Step 1: does this proposal belong to COURSE at all?
+Answer this before anything else. Students pick the course from a dropdown when filing
+and sometimes pick the wrong one, so ENTRY is not guaranteed to be about COURSE.
+
+Ask: which course in COURSE_CATALOG owns the tools, datasets, and modules this ENTRY
+talks about? If that course is COURSE, continue to step 2. If it is plainly a different
+course, the answer is WRONG_COURSE — set suggested_course to that course's id and stop.
+The strict conditions in "Wrong course rules" below decide what counts as plainly.
+
+## Step 2: action rules
+Only once the proposal belongs to COURSE:
 - NEW if the question is not covered in FAQ
 - UPDATE if the existing FAQ is about the same issue but missing context or details
 - DUPLICATE if the existing FAQ already answers the question fully
-- WRONG_COURSE only under the strict conditions below
 - Do not invent unrelated content, base decisions strictly on the provided proposal and FAQ excerpts
 - When UPDATE, merge old and new answers into one, making the updated answer complete and containing all the information from both
 - When UPDATE, make sure the new question is reflective of the both new and old records
@@ -76,7 +85,11 @@ the wrong one. WRONG_COURSE catches only that mistake — it is not a rejection 
 
 - Choose WRONG_COURSE only when BOTH hold:
   1. The proposal is clearly about material owned by a different course in COURSE_CATALOG.
-  2. No section in SECTIONS could plausibly hold it.
+  2. No module or topic section in SECTIONS covers it.
+- Catch-all sections ("general", "misc", "Miscellaneous") do not satisfy condition 2.
+  They exist for stray questions from THIS course's students, not as a home for another
+  course's material. Reaching for one because nothing else fits is the signal to check
+  the course, not a placement. Decide as if those sections did not exist.
 - Require positive evidence of the other course: the entry names that course's specific
   tools, datasets, modules, or code. Examples: the NYC taxi dataset, Kestra, dbt, BigQuery,
   Spark, Kafka, or Terraform point to data-engineering-zoomcamp; RAG, embeddings, vector
@@ -198,6 +211,12 @@ RESPONSE_TEXT_FORMAT = {
 }
 
 
+def extract_decision(response) -> FAQDecision:
+    """Pull the parsed FAQDecision out of a Responses API result."""
+    message = next(filter(lambda o: o.type == 'message', response.output))
+    return message.content[0].parsed
+
+
 class FAQAgent:
     """Agent for processing FAQ proposals using RAG and LLM"""
 
@@ -296,10 +315,7 @@ class FAQAgent:
             text_format=FAQDecision,
         )
 
-        message = next(filter(lambda o: o.type == 'message', response.output))
-        faq_decision = message.content[0].parsed
-
-        return faq_decision
+        return extract_decision(response)
 
 
 def process_faq_proposal(

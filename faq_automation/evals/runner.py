@@ -6,13 +6,16 @@ state. Since entries may already exist in the FAQ, the runner dynamically adjust
 the expected action: if the entry already exists, the correct answer is DUPLICATE.
 If it doesn't, it uses the case's declared expected_action.
 
-Cases go through the Batch API: one job for the whole suite at roughly half the
-standard price, usually back within a few minutes. Retrieval and prompt assembly
-still happen locally, so only the model calls are batched.
+Cases run on the flex tier by default: the same discounted rate as the Batch API,
+but answers come back now instead of whenever the batch queue drains. --batch
+submits the suite as one Batch API job for the same price when nobody is waiting.
+Either way, retrieval and prompt assembly happen locally, so only the model calls
+leave the machine.
 
 Usage:
     uv run --project faq_automation python -m faq_automation.evals.runner
     uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+    uv run --project faq_automation python -m faq_automation.evals.runner --batch
     uv run --project faq_automation python -m faq_automation.evals.runner --batch-id batch_abc123
 """
 
@@ -45,7 +48,7 @@ from openai import OpenAI
 from faq_automation.rag_agent import FAQAgent, DEFAULT_MODEL
 from faq_automation.core import read_questions
 
-from faq_automation.evals import batch
+from faq_automation.evals import batch, flex
 from faq_automation.evals.cases import CASES, EvalCase, not_wrong_course
 
 
@@ -130,7 +133,7 @@ def evaluate(case, decision, section_sort_orders):
     }
 
 
-def collect_decisions(prepared, model, batch_id=None, output_dir=None):
+def collect_decisions_batch(prepared, model, batch_id=None, output_dir=None):
     """
     Send every case as one Batch API job and return decisions in `prepared` order.
 
@@ -175,7 +178,17 @@ def collect_decisions(prepared, model, batch_id=None, output_dir=None):
     return decisions
 
 
-def run_all(model=DEFAULT_MODEL, issue_number=None, batch_id=None):
+def collect_decisions(prepared, model, use_batch=False, batch_id=None):
+    """Run every prepared case and return decisions in `prepared` order."""
+    if use_batch or batch_id:
+        return collect_decisions_batch(prepared, model, batch_id=batch_id)
+
+    client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+    print(f"\nRunning {len(prepared)} cases on the flex tier ({flex.MAX_WORKERS} at a time)...")
+    return flex.collect(client, prepared, model)
+
+
+def run_all(model=DEFAULT_MODEL, issue_number=None, use_batch=False, batch_id=None):
     cases = CASES
     if issue_number is not None:
         cases = [case for case in CASES if case.issue_number == issue_number]
@@ -239,7 +252,7 @@ def run_all(model=DEFAULT_MODEL, issue_number=None, batch_id=None):
             continue
         prepared.append((case, agent, section_orders))
 
-    decisions = collect_decisions(prepared, model, batch_id=batch_id)
+    decisions = collect_decisions(prepared, model, use_batch=use_batch, batch_id=batch_id)
 
     all_results = []
 
@@ -305,6 +318,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
     parser.add_argument('--model', default=DEFAULT_MODEL)
     parser.add_argument('--issue', type=int, help='Run only eval cases from this GitHub issue')
+    parser.add_argument('--batch', action='store_true',
+                        help='Submit one Batch API job instead of running on the flex tier. '
+                             'Same price, but results can take hours to come back.')
     parser.add_argument('--batch-id',
                         help='Score an already-submitted batch job instead of submitting a new one')
     args = parser.parse_args()
@@ -312,6 +328,7 @@ if __name__ == '__main__':
     success = run_all(
         model=args.model,
         issue_number=args.issue,
+        use_batch=args.batch,
         batch_id=args.batch_id,
     )
     sys.exit(0 if success else 1)

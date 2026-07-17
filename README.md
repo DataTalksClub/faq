@@ -6,7 +6,7 @@ A static site generator for DataTalks.Club course FAQs with automated AI-powered
 
 - **Static Site Generation**: Converts markdown FAQs to a beautiful, searchable HTML site
 - **Automated FAQ Management**: AI-powered bot that processes new FAQ proposals
-- **Intelligent Triage**: Automatically determines if proposals should create new entries, update existing ones, or are duplicates
+- **Intelligent Triage**: Decides whether a proposal becomes a new entry, updates an existing one, duplicates one, or was filed against the wrong course
 - **GitHub Integration**: Seamless workflow via GitHub Issues and Pull Requests
 
 ## Project Structure
@@ -120,7 +120,8 @@ make test-unit
 make test-int
 ```
 
-Run the FAQ agent's live RAG eval suite (requires `OPENAI_API_KEY`):
+Run the FAQ agent's RAG eval suite (requires `OPENAI_API_KEY`). Cases run on the
+flex tier, which bills at the Batch API rate but answers in real time:
 
 ```bash
 # Run every eval case
@@ -128,6 +129,9 @@ uv run --project faq_automation python -m faq_automation.evals.runner
 
 # Run only cases originating from one GitHub issue
 uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+
+# Submit the suite as one Batch API job instead (same price, no waiting on it)
+uv run --project faq_automation python -m faq_automation.evals.runner --batch
 ```
 
 See the [FAQ automation eval documentation](faq_automation/evals/README.md) for details.
@@ -135,6 +139,60 @@ See the [FAQ automation eval documentation](faq_automation/evals/README.md) for 
 See [testing documentation](tests/README.md) for detailed information about the test suite, including how to run specific test files or methods, test coverage details, and guidelines for adding new tests.
 
 ## Architecture
+
+### FAQ Automation Pipeline
+
+A student proposes an FAQ by opening a GitHub issue from the proposal template,
+which asks for a course, a question, and an answer. Everything after that runs
+without a human until a decision is made.
+
+```mermaid
+flowchart TD
+    A["Student opens issue<br/>(faq-proposal label)"] --> B["GitHub Actions<br/>faq-automation.yml"]
+    B --> C["cli.py<br/>parse course / question / answer"]
+    C --> D["FAQAgent<br/>load that course's entries + sections"]
+    D --> E["minsearch<br/>retrieve 5 similar entries"]
+    E --> F{"LLM returns<br/>FAQDecision"}
+    F -->|NEW| G["Write new file"]
+    F -->|UPDATE| H["Merge into existing file"]
+    F -->|DUPLICATE| I["Comment + close issue"]
+    F -->|WRONG_COURSE| J["Comment + close issue"]
+    G --> K["Open PR"]
+    H --> K
+    K --> L["Maintainer reviews + merges"]
+    L --> M["Site rebuilds from _questions/"]
+```
+
+The course is not something the agent decides. It comes from the dropdown the
+student picked, and `cli.py` passes it straight through as the directory the
+agent loads. The agent therefore only ever sees one course's entries and section
+metadata — it cannot compare against another course, because it never sees one.
+That is the entire reason `WRONG_COURSE` exists: without it, a proposal filed
+against the wrong course gets forced into whichever section of that course fits
+least badly.
+
+Retrieval is keyword search (`minsearch`) over the selected course, and the top
+5 hits go into the prompt as context. The LLM then makes one structured call
+that returns the action, the target section, the sort order, and the rewritten
+content together as a single `FAQDecision`.
+
+The four actions split into two very different paths, and the difference is what
+drives the eval strategy:
+
+| Action | What happens | Human in the loop? |
+|---|---|---|
+| `NEW` / `UPDATE` | Writes the file, opens a PR | Yes — nothing lands unreviewed |
+| `DUPLICATE` / `WRONG_COURSE` | Comments and closes the issue | No |
+
+A bad `NEW` costs a maintainer one PR review, which was going to happen anyway. A
+bad `DUPLICATE` or `WRONG_COURSE` closes a student's contribution with an
+incorrect explanation, and nobody reviews a closed issue. The
+[eval suite](faq_automation/evals/README.md) is weighted accordingly: it guards
+much harder against wrongly closing an issue than against wrongly opening a PR.
+
+Sort order collisions are handled after the decision, not by the model —
+`actions.py` shifts existing entries down to make room, so the model picking an
+occupied slot is not a failure mode.
 
 ### Site Generation Pipeline
 
