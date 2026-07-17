@@ -30,7 +30,7 @@ class EvalCase:
     issue_number: the GitHub issue number this case came from (0 = synthetic)
     question:     the proposed FAQ question (as submitted)
     answer:       the proposed FAQ answer (as submitted)
-    expected_action: NEW | UPDATE | DUPLICATE
+    expected_action: NEW | UPDATE | DUPLICATE | WRONG_COURSE
     expected_section: the section_id the entry should land in (for NEW/UPDATE)
     description:  short human-readable description of what this case tests
     checks:       list of (name, predicate) pairs. The predicate receives the
@@ -66,6 +66,18 @@ def section_is(expected):
         return decision.section_id == expected
     check.__name__ = f"section == {expected}"
     return check
+
+
+def suggested_course_is(expected):
+    def check(decision):
+        return decision.suggested_course == expected
+    check.__name__ = f"suggested_course == {expected}"
+    return check
+
+
+def not_wrong_course(decision):
+    """The proposal belongs to the course it was filed under — do not reject it."""
+    return decision.action != 'WRONG_COURSE'
 
 
 def no_structural_headers(decision):
@@ -198,9 +210,11 @@ CASES.append(EvalCase(
     tags=["duplicate-detection"],
 ))
 
-# Case 2: PR #288 — should NOT be NEW (dataset count is transient, not FAQ-worthy)
+# Case 2: Dataset count is transient, not FAQ-worthy. Issue #287 raised this against
+# the wrong course (see the WRONG_COURSE group); this variant refiles it under the
+# course it belongs to, so the transient rule is what's under test here.
 CASES.append(EvalCase(
-    course="machine-learning-zoomcamp",
+    course="llm-zoomcamp",
     issue_number=287,
     question="Should I be concerned that number of documents in FAQ dataset is 1350, not 1208 like in module 02 - vector-search, lesson 04?",
     answer="I suppose that course is not fully updated where it is not crucial but would like to be sure. There are also similar differences in module 01.",
@@ -786,4 +800,177 @@ CASES.append(EvalCase(
     description="DUPLICATE verification — dlt schema evolution entry exists in FAQ",
     checks=[action_is("DUPLICATE")],
     tags=["duplicate-verify"],
+))
+
+# ========================================================================== #
+# GROUP 8: WRONG_COURSE — student picked the wrong course in the dropdown
+# The `course` field is what the student selected; the content belongs elsewhere.
+# ========================================================================== #
+
+# Case: Issue #311 — RAG monitoring code filed under ML zoomcamp
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=311,
+    question="How do I adapt the RAGWithMetrics class to work with OpenAI-compatible endpoints like Google Gemini?",
+    answer="""The course material leverages OpenAI's Responses API (`client.responses.create`), which is not universally implemented by other LLM providers. To use `RAGWithMetrics` with Gemini via its OpenAI-compatible endpoint, switch the internal execution to `chat.completions.create` and adjust the extraction paths: the text moves to `response.choices[0].message.content`, and token usage moves to `usage.prompt_tokens` / `usage.completion_tokens`.""",
+    expected_action="WRONG_COURSE",
+    description="RAGWithMetrics monitoring — LLM zoomcamp module-5 content filed under ML zoomcamp",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("llm-zoomcamp")],
+    tags=["wrong-course"],
+))
+
+# Case: Issue #287 — LLM zoomcamp vector search dataset filed under ML zoomcamp
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=287,
+    question="Should I be concerned that number of documents in FAQ dataset is 1350, not 1208 like in module 02 - vector-search, lesson 04?",
+    answer="I suppose that course is not fully updated where it is not crucial but would like to be sure. There are also similar differences in module 01.",
+    expected_action="WRONG_COURSE",
+    description="FAQ dataset doc count — LLM zoomcamp vector search content filed under ML zoomcamp",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("llm-zoomcamp")],
+    tags=["wrong-course"],
+))
+
+# Case: Issue #148 — BigQuery cost estimation filed under ML zoomcamp
+# The same proposal was refiled correctly as issue #150 (data-engineering-zoomcamp).
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=148,
+    question="How we can estimate the cost of executed queries within a specified range of time in bigquery, and determine what users and when in time this executions were made.",
+    answer="""The metadata table that contains all the history related with query and Jobs executions is called 'JOBS_BY_PROJECT' and we can find it in the path `<your_project_id>.<your_region>.INFORMATION_SCHEMA.JOBS_BY_PROJECT`; the following query must be executed within the bigquery query editor.
+
+```sql
+SELECT
+  DATE(creation_time) as date,
+  user_email,
+  SUM(total_bytes_billed) / 1099511627776 * 6.25 as estimated_cost_usd,
+  COUNT(*) as query_count
+FROM `project-id.region-us.INFORMATION_SCHEMA.JOBS_BY_PROJECT`
+WHERE creation_time >= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -60 DAY)
+GROUP BY date, user_email
+ORDER BY estimated_cost_usd DESC
+```""",
+    expected_action="WRONG_COURSE",
+    description="BigQuery query cost — DE zoomcamp content filed under ML zoomcamp (refiled correctly as #150)",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("data-engineering-zoomcamp")],
+    tags=["wrong-course"],
+))
+
+# Case: Issue #97 — Spark global temp views filed under ML zoomcamp
+# The same proposal was refiled correctly as issues #96/#98 (data-engineering-zoomcamp).
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=97,
+    question="How do you share a DataFrame across multiple Spark sessions?",
+    answer="""Spark provides Global Temporary Views to share DataFrames across different Spark sessions within the same Spark application. Unlike regular temporary views, global temporary views are accessible from any session.
+
+```python
+df.createOrReplaceGlobalTempView('trips_global')
+spark.sql("SELECT * FROM global_temp.trips_global").show()
+```
+
+Global temporary views are stored in the `global_temp` database and must be referenced using the `global_temp.` prefix.""",
+    expected_action="WRONG_COURSE",
+    description="Spark global temp views — DE zoomcamp content filed under ML zoomcamp (refiled correctly as #96/#98)",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("data-engineering-zoomcamp")],
+    tags=["wrong-course"],
+))
+
+# Case: Issue #109 — pgAdmin/Postgres Docker setup filed under ML zoomcamp
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=109,
+    question="GitHub Codespaces: Running pgadmin in Docker",
+    answer="""With the default instructions, running pgAdmin in Docker may result in a blank screen after logging into the pgAdmin console. This is due to session or proxy issues behind Codespaces' reverse proxy. Add `PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1` and `PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1` to the pgAdmin service environment, then restart the container.""",
+    expected_action="WRONG_COURSE",
+    description="pgAdmin in Codespaces — DE zoomcamp module-1 content filed under ML zoomcamp",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("data-engineering-zoomcamp")],
+    tags=["wrong-course"],
+))
+
+# Case: synthetic — MLflow model registry filed under DE zoomcamp
+CASES.append(EvalCase(
+    course="data-engineering-zoomcamp",
+    issue_number=0,
+    question="How do I promote a model from Staging to Production in the MLflow model registry?",
+    answer="""Use the MLflow client to transition the model version stage:
+
+```python
+from mlflow.tracking import MlflowClient
+client = MlflowClient()
+client.transition_model_version_stage(name="nyc-taxi-regressor", version=2, stage="Production")
+```
+
+The registry keeps the full version history, so you can roll back by transitioning an earlier version back to Production.""",
+    expected_action="WRONG_COURSE",
+    description="MLflow model registry — MLOps zoomcamp content filed under DE zoomcamp",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("mlops-zoomcamp")],
+    tags=["wrong-course", "synthetic"],
+))
+
+# Case: synthetic — Terraform/GCS bucket filed under LLM zoomcamp
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=0,
+    question="Why does terraform apply fail with 'Error 403: Request violates constraint constraints/gcp.resourceLocations' when creating the GCS bucket?",
+    answer="""Your GCP organization policy restricts which regions resources can be created in. Change the `location` in your `google_storage_bucket` resource to an allowed region, or ask your org admin to relax the `gcp.resourceLocations` constraint for your project.""",
+    expected_action="WRONG_COURSE",
+    description="Terraform GCS bucket — DE zoomcamp module-1 content filed under LLM zoomcamp",
+    checks=[action_is("WRONG_COURSE"), suggested_course_is("data-engineering-zoomcamp")],
+    tags=["wrong-course", "synthetic"],
+))
+
+# ========================================================================== #
+# GROUP 9: WRONG_COURSE false-positive guards
+# Near misses that must NOT be rejected as wrong course. Every case outside
+# this group is also an implicit guard — the runner fails any case that
+# unexpectedly returns WRONG_COURSE.
+# ========================================================================== #
+
+# Guard: Docker is DE's signature tool but ML zoomcamp deploys with it too
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=0,
+    question="Why does my Docker container exit immediately after running docker run for the churn prediction service?",
+    answer="""The container exits when its main process finishes. If your Dockerfile's `CMD` runs a script that returns, there is nothing left to keep the container alive. Serve the model with a long-running process instead, e.g. `CMD ["gunicorn", "--bind", "0.0.0.0:9696", "predict:app"]`.""",
+    expected_action="NEW",
+    description="Docker container exits — shared tool, but ML zoomcamp owns model deployment. Must not be WRONG_COURSE.",
+    checks=[action_is("NEW")],
+    tags=["wrong-course-guard", "synthetic"],
+))
+
+# Guard: Kestra is DE's signature tool but the LLM course uses it in module-3
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    issue_number=0,
+    question="How do I pass the output of one Kestra task as input to the next task in the flow?",
+    answer="""Reference the upstream task's output with an expression, e.g. `{{ outputs.extract.vars.uri }}`. Kestra only exposes outputs that the task declares, so check the task's output attributes in the plugin documentation.""",
+    expected_action="NEW",
+    description="Kestra task outputs — shared tool, but LLM zoomcamp module-3 covers Kestra. Must not be WRONG_COURSE.",
+    checks=[action_is("NEW")],
+    tags=["wrong-course-guard", "synthetic"],
+))
+
+# Guard: course-agnostic tooling belongs to whichever course it was filed under
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=0,
+    question="How do I add a package to an existing uv project without recreating the virtual environment?",
+    answer="""Run `uv add <package>` from the project directory. It resolves the dependency, updates `pyproject.toml` and `uv.lock`, and installs into the existing `.venv`. Use `uv sync` afterwards on other machines to reproduce the same environment.""",
+    expected_action="NEW",
+    description="uv package management — course-agnostic tooling. Must not be WRONG_COURSE.",
+    checks=[action_is("NEW")],
+    tags=["wrong-course-guard", "synthetic"],
+))
+
+# Guard: an uncovered topic inside the course is NEW, not WRONG_COURSE
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    issue_number=0,
+    question="Why does my ROC AUC score come out below 0.5 on the churn validation set?",
+    answer="""An AUC below 0.5 means the model ranks positives below negatives — usually the predicted probabilities are inverted. Check that you pass the probability of the positive class, `y_pred = model.predict_proba(X_val)[:, 1]`, and not column 0.""",
+    expected_action="NEW",
+    description="ROC AUC below 0.5 — squarely ML zoomcamp classification. Must not be WRONG_COURSE.",
+    checks=[action_is("NEW")],
+    tags=["wrong-course-guard", "synthetic"],
 ))

@@ -19,6 +19,7 @@ from .actions import (
     update_existing_faq_file,
     generate_pr_body,
     generate_duplicate_comment,
+    generate_wrong_course_comment,
     get_file_changes_summary,
 )
 
@@ -136,6 +137,10 @@ def main():
                 course,
                 site_url='https://datatalks.club/faq'  # Update with actual URL
             )
+
+        elif faq_decision.action == 'WRONG_COURSE':
+            print("\nGenerating wrong course comment...")
+            output['comment'] = generate_wrong_course_comment(faq_decision, course)
 
         # Write output as JSON for GitHub Actions
         output_file = Path(args.output_dir) / 'faq_decision.json'

@@ -40,11 +40,10 @@ We don't add every correction as a test case. We select cases that:
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
 | Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 39 | ~70s | action correctness, section placement, code quality, formatting |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 51 | a few min | action correctness, section placement, code quality, formatting |
 
-Current results: 29/39 pass (74%). Remaining failures are mostly action
-decisions (false DUPLICATE on genuinely new proposals) and content quality
-(code variables undefined, filename slug).
+Remaining failures are mostly action decisions (false DUPLICATE on genuinely
+new proposals) and content quality (code variables undefined, filename slug).
 
 ## Search eval (`run_search_eval.py`)
 
@@ -112,6 +111,24 @@ Run only the case or cases originating from one GitHub issue:
 uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
 ```
 
+### Batch API
+
+The whole suite goes out as a single Batch API job (`batch.py`), which costs
+roughly half the standard rate and usually returns within a few minutes. Only the
+model calls are batched — retrieval and prompt assembly still run locally, so the
+requests are byte-for-byte what `process_proposal` would have sent live.
+
+Submitting is the part you pay for, so if a run dies while polling, score the
+finished job instead of resubmitting:
+
+```bash
+uv run --project faq_automation python -m faq_automation.evals.runner --batch-id batch_abc123
+```
+
+The batch id is printed right after submission. A case whose request failed is
+scored as a failure rather than skipped, so a partial job can never look like a
+clean run.
+
 ### How it works
 
 Each case is a real issue with known ground truth (the action, section, and
@@ -125,8 +142,8 @@ content quality expected). The runner:
 
 ### What it checks
 
-- Action correctness: NEW, UPDATE, or DUPLICATE — does the agent make the
-  right call?
+- Action correctness: NEW, UPDATE, DUPLICATE, or WRONG_COURSE — does the agent
+  make the right call?
 - Section placement: does the entry land in the right section?
 - Content quality: is the code runnable (all variables defined)? Are there
   structural headers? Is the answer concise? Is the filename slug present?
@@ -138,6 +155,28 @@ content quality expected). The runner:
 Entries we merged already exist in the FAQ. For DUPLICATE cases this is correct
 — the agent should find and cite the existing entry. For NEW cases, we hide the
 target doc so the agent sees the "before" state.
+
+### WRONG_COURSE and its false-positive budget
+
+Students pick the course from a dropdown when filing a proposal, and sometimes
+pick the wrong one — issues #97, #109, #148, #287, and #311 are all questions
+about one course filed against another. The agent only ever sees the selected
+course's entries and sections, so a misfiled proposal gets forced into whichever
+section fits least badly. WRONG_COURSE closes the issue instead.
+
+The two failure modes are not equal. A missed WRONG_COURSE produces a PR a human
+closes; a false WRONG_COURSE rejects a student's valid contribution with an
+incorrect explanation. The eval is deliberately lopsided about this:
+
+- The `wrong-course` tag holds the positive cases (5 real, 2 synthetic).
+- The `wrong-course-guard` tag holds deliberate near misses that must come back
+  NEW: a shared tool used by the course that was selected (Docker in ML zoomcamp,
+  Kestra in LLM zoomcamp), course-agnostic tooling (uv), and a topic the FAQ
+  doesn't cover yet. Absence of coverage must never read as the wrong course.
+- Every case outside the `wrong-course` tag is an implicit guard too — the runner
+  injects a `not_wrong_course` check into each one, so any case that unexpectedly
+  comes back WRONG_COURSE fails. That makes the whole suite the false-positive
+  budget, not just the cases written for it.
 
 ### Tags
 
@@ -156,6 +195,9 @@ Each case is tagged for failure analysis:
 | code-quality | 2 | Generated code must be runnable |
 | section-placement | 2 | Tests correct section selection |
 | relevance | 2 | Agent should reject irrelevant proposals |
+| wrong-course | 7 | Student picked the wrong course — agent should close the issue |
+| wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
+| synthetic | 6 | Written by hand rather than taken from a real issue |
 | update-quality | 1 | UPDATE should not degrade existing content |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
@@ -232,6 +274,11 @@ EvalCase(
 )
 ```
 
-Available check predicates: `action_is`, `section_is`, `no_structural_headers`,
-`content_is_runnable_python`, `content_is_concise`, `has_filename_slug`,
-`has_trailing_newline`, `content_has_no_bold_headers`, `no_sort_order_collision`.
+Available check predicates: `action_is`, `section_is`, `suggested_course_is`,
+`no_structural_headers`, `content_is_runnable_python`, `content_is_concise`,
+`has_filename_slug`, `has_trailing_newline`, `content_has_no_bold_headers`,
+`no_sort_order_collision`, `not_wrong_course` (injected automatically).
+
+Use the real issue number whenever a case comes from one, so `--issue N` reaches
+it; several cases may share a number when one issue tests more than one thing.
+Hand-written cases use `issue_number=0` and the `synthetic` tag.

@@ -41,6 +41,30 @@ def read_metadata(course_dir: Path) -> dict:
     return parse_metadata(content)
 
 
+def read_course_catalog(questions_dir: Path) -> List[dict]:
+    """
+    Read the id and display name of every course under questions_dir.
+
+    Used to tell the agent which other courses exist, so a proposal filed
+    against the wrong course can be pointed at the right one.
+
+    Returns:
+        List of {'course': id, 'course_name': name} sorted by id
+    """
+    catalog = []
+
+    for course_dir in sorted(questions_dir.iterdir()):
+        if not (course_dir / '_metadata.yaml').exists():
+            continue
+        metadata = read_metadata(course_dir)
+        catalog.append({
+            'course': metadata['course'],
+            'course_name': metadata['course_name'],
+        })
+
+    return catalog
+
+
 def read_questions(course_dir: Path) -> List[dict]:
     """
     Read all questions from a course directory

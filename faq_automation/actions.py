@@ -252,6 +252,41 @@ Thank you for your proposal! After analyzing existing FAQs, this question appear
     return comment
 
 
+def generate_wrong_course_comment(
+    faq_decision: FAQDecision,
+    course_name: str
+) -> str:
+    """
+    Generate comment for WRONG_COURSE decisions
+
+    Args:
+        faq_decision: FAQDecision object from the agent
+        course_name: The course the proposal was filed against
+
+    Returns:
+        Formatted comment text
+    """
+    comment = f"""## 📚 Wrong Course
+
+Thank you for your proposal! It was filed against **{course_name}**, but the question is about a different course, so it can't be added here.
+
+### Rationale
+{faq_decision.rationale}
+"""
+
+    if faq_decision.suggested_course:
+        comment += f"\n### Where This Belongs\nThis looks like a **{faq_decision.suggested_course}** question."
+        comment += " Please open a new proposal and pick that course in the **Course** dropdown.\n"
+    else:
+        comment += "\nPlease open a new proposal and pick the right course in the **Course** dropdown.\n"
+
+    comment += "\n---\n"
+    comment += "\n🤖 This issue has been automatically closed by FAQ Bot.\n"
+    comment += "If the course was right after all, please reopen and mention a maintainer.\n"
+
+    return comment
+
+
 def get_file_changes_summary(action: str, file_path: Path, course_dir: Path) -> dict:
     """
     Generate a summary of file changes for logging

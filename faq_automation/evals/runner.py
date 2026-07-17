@@ -1,14 +1,19 @@
 """
 Eval runner for the FAQ merge agent.
 
-Runs each eval case through the real FAQAgent (with live LLM call) against the
-current _questions/ state. Since entries may already exist in the FAQ, the runner
-dynamically adjusts the expected action: if the entry already exists, the correct
-answer is DUPLICATE. If it doesn't, it uses the case's declared expected_action.
+Runs each eval case through the real FAQAgent against the current _questions/
+state. Since entries may already exist in the FAQ, the runner dynamically adjusts
+the expected action: if the entry already exists, the correct answer is DUPLICATE.
+If it doesn't, it uses the case's declared expected_action.
+
+Cases go through the Batch API: one job for the whole suite at roughly half the
+standard price, usually back within a few minutes. Retrieval and prompt assembly
+still happen locally, so only the model calls are batched.
 
 Usage:
     uv run --project faq_automation python -m faq_automation.evals.runner
     uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+    uv run --project faq_automation python -m faq_automation.evals.runner --batch-id batch_abc123
 """
 
 import os as _os
@@ -31,13 +36,17 @@ _load_env()
 
 import os
 import sys
+import tempfile
 from pathlib import Path
 from collections import defaultdict
+
+from openai import OpenAI
 
 from faq_automation.rag_agent import FAQAgent, DEFAULT_MODEL
 from faq_automation.core import read_questions
 
-from faq_automation.evals.cases import CASES, EvalCase
+from faq_automation.evals import batch
+from faq_automation.evals.cases import CASES, EvalCase, not_wrong_course
 
 
 def get_existing_doc_ids(course_dir):
@@ -55,26 +64,41 @@ def get_section_sort_orders(course_dir):
     return dict(orders)
 
 
-def run_case(case, agent, existing_ids, section_sort_orders):
-    """Run a single eval case and return results."""
-    # Dynamically adjust: if the case's doc_id already exists, expect DUPLICATE
-    # We infer the doc_id from the issue — but we don't store it per case.
-    # Instead: the search results will tell us. If the agent returns DUPLICATE
-    # pointing to a doc whose question matches the case, that's correct.
-    #
-    # For now, just run it and see what the agent decides.
+def evaluate(case, decision, section_sort_orders):
+    """Score one decision against its case's checks and return the result row."""
     print(f"\n{'='*60}")
     print(f"Issue #{case.issue_number}: {case.question[:80]}")
     print(f"Expected: {case.expected_action}")
     print(f"{'='*60}")
 
-    decision = agent.process_proposal(case.question, case.answer)
+    if decision is None:
+        print("  MISSING: no decision returned for this case")
+        return {
+            'issue': case.issue_number,
+            'question': case.question[:80],
+            'description': case.description,
+            'expected_action': case.expected_action,
+            'got_action': 'MISSING',
+            'got_section': '',
+            'got_order': None,
+            'rationale': 'no decision returned',
+            'results': [{'check': 'decision returned', 'passed': False}],
+            'all_passed': False,
+            'tags': case.tags,
+        }
 
     print(f"Got: action={decision.action}, section={decision.section_id}, order={decision.order}")
 
     results = []
 
-    for check in case.checks:
+    checks = list(case.checks)
+
+    # Every case that isn't about the wrong course is a false-positive guard for
+    # WRONG_COURSE: rejecting a valid proposal is worse than misplacing it.
+    if case.expected_action != 'WRONG_COURSE':
+        checks.insert(0, not_wrong_course)
+
+    for check in checks:
         if hasattr(check, '__name__') and 'sort_order' in check.__name__:
             existing = section_sort_orders.get(case.expected_section or decision.section_id, set())
             from faq_automation.evals.cases import no_sort_order_collision
@@ -106,7 +130,52 @@ def run_case(case, agent, existing_ids, section_sort_orders):
     }
 
 
-def run_all(model=DEFAULT_MODEL, issue_number=None):
+def collect_decisions(prepared, model, batch_id=None, output_dir=None):
+    """
+    Send every case as one Batch API job and return decisions in `prepared` order.
+
+    A case whose request failed gets None, so evaluate() can fail it explicitly
+    rather than let a partial run score as a pass. Pass batch_id to re-read an
+    already-submitted job instead of paying for a new one.
+    """
+    client = OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+
+    if output_dir is None:
+        output_dir = Path(tempfile.mkdtemp())
+
+    custom_ids = []
+    for index, (case, _, _) in enumerate(prepared):
+        custom_ids.append(f"case-{index}-issue-{case.issue_number}")
+
+    if batch_id is None:
+        requests = []
+        for custom_id, (case, agent, _) in zip(custom_ids, prepared):
+            messages = agent.build_messages(case.question, case.answer)
+            requests.append(batch.build_request(custom_id, messages, model))
+
+        input_path = output_dir / 'eval_batch_input.jsonl'
+        batch_id = batch.submit(client, requests, input_path)
+        print(f"\nSubmitted batch {batch_id} ({len(requests)} requests)")
+        print(f"  input file: {input_path}")
+        print(f"  resume with: --batch-id {batch_id}")
+    else:
+        print(f"\nReusing batch {batch_id}")
+
+    print("\nWaiting for the batch to finish...")
+    job = batch.poll(client, batch_id)
+
+    if job.status != 'completed':
+        print(f"Error: batch {batch_id} ended as {job.status}", file=sys.stderr)
+
+    by_custom_id = batch.fetch(client, job)
+
+    decisions = []
+    for custom_id in custom_ids:
+        decisions.append(by_custom_id.get(custom_id))
+    return decisions
+
+
+def run_all(model=DEFAULT_MODEL, issue_number=None, batch_id=None):
     cases = CASES
     if issue_number is not None:
         cases = [case for case in CASES if case.issue_number == issue_number]
@@ -153,12 +222,14 @@ def run_all(model=DEFAULT_MODEL, issue_number=None):
                         print(f"  [hidden] removed {f.name} from {course} for eval")
                         break
                 course_dir = tmp_course
-            agents[key] = FAQAgent(course_dir, api_key, model)
+            # questions_dir stays on the repo so the course catalog is the real
+            # one even when course_dir is a temp copy with a doc removed.
+            agents[key] = FAQAgent(course_dir, api_key, model, questions_dir=Path('_questions'))
             section_orders_cache[key] = get_section_sort_orders(course_dir)
             existing_ids_cache[key] = get_existing_doc_ids(course_dir)
         return agents[key], section_orders_cache[key], existing_ids_cache[key]
 
-    all_results = []
+    prepared = []
 
     for case in cases:
         # Hide the relevant doc when we expect NEW (so the agent can't find it)
@@ -166,8 +237,14 @@ def run_all(model=DEFAULT_MODEL, issue_number=None):
         agent, section_orders, existing_ids = get_agent(case.course, remove_doc)
         if agent is None:
             continue
-        result = run_case(case, agent, existing_ids, section_orders)
-        all_results.append(result)
+        prepared.append((case, agent, section_orders))
+
+    decisions = collect_decisions(prepared, model, batch_id=batch_id)
+
+    all_results = []
+
+    for (case, _, section_orders), decision in zip(prepared, decisions):
+        all_results.append(evaluate(case, decision, section_orders))
 
     # Summary
     print(f"\n\n{'='*60}")
@@ -228,7 +305,13 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
     parser.add_argument('--model', default=DEFAULT_MODEL)
     parser.add_argument('--issue', type=int, help='Run only eval cases from this GitHub issue')
+    parser.add_argument('--batch-id',
+                        help='Score an already-submitted batch job instead of submitting a new one')
     args = parser.parse_args()
 
-    success = run_all(model=args.model, issue_number=args.issue)
+    success = run_all(
+        model=args.model,
+        issue_number=args.issue,
+        batch_id=args.batch_id,
+    )
     sys.exit(0 if success else 1)
