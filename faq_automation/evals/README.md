@@ -40,9 +40,9 @@ We don't add every correction as a test case. We select cases that:
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
 | Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 51 | ~2 min | action correctness, section placement, code quality, formatting |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 54 | ~2 min | action correctness, section placement, code quality, formatting |
 
-Current results on `gpt-5.4-nano`: 36/51. Remaining failures are mostly action
+Current results on `gpt-5.4-nano`: 37/54. Remaining failures are mostly action
 decisions (false DUPLICATE on genuinely new proposals), content quality (code
 variables undefined, filename slug), and WRONG_COURSE recall — see below for why
 that last one is deliberately allowed to fail.
@@ -95,7 +95,7 @@ in the note field), rather than copying the FAQ question verbatim.
 
 - MRR@k: mean reciprocal rank of the relevant doc. Higher is better — the
   relevant doc should appear early so the LLM sees it in context.
-  Baseline: MRR@5 = 0.777
+  Baseline: MRR@5 = 0.816
 
 - hit_rate@k: fraction of cases where the relevant doc is anywhere in the
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
@@ -111,10 +111,10 @@ against expected outcomes.
 uv run --project faq_automation python -m faq_automation.evals.runner
 ```
 
-Run only the case or cases originating from one GitHub issue:
+Run only the case or cases with a given `case_id` (see [Case ids](#case-ids)):
 
 ```bash
-uv run --project faq_automation python -m faq_automation.evals.runner --issue 303
+uv run --project faq_automation python -m faq_automation.evals.runner --case 303
 ```
 
 ### Flex and Batch
@@ -281,7 +281,8 @@ section and every course has `general`. A catch-all can plausibly hold anything,
 which silently satisfies "no section fits" and lets a misfiled proposal land there
 instead of being caught — the first version of this prompt dropped the #311 RAG
 question into `misc` for exactly that reason. The rules now tell the model to
-decide as if those sections did not exist.
+decide as if those sections did not exist. See
+[the catch-all section](#catch-all-sections) for what that trap turned out not to be.
 
 ### Tags
 
@@ -302,7 +303,8 @@ Each case is tagged for failure analysis:
 | relevance | 2 | Agent should reject irrelevant proposals |
 | wrong-course | 7 | Student picked the wrong course — agent should close the issue |
 | wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
-| synthetic | 6 | Written by hand rather than taken from a real issue |
+| catch-all | 3 | `misc`/`general` must not swallow placeable entries, but must still take genuinely cross-cutting ones |
+| synthetic | 12 | Written by hand rather than taken from a real issue (negative `case_id`) |
 | update-quality | 1 | UPDATE should not degrade existing content |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
@@ -319,7 +321,7 @@ SearchCase(
     question="...",
     answer="...",
     doc_id="abc1234567",
-    issue_number=123,
+    case_id=123,
     note="reworded",
 )
 ```
@@ -368,7 +370,7 @@ Add an `EvalCase` to `cases.py`:
 ```python
 EvalCase(
     course="llm-zoomcamp",
-    issue_number=123,
+    case_id=123,
     question="...",
     answer="...",
     expected_action="NEW",
@@ -384,6 +386,53 @@ Available check predicates: `action_is`, `section_is`, `suggested_course_is`,
 `has_filename_slug`, `has_trailing_newline`, `content_has_no_bold_headers`,
 `no_sort_order_collision`, `not_wrong_course` (injected automatically).
 
-Use the real issue number whenever a case comes from one, so `--issue N` reaches
-it; several cases may share a number when one issue tests more than one thing.
-Hand-written cases use `issue_number=0` and the `synthetic` tag.
+### Catch-all sections
+
+ML Zoomcamp has a `misc` section ("Miscellaneous") and every course has
+`general`. Both can plausibly hold anything, which makes them worth a specific
+set of cases — tagged `catch-all`.
+
+The obvious worry is that a catch-all becomes a dumping ground the agent drifts
+into. That worry turned out to be **wrong**, and it is worth recording why so
+nobody re-derives it. With `misc` carrying no `comment` at all, the agent still
+placed course logistics in `general` (5/5) and a Waitress/Docker serving error in
+`module-5` (5/5). It was not reaching for `misc` when something else fit. What it
+could not do was use `misc` when `misc` was correct: a "Python 3.13 breaks sklearn"
+question — cross-cutting, owned by no module — went to `module-5` 5 times out of
+5. Adding a comment that scopes `misc` and states plainly that it is not a
+fallback took those three cases from 10/15 to 15/15.
+
+Two things follow:
+
+- **The 40 entries in ML Zoomcamp's `misc` are not evidence of agent drift.** All
+  40 were added by a human in bulk imports; the bot has never filed anything
+  there. Their placement is a content-curation question, not a bug.
+- **The real catch-all failure is the reverse of the intuitive one.** A section
+  with no `comment` is invisible to the agent as a *destination*, because the
+  prompt weights `comment` above retrieval. An undescribed section does not
+  attract entries — it repels them.
+
+The separate trap is `WRONG_COURSE`: a catch-all silently satisfies "no section
+fits", so a misfiled proposal lands there instead of being caught. That one is
+real — the first version of the prompt dropped the #311 RAG question into `misc` —
+and it is handled by telling the model to decide the course question as if
+catch-all sections did not exist. Section placement and the course check ask
+different questions of the same section list.
+
+### Case ids
+
+`case_id` says where a case came from, and its sign says what kind it is:
+
+- **Positive** — the GitHub issue number the proposal was taken from. Several
+  cases may share one number when a single issue tests more than one thing (issue
+  #287 is both a wrong-course case and a transient-content case).
+- **Negative** — synthetic, written by hand, each with its own id. Also tagged
+  `synthetic`.
+
+Both suites use the same convention. Run one case with `--case`, which takes
+either sign — use `=` for negatives so it isn't parsed as a flag:
+
+```bash
+uv run --project faq_automation python -m faq_automation.evals.runner --case 303
+uv run --project faq_automation python -m faq_automation.evals.runner --case=-3
+```

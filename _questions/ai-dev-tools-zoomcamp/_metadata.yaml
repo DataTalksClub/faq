@@ -21,3 +21,4 @@ sections:
     name: "Projects"
   - id: misc
     name: "Miscellaneous"
+    comment: "Cross-cutting tooling issues not owned by any one module: assistant accounts and sign-in, editor setup, general tips that span tools. NOT a fallback for anything that fits nowhere else — course logistics go to 'general', and anything tied to a module's material goes to that module even if no entry there covers it yet."

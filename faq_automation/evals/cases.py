@@ -27,7 +27,10 @@ class EvalCase:
     A single eval case.
 
     course:       course directory under _questions/
-    issue_number: the GitHub issue number this case came from (0 = synthetic)
+    case_id:      identifies where this case came from. Positive = the GitHub issue
+                  number it was taken from (several cases may share one number when
+                  one issue tests more than one thing). Negative = synthetic, written
+                  by hand, each with its own id.
     question:     the proposed FAQ question (as submitted)
     answer:       the proposed FAQ answer (as submitted)
     expected_action: NEW | UPDATE | DUPLICATE | WRONG_COURSE | NOT_WRONG_COURSE
@@ -45,7 +48,7 @@ class EvalCase:
                      so the agent can't trivially find it as a duplicate.
     """
     course: str
-    issue_number: int
+    case_id: int
     question: str
     answer: str
     expected_action: str
@@ -205,7 +208,7 @@ CASES = []
 # Case 1: PR #296 — should be DUPLICATE (existing module-3 Kestra providers entry)
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=295,
+    case_id=295,
     question="How can I configure Kestra to use a different LLM provider instead of Google Gemini?",
     answer="""Kestra supports multiple LLM providers through its AI Provider plugins, so you're not limited to Google Gemini. To use a different provider: choose a supported provider, configure credentials, and update your flow.""",
     expected_action="DUPLICATE",
@@ -219,7 +222,7 @@ CASES.append(EvalCase(
 # course it belongs to, so the transient rule is what's under test here.
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=287,
+    case_id=287,
     question="Should I be concerned that number of documents in FAQ dataset is 1350, not 1208 like in module 02 - vector-search, lesson 04?",
     answer="I suppose that course is not fully updated where it is not crucial but would like to be sure. There are also similar differences in module 01.",
     expected_action="DUPLICATE",
@@ -231,7 +234,7 @@ CASES.append(EvalCase(
 # Case 3: PR #290 — valid NEW, correct section
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=289,
+    case_id=289,
     question="Why do I get IndexError: list index out of range when accessing the best chunk?",
     answer="""This usually happens when the number of embeddings does not match the number of document chunks. Make sure you create embeddings directly from the chunk list.""",
     expected_action="NEW",
@@ -245,7 +248,7 @@ CASES.append(EvalCase(
 # Case 4: PR #292 — valid NEW
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=291,
+    case_id=291,
     question="How do I fix the Docker error 'mounts denied: The path /tmp/... is not shared from the host'?",
     answer="""Add the path to Docker File Sharing: Open Docker Desktop, Settings > Resources > File Sharing, add /tmp, restart.""",
     expected_action="NEW",
@@ -260,7 +263,7 @@ CASES.append(EvalCase(
 # Case 6: Issue #300 — duplicate of existing Kestra secrets entries (closed manually)
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=300,
+    case_id=300,
     question="The provided Kestra flows reference {{ secret('GEMINI_API_KEY') }} but the lesson docs don't spell out where/how to register that secret when running Kestra locally via Docker Compose.",
     answer="""Kestra reads secrets from environment variables prefixed with SECRET_, base64-encoded. So for GEMINI_API_KEY, set export SECRET_GEMINI_API_KEY=$(echo -n "your-real-key" | base64). Add that under the Kestra service environment block, restart the container.""",
     expected_action="DUPLICATE",
@@ -273,7 +276,7 @@ CASES.append(EvalCase(
 # Case 5: PR #271 — should be DUPLICATE or not NEW (asking for project examples)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=270,
+    case_id=270,
     question="Do you have an example of a Data Engineering Zoomcamp final project built on AWS with Airflow, S3, Athena, and a dashboard?",
     answer="""A good AWS-based project would use Airflow for orchestration, S3 for storage, Athena for querying, and a BI tool for dashboards.""",
     expected_action="DUPLICATE",
@@ -289,7 +292,7 @@ CASES.append(EvalCase(
 # Case 6: Issue #199 — merge vs append placed in module-3, should be workshop-1-dlthub
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=198,
+    case_id=198,
     question="When should I use merge instead of append?",
     answer="""Use merge when existing data can be updated. If a record with the same primary key already exists, it will be updated. If it does not exist, it will be inserted. Common use cases: order status updates, user profile changes, CDC-based data processing.""",
     expected_action="NEW",
@@ -303,7 +306,7 @@ CASES.append(EvalCase(
 # Case 7: Issue #201 — rest_api_source vs @dlt.resource placed in general, should be workshop-1-dlthub
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=200,
+    case_id=200,
     question="What is the difference between rest_api_source({...}) and @dlt.resource in dlt, and when should I use each?",
     answer="""Both are official dlt patterns. The main difference is level of control. JSON config (rest_api_source) is declarative. Custom code (@dlt.resource) is programmatic and more flexible.""",
     expected_action="NEW",
@@ -317,7 +320,7 @@ CASES.append(EvalCase(
 # Case 8: Issue #203 — dlt schema evolution placed in module-3, should be workshop-1-dlthub
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=202,
+    case_id=202,
     question="How does dlt handle schema evolution?",
     answer="""dlt automatically detects and adapts to most schema changes during ingestion. If new columns appear, dlt adds them. If columns disappear, they remain. If types change, dlt tries safe coercion.""",
     expected_action="NEW",
@@ -331,7 +334,7 @@ CASES.append(EvalCase(
 # Case 9: Issue #188 — DuckDB lock placed in general, should be module-4 (dbt/DuckDB)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=187,
+    case_id=187,
     question='Why does DuckDB show "IO Error: Could not set lock on file" after pressing Ctrl+Z in Ubuntu, and how can it be fixed?',
     answer="""Pressing Ctrl+Z while running duckdb does not exit — it suspends the process. The DuckDB process continues running in the background and still holds a lock on the database file.""",
     expected_action="NEW",
@@ -345,7 +348,7 @@ CASES.append(EvalCase(
 # Case 10: Issue #205 — Bruin MCP placed in general, should be module-5
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=204,
+    case_id=204,
     question="How do I add the Bruin MCP server to VS Code?",
     answer="""Open the command palette, search for MCP: Add Server, choose Command (stdio), enter 'bruin mcp', name it 'bruin'.""",
     expected_action="NEW",
@@ -359,7 +362,7 @@ CASES.append(EvalCase(
 # Case 11: Issue #189 — Bruin multi-projects placed in general, should be module-5
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=189,
+    case_id=189,
     question="Can I have multiple Bruin projects inside the same Git repository?",
     answer="""Yes, but because bruin init automatically places the .bruin.yml in the Git root, you need to manually relocate the config file and explicitly tell Bruin where it lives.""",
     expected_action="NEW",
@@ -373,7 +376,7 @@ CASES.append(EvalCase(
 # Case 12: Issue #168 — dbt from Kestra, should be module-2 (orchestration)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=167,
+    case_id=167,
     question="Can I run my dbt project from Kestra?",
     answer="""Yes, you can integrate dbt with Kestra to combine dbt's transformation capabilities with Kestra's orchestration, monitoring, and Git integration.""",
     expected_action="NEW",
@@ -387,7 +390,7 @@ CASES.append(EvalCase(
 # Case 13: HW Q2 cosine — should be module-2-homework not module-2-vector-search
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=0,
+    case_id=-1,
     question="In Module 2 Homework Q2, cosine similarity is not in the options and I get a different model — what's wrong?",
     answer="""You may be using the wrong model. The homework expects a specific embedding model.""",
     expected_action="NEW",
@@ -401,7 +404,7 @@ CASES.append(EvalCase(
 # should be module-3 (Kestra orchestration)
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=303,
+    case_id=303,
     question="gemini-2.5-flash (or other model) is not available. What do I do?",
     answer="""Models become deprecated & workflows will produce errors like this:
 
@@ -433,7 +436,7 @@ If this answer is outdated, review documentation for available models.""",
 # Case 14: PR #302 — code with undefined variables
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=301,
+    case_id=301,
     question="How can I get structured output (Pydantic objects) from Gemini via the OpenAI-compatible endpoint when responses.parse isn't available?",
     answer="""Use the OpenAI SDK's chat-completions parsing flow. Example:
 
@@ -453,7 +456,7 @@ result = response.choices[0].message.parsed
 # Case 15: PR #298 — structural headers in content
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=297,
+    case_id=297,
     question="Why does a generic AI assistant generate Kestra flow YAML with properties that don't exist, and how can I avoid it?",
     answer="""A general AI isn't grounded in Kestra's plugin schemas. It may surface plausible but invalid property names. Cross-check against the official plugin docs and use Kestra's AI Copilot.""",
     expected_action="NEW",
@@ -467,7 +470,7 @@ CASES.append(EvalCase(
 # Case 16: PR #294 — verbose/generic content
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=293,
+    case_id=293,
     question="Why is token usage monitored in Kestra workflows?",
     answer="""Token usage tracking helps measure cost and efficiency of LLM-based workflows.""",
     expected_action="NEW",
@@ -481,7 +484,7 @@ CASES.append(EvalCase(
 # Case 17: Issue #202 — content with ## headers (schema evolution)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=202,
+    case_id=202,
     question="How does dlt handle schema evolution?",
     answer="""## What happens when the source schema changes?
 
@@ -502,7 +505,7 @@ dlt uses a schema propagation mechanism that tracks column types.""",
 # Case 18: Issue #194 — None filename slug
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=193,
+    case_id=193,
     question="Why are there unexpected years in lpep_pickup_datetime after loading taxi data into BigQuery?",
     answer="""This usually happens due to a corrupted or incorrect load process. Common causes: CSV schema autodetect misinterpreting timestamp format, or mixing Parquet and CSV loads into the same table.""",
     expected_action="NEW",
@@ -518,7 +521,7 @@ CASES.append(EvalCase(
 # Case 19: PR #275 — OpenRouter 402 error
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=274,
+    case_id=274,
     question="OpenRouter: Error code 402 when calling responses.create (max_output_tokens)",
     answer="""OpenRouter can return APIStatusError with code 402 when responses.create() is called without a max_output_tokens limit. Pass a lower limit: max_output_tokens=1024.""",
     expected_action="NEW",
@@ -532,7 +535,7 @@ CASES.append(EvalCase(
 # Case 20: PR #277 — np.allclose precision
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=276,
+    case_id=276,
     question="Why can np.allclose(scores, scores_loop) return False when comparing the matrix and loop approaches?",
     answer="""Matrix multiplication and element-wise loops can produce slightly different floating-point results due to the order of operations.""",
     expected_action="NEW",
@@ -546,7 +549,7 @@ CASES.append(EvalCase(
 # Case 21: PR #279 — why uv
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=278,
+    case_id=278,
     question="Why use uv package/project manager instead of the more traditional Python tools like pip, venv, and poetry?",
     answer="""uv is a fast Python package manager written in Rust that combines dependency resolution, virtual environment management, and project management.""",
     expected_action="NEW",
@@ -560,7 +563,7 @@ CASES.append(EvalCase(
 # Case 22: PR #263 — Kestra error messages
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=262,
+    case_id=262,
     question="How to fix Python logs shown as Kestra error messages?",
     answer="""Kestra captures stderr output as error logs. Use stdout or configure the logging level.""",
     expected_action="NEW",
@@ -574,7 +577,7 @@ CASES.append(EvalCase(
 # Case 23: PR #257 — Spark with BigQuery
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=256,
+    case_id=256,
     question="How do I use Spark with BigQuery as a data source and sink?",
     answer="""Use the spark-bigquery-connector to read from and write to BigQuery from Spark.""",
     expected_action="NEW",
@@ -588,7 +591,7 @@ CASES.append(EvalCase(
 # Case 24: PR #259 — edit Kestra flows locally
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=258,
+    case_id=258,
     question="How can I edit Kestra flows locally with Docker Compose and keep them version controlled?",
     answer="""Mount your flows directory as a volume in docker-compose.yml so Kestra reads from your local files.""",
     expected_action="NEW",
@@ -606,7 +609,7 @@ CASES.append(EvalCase(
 # Case 25: Provider FAQ — should be UPDATE or DUPLICATE, not degrade content
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=0,
+    case_id=-2,
     question="Do I have to use OpenAI, or can I use a different provider?",
     answer="""You can use any LLM provider — the course isn't tied to OpenAI. Switch to Groq, OpenRouter, DeepSeek, Gemini, or serve locally with Ollama or vLLM.""",
     expected_action="UPDATE",
@@ -618,7 +621,7 @@ CASES.append(EvalCase(
 # Case 26: Issue #197 — dlt MCP server in VS Code
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=196,
+    case_id=196,
     question="How do I add the dlt MCP server in VS Code?",
     answer="""Open the command palette, search for MCP: Add Server, choose Command (stdio), type the dlt-mcp command, set the id to 'dlt'.""",
     expected_action="NEW",
@@ -632,7 +635,7 @@ CASES.append(EvalCase(
 # Case 27: Issue #147 — BigQuery DDL
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=146,
+    case_id=146,
     question="How to obtain the DDL of a table in BigQuery?",
     answer="""Use the INFORMATION_SCHEMA.TABLES view to get the DDL: SELECT ddl FROM project.dataset.INFORMATION_SCHEMA.TABLES WHERE table_name = 'my_table'""",
     expected_action="NEW",
@@ -646,7 +649,7 @@ CASES.append(EvalCase(
 # Case 28: Issue #108 — docker -i vs -t (DE zoomcamp)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=107,
+    case_id=107,
     question="What's the difference between -i and -t in docker run -it?",
     answer="""-i keeps STDIN open even if not attached. -t allocates a pseudo-TTY. Together (-it) they give you an interactive terminal.""",
     expected_action="NEW",
@@ -663,7 +666,7 @@ CASES.append(EvalCase(
 # Case 29: Proposal with bold-only headers that should be prose
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=202,
+    case_id=202,
     question="How does dlt handle schema evolution?",
     answer="""dlt automatically detects and adapts to most schema changes during ingestion.
 
@@ -684,7 +687,7 @@ dlt uses a schema propagation mechanism that tracks column types.""",
 # Case 30: Outdated API reference (chat.completions vs Responses)
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=0,
+    case_id=-3,
     question="How do I call the LLM using the OpenAI API in the course?",
     answer="""Use the OpenAI SDK's chat.completions.create method:
 
@@ -702,7 +705,7 @@ response = client.chat.completions.create(model="gpt-4o", messages=[{"role": "us
 # Case 31: PR #286 — ONNX download hang
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=285,
+    case_id=285,
     question="Why does download.py hang at 0% when downloading model.onnx from Hugging Face?",
     answer="""The download can hang due to network issues or large file size. Use a direct download URL or wget with resume support.""",
     expected_action="NEW",
@@ -716,7 +719,7 @@ CASES.append(EvalCase(
 # Case 32: PR #249 — PyFlink session window (DE streaming)
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=248,
+    case_id=248,
     question="PyFlink session window job fails with 'please declare primary key for sink table' error",
     answer="""The error occurs because the sink table needs a primary key declaration for upsert mode.""",
     expected_action="NEW",
@@ -730,7 +733,7 @@ CASES.append(EvalCase(
 # Case 33: PR #251 — wget CloudFront download
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=250,
+    case_id=250,
     question="Why does wget fail to download the CloudFront parquet file even with --no-check-certificate?",
     answer="""CloudFront may block wget's default user agent. Use a browser user agent.""",
     expected_action="NEW",
@@ -749,7 +752,7 @@ CASES.append(EvalCase(
 # Verify: IndexError vector search entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=289,
+    case_id=289,
     question="Why do I get IndexError: list index out of range when accessing the best chunk?",
     answer="The number of embeddings does not match the number of document chunks.",
     expected_action="DUPLICATE",
@@ -761,7 +764,7 @@ CASES.append(EvalCase(
 # Verify: Bruin MCP entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=204,
+    case_id=204,
     question="How do I add the Bruin MCP server to VS Code?",
     answer="Open command palette, MCP Add Server, choose Command stdio, enter bruin mcp.",
     expected_action="DUPLICATE",
@@ -773,7 +776,7 @@ CASES.append(EvalCase(
 # Verify: DuckDB lock entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=187,
+    case_id=187,
     question="Why does DuckDB show IO Error Could not set lock on file after pressing Ctrl+Z?",
     answer="Pressing Ctrl+Z suspends the process instead of exiting.",
     expected_action="DUPLICATE",
@@ -785,7 +788,7 @@ CASES.append(EvalCase(
 # Verify: OpenRouter 402 entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=274,
+    case_id=274,
     question="OpenRouter Error code 402 when calling responses.create max_output_tokens",
     answer="Pass a lower max_output_tokens limit in your responses.create call.",
     expected_action="DUPLICATE",
@@ -797,7 +800,7 @@ CASES.append(EvalCase(
 # Verify: dlt schema evolution entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=202,
+    case_id=202,
     question="How does dlt handle schema evolution?",
     answer="dlt automatically detects and adapts to most schema changes.",
     expected_action="DUPLICATE",
@@ -814,7 +817,7 @@ CASES.append(EvalCase(
 # Case: Issue #311 — RAG monitoring code filed under ML zoomcamp
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=311,
+    case_id=311,
     question="How do I adapt the RAGWithMetrics class to work with OpenAI-compatible endpoints like Google Gemini?",
     answer="""The course material leverages OpenAI's Responses API (`client.responses.create`), which is not universally implemented by other LLM providers. To use `RAGWithMetrics` with Gemini via its OpenAI-compatible endpoint, switch the internal execution to `chat.completions.create` and adjust the extraction paths: the text moves to `response.choices[0].message.content`, and token usage moves to `usage.prompt_tokens` / `usage.completion_tokens`.""",
     expected_action="WRONG_COURSE",
@@ -826,7 +829,7 @@ CASES.append(EvalCase(
 # Case: Issue #287 — LLM zoomcamp vector search dataset filed under ML zoomcamp
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=287,
+    case_id=287,
     question="Should I be concerned that number of documents in FAQ dataset is 1350, not 1208 like in module 02 - vector-search, lesson 04?",
     answer="I suppose that course is not fully updated where it is not crucial but would like to be sure. There are also similar differences in module 01.",
     expected_action="WRONG_COURSE",
@@ -839,7 +842,7 @@ CASES.append(EvalCase(
 # The same proposal was refiled correctly as issue #150 (data-engineering-zoomcamp).
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=148,
+    case_id=148,
     question="How we can estimate the cost of executed queries within a specified range of time in bigquery, and determine what users and when in time this executions were made.",
     answer="""The metadata table that contains all the history related with query and Jobs executions is called 'JOBS_BY_PROJECT' and we can find it in the path `<your_project_id>.<your_region>.INFORMATION_SCHEMA.JOBS_BY_PROJECT`; the following query must be executed within the bigquery query editor.
 
@@ -864,7 +867,7 @@ ORDER BY estimated_cost_usd DESC
 # The same proposal was refiled correctly as issues #96/#98 (data-engineering-zoomcamp).
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=97,
+    case_id=97,
     question="How do you share a DataFrame across multiple Spark sessions?",
     answer="""Spark provides Global Temporary Views to share DataFrames across different Spark sessions within the same Spark application. Unlike regular temporary views, global temporary views are accessible from any session.
 
@@ -883,7 +886,7 @@ Global temporary views are stored in the `global_temp` database and must be refe
 # Case: Issue #109 — pgAdmin/Postgres Docker setup filed under ML zoomcamp
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=109,
+    case_id=109,
     question="GitHub Codespaces: Running pgadmin in Docker",
     answer="""With the default instructions, running pgAdmin in Docker may result in a blank screen after logging into the pgAdmin console. This is due to session or proxy issues behind Codespaces' reverse proxy. Add `PGADMIN_CONFIG_PROXY_X_HOST_COUNT: 1` and `PGADMIN_CONFIG_PROXY_X_PREFIX_COUNT: 1` to the pgAdmin service environment, then restart the container.""",
     expected_action="WRONG_COURSE",
@@ -895,7 +898,7 @@ CASES.append(EvalCase(
 # Case: synthetic — MLflow model registry filed under DE zoomcamp
 CASES.append(EvalCase(
     course="data-engineering-zoomcamp",
-    issue_number=0,
+    case_id=-4,
     question="How do I promote a model from Staging to Production in the MLflow model registry?",
     answer="""Use the MLflow client to transition the model version stage:
 
@@ -915,13 +918,72 @@ The registry keeps the full version history, so you can roll back by transitioni
 # Case: synthetic — Terraform/GCS bucket filed under LLM zoomcamp
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=0,
+    case_id=-5,
     question="Why does terraform apply fail with 'Error 403: Request violates constraint constraints/gcp.resourceLocations' when creating the GCS bucket?",
     answer="""Your GCP organization policy restricts which regions resources can be created in. Change the `location` in your `google_storage_bucket` resource to an allowed region, or ask your org admin to relax the `gcp.resourceLocations` constraint for your project.""",
     expected_action="WRONG_COURSE",
     description="Terraform GCS bucket — DE zoomcamp module-1 content filed under LLM zoomcamp",
     checks=[action_is("WRONG_COURSE"), suggested_course_is("data-engineering-zoomcamp")],
     tags=["wrong-course", "synthetic"],
+))
+
+# ========================================================================== #
+# GROUP 10: Catch-all sections must not swallow placeable entries
+# ML Zoomcamp's "misc" accumulated 40 entries because it had no comment while
+# every sibling section did — the prompt weights the comment field heavily, so a
+# section named "Miscellaneous" with no stated scope reads as a home for
+# anything. These cases pin the three things misc must do: reject logistics,
+# reject module content, and still accept genuinely cross-cutting tooling.
+# Each source is a real entry currently in misc; the runner hides it so the agent
+# has to place it from scratch. They check the section, not the action — if the
+# agent finds a near-duplicate elsewhere and says DUPLICATE, the section it names
+# is still the thing under test.
+# ========================================================================== #
+
+# Logistics belongs in general, not misc
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=-6,
+    question="I may end up submitting the assignment late. Would it be evaluated?",
+    answer="Depends on whether the form will still be open. If it's open, you can submit your homework and it will be evaluated. If closed, it's too late.",
+    expected_action="NEW",
+    expected_section="general",
+    description="Homework deadline — course logistics, belongs in general. Must not land in misc.",
+    checks=[section_is("general")],
+    tags=["catch-all", "section-placement"],
+    relevant_doc_id="1a78bec215",
+))
+
+# Module material belongs in its module, not misc
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=-7,
+    question="Pickle error: can't get attribute XXX on module __main__",
+    answer="""When running a Docker container with Waitress serving `app.py` for making predictions, you may hit a pickle error: "can't get attribute `<name_of_class>` on module `__main__`". It does not happen when Flask runs directly.
+
+The model uses a custom column transformer class. When it was saved from `python train.py`, pickle recorded the class as `__main__.<custom_class>`, and under Waitress `__main__` is a different module. Move the class into its own importable module and import it in both `train.py` and `app.py` before loading the pickle.""",
+    expected_action="NEW",
+    expected_section="module-5",
+    description="Pickle/Waitress/Docker serving error — module-5 owns Flask + waitress + Docker. Must not land in misc.",
+    checks=[section_is("module-5")],
+    tags=["catch-all", "section-placement"],
+    relevant_doc_id="3e621509d2",
+))
+
+# Genuinely cross-cutting tooling does belong in misc
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=-8,
+    question="Python 3.13 / 3.14 breaks my code (sklearn / numpy / etc.)",
+    answer="""Pin to Python <= 3.12 for now. Python 3.13 introduced free-threaded (no-GIL) builds and 3.14 made significant changes that some ML libraries haven't caught up with.
+
+The course officially recommends Python 3.11. If you've already upgraded, the easiest fix is `uv python install 3.11` (or `pyenv install 3.11`) and pin the project to that version.""",
+    expected_action="NEW",
+    expected_section="misc",
+    description="Python version breaking libraries — spans every module, genuinely belongs in misc.",
+    checks=[section_is("misc")],
+    tags=["catch-all", "section-placement"],
+    relevant_doc_id="4e51151a36",
 ))
 
 # ========================================================================== #
@@ -940,7 +1002,7 @@ CASES.append(EvalCase(
 # Guard: Docker is DE's signature tool but ML zoomcamp deploys with it too
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=0,
+    case_id=-9,
     question="Why does my Docker container exit immediately after running docker run for the churn prediction service?",
     answer="""The container exits when its main process finishes. If your Dockerfile's `CMD` runs a script that returns, there is nothing left to keep the container alive. Serve the model with a long-running process instead, e.g. `CMD ["gunicorn", "--bind", "0.0.0.0:9696", "predict:app"]`.""",
     expected_action="NOT_WRONG_COURSE",
@@ -952,7 +1014,7 @@ CASES.append(EvalCase(
 # Guard: Kestra is DE's signature tool but the LLM course uses it in module-3
 CASES.append(EvalCase(
     course="llm-zoomcamp",
-    issue_number=0,
+    case_id=-10,
     question="How do I pass the output of one Kestra task as input to the next task in the flow?",
     answer="""Reference the upstream task's output with an expression, e.g. `{{ outputs.extract.vars.uri }}`. Kestra only exposes outputs that the task declares, so check the task's output attributes in the plugin documentation.""",
     expected_action="NOT_WRONG_COURSE",
@@ -964,7 +1026,7 @@ CASES.append(EvalCase(
 # Guard: course-agnostic tooling belongs to whichever course it was filed under
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=0,
+    case_id=-11,
     question="How do I add a package to an existing uv project without recreating the virtual environment?",
     answer="""Run `uv add <package>` from the project directory. It resolves the dependency, updates `pyproject.toml` and `uv.lock`, and installs into the existing `.venv`. Use `uv sync` afterwards on other machines to reproduce the same environment.""",
     expected_action="NOT_WRONG_COURSE",
@@ -976,7 +1038,7 @@ CASES.append(EvalCase(
 # Guard: an uncovered topic inside the course is NEW, not WRONG_COURSE
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
-    issue_number=0,
+    case_id=-12,
     question="Why does my ROC AUC score come out below 0.5 on the churn validation set?",
     answer="""An AUC below 0.5 means the model ranks positives below negatives — usually the predicted probabilities are inverted. Check that you pass the probability of the positive class, `y_pred = model.predict_proba(X_val)[:, 1]`, and not column 0.""",
     expected_action="NOT_WRONG_COURSE",

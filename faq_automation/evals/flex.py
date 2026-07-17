@@ -68,7 +68,7 @@ def collect(client, prepared, model, max_workers=MAX_WORKERS):
         try:
             return request(client, messages, model)
         except Exception as e:
-            print(f"  [error] issue #{case.issue_number}: {type(e).__name__}: {e}")
+            print(f"  [error] case {case.case_id}: {type(e).__name__}: {e}")
             return None
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:

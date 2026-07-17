@@ -70,14 +70,14 @@ def get_section_sort_orders(course_dir):
 def evaluate(case, decision, section_sort_orders):
     """Score one decision against its case's checks and return the result row."""
     print(f"\n{'='*60}")
-    print(f"Issue #{case.issue_number}: {case.question[:80]}")
+    print(f"Case {case.case_id}: {case.question[:80]}")
     print(f"Expected: {case.expected_action}")
     print(f"{'='*60}")
 
     if decision is None:
         print("  MISSING: no decision returned for this case")
         return {
-            'issue': case.issue_number,
+            'case': case.case_id,
             'question': case.question[:80],
             'description': case.description,
             'expected_action': case.expected_action,
@@ -119,7 +119,7 @@ def evaluate(case, decision, section_sort_orders):
         results.append({'check': name, 'passed': passed})
 
     return {
-        'issue': case.issue_number,
+        'case': case.case_id,
         'question': case.question[:80],
         'description': case.description,
         'expected_action': case.expected_action,
@@ -148,7 +148,7 @@ def collect_decisions_batch(prepared, model, batch_id=None, output_dir=None):
 
     custom_ids = []
     for index, (case, _, _) in enumerate(prepared):
-        custom_ids.append(f"case-{index}-issue-{case.issue_number}")
+        custom_ids.append(f"case-{index}-issue-{case.case_id}")
 
     if batch_id is None:
         requests = []
@@ -188,18 +188,18 @@ def collect_decisions(prepared, model, use_batch=False, batch_id=None):
     return flex.collect(client, prepared, model)
 
 
-def run_all(model=DEFAULT_MODEL, issue_number=None, use_batch=False, batch_id=None):
+def run_all(model=DEFAULT_MODEL, case_id=None, use_batch=False, batch_id=None):
     cases = CASES
-    if issue_number is not None:
-        cases = [case for case in CASES if case.issue_number == issue_number]
+    if case_id is not None:
+        cases = [case for case in CASES if case.case_id == case_id]
         if not cases:
-            print(f"Error: no eval case found for issue #{issue_number}", file=sys.stderr)
+            print(f"Error: no eval case found with case_id {case_id}", file=sys.stderr)
             return False
 
     print(f"Running FAQ merge agent evals")
     print(f"  model: {model}")
-    if issue_number is not None:
-        print(f"  issue: #{issue_number}")
+    if case_id is not None:
+        print(f"  case:  {case_id}")
     print(f"Total cases: {len(cases)}")
 
     api_key = os.environ.get('OPENAI_API_KEY')
@@ -272,7 +272,7 @@ def run_all(model=DEFAULT_MODEL, issue_number=None, use_batch=False, batch_id=No
         status = "PASS" if r['all_passed'] else "FAIL"
         failed_checks = [x['check'] for x in r['results'] if not x['passed']]
         detail = f" (failed: {', '.join(failed_checks)})" if failed_checks else ""
-        print(f"  [{status}] #{r['issue']}: {r['question'][:55]}{detail}")
+        print(f"  [{status}] #{r["case"]}: {r['question'][:55]}{detail}")
         if not r['all_passed']:
             print(f"         got: action={r['got_action']}, section={r['got_section']}")
 
@@ -317,7 +317,9 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run FAQ merge agent evals')
     parser.add_argument('--model', default=DEFAULT_MODEL)
-    parser.add_argument('--issue', type=int, help='Run only eval cases from this GitHub issue')
+    parser.add_argument('--case', type=int, dest='case_id',
+                        help='Run only cases with this case_id: a positive GitHub issue '
+                             'number, or a negative id for a synthetic case (e.g. --case=-3)')
     parser.add_argument('--batch', action='store_true',
                         help='Submit one Batch API job instead of running on the flex tier. '
                              'Same price, but results can take hours to come back.')
@@ -327,7 +329,7 @@ if __name__ == '__main__':
 
     success = run_all(
         model=args.model,
-        issue_number=args.issue,
+        case_id=args.case_id,
         use_batch=args.batch,
         batch_id=args.batch_id,
     )

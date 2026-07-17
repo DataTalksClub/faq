@@ -76,12 +76,12 @@ def simulate_action(ranked_ids, relevant_ids, k):
 
 
 def run_all(num_results=10, k_values=(1, 3, 5)):
-    cases = [c for c in ALL_CASES if c[2] != 'NONE']
+    cases = [c for c in ALL_CASES if c.answer != 'NONE']
     print(f"Search retrieval eval — {len(cases)} cases\n")
 
     # Load all documents per course
     docs_by_course = {}
-    for course in sorted(set(c[0] for c in cases)):
+    for course in sorted(set(c.course for c in cases)):
         course_dir = Path('_questions') / course
         if not course_dir.exists():
             continue
@@ -112,7 +112,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         ranked = [r.get('document_id', '') for r in raw]
 
         row = {
-            'issue': case.issue_number,
+            'case': case.case_id,
             'course': case.course,
             'query': case.question[:70],
             'relevant_id': case.doc_id,
@@ -130,12 +130,12 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         return
 
     # Per-query detail
-    print(f"\n{'issue':<7} {'course':<14} {'rec@5':<7} {'mrr@5':<7} {'rank':<5} {'query'}")
+    print(f"\n{'case':<7} {'course':<14} {'rec@5':<7} {'mrr@5':<7} {'rank':<5} {'query'}")
     print("-" * 95)
     for r in results:
         rank = r['ranked'].index(r['relevant_id']) + 1 if r['relevant_id'] in r['ranked'] else -1
         note_str = f" [{r['note']}]" if r['note'] else ""
-        print(f"  #{r['issue']:<5} {r['course'][:12]:<14} {r['recall@5']:<7.1f} {r['mrr@5']:<7.3f} {rank:<5} {r['query'][:45]}{note_str}")
+        print(f"  #{r['case']:<5} {r['course'][:12]:<14} {r['recall@5']:<7.1f} {r['mrr@5']:<7.3f} {rank:<5} {r['query'][:45]}{note_str}")
 
     # Aggregate metrics
     print(f"\n{'='*60}")
@@ -162,7 +162,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
     if failures:
         print(f"\nMisses ({len(failures)} — relevant doc not in top-5):")
         for r in failures:
-            print(f"  #{r['issue']} expected={r['relevant_id']} got={r['ranked'][:3]}")
+            print(f"  #{r['case']} expected={r['relevant_id']} got={r['ranked'][:3]}")
 
     total = len(results)
     passed = sum(1 for r in results if r['recall@5'] > 0)

@@ -7,18 +7,22 @@ sections:
     comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, project rules. Technical questions belong in the module sections."
   - id: module-1
     name: "Module 1. Introduction to Machine Learning"
+    comment: "What ML is, ML vs rules, supervised learning, CRISP-DM, model selection, setting up the environment (Python, Codespaces, Anaconda), NumPy and linear algebra basics."
   - id: module-1-homework
     name: "Module 1 Homework"
   - id: module-2
     name: "Module 2. Machine Learning for Regression"
+    comment: "Car price prediction: data preparation, EDA, validation framework, linear regression from scratch and the normal equation, regularization, RMSE."
   - id: module-2-homework
     name: "Module 2 Homework"
   - id: module-3
     name: "Module 3. Machine Learning for Classification"
+    comment: "Churn prediction: logistic regression, feature importance (risk ratio, mutual information, correlation), one-hot encoding, DictVectorizer, scikit-learn basics."
   - id: module-3-homework
     name: "Module 3 Homework"
   - id: module-4
     name: "Module 4. Evaluation Metrics for Classification"
+    comment: "Accuracy, dummy models, confusion table, precision and recall, ROC curves, ROC AUC, cross-validation, and plotting these metrics."
   - id: module-4-homework
     name: "Module 4 Homework"
   - id: module-5
@@ -33,6 +37,7 @@ sections:
     name: "Module 6 Homework"
   - id: projects
     name: "Projects (Midterm and Capstone)"
+    comment: "Midterm and capstone requirements and grading: picking a problem and dataset, what must be in the repo (train.py, README, reproducibility), peer review, and deadlines for project submission."
   - id: module-8
     name: "Module 8. Neural Networks and Deep Learning"
     comment: "TensorFlow / Keras and PyTorch — neural network basics, CNNs, transfer learning"
@@ -41,5 +46,7 @@ sections:
     comment: "AWS Lambda + API Gateway for serving ML/DL models"
   - id: module-10
     name: "Module 10. Kubernetes and TensorFlow Serving"
+    comment: "TensorFlow Serving, gateway/pre-processing services, docker-compose, Kubernetes (kind, kubectl), deploying to EKS, and pushing images to a container registry."
   - id: misc
     name: "Miscellaneous"
+    comment: "Cross-cutting environment and tooling issues that are not owned by any one module: Python/OS/package-manager problems, Colab and Kaggle, notebooks and Jupyter, reading data files, and reproducibility across machines. NOT a fallback for anything that fits nowhere else — course logistics go to 'general', project rules go to 'projects', and anything tied to a module's material goes to that module even if no entry there covers it yet."

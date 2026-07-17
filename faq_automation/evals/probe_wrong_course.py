@@ -78,7 +78,7 @@ def run_probe(model=DEFAULT_MODEL, repeats=5):
             decision = flex.request(client, messages, model)
             return case, decision.action, decision.suggested_course
         except Exception as e:
-            print(f"  [error] issue #{case.issue_number}: {type(e).__name__}: {e}")
+            print(f"  [error] issue #{case.case_id}: {type(e).__name__}: {e}")
             return case, f'ERROR:{type(e).__name__}', None
 
     with ThreadPoolExecutor(max_workers=flex.MAX_WORKERS) as pool:
@@ -86,7 +86,7 @@ def run_probe(model=DEFAULT_MODEL, repeats=5):
 
     by_case = {}
     for case, action, suggested in results:
-        key = (case.issue_number, case.question[:45])
+        key = (case.case_id, case.question[:45])
         if key not in by_case:
             by_case[key] = {'case': case, 'actions': Counter(), 'suggested': Counter()}
         by_case[key]['actions'][action] += 1
@@ -110,7 +110,7 @@ def run_probe(model=DEFAULT_MODEL, repeats=5):
         fires = row['actions']['WRONG_COURSE']
         recall_hits += fires
         recall_total += repeats
-        print(f"  #{case.issue_number:<4} {fires}/{repeats} WRONG_COURSE  "
+        print(f"  #{case.case_id:<4} {fires}/{repeats} WRONG_COURSE  "
               f"{dict(row['actions'])} sugg={dict(row['suggested'])}")
         print(f"        {case.question[:70]}")
 

@@ -2,7 +2,7 @@
 Ground-truth dataset for search/retrieval eval.
 
 Each case is a SearchCase dataclass with fields: course, question, answer, doc_id,
-issue_number, note.
+case_id, note.
 
 How the data was collected:
 
@@ -11,7 +11,7 @@ How the data was collected:
 2. For each issue, extracted the question and answer from the body:
    `gh issue view <N> --json body` then parse ### Question and ### Answer sections
 3. Traced the issue to its PR to find the doc_id of the FAQ entry it became:
-   `gh pr list --state all --search <issue_number>` then extract the file's
+   `gh pr list --state all --search <case_id>` then extract the file's
    frontmatter id
 4. Synthetic edge cases added for vague queries, cross-module confusion, exact
    errors, paraphrases, and negative cases.
@@ -29,7 +29,7 @@ class SearchCase:
     question: str         # the issue question (reworded for some cases)
     answer: str           # proposed answer from the issue body (### Answer section)
     doc_id: str           # 10-char id from the FAQ entry's frontmatter
-    issue_number: int     # GitHub issue number (0 = synthetic)
+    case_id: int          # positive = GitHub issue number; negative = synthetic
     note: str = ""        # optional note (e.g. "reworded", edge case description)
 
 
@@ -85,25 +85,25 @@ REAL_CASES = [
     SearchCase('machine-learning-zoomcamp', 'TypeError while creating OneHotEncoder object', 'If you get Type Error when categorical values are oneHotEncoded using sparse as parameter, as below then here is the reason  TypeError Traceback (most recent call last) Cell In[60], line 4 2 scaler = StandardScaler() 3 X_train_num = scaler.fit_transform(X_train_num) ----> 4 ohe = OneHotEncoder(spars', '548dcc8a3c', 23, ''),
 ]
 
-# Synthetic edge cases: (course, question, answer, doc_id, issue_number, note)
+# Synthetic edge cases: (course, question, answer, doc_id, case_id, note)
 # answer is empty for synthetic cases
 SYNTHETIC_CASES = [
-    SearchCase('llm-zoomcamp', 'It crashes when I try to search', '', '1a7b27c4df', 0, 'vague: IndexError search crash'),
-    SearchCase('llm-zoomcamp', 'the download just hangs', '', '29b69fbe0b', 0, 'vague: ONNX hang'),
-    SearchCase('llm-zoomcamp', 'getting a 402 error', '', 'cfb07a27d5', 0, 'vague: OpenRouter 402'),
-    SearchCase('data-engineering-zoomcamp', "docker compose won't start", '', '30dcc71db8', 0, 'vague: Docker volume backup'),
-    SearchCase('data-engineering-zoomcamp', 'my data is wrong after loading', '', '52e74f0053', 0, 'vague: BigQuery unexpected years'),
-    SearchCase('data-engineering-zoomcamp', 'DuckDB connection error in dbt', '', 'd07a9a8ff9', 0, 'cross-module: DuckDB in dbt context'),
-    SearchCase('data-engineering-zoomcamp', 'Kestra Docker volume not working', '', 'e14f6a8ed9', 0, 'cross-module: Kestra+Docker'),
-    SearchCase('llm-zoomcamp', 'IndexError: list index out of range', '', '1a7b27c4df', 0, 'exact error message'),
-    SearchCase('data-engineering-zoomcamp', 'IO Error: Could not set lock on file', '', 'd07a9a8ff9', 0, 'exact error message'),
-    SearchCase('llm-zoomcamp', 'APIStatusError: Error code: 402', '', 'cfb07a27d5', 0, 'exact error message'),
-    SearchCase('llm-zoomcamp', "Module 2 homework vector search results don't match", '', 'e889793af9', 0, 'homework context'),
-    SearchCase('data-engineering-zoomcamp', "homework 6 Spark record counts don't match", '', '4d5aa45b03', 0, 'homework context'),
-    SearchCase('llm-zoomcamp', 'What is the meaning of life?', '', 'NONE', 0, 'negative: should return no strong match'),
-    SearchCase('data-engineering-zoomcamp', 'How to get the table creation SQL from BigQuery', '', '7df3102580', 0, 'paraphrased: DDL query'),
-    SearchCase('data-engineering-zoomcamp', 'Running dbt transformations inside Kestra orchestrator', '', 'e14f6a8ed9', 0, 'paraphrased: dbt+Kestra'),
-    SearchCase('llm-zoomcamp', 'Parse JSON response into Python objects with Gemini', '', '341f71f28c', 0, 'paraphrased: structured output'),
+    SearchCase('llm-zoomcamp', 'It crashes when I try to search', '', '1a7b27c4df', -1, 'vague: IndexError search crash'),
+    SearchCase('llm-zoomcamp', 'the download just hangs', '', '29b69fbe0b', -2, 'vague: ONNX hang'),
+    SearchCase('llm-zoomcamp', 'getting a 402 error', '', 'cfb07a27d5', -3, 'vague: OpenRouter 402'),
+    SearchCase('data-engineering-zoomcamp', "docker compose won't start", '', '30dcc71db8', -4, 'vague: Docker volume backup'),
+    SearchCase('data-engineering-zoomcamp', 'my data is wrong after loading', '', '52e74f0053', -5, 'vague: BigQuery unexpected years'),
+    SearchCase('data-engineering-zoomcamp', 'DuckDB connection error in dbt', '', 'd07a9a8ff9', -6, 'cross-module: DuckDB in dbt context'),
+    SearchCase('data-engineering-zoomcamp', 'Kestra Docker volume not working', '', 'e14f6a8ed9', -7, 'cross-module: Kestra+Docker'),
+    SearchCase('llm-zoomcamp', 'IndexError: list index out of range', '', '1a7b27c4df', -8, 'exact error message'),
+    SearchCase('data-engineering-zoomcamp', 'IO Error: Could not set lock on file', '', 'd07a9a8ff9', -9, 'exact error message'),
+    SearchCase('llm-zoomcamp', 'APIStatusError: Error code: 402', '', 'cfb07a27d5', -10, 'exact error message'),
+    SearchCase('llm-zoomcamp', "Module 2 homework vector search results don't match", '', 'e889793af9', -11, 'homework context'),
+    SearchCase('data-engineering-zoomcamp', "homework 6 Spark record counts don't match", '', '4d5aa45b03', -12, 'homework context'),
+    SearchCase('llm-zoomcamp', 'What is the meaning of life?', '', 'NONE', -13, 'negative: should return no strong match'),
+    SearchCase('data-engineering-zoomcamp', 'How to get the table creation SQL from BigQuery', '', '7df3102580', -14, 'paraphrased: DDL query'),
+    SearchCase('data-engineering-zoomcamp', 'Running dbt transformations inside Kestra orchestrator', '', 'e14f6a8ed9', -15, 'paraphrased: dbt+Kestra'),
+    SearchCase('llm-zoomcamp', 'Parse JSON response into Python objects with Gemini', '', '341f71f28c', -16, 'paraphrased: structured output'),
     SearchCase('llm-zoomcamp', 'How to set GEMINI_API_KEY secret for the Kestra flows in Module 3 homework?', '', '3860e5fe8b', 300, 'duplicate: Kestra secrets, two relevant docs'),
     SearchCase('llm-zoomcamp', 'Kestra flow fails with missing GEMINI_API_KEY secret using docker compose', '', 'c8ca21af33', 300, 'duplicate: Kestra base64 secret, second relevant doc'),
 ]
