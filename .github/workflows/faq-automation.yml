@@ -48,11 +48,12 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          # Run FAQ automation CLI with full issue body
+          # Run FAQ automation CLI with full issue body.
+          # No --model: the default in rag_agent.py is the single source of truth,
+          # so production and the evals cannot drift apart. See docs/model-choice.md.
           uv run --project faq_automation python -m faq_automation.cli \
             --issue-body "$(cat /tmp/issue_body.txt)" \
             --issue-number ${{ github.event.issue.number }} \
-            --model "gpt-5-nano" \
             --output-dir /tmp
 
           # Write decision output to GitHub Actions

@@ -30,7 +30,11 @@ class EvalCase:
     issue_number: the GitHub issue number this case came from (0 = synthetic)
     question:     the proposed FAQ question (as submitted)
     answer:       the proposed FAQ answer (as submitted)
-    expected_action: NEW | UPDATE | DUPLICATE | WRONG_COURSE
+    expected_action: NEW | UPDATE | DUPLICATE | WRONG_COURSE | NOT_WRONG_COURSE
+                  NOT_WRONG_COURSE means only "must not be rejected as the wrong
+                  course" — any of the other three actions passes. Use it when the
+                  proposal legitimately brushes against existing entries, so which
+                  of NEW/UPDATE/DUPLICATE a model picks is not what's under test.
     expected_section: the section_id the entry should land in (for NEW/UPDATE)
     description:  short human-readable description of what this case tests
     checks:       list of (name, predicate) pairs. The predicate receives the
@@ -925,6 +929,12 @@ CASES.append(EvalCase(
 # Near misses that must NOT be rejected as wrong course. Every case outside
 # this group is also an implicit guard — the runner fails any case that
 # unexpectedly returns WRONG_COURSE.
+#
+# These assert only that the proposal is not rejected, via the not_wrong_course
+# check the runner injects. They deliberately do NOT assert NEW: each question
+# brushes against existing entries (ML Zoomcamp already covers AUC varying
+# between runs, and uv.lock vs pyproject.toml), so UPDATE and DUPLICATE are both
+# defensible and which one a model picks is not what these cases are testing.
 # ========================================================================== #
 
 # Guard: Docker is DE's signature tool but ML zoomcamp deploys with it too
@@ -933,9 +943,9 @@ CASES.append(EvalCase(
     issue_number=0,
     question="Why does my Docker container exit immediately after running docker run for the churn prediction service?",
     answer="""The container exits when its main process finishes. If your Dockerfile's `CMD` runs a script that returns, there is nothing left to keep the container alive. Serve the model with a long-running process instead, e.g. `CMD ["gunicorn", "--bind", "0.0.0.0:9696", "predict:app"]`.""",
-    expected_action="NEW",
+    expected_action="NOT_WRONG_COURSE",
     description="Docker container exits — shared tool, but ML zoomcamp owns model deployment. Must not be WRONG_COURSE.",
-    checks=[action_is("NEW")],
+    checks=[],
     tags=["wrong-course-guard", "synthetic"],
 ))
 
@@ -945,9 +955,9 @@ CASES.append(EvalCase(
     issue_number=0,
     question="How do I pass the output of one Kestra task as input to the next task in the flow?",
     answer="""Reference the upstream task's output with an expression, e.g. `{{ outputs.extract.vars.uri }}`. Kestra only exposes outputs that the task declares, so check the task's output attributes in the plugin documentation.""",
-    expected_action="NEW",
+    expected_action="NOT_WRONG_COURSE",
     description="Kestra task outputs — shared tool, but LLM zoomcamp module-3 covers Kestra. Must not be WRONG_COURSE.",
-    checks=[action_is("NEW")],
+    checks=[],
     tags=["wrong-course-guard", "synthetic"],
 ))
 
@@ -957,9 +967,9 @@ CASES.append(EvalCase(
     issue_number=0,
     question="How do I add a package to an existing uv project without recreating the virtual environment?",
     answer="""Run `uv add <package>` from the project directory. It resolves the dependency, updates `pyproject.toml` and `uv.lock`, and installs into the existing `.venv`. Use `uv sync` afterwards on other machines to reproduce the same environment.""",
-    expected_action="NEW",
+    expected_action="NOT_WRONG_COURSE",
     description="uv package management — course-agnostic tooling. Must not be WRONG_COURSE.",
-    checks=[action_is("NEW")],
+    checks=[],
     tags=["wrong-course-guard", "synthetic"],
 ))
 
@@ -969,8 +979,8 @@ CASES.append(EvalCase(
     issue_number=0,
     question="Why does my ROC AUC score come out below 0.5 on the churn validation set?",
     answer="""An AUC below 0.5 means the model ranks positives below negatives — usually the predicted probabilities are inverted. Check that you pass the probability of the positive class, `y_pred = model.predict_proba(X_val)[:, 1]`, and not column 0.""",
-    expected_action="NEW",
+    expected_action="NOT_WRONG_COURSE",
     description="ROC AUC below 0.5 — squarely ML zoomcamp classification. Must not be WRONG_COURSE.",
-    checks=[action_is("NEW")],
+    checks=[],
     tags=["wrong-course-guard", "synthetic"],
 ))

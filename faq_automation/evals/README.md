@@ -42,10 +42,14 @@ We don't add every correction as a test case. We select cases that:
 | Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
 | RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 51 | ~2 min | action correctness, section placement, code quality, formatting |
 
-Current results on `gpt-5-nano`: 35/51 (69%). Remaining failures are mostly
-action decisions (false DUPLICATE on genuinely new proposals), content quality
-(code variables undefined, filename slug), and WRONG_COURSE recall — see below
-for why that last one is deliberately allowed to fail.
+Current results on `gpt-5.4-nano`: 36/51. Remaining failures are mostly action
+decisions (false DUPLICATE on genuinely new proposals), content quality (code
+variables undefined, filename slug), and WRONG_COURSE recall — see below for why
+that last one is deliberately allowed to fail.
+
+The suite total is a weak signal: three candidate models scored within one case
+of each other, and a single run is noisy enough that the gap means nothing. The
+model was picked on failure cost instead — see [docs/model-choice.md](../../docs/model-choice.md).
 
 ## Search eval (`run_search_eval.py`)
 
@@ -200,31 +204,77 @@ recall is a nice-to-have. The eval is deliberately lopsided about this:
   comes back WRONG_COURSE fails. That makes the whole suite the false-positive
   budget, not just the cases written for it.
 
-Where it stands on `gpt-5-nano`:
+Where it stands on `gpt-5.4-nano`, the production model:
 
 | | Result |
 |---|---|
-| False positives | 0 of 44 non-wrong-course cases |
-| Recall | 2 of 7 wrong-course cases |
+| False positives | 0 of 44 non-wrong-course cases (single suite run) |
+| Recall | 1 of 7 wrong-course cases (single suite run) |
+
+Every model measured holds the false-positive count at zero; they differ only in
+recall and in what they do on the other 44 cases. `gpt-5.4-nano` sits at the low
+end of recall on purpose — [docs/model-choice.md](../../docs/model-choice.md) has
+the comparison and the reasoning.
 
 That recall is low on purpose and is fine to ship. The rules demand positive
 evidence of another course and tell the model to prefer NEW/UPDATE/DUPLICATE when
-unsure, so a borderline call lands on "file it" rather than "close it". The five
-misses become PRs that a human closes, which is exactly what happened before this
-action existed — the bot is no worse than the status quo on them. The zero is the
-number that has to hold.
+unsure, so a borderline call lands on "file it" rather than "close it". The misses
+become PRs that a human closes, which is exactly what happened before this action
+existed — the bot is no worse than the status quo on them. The zero is the number
+that has to hold.
 
-Two caveats for whoever tunes this next:
+Do not chase recall by softening the "when unsure, prefer NEW" hedge or by
+dropping the demand for positive evidence. Those are what buy the zero. If recall
+ever needs to be better, a stronger model for this decision is the safer lever
+than a more aggressive prompt.
 
-- The zero is one run, not a proof. The model is genuinely non-deterministic near
-  the boundary — issue #311 flipped between NEW and WRONG_COURSE across repeats of
-  an identical prompt. The same flakiness that costs recall could produce a false
-  positive on a case that has passed before, so re-run the suite after any prompt
-  change rather than trusting a previous green.
-- Do not chase recall by softening the "when unsure, prefer NEW" hedge or by
-  dropping the demand for positive evidence. Those are what buy the zero. If recall
-  ever needs to be better, a stronger model for this decision is the safer lever
-  than a more aggressive prompt.
+#### The decision is not stable
+
+A single run understates how much this moves. Re-running the wrong-course and
+guard cases 5x each against an identical prompt on `gpt-5-nano` — the model this
+project used before `gpt-5.4-nano`, kept here because it is the clearest
+illustration of the instability, which has not gone away:
+
+| Case | Fires | |
+|---|---|---|
+| #148 BigQuery query costs | 4/5 | flips |
+| MLflow model registry (synthetic) | 4/5 | flips |
+| #97 Spark global temp views | 3/5 | flips |
+| #311 RAGWithMetrics | 1/5 | flips |
+| Terraform GCS bucket (synthetic) | 1/5 | flips |
+| #287 FAQ dataset doc counts | 0/5 | never fires |
+| #109 pgAdmin in Codespaces | 0/5 | never fires |
+| **Recall** | **13/35** | |
+| **False positives** | **0/20** | |
+
+Five of seven wrong-course cases flip between NEW and WRONG_COURSE on identical
+input, so any single case's result is a coin toss, not a fact. The guards flip
+too — the `uv` case returned DUPLICATE twice, NEW twice, and UPDATE once — but
+never into WRONG_COURSE. Across the suite run and this probe the false-positive
+count is 0/64 observations, which is the evidence the release gate rests on. It
+is still a bounded sample, not a proof: re-run after any prompt change rather
+than trusting a previous green, and treat a single passing run of a wrong-course
+case as noise.
+
+What predicts recall is whether the entry names a tool owned by exactly one
+course. BigQuery, MLflow, and Spark fire reliably. #311 is mostly generic OpenAI
+API mechanics (`chat.completions` vs `responses`) with RAG incidental to it, and
+#287 names no tool at all — both read as "unfamiliar", which the rules correctly
+send to NEW. #109 never fires because the rules explicitly forbid firing on
+Docker and Codespaces, which is most of that entry; the pgAdmin signal that would
+identify it never gets weighed. That is the "prefer NEW when unsure" hedge doing
+its job, and the cost of the zero.
+
+Reproduce with the probe used to produce this table, on any model:
+
+```bash
+uv run --project faq_automation python -m faq_automation.evals.probe_wrong_course gpt-5.4-nano 5
+```
+
+Model choice moves these numbers more than prompt tuning has: `gpt-5.6-luna`
+reaches 27/35 recall with 5 of 7 cases fully deterministic, still at 0/20 false
+positives, but was not adopted for reasons that have nothing to do with this
+table. See [docs/model-choice.md](../../docs/model-choice.md).
 
 Catch-all sections are a trap worth knowing about: ML Zoomcamp has a `misc`
 section and every course has `general`. A catch-all can plausibly hold anything,

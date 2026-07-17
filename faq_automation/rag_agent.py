@@ -19,7 +19,8 @@ from .core import read_questions, read_metadata, read_course_catalog, keep_relev
 
 # Single source of truth for the model used by both automation and evals.
 # Override per-run with the FAQ_MODEL environment variable.
-DEFAULT_MODEL = os.environ.get("FAQ_MODEL", "gpt-5-nano")
+# See docs/model-choice.md for why this model and what it trades away.
+DEFAULT_MODEL = os.environ.get("FAQ_MODEL", "gpt-5.4-nano")
 
 
 # Prompt templates
