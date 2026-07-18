@@ -1,67 +1,36 @@
 ---
 id: 0224d980b3
-question: 'toyaikit: how do I use it with a non-OpenAI provider (e.g. Groq 404 error)
-  or with Anthropic instead of OpenAI?'
+question: 'Groq vs OpenAI: starter.py crashes for missing `OPENAI_API_KEY`, and Groq
+  404 / `responses.create` errors / tool-calling failures'
 sort_order: 5
 ---
 
-If you get a `404` (or similar) when using toyaikit with Groq or another non-OpenAI provider, it's because `OpenAIResponsesRunner` / `OpenAIClient` call OpenAI's Responses endpoint (`responses.create`), which only OpenAI implements. Switch to the **chat completions** classes, which use the standard `chat.completions.create` endpoint that Groq and other OpenAI-compatible providers support.
+If you’re using Groq (or another provider) but your code still crashes with OpenAI-related errors, it’s usually one of these issues:
 
-### OpenAI or Groq (chat completions)
+1) `starter.py` crashes with missing credentials even though you’re using Groq
+- In many course codebases, `starter.py` contains a `demo`/`__main__` block that instantiates `client = OpenAI()`.
+- If you `import starter` (e.g., `from starter import index`) Python executes the file top-to-bottom, including that `OpenAI()` construction line.
+- Fix: add a placeholder value in your `.env` so construction doesn’t fail at import time:
 
-```python
-import os
-from openai import OpenAI
-from toyaikit.tools import Tools
-from toyaikit.llm import OpenAIChatCompletionsClient
-from toyaikit.chat.runners import OpenAIChatCompletionsRunner
-
-tools = Tools()
-tools.add_tools(my_tools_object)   # functions need type hints + an Args: docstring
-
-# OpenAI:
-llm_client = OpenAIChatCompletionsClient(model="gpt-4o-mini", client=OpenAI())
-
-# Groq (same runner, just point the OpenAI client at Groq's base URL):
-groq_client = OpenAI(
-    api_key=os.getenv("GROQ_API_KEY"),
-    base_url="https://api.groq.com/openai/v1",
-)
-llm_client = OpenAIChatCompletionsClient(model="llama-3.3-70b-versatile", client=groq_client)
-
-runner = OpenAIChatCompletionsRunner(
-    tools=tools,
-    developer_prompt="You are a helpful assistant.",
-    llm_client=llm_client,
-)
-result = runner.loop(prompt="What's the weather in Berlin?")
-print(result.last_message)
+```dotenv
+OPENAI_API_KEY=not-needed-using-groq-instead
 ```
 
-### Anthropic
+It doesn’t need to be a real key if you never actually call the OpenAI client.
 
-```python
-from toyaikit.tools import Tools
-from toyaikit.llm import AnthropicClient
-from toyaikit.chat.runners import AnthropicMessagesRunner
+2) Groq `404` / “model does not exist”
+- Ensure you’re using a valid Groq model id for that provider. The same model name you used for OpenAI may not exist on Groq.
 
-tools = Tools()
-tools.add_tools(my_tools_object)
+3) `responses.create` / OpenAI Responses API doesn’t work on Groq
+- `client.responses.create(...)` and the OpenAI “Responses API” are OpenAI-specific. Groq (and other non-OpenAI providers) may not implement it.
+- For Groq, use the older chat-completions API (e.g. `chat.completions.create`) instead.
+- Also adjust how you read the response:
+  - Prefer `response.choices[0].message.content`
+  - Rather than OpenAI Responses fields like `response.output_text` (or `response.output` patterns).
 
-# Reads ANTHROPIC_API_KEY from the environment automatically:
-llm_client = AnthropicClient(model="claude-haiku-4-5")
+4) Tool-calling/tool execution errors when switching providers
+- If the agent/framework expects a specific tool schema or response shape from the OpenAI Responses API, you may need to override/adapt your `llm()` (and any `rag()` wrapper) so the provider’s response is converted into the shape the rest of the pipeline expects.
 
-runner = AnthropicMessagesRunner(
-    tools=tools,
-    developer_prompt="You are a helpful assistant.",
-    llm_client=llm_client,
-)
-result = runner.loop(prompt="What's the weather in Berlin?")
-print(result.last_message)
-```
-
-Notes:
-
-- `runner.loop(prompt=...)` runs one turn programmatically and returns a result with `.last_message`, `.all_messages`, and `.tokens` — no chat interface needed. Use `runner.run()` only for the interactive Jupyter loop.
-- Pass an explicit, current model id. For Anthropic, `claude-haiku-4-5` / `claude-sonnet-4-5` work; an outdated id can 404.
-- For Groq you'll see a harmless `UnknownModelWarning: No pricing data...` — the call still succeeds, only cost calculation is skipped.
+5) “Rate limit / request too large” retries won’t help if a single request exceeds your limit
+- If the error says the *first request* already exceeds the cap (e.g., `Limit 8000, Requested 8581`) then waiting/retrying won’t fix it.
+- Reduce prompt/context size per call, e.g. reduce retrieved context by lowering `num_results` (e.g., from 5 to 2) so the assembled input fits within the provider’s per-request/token limits.
