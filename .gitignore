@@ -5,6 +5,5 @@ __pycache__
 .tmp/
 .envrc
 .ipynb_checkpoints/
-CLAUDE.md
 *.egg-info/
 build
