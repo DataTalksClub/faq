@@ -2,7 +2,7 @@
 id: 702399225b
 question: Why does my execution script freeze or crash with `RecursionError` when
   initializing OpenTelemetry with `ConsoleSpanExporter` in Module 5?
-sort_order: 9
+sort_order: 2
 ---
 
 Upgrade OpenTelemetry first. Older releases did not support Python 3.14, while
