@@ -16,4 +16,4 @@ Skills live in `.claude/skills/` and codify repeatable workflows for this repo:
   and add eval coverage only for meaningful agent regressions.
 - **slack-faq-fetch** (`.claude/skills/slack-faq-fetch/SKILL.md`) — Pull recent Slack
   channel discussions for a course into a review export to find missing FAQ entries.
-  Run log lives in `.claude/slack-fetch-log.md`.
+  Last-fetch dates live in `.claude/slack-fetch-log.md`.

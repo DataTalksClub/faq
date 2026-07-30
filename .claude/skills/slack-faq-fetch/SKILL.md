@@ -1,6 +1,6 @@
 ---
 name: slack-faq-fetch
-description: Pull recent Slack channel discussions for a course (e.g. LLM Zoomcamp, Data Engineering Zoomcamp) into a review export to find missing FAQ entries. Determines the lookback window from the run log / git history, runs the fetcher, logs the run, and points to the export for review. Use when the user wants to fetch Slack questions, refresh FAQ content from Slack, or check what's missing for a course.
+description: Pull recent Slack channel discussions for a course (e.g. LLM Zoomcamp, Data Engineering Zoomcamp) into a review export to find missing FAQ entries. Determines the lookback window from the last-fetch date or git history, runs the fetcher, updates the date, and points to the export for review. Use when the user wants to fetch Slack questions, refresh FAQ content from Slack, or check what's missing for a course.
 ---
 
 # Slack FAQ Fetch
@@ -18,7 +18,7 @@ The tool only takes a **relative** window (`--days N`, lookback from *now*), so 
 ### 1. Pick the course(s) and the lookback window
 
 - Course = a directory under `_questions/` (e.g. `llm-zoomcamp`, `data-engineering-zoomcamp`). Default: `llm-zoomcamp`.
-- Find the **last run date** for that course in `.claude/slack-fetch-log.md` (the most recent row's `date` for that course).
+- Find the course's **last fetch date** in `.claude/slack-fetch-log.md`.
   - If the course has no row yet, fall back to git: `git log -1 --date=short --pretty=%ad -- _questions/<course>/`.
 - Compute `days = today − last_run`, rounded up, **plus ~1 day** so windows overlap (overlap is harmless; a gap silently drops messages).
 - Get today's date with `date -u +%F`.
@@ -42,13 +42,15 @@ Flags worth knowing:
 
 Note the printed message count and the `.tmp/slack-<course>-...-<stamp>.md` path.
 
-### 3. Log the run
+### 3. Record the fetch date
 
-Append one row to the **Run history** table in `.claude/slack-fetch-log.md`:
+Update the course's row in `.claude/slack-fetch-log.md`:
 
-`| <date UTC> | <course> | <days> | <limit> | <messages> | <export path> | <short note> |`
+`| <course> | <last fetch date UTC> |`
 
-Use today's UTC date. Committing the log is what keeps the window chain intact.
+Keep one row per course and use today's UTC date. Do not record message counts,
+export paths, findings, or historical runs. Committing the date keeps the next
+fetch window accurate.
 
 ### 4. Review the export and find missing FAQs
 
@@ -65,6 +67,9 @@ For each candidate, check it isn't already covered:
 grep -ri "<keyword>" _questions/<course>/
 ```
 
+- If an existing FAQ fully covers the question, discard the candidate. Do not
+  add a finding that says another entry already covers it.
+
 Keep candidates granular:
 
 - Extract one independently answerable question per candidate.
@@ -76,12 +81,13 @@ Keep candidates granular:
   answers.
 - Present and resolve candidates one at a time.
 
-Add any question that is **real, answerable, and not already covered** by an existing FAQ — it does **not** need to recur. A single good question is worth an FAQ if the answer can be reused the next time someone asks. Search first with `grep -ri "<keyword>" _questions/<course>/` to avoid duplicating an existing entry. When adding a new FAQ, follow the repo conventions:
+Add any question that is **real, answerable, and not already covered** by an existing FAQ — it does **not** need to recur. A single good question is worth an FAQ if the answer can be reused the next time someone asks. When adding a new FAQ, follow the repo conventions:
 - File at `_questions/<course>/<section>/<NNN>_<docid>_<slug>.md` where `NNN` = next `sort_order` (highest in the section + 1) and `<docid>` is a fresh 10-char id.
 - Frontmatter: `question`, `id`, `sort_order` (and any existing keys in that section's files). Section id/name/comment come from `_questions/<course>/_metadata.yaml`.
 
 ## Notes
 
-- Exports live in `.tmp/` (gitignored) — **only the log is committed**, not the message dumps.
+- Exports live in `.tmp/` (gitignored) — **only the fetch dates are committed**,
+  not the message dumps.
 - If the token is missing the run prints `Error: SLACK_BOT_TOKEN is not set`. The bot needs `channels:read` + `channels:history` for public channels, or `groups:read` + `groups:history` (and `--include-private`) for private ones.
 - This repo commits straight to `main` (no PRs).
