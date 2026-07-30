@@ -41,14 +41,14 @@ Most recent at the top. `date` is UTC run date.
 ## Findings / follow-ups
 
 - **LLM Zoomcamp — minimum project dataset size (2026-07-17):** the rubric sets no
-  minimum size. This is a granular FAQ candidate.
+  minimum size. Added as `project/017_f0439b5faf_minimum-dataset-size.md`.
 - **LLM Zoomcamp — static or self-created project data (2026-07-16→07-17):** a
   project dataset does not need to come from a live API; a static file or self-created
-  dataset is allowed when the ingestion is reproducible. This is a separate granular
-  FAQ candidate.
+  dataset is allowed when the ingestion is reproducible. Added as
+  `project/018_2cf500aae6_does-project-data-need-live-api.md`.
 - **LLM Zoomcamp — non-English project data (2026-07-24):** non-English data and
-  responses are allowed when the README and documentation are in English. This is a
-  separate granular FAQ candidate.
+  responses are allowed when the README and documentation are in English. Added as
+  `project/019_5ffe92bb02_non-english-project-dataset.md`.
 - **LLM Zoomcamp — already covered or resolved (2026-07-30 review):** repeated project
   attempt and peer-review questions match existing project FAQs; differing module-4
   retrieval metrics match the FAQ explaining that the live dataset changes over time;
