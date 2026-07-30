@@ -25,6 +25,7 @@ print(json.dumps(response.model_dump(), indent=2))
 ```
 
 Then search the printed output for the fields you care about, such as:
+
 - tool/function calling results (often under names like `tool_calls`, `tools`, or provider-specific structures)
 - token usage (often under `usage`, with subfields like `prompt_tokens`, `completion_tokens`, `total_tokens`)
 - the actual generated text (often under `choices` / `message` / `content` or provider-specific equivalents)
