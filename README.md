@@ -139,8 +139,9 @@ PRs, and go looking for questions the FAQ is missing. Those jobs live in
 - `add-faq-record` adds or updates a single entry from a question, a chat thread,
   or a screenshot, and pushes back when unclear course material caused the
   confusion, because fixing that material beats writing an FAQ around it.
-- `pr` walks the open FAQ PRs one at a time, checking placement, duplicates,
-  sort-order collisions, and content quality before merging or closing.
+- `clear-backlog` resolves open FAQ PRs first and then issues, one item at a
+  time. It checks placement, duplicates, canonical sources, and content quality,
+  and recommends eval coverage only for meaningful agent regressions.
 - `slack-faq-fetch` pulls recent Slack discussion for a course into a review
   export, to find the questions nobody has filed yet.
 
@@ -321,7 +322,7 @@ faq/
 │       └── probe_wrong_course.py # repeat-runs to measure decision stability
 ├── website/                     # the static site generator
 ├── _layouts/  assets/           # Jinja2 templates and CSS
-├── .claude/skills/              # add-faq-record, pr, slack-faq-fetch
+├── .claude/skills/              # add-faq-record, clear-backlog, slack-faq-fetch
 └── docs/model-choice.md         # why gpt-5.4-nano
 ```
 

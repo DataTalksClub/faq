@@ -10,9 +10,10 @@ Skills live in `.claude/skills/` and codify repeatable workflows for this repo:
   FAQ entry from a question, screenshot, chat thread, issue, or other source; check
   placement and duplicates, assign a collision-free filename and sort order, and validate
   the result.
-- **pr** (`.claude/skills/pr/SKILL.md`) — Review and process open FAQ pull requests:
-  check section placement, duplicates, sort_order collisions, and content quality, then
-  merge or close with the related issue cleaned up.
+- **clear-backlog** (`.claude/skills/clear-backlog/SKILL.md`) — Clear open FAQ
+  pull requests first and then issues, strictly one item at a time. Check placement,
+  duplicates, canonical sources, and content quality; get approval for each resolution;
+  and add eval coverage only for meaningful agent regressions.
 - **slack-faq-fetch** (`.claude/skills/slack-faq-fetch/SKILL.md`) — Pull recent Slack
   channel discussions for a course into a review export to find missing FAQ entries.
   Run log lives in `.claude/slack-fetch-log.md`.
