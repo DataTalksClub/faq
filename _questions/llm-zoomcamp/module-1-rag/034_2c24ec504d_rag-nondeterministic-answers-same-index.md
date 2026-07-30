@@ -1,24 +1,14 @@
 ---
 id: 2c24ec504d
-question: Why do I get different answers for the same question even though my RAG
-  index hasn't changed?
+question: Why are my RAG results different from the results shown in the lecture?
 sort_order: 34
 ---
 
-It’s normal for an LLM to produce slightly different answers to the same question even when the retrieved documents are identical.
+The course dataset is updated over time. If your notebook downloads the latest
+course documents, your index may contain different content from the snapshot
+used when the lecture was recorded. That changes the retrieved context and
+therefore the final answer.
 
-Common reasons include:
-
-- The model is using a non-zero `temperature`, which introduces randomness.
-- The hosted/provider model may change over time (optimizations, updates, or routing).
-- The retrieved context can come back in a different order when multiple chunks/documents have very similar relevance scores.
-- Small prompt changes or formatting differences can affect the final response.
-
-To reduce variation for testing or evaluation:
-
-- Set `temperature=0` if the model supports it. This reduces sampling variability but does not guarantee byte-for-byte identical responses.
-- Keep retrieval deterministic (same query, same index, and stable tie-breaking when scores are close).
-- Ensure the prompt template and formatting stay unchanged.
-- Use the same model version/provider for every run.
-
-This is expected behavior and doesn’t necessarily mean your RAG pipeline is incorrect.
+This does not necessarily mean your RAG implementation is wrong. To reproduce
+the lecture exactly, use the same dataset snapshot or Git commit. Otherwise,
+use the current dataset and expect the results to differ.
