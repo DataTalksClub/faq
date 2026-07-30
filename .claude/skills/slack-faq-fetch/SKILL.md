@@ -65,6 +65,17 @@ For each candidate, check it isn't already covered:
 grep -ri "<keyword>" _questions/<course>/
 ```
 
+Keep candidates granular:
+
+- Extract one independently answerable question per candidate.
+- Split separate dimensions into separate candidates even when they share a topic
+  or appear in the same Slack thread. For example, dataset minimum size, allowed
+  source type, and allowed language are three questions, not one combined
+  "dataset requirements" question.
+- Do not create an umbrella FAQ merely because several questions have related
+  answers.
+- Present and resolve candidates one at a time.
+
 Add any question that is **real, answerable, and not already covered** by an existing FAQ — it does **not** need to recur. A single good question is worth an FAQ if the answer can be reused the next time someone asks. Search first with `grep -ri "<keyword>" _questions/<course>/` to avoid duplicating an existing entry. When adding a new FAQ, follow the repo conventions:
 - File at `_questions/<course>/<section>/<NNN>_<docid>_<slug>.md` where `NNN` = next `sort_order` (highest in the section + 1) and `<docid>` is a fresh 10-char id.
 - Frontmatter: `question`, `id`, `sort_order` (and any existing keys in that section's files). Section id/name/comment come from `_questions/<course>/_metadata.yaml`.
