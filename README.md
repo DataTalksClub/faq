@@ -105,8 +105,8 @@ Two suites cover the agent, because it has two layers that fail differently.
 
 | Suite | What it covers | Cases | Runtime | Current |
 |---|---|---|---|---|
-| `run_search_eval.py` | Retrieval only, no LLM calls | 71 | ~4s | recall@5 0.843, MRR@5 0.830 |
-| `runner.py` | Full pipeline, search to written entry | 59 | ~2 min | 37/58 on `gpt-5.4-nano` before case #329 |
+| `run_search_eval.py` | Retrieval only, no LLM calls | 72 | ~4s | recall@5 0.846, MRR@5 0.833 |
+| `runner.py` | Full pipeline, search to written entry | 60 | ~2 min | 37/58 on `gpt-5.4-nano` before cases #329 and #336 |
 
 The search eval pairs each real student question with the entry it became, and
 measures whether keyword search surfaces that entry. This is what drives
@@ -315,7 +315,7 @@ faq/
 │   ├── core.py                  # frontmatter, metadata, sort order
 │   ├── slack_fetch.py           # pulls candidate questions from Slack
 │   └── evals/                   # see evals/README.md
-│       ├── cases.py             # 59 end-to-end cases + check predicates
+│       ├── cases.py             # 60 end-to-end cases + check predicates
 │       ├── runner.py            # scores cases (flex tier by default)
 │       ├── flex.py / batch.py   # the two discounted OpenAI tiers
 │       └── probe_wrong_course.py # repeat-runs to measure decision stability
@@ -330,7 +330,7 @@ faq/
 We use keyword search (`minsearch`) rather than a vector database. The index
 holds a few hundred entries per course and gets rebuilt from disk on each run. It
 has to work in a GitHub Actions job with no services. Embeddings would retrieve
-paraphrases better, and the search eval's 0.830 recall@5 is what that costs us.
+paraphrases better, and the search eval's 0.846 recall@5 is what that costs us.
 It isn't enough to justify an external service in the path of a bot that runs a
 few times a week.
 

@@ -315,6 +315,23 @@ from `openai:gpt-5.4-mini` to `google:gemini-3.1-flash-lite` and set
     relevant_doc_id="dd53e420ef",
 ))
 
+# Issue #336 — delayed Logfire trace ingestion belongs to the dlt workshop
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=336,
+    question="""Why does the dlt pipeline pull fewer rows/tables than expected
+right after running the agent in the dlt workshop homework?""",
+    answer="""Logfire may not have exported and indexed the complete trace yet.
+Flush pending telemetry after the agent run, then wait and retry if the Query
+API still returns only part of the trace.""",
+    expected_action="NEW",
+    expected_section="workshops-dlthub",
+    description="Logfire trace ingestion timing belongs to the dlt workshop, not Module 5",
+    checks=[action_is("NEW"), section_is("workshops-dlthub")],
+    tags=["section-misplacement", "dlt"],
+    relevant_doc_id="8ede00dc4c",
+))
+
 # Issue #330 — OpenTelemetry provider setup is specific to Module 5 homework
 CASES.append(EvalCase(
     course="llm-zoomcamp",

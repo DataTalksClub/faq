@@ -34,6 +34,7 @@ class SearchCase:
 
 
 REAL_CASES = [
+    SearchCase('llm-zoomcamp', 'Why does the dlt pipeline pull fewer rows or tables than expected right after running the agent?', 'Logfire may not have exported and indexed the complete trace before the pipeline queries it, which also undercounts the token total.', '8ede00dc4c', 336, 'regression: delayed Logfire trace ingestion in dlt workshop homework'),
     SearchCase('llm-zoomcamp', "Why doesn't my SQLite exporter receive any spans after I switch from ConsoleSpanExporter in Module 5?", 'A second global TracerProvider is not registered in the same notebook process, so spans continue to use the first provider and traces.db stays empty.', 'ba1d5f13e7', 329, 'regression: empty SQLite exporter and provider override are the same homework issue'),
     SearchCase('llm-zoomcamp', 'Should I be concerned that the number of documents in the FAQ dataset is 1350 instead of 1208 as shown in the vector-search video?', 'The course may have been updated since the video was recorded. Similar differences appear in Module 1.', 'e2d595f23c', 287, 'exact issue: vague answer must not bury the question match'),
     SearchCase('llm-zoomcamp', 'I used the same RAG code as the lecture, but my retrieved documents and final answer are different. Is my implementation wrong?', 'The course dataset changes over time. A notebook that downloads the latest documents builds a different index from the snapshot used when the lecture was recorded.', 'e2d595f23c', 287, 'reworded: mutable dataset differs from lecture snapshot'),
