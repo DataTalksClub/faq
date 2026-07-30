@@ -68,6 +68,13 @@ def action_is(expected):
     return check
 
 
+def document_is(expected):
+    def check(decision):
+        return decision.document_id == expected
+    check.__name__ = f"document_id == {expected}"
+    return check
+
+
 def section_is(expected):
     def check(decision):
         return decision.section_id == expected
@@ -616,6 +623,31 @@ CASES.append(EvalCase(
     description="Provider FAQ — if UPDATE chosen, content must not degrade the existing comprehensive answer",
     checks=[no_structural_headers, content_is_concise],
     tags=["update-quality"],
+))
+
+# Issue #316 — Groq adaptation belongs in the monitoring homework FAQ
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=316,
+    question="""LLM Zoomcamp Module 5 homework: why does `starter.py` require
+`OPENAI_API_KEY` when I use Groq, why does `responses.create` fail, and why
+does retrying not fix a request that exceeds Groq's token limit?""",
+    answer="""Configure the module-level client in `starter.py` for Groq instead
+of supplying a fake OpenAI key. Use Groq's OpenAI-compatible Chat Completions
+endpoint and read `response.choices[0].message.content`. Choose a model ID that
+Groq currently provides. If one request already exceeds the token limit, reduce
+the retrieved context, for example by lowering `num_results`; retries cannot
+make an oversized request fit.""",
+    expected_action="UPDATE",
+    expected_section="module-5-homework",
+    description="Groq monitoring-homework guidance must update the RAGWithMetrics FAQ, not overwrite the lexical match in the Module 1 ToyAIKit FAQ",
+    checks=[
+        action_is("UPDATE"),
+        section_is("module-5-homework"),
+        document_is("01517c80df"),
+    ],
+    tags=["update-quality", "section-placement", "retrieval-bias"],
+    relevant_doc_id="01517c80df",
 ))
 
 # Case 26: Issue #197 — dlt MCP server in VS Code

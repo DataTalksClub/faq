@@ -39,10 +39,11 @@ We don't add every correction as a test case. We select cases that:
 
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
-| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 67 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 54 | ~2 min | action correctness, section placement, code quality, formatting |
+| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 68 | ~4s | recall@k, MRR@k, hit_rate@k |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 55 | ~2 min | action correctness, section placement, code quality, formatting |
 
-Current results on `gpt-5.4-nano`: 37/54. Remaining failures are mostly action
+The most recent recorded results, before case #316 was added, are 37/54 on
+`gpt-5.4-nano`. Remaining failures are mostly action
 decisions (false DUPLICATE on genuinely new proposals), content quality (code
 variables undefined, filename slug), and WRONG_COURSE recall — see below for why
 that last one is deliberately allowed to fail.
@@ -299,13 +300,14 @@ Each case is tagged for failure analysis:
 | duplicate-detection | 3 | Agent should correctly identify duplicates |
 | bruin | 2 | Bruin-specific placement (module-5) |
 | code-quality | 2 | Generated code must be runnable |
-| section-placement | 2 | Tests correct section selection |
+| section-placement | 6 | Tests correct section selection |
 | relevance | 2 | Agent should reject irrelevant proposals |
 | wrong-course | 7 | Student picked the wrong course — agent should close the issue |
 | wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
 | catch-all | 3 | `misc`/`general` must not swallow placeable entries, but must still take genuinely cross-cutting ones |
 | synthetic | 12 | Written by hand rather than taken from a real issue (negative `case_id`) |
-| update-quality | 1 | UPDATE should not degrade existing content |
+| update-quality | 2 | UPDATE should not degrade existing content or target a lexical match from the wrong section |
+| retrieval-bias | 2 | Lexical similarity must not outweigh course and section context |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
 
