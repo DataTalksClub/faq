@@ -46,6 +46,8 @@ class EvalCase:
     relevant_doc_id: the 10-char doc_id of the FAQ entry this issue became.
                      For NEW cases, the runner removes this doc from the index
                      so the agent can't trivially find it as a duplicate.
+    hidden_doc_ids: additional docs to remove when recreating historical corpus
+                    state for a case.
     """
     course: str
     case_id: int
@@ -57,6 +59,7 @@ class EvalCase:
     checks: list = field(default_factory=list)
     tags: list = field(default_factory=list)
     relevant_doc_id: str = ""
+    hidden_doc_ids: list[str] = field(default_factory=list)
 
 
 # -- Check predicates --------------------------------------------------------
@@ -234,7 +237,7 @@ CASES.append(EvalCase(
     answer="I suppose that course is not fully updated where it is not crucial but would like to be sure. There are also similar differences in module 01.",
     expected_action="DUPLICATE",
     description="Dataset count discrepancy — too transient/specific for an FAQ, should be DUPLICATE or not created",
-    checks=[action_is("DUPLICATE")],
+    checks=[action_is("DUPLICATE"), document_is("e2d595f23c")],
     tags=["duplicate-detection", "relevance"],
 ))
 
@@ -295,6 +298,59 @@ CASES.append(EvalCase(
 # ========================================================================== #
 # GROUP 2: Section placement
 # ========================================================================== #
+
+# Issue #319 — PydanticAI agent configuration is for the LLM dlt workshop
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=319,
+    question="What needs to change in `agent.py` to use Gemini instead of OpenAI?",
+    answer="""In the dlt workshop homework, change the PydanticAI model string
+from `openai:gpt-5.4-mini` to `google:gemini-3.1-flash-lite` and set
+`GOOGLE_API_KEY`.""",
+    expected_action="NEW",
+    expected_section="workshops-dlthub",
+    description="dlt homework agent configuration belongs in the LLM dlt workshop, not Module 1 RAG",
+    checks=[action_is("NEW"), section_is("workshops-dlthub")],
+    tags=["section-misplacement", "dlt"],
+    relevant_doc_id="dd53e420ef",
+))
+
+# Issue #330 — OpenTelemetry provider setup is specific to Module 5 homework
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=330,
+    question='How do I resolve OpenTelemetry Error "Overriding of current TracerProvider is not allowed"?',
+    answer="""In the homework, this happens after changing
+`ConsoleSpanExporter` to `SQLiteSpanExporter`. Restart the kernel and make sure
+the `TracerProvider` is loaded only once without earlier initialization
+errors.""",
+    expected_action="NEW",
+    expected_section="module-5-homework",
+    description="OpenTelemetry and SQLite exporter setup belongs in Module 5 homework, not Module 1 homework",
+    checks=[action_is("NEW"), section_is("module-5-homework")],
+    tags=["section-misplacement", "homework-placement"],
+    relevant_doc_id="ba1d5f13e7",
+    hidden_doc_ids=["702399225b", "01517c80df"],
+))
+
+# Issue #332 — calling it Module 5 must not route homework-only OTel into lessons
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=332,
+    question="""Why does the execution script freeze or crash with
+`RecursionError` when initializing OpenTelemetry with
+`ConsoleSpanExporter` in Module 5?""",
+    answer="""This happens in the monitoring homework on Python 3.14. Upgrade
+OpenTelemetry and restart the process. When persisting spans, use the complete
+`SQLiteSpanExporter` implementation from the homework.""",
+    expected_action="NEW",
+    expected_section="module-5-homework",
+    description="OpenTelemetry ConsoleSpanExporter troubleshooting is homework-only even when the proposal says Module 5",
+    checks=[action_is("NEW"), section_is("module-5-homework")],
+    tags=["section-misplacement", "homework-placement"],
+    relevant_doc_id="702399225b",
+    hidden_doc_ids=["ba1d5f13e7", "01517c80df"],
+))
 
 # Case 6: Issue #199 — merge vs append placed in module-3, should be workshop-1-dlthub
 CASES.append(EvalCase(
@@ -646,7 +702,7 @@ make an oversized request fit.""",
         section_is("module-5-homework"),
         document_is("01517c80df"),
     ],
-    tags=["update-quality", "section-placement", "retrieval-bias"],
+    tags=["update-quality", "section-placement", "retrieval-bias", "homework-placement"],
     relevant_doc_id="01517c80df",
 ))
 

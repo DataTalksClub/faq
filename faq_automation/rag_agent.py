@@ -14,7 +14,13 @@ from openai import OpenAI
 from openai.lib._pydantic import to_strict_json_schema
 from minsearch import Index
 
-from .core import read_questions, read_metadata, read_course_catalog, keep_relevant
+from .core import (
+    keep_relevant,
+    read_course_catalog,
+    read_metadata,
+    read_questions,
+    reciprocal_rank_fusion,
+)
 
 
 # Single source of truth for the model used by both automation and evals.
@@ -273,9 +279,24 @@ class FAQAgent:
         Returns:
             List of chat messages ready to send to the Responses API
         """
-        # Search for similar existing FAQs
+        # Search the question separately so a vague or noisy proposed answer
+        # cannot bury an otherwise strong question match. Keep the existing
+        # full-proposal search as the stronger signal.
         proposal = f"## {question}\n\n{answer}"
-        results = self.index.search(proposal, num_results=num_results)
+        candidate_count = max(num_results * 2, 10)
+        question_results = self.index.search(
+            question,
+            num_results=candidate_count,
+        )
+        proposal_results = self.index.search(
+            proposal,
+            num_results=candidate_count,
+        )
+        results = reciprocal_rank_fusion(
+            [question_results, proposal_results],
+            weights=[1.0, 2.0],
+            limit=num_results,
+        )
         results = keep_relevant(results)
 
         # Build prompt

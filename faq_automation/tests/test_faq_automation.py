@@ -13,6 +13,7 @@ from faq_automation.core import (
     generate_document_id,
     find_largest_sort_order,
     keep_relevant,
+    reciprocal_rank_fusion,
 )
 
 
@@ -150,3 +151,35 @@ class TestKeepRelevant:
         assert 'question' in filtered[0]
         assert 'answer' in filtered[0]
         assert 'document_id' in filtered[0]
+
+
+class TestReciprocalRankFusion:
+    def test_combines_and_deduplicates_ranked_results(self):
+        question_results = [
+            {"document_id": "question-match"},
+            {"document_id": "shared"},
+        ]
+        proposal_results = [
+            {"document_id": "shared"},
+            {"document_id": "proposal-match"},
+        ]
+
+        fused = reciprocal_rank_fusion(
+            [question_results, proposal_results],
+            weights=[1.0, 2.0],
+            limit=3,
+        )
+
+        assert [result["document_id"] for result in fused] == [
+            "shared",
+            "proposal-match",
+            "question-match",
+        ]
+
+    def test_requires_one_weight_per_result_set(self):
+        with pytest.raises(ValueError):
+            reciprocal_rank_fusion(
+                [[{"document_id": "one"}]],
+                weights=[],
+                limit=1,
+            )

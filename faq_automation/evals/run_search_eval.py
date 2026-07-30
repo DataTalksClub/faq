@@ -34,7 +34,7 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
-from faq_automation.core import read_questions
+from faq_automation.core import read_questions, reciprocal_rank_fusion
 from faq_automation.evals.search_cases import ALL_CASES
 
 from minsearch import Index
@@ -108,7 +108,13 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         relevant_ids = {case.doc_id}
         index = indices[case.course]
         proposal = f"## {case.question}\n\n{case.answer}" if case.answer else f"## {case.question}\n\n{case.question}"
-        raw = index.search(proposal, num_results=num_results)
+        question_results = index.search(case.question, num_results=num_results)
+        proposal_results = index.search(proposal, num_results=num_results)
+        raw = reciprocal_rank_fusion(
+            [question_results, proposal_results],
+            weights=[1.0, 2.0],
+            limit=num_results,
+        )
         ranked = [r.get('document_id', '') for r in raw]
 
         row = {

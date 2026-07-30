@@ -34,9 +34,10 @@ sections:
     name: "Module 4 Homework"
   - id: module-5
     name: "Module 5: Monitoring"
-    comment: "Online evaluation techniques, Phoenix, dashboards, monitoring user feedback"
+    comment: "Module 5 lesson content: online evaluation techniques, Phoenix, dashboards, and monitoring user feedback. OpenTelemetry, RAGWithMetrics, ConsoleSpanExporter, SQLiteSpanExporter, and traces.db are introduced only in the homework and belong in module-5-homework."
   - id: module-5-homework
     name: "Module 5 Homework"
+    comment: "Module 5 monitoring homework code and troubleshooting: starter.py, RAGWithMetrics, OpenTelemetry and TracerProvider setup, console/SQLite span exporters, token and cost attributes, and storing spans in traces.db."
   - id: module-6
     name: "Module 6: Best Practices"
     comment: "Hybrid search, document reranking, advanced RAG techniques"
@@ -46,4 +47,4 @@ sections:
     name: "Capstone Project"
   - id: workshops-dlthub
     name: "Workshop: Open-Source Data Ingestion (dlt)"
-    comment: "Workshop on using dlt for ingesting data into RAG systems"
+    comment: "dlt workshop lessons and homework: filesystem and REST API pipelines, loading agent logs, dashboards, deployment, and the PydanticAI agent used by the workshop homework."

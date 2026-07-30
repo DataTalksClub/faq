@@ -39,11 +39,13 @@ We don't add every correction as a test case. We select cases that:
 
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
-| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 68 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 55 | ~2 min | action correctness, section placement, code quality, formatting |
+| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 70 | ~4s | recall@k, MRR@k, hit_rate@k |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 58 | ~2 min | action correctness, section placement, code quality, formatting |
 
-The most recent recorded results, before case #316 was added, are 37/54 on
-`gpt-5.4-nano`. Remaining failures are mostly action
+The most recent recorded results are 37/58 on `gpt-5.4-nano`. All three
+historical placement cases added for issues #319, #330, and #332 selected the
+correct section; #332 varied between NEW and UPDATE across runs. Remaining
+failures are mostly action
 decisions (false DUPLICATE on genuinely new proposals), content quality (code
 variables undefined, filename slug), and WRONG_COURSE recall — see below for why
 that last one is deliberately allowed to fail.
@@ -55,8 +57,9 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 ## Search eval (`run_search_eval.py`)
 
 Tests retrieval in isolation — no LLM calls, runs in ~4 seconds. Lets us
-iterate on index configuration (text fields, boosts) and immediately see the
-impact on recall and hit rate.
+iterate on index configuration and immediately see the impact on recall and hit
+rate. The current recorded result is recall@5 0.840 and MRR@5 0.827 across the
+50 cases whose target documents are still in the corpus.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
@@ -70,9 +73,11 @@ issue #289 ("Why do I get IndexError: list index out of range?") became FAQ entr
 `1a7b27c4df` in `module-2-vector-search`.
 
 The search index is the current `_questions/` directory, which already contains
-that entry (we merged it). We search the index with the issue's question and
-answer (matching production behavior, where the agent searches with both) and
-measure whether the search surfaces the right doc.
+that entry (we merged it). Production searches the question separately from the
+full question-and-answer proposal, then combines both rankings with reciprocal
+rank fusion. This keeps a vague proposed answer from burying a strong question
+match. The eval uses the same retrieval path and measures whether it surfaces
+the right document.
 
 This tests the DUPLICATE detection scenario: if a future student asks a similar
 question, will the search find the existing entry so the agent can mark it as
@@ -292,10 +297,10 @@ Each case is tagged for failure analysis:
 | Tag | Cases | What it tests |
 |-----|-------|---------------|
 | correct-new | 13 | Valid NEW proposals — agent should create them |
-| section-misplacement | 7 | Bot historically placed in wrong section |
+| section-misplacement | 11 | Bot historically placed in wrong section |
 | duplicate-verify | 5 | Doc in index — agent should find it as DUPLICATE |
 | false-duplicate | 4 | Genuine NEW that agent wrongly calls DUPLICATE |
-| dlt | 4 | dlt-specific placement (workshop vs module-3) |
+| dlt | 5 | dlt-specific placement (workshop vs module-3) |
 | content-formatting | 4 | No structural headers, proper formatting |
 | duplicate-detection | 3 | Agent should correctly identify duplicates |
 | bruin | 2 | Bruin-specific placement (module-5) |
@@ -305,9 +310,10 @@ Each case is tagged for failure analysis:
 | wrong-course | 7 | Student picked the wrong course — agent should close the issue |
 | wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
 | catch-all | 3 | `misc`/`general` must not swallow placeable entries, but must still take genuinely cross-cutting ones |
-| synthetic | 12 | Written by hand rather than taken from a real issue (negative `case_id`) |
+| synthetic | 6 | Written by hand rather than taken from a real issue (negative `case_id`) |
 | update-quality | 2 | UPDATE should not degrade existing content or target a lexical match from the wrong section |
 | retrieval-bias | 2 | Lexical similarity must not outweigh course and section context |
+| homework-placement | 3 | Homework-only material must not land in a lesson or another module |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
 
@@ -364,8 +370,10 @@ The eval cases come from two sources:
 
 For each case, the expected_action and expected_section were determined from the
 issue content and the course's `_metadata.yaml` section comments. NEW cases got a
-`relevant_doc_id` so the runner can hide the entry. Cases were tagged based on the
-failure pattern they represent.
+`relevant_doc_id` so the runner can hide the entry. A case can also list
+`hidden_doc_ids` to hide later related entries and recreate the corpus that
+existed when the historical placement error occurred. Cases were tagged based
+on the failure pattern they represent.
 
 Add an `EvalCase` to `cases.py`:
 
@@ -380,6 +388,7 @@ EvalCase(
     checks=[action_is("NEW"), section_is("module-3")],
     tags=["section-placement"],
     relevant_doc_id="abc1234567",  # hidden from index for NEW cases
+    hidden_doc_ids=["laterdoc01"],  # optional historical-corpus isolation
 )
 ```
 

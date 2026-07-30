@@ -207,33 +207,32 @@ def run_all(model=DEFAULT_MODEL, case_id=None, use_batch=False, batch_id=None):
         print("Error: OPENAI_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
-    # Build agents per (course, removed_doc) combo
-    # When a case expects NEW and has a relevant_doc_id, we remove that doc
-    # so the agent can't trivially find it as a duplicate — same as the NOISE eval.
+    # Build agents per (course, removed_docs) combo. NEW cases hide their target
+    # doc, and cases may hide additional docs to reproduce historical corpus
+    # state without leaking later human corrections.
     agents = {}
     section_orders_cache = {}
     existing_ids_cache = {}
 
-    def get_agent(course, remove_doc_id):
-        """Get or create an agent for a course, optionally with a doc removed."""
-        key = (course, remove_doc_id)
+    def get_agent(course, remove_doc_ids):
+        """Get or create an agent for a course, optionally with docs removed."""
+        remove_doc_ids = tuple(sorted(remove_doc_ids))
+        key = (course, remove_doc_ids)
         if key not in agents:
             course_dir = Path('_questions') / course
             if not course_dir.exists():
                 return None, None, None
-            if remove_doc_id:
-                # Create a temp copy with the doc removed
+            if remove_doc_ids:
+                # Create a temp copy with the requested docs removed.
                 import tempfile, shutil
                 tmpdir = tempfile.mkdtemp()
                 tmp_course = Path(tmpdir) / course
                 shutil.copytree(course_dir, tmp_course)
-                # Remove the file matching the doc_id
                 for f in tmp_course.glob('*/*.md'):
                     parts = f.name.split('_', maxsplit=2)
-                    if len(parts) >= 2 and parts[1] == remove_doc_id:
+                    if len(parts) >= 2 and parts[1] in remove_doc_ids:
                         f.unlink()
                         print(f"  [hidden] removed {f.name} from {course} for eval")
-                        break
                 course_dir = tmp_course
             # questions_dir stays on the repo so the course catalog is the real
             # one even when course_dir is a temp copy with a doc removed.
@@ -245,9 +244,12 @@ def run_all(model=DEFAULT_MODEL, case_id=None, use_batch=False, batch_id=None):
     prepared = []
 
     for case in cases:
-        # Hide the relevant doc when we expect NEW (so the agent can't find it)
-        remove_doc = case.relevant_doc_id if case.expected_action == 'NEW' and case.relevant_doc_id else None
-        agent, section_orders, existing_ids = get_agent(case.course, remove_doc)
+        # Hide the relevant doc for NEW, plus any later entries that would leak
+        # the corrected placement into a historical regression case.
+        remove_docs = set(case.hidden_doc_ids)
+        if case.expected_action == 'NEW' and case.relevant_doc_id:
+            remove_docs.add(case.relevant_doc_id)
+        agent, section_orders, existing_ids = get_agent(case.course, remove_docs)
         if agent is None:
             continue
         prepared.append((case, agent, section_orders))

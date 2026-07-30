@@ -158,3 +158,31 @@ def keep_relevant(results: List[dict]) -> List[dict]:
         d.pop('section', None)
         new_results.append(d)
     return new_results
+
+
+def reciprocal_rank_fusion(
+    result_sets: List[List[dict]],
+    weights: List[float],
+    limit: int,
+    rank_constant: int = 60,
+) -> List[dict]:
+    """Combine ranked search results while preserving the original documents."""
+    if len(result_sets) != len(weights):
+        raise ValueError("result_sets and weights must have the same length")
+
+    scores = {}
+    documents = {}
+
+    for weight, results in zip(weights, result_sets):
+        for rank, result in enumerate(results, start=1):
+            document_id = result.get("document_id")
+            if not document_id:
+                continue
+            documents.setdefault(document_id, result)
+            scores[document_id] = (
+                scores.get(document_id, 0.0)
+                + weight / (rank_constant + rank)
+            )
+
+    ranked_ids = sorted(scores, key=scores.get, reverse=True)
+    return [documents[document_id] for document_id in ranked_ids[:limit]]
