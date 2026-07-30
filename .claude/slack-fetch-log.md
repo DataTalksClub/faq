@@ -24,6 +24,7 @@ Most recent at the top. `date` is UTC run date.
 
 | date (UTC)  | course                    | days | limit | messages | export                                                                                  | note                                                              |
 | ----------- | ------------------------- | ---- | ----- | -------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 2026-07-30  | llm-zoomcamp              | 16   | 1000  | 383      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260730T154645Z.md`                       | One strong gap: project dataset size, source, format, and language requirements. |
 | 2026-07-15  | llm-zoomcamp              | 7    | 1000  | 168      | `.tmp/slack-llm-zoomcamp-course-llm-zoomcamp-20260715T095558Z.md`                       | One clarification: homework is optional; the capstone and required peer reviews determine certificate eligibility. |
 | 2026-07-15  | data-engineering-zoomcamp | 7    | 1000  | 17       | `.tmp/slack-data-engineering-zoomcamp-course-data-engineering-20260715T095544Z.md`      | No new reusable FAQ gap found.                                    |
 | 2026-07-15  | machine-learning-zoomcamp | 7    | 1000  | 5        | `.tmp/slack-machine-learning-zoomcamp-course-ml-zoomcamp-20260715T095541Z.md`           | July 9 certificate clarification was already inside the previous fetch window. |
@@ -39,6 +40,17 @@ Most recent at the top. `date` is UTC run date.
 
 ## Findings / follow-ups
 
+- **LLM Zoomcamp — project dataset requirements (recurring, 2026-07-17→07-29):**
+  learners independently asked whether a project dataset must come from a live API,
+  has a minimum size, may be a static text file or self-created dataset, or may use a
+  language other than English. The canonical project rubric permits datasets or
+  API-backed sources, requires reproducible access for full points, and does not set a
+  minimum size. Course clarification says non-English data and responses are fine when
+  the README and documentation are in English. This is a strong combined FAQ candidate.
+- **LLM Zoomcamp — already covered or resolved (2026-07-30 review):** repeated project
+  attempt and peer-review questions match existing project FAQs; differing module-4
+  retrieval metrics match the FAQ explaining that the live dataset changes over time;
+  and the module-5 feedback-button bug was fixed in the course repository.
 - **LLM Zoomcamp — certificate requirement (clarified, 2026-07-14):** students do
   not need to complete homework, but they must finish a capstone project and its
   required peer reviews to receive a certificate. Clarified the self-paced
