@@ -105,8 +105,8 @@ Two suites cover the agent, because it has two layers that fail differently.
 
 | Suite | What it covers | Cases | Runtime | Current |
 |---|---|---|---|---|
-| `run_search_eval.py` | Retrieval only, no LLM calls | 70 | ~4s | recall@5 0.840, MRR@5 0.827 |
-| `runner.py` | Full pipeline, search to written entry | 58 | ~2 min | 37/58 on `gpt-5.4-nano` |
+| `run_search_eval.py` | Retrieval only, no LLM calls | 71 | ~4s | recall@5 0.843, MRR@5 0.830 |
+| `runner.py` | Full pipeline, search to written entry | 59 | ~2 min | 37/58 on `gpt-5.4-nano` before case #329 |
 
 The search eval pairs each real student question with the entry it became, and
 measures whether keyword search surfaces that entry. This is what drives
@@ -315,7 +315,7 @@ faq/
 │   ├── core.py                  # frontmatter, metadata, sort order
 │   ├── slack_fetch.py           # pulls candidate questions from Slack
 │   └── evals/                   # see evals/README.md
-│       ├── cases.py             # 58 end-to-end cases + check predicates
+│       ├── cases.py             # 59 end-to-end cases + check predicates
 │       ├── runner.py            # scores cases (flex tier by default)
 │       ├── flex.py / batch.py   # the two discounted OpenAI tiers
 │       └── probe_wrong_course.py # repeat-runs to measure decision stability

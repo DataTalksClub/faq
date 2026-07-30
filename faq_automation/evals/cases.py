@@ -837,6 +837,28 @@ CASES.append(EvalCase(
 # These confirm the agent correctly identifies existing entries.
 # ========================================================================== #
 
+# Issue #329 — SQLite spans remain bound to the first global provider
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=329,
+    question="""Why doesn't my SQLite exporter receive any spans after I switch
+from ConsoleSpanExporter in Module 5 (Monitoring)?""",
+    answer="""Creating a second global TracerProvider in the same notebook
+process does not replace the first provider. Restart the kernel and replace the
+exporter in the original setup, or get a tracer directly from an independent
+provider with `provider.get_tracer("llm-zoomcamp")`.""",
+    expected_action="DUPLICATE",
+    expected_section="module-5-homework",
+    description="Empty SQLite exporter is covered by the TracerProvider override FAQ",
+    checks=[
+        action_is("DUPLICATE"),
+        section_is("module-5-homework"),
+        document_is("ba1d5f13e7"),
+    ],
+    tags=["duplicate-verify", "homework-placement"],
+    relevant_doc_id="ba1d5f13e7",
+))
+
 # Verify: IndexError vector search entry exists -> should be DUPLICATE
 CASES.append(EvalCase(
     course="llm-zoomcamp",

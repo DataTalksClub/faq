@@ -1,17 +1,26 @@
 ---
 id: ba1d5f13e7
-question: How to resolve OpenTelemetry Error "Overriding of current TracerProvider
-  is not allowed" in LLM Zoomcamp homework?
+question: Why does my SQLite exporter receive no spans, or report "Overriding
+  of current TracerProvider is not allowed"?
 sort_order: 1
 ---
 
 OpenTelemetry allows the global tracer provider to be registered only once per
-Python process. In a notebook, re-running the setup cell calls
-`trace.set_tracer_provider(...)` again and produces this warning.
+Python process. In a notebook, creating another `TracerProvider` and calling
+`trace.set_tracer_provider(provider)` again doesn't replace the first provider.
+A tracer returned by `trace.get_tracer(...)` therefore remains connected to the
+original exporter, which can leave `traces.db` empty.
 
-Restart the kernel, then run the setup cells once in order. When switching from
-`ConsoleSpanExporter` to `SQLiteSpanExporter`, edit the original setup cell
-instead of running a second provider setup alongside it.
+Restart the kernel, replace the exporter in the original setup cell, and run the
+setup cells once in order.
 
-In a script, keep provider initialization in one place and ensure it executes
-only once.
+If you intentionally need an independent provider for manually created spans,
+get the tracer directly from it:
+
+```python
+tracer = provider.get_tracer("llm-zoomcamp")
+```
+
+In a script, initialize the provider and exporter once. Separate
+`python script.py` runs start fresh Python processes, so they don't share the
+previous global provider.

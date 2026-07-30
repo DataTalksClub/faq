@@ -39,10 +39,11 @@ We don't add every correction as a test case. We select cases that:
 
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
-| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 70 | ~4s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 58 | ~2 min | action correctness, section placement, code quality, formatting |
+| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 71 | ~4s | recall@k, MRR@k, hit_rate@k |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 59 | ~2 min | action correctness, section placement, code quality, formatting |
 
-The most recent recorded results are 37/58 on `gpt-5.4-nano`. All three
+The most recent recorded results, before case #329 was added, are 37/58 on
+`gpt-5.4-nano`. All three
 historical placement cases added for issues #319, #330, and #332 selected the
 correct section; #332 varied between NEW and UPDATE across runs. Remaining
 failures are mostly action
@@ -58,8 +59,8 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 Tests retrieval in isolation — no LLM calls, runs in ~4 seconds. Lets us
 iterate on index configuration and immediately see the impact on recall and hit
-rate. The current recorded result is recall@5 0.840 and MRR@5 0.827 across the
-50 cases whose target documents are still in the corpus.
+rate. The current recorded result is recall@5 0.843 and MRR@5 0.830 across the
+51 cases whose target documents are still in the corpus.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
@@ -298,7 +299,7 @@ Each case is tagged for failure analysis:
 |-----|-------|---------------|
 | correct-new | 13 | Valid NEW proposals — agent should create them |
 | section-misplacement | 11 | Bot historically placed in wrong section |
-| duplicate-verify | 5 | Doc in index — agent should find it as DUPLICATE |
+| duplicate-verify | 6 | Doc in index — agent should find it as DUPLICATE |
 | false-duplicate | 4 | Genuine NEW that agent wrongly calls DUPLICATE |
 | dlt | 5 | dlt-specific placement (workshop vs module-3) |
 | content-formatting | 4 | No structural headers, proper formatting |
@@ -313,7 +314,7 @@ Each case is tagged for failure analysis:
 | synthetic | 6 | Written by hand rather than taken from a real issue (negative `case_id`) |
 | update-quality | 2 | UPDATE should not degrade existing content or target a lexical match from the wrong section |
 | retrieval-bias | 2 | Lexical similarity must not outweigh course and section context |
-| homework-placement | 3 | Homework-only material must not land in a lesson or another module |
+| homework-placement | 4 | Homework-only material must not land in a lesson or another module |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
 
