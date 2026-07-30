@@ -4,16 +4,44 @@ question: Can I load multiple JSONL log directories into the same dlt pipeline?
 sort_order: 10
 ---
 
-Yes. A single `dlt` pipeline can ingest data from multiple JSONL directories as long as your `source` function iterates over all files (and yields records).
+Yes. Build one filesystem resource for each directory and pass the resources
+together to the same pipeline, as the workshop's reference
+`filesystem_pipeline.py` does for Claude and Codex logs.
 
-For example, you can walk a directory tree and yield records from each `*.jsonl` file:
+For JSONL files with the same structure:
 
 ```python
-from pathlib import Path
+import dlt
+from dlt.sources.filesystem import filesystem, read_jsonl
 
-def source():
-    for path in Path("logs").rglob("*.jsonl"):
-        yield from read_jsonl(path)
+pipeline = dlt.pipeline(
+    pipeline_name="agent_logs",
+    destination="duckdb",
+    dataset_name="agent_logs",
+)
+
+resources = []
+for name, directory in {
+    "claude": "/home/me/.claude/projects",
+    "codex": "/home/me/.codex/sessions",
+}.items():
+    resource = (
+        filesystem(
+            bucket_url=f"file://{directory}",
+            file_glob="**/*.jsonl",
+        )
+        | read_jsonl()
+    ).with_name(name)
+    resources.append(resource)
+
+pipeline.run(
+    resources,
+    table_name="log_records",
+    write_disposition="append",
+)
 ```
 
-If the JSON files share the same structure, `dlt` will append them into the same table. If schemas differ, `dlt` can evolve the table by adding new columns when needed. This is handy for aggregating logs from multiple projects or different coding agent sessions into one dataset.
+Replace the example paths with your directories. `table_name` sends the
+resources to the same table, and dlt can add columns as the schema evolves.
+For heterogeneous agent logs, reuse the workshop's `raw_reader()` transformer
+so each line is preserved consistently before loading.
