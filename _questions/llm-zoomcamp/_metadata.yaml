@@ -17,7 +17,7 @@ sections:
     comment: "Issues encountered while running Module 1 homework code or scripts."
   - id: module-2-vector-search
     name: "Module 2: Vector Search"
-    comment: "Vector search, embeddings, embedding models (including ONNX downloads), indexing, Qdrant, semantic search, chunking errors, embedding dimension mismatches."
+    comment: "Vector search, embeddings, embedding models, FastEmbed and Qdrant embedding integrations, local/offline model caches, ONNX downloads, indexing, semantic search, chunking errors, and embedding dimension mismatches."
   - id: module-2-homework
     name: "Module 2 Homework"
     comment: "Issues encountered while running Module 2 homework code or scripts."

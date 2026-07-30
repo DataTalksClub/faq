@@ -332,6 +332,23 @@ API still returns only part of the trace.""",
     relevant_doc_id="8ede00dc4c",
 ))
 
+# Issue #342 — FastEmbed model loading belongs to vector search
+CASES.append(EvalCase(
+    course="llm-zoomcamp",
+    case_id=342,
+    question="""Why does FastEmbed crash with an SSL/network error even though
+the model is already cached locally?""",
+    answer="""After populating the cache, use the same cache directory and pass
+`local_files_only=True`. Use `specific_model_path` for a manually prepared
+offline model directory.""",
+    expected_action="NEW",
+    expected_section="module-2-vector-search",
+    description="FastEmbed cache and SSL troubleshooting belongs to vector search",
+    checks=[action_is("NEW"), section_is("module-2-vector-search")],
+    tags=["section-placement", "correct-new"],
+    relevant_doc_id="6609b934b6",
+))
+
 # Issue #330 — OpenTelemetry provider setup is specific to Module 5 homework
 CASES.append(EvalCase(
     course="llm-zoomcamp",

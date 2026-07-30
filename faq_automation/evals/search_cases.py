@@ -34,6 +34,7 @@ class SearchCase:
 
 
 REAL_CASES = [
+    SearchCase('llm-zoomcamp', 'Why does FastEmbed crash with an SSL or network error even though the model is already cached locally?', 'Use the same cache directory and pass local_files_only=True after the cache has been populated.', '6609b934b6', 342, 'regression: cached FastEmbed model should retrieve offline-loading guidance'),
     SearchCase('llm-zoomcamp', 'Why does the dlt pipeline pull fewer rows or tables than expected right after running the agent?', 'Logfire may not have exported and indexed the complete trace before the pipeline queries it, which also undercounts the token total.', '8ede00dc4c', 336, 'regression: delayed Logfire trace ingestion in dlt workshop homework'),
     SearchCase('llm-zoomcamp', "Why doesn't my SQLite exporter receive any spans after I switch from ConsoleSpanExporter in Module 5?", 'A second global TracerProvider is not registered in the same notebook process, so spans continue to use the first provider and traces.db stays empty.', 'ba1d5f13e7', 329, 'regression: empty SQLite exporter and provider override are the same homework issue'),
     SearchCase('llm-zoomcamp', 'Should I be concerned that the number of documents in the FAQ dataset is 1350 instead of 1208 as shown in the vector-search video?', 'The course may have been updated since the video was recorded. Similar differences appear in Module 1.', 'e2d595f23c', 287, 'exact issue: vague answer must not bury the question match'),
