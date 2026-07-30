@@ -49,6 +49,10 @@ Most recent at the top. `date` is UTC run date.
 - **LLM Zoomcamp — non-English project data (2026-07-24):** non-English data and
   responses are allowed when the README and documentation are in English. Added as
   `project/019_5ffe92bb02_non-english-project-dataset.md`.
+- **LLM Zoomcamp — structured project data (2026-07-26):** project data does not
+  need to be a document collection; database schemas, table descriptions, and other
+  structured records are allowed. Added as
+  `project/020_6baab508b1_can-project-use-structured-data.md`.
 - **LLM Zoomcamp — already covered or resolved (2026-07-30 review):** repeated project
   attempt and peer-review questions match existing project FAQs; differing module-4
   retrieval metrics match the FAQ explaining that the live dataset changes over time;
