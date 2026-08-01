@@ -229,16 +229,20 @@ cd faq
 uv sync --dev
 ```
 
-**The site.** `make website` builds the static site into `_site/`, and `make test`
-runs the 102 website tests and 77 automation tests.
+### Building the site
+
+`make website` builds the static site into `_site/`, and `make test` runs the 102
+website tests and 77 automation tests.
 
 ```bash
 make website
 make test
 ```
 
-**The agent.** Set a key and feed it an issue body. The key can also live in
-`.env`. The model comes from `DEFAULT_MODEL` in `faq_automation/rag_agent.py`, and
+### Running the agent
+
+Set a key and feed it an issue body. The key can also live in `.env`. The model
+comes from `DEFAULT_MODEL` in `faq_automation/rag_agent.py`, and
 `FAQ_MODEL=gpt-5.6-luna` overrides it for one run.
 
 ```bash
@@ -260,9 +264,11 @@ uv run python -m faq_automation.cli \
   --issue-number 42
 ```
 
-**The evals.** These need `OPENAI_API_KEY`. The first command runs every
-end-to-end case. `--case` runs one `case_id`, where a positive number is a GitHub
-issue and a negative one is a synthetic case, so pass those as `--case=-3`.
+### Running the evals
+
+These need `OPENAI_API_KEY`. The first command runs every end-to-end case.
+`--case` runs one `case_id`, where a positive number is a GitHub issue and a
+negative one is a synthetic case, so pass those as `--case=-3`.
 `--batch` sends the suite as one Batch API job for the same price, though it can
 take hours to come back. The search eval needs no key. The last command re-runs
 the wrong-course cases 5 times each to measure recall and false positives.
@@ -275,15 +281,17 @@ uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 uv run --project faq_automation python -m faq_automation.evals.probe_wrong_course gpt-5.4-nano 5
 ```
 
-**Finding candidates.** Pull recent Slack activity into review files, then read
-through them for questions the FAQ is missing. Set `SLACK_BOT_TOKEN` in `.env`
-first — it lives in your [Slack app](https://api.slack.com/apps) under OAuth and
-Permissions, as the Bot User OAuth Token starting with `xoxb-`. By default this
-reads `_questions/llm-zoomcamp/_metadata.yaml`, fetches the Slack channel named in
-its `slack_channel` field, checks the last 7 days, and writes JSON and Markdown
+### Finding candidates
+
+Pull recent Slack activity into review files, then read through them for questions
+the FAQ is missing. Set `SLACK_BOT_TOKEN` in `.env` first. It lives in your
+[Slack app](https://api.slack.com/apps) under OAuth and Permissions, as the Bot
+User OAuth Token starting with `xoxb-`. By default this reads
+`_questions/llm-zoomcamp/_metadata.yaml`, fetches the Slack channel named in its
+`slack_channel` field, checks the last 7 days, and writes JSON and Markdown
 exports to `.tmp/`. Use `--channel` only to override the metadata for one run.
-`telegram_fetch` does the same for a course's public Telegram channel and needs no
-token.
+`telegram_fetch` does the same for a course's public Telegram channel and needs
+no token.
 
 ```bash
 cp .env.example .env
