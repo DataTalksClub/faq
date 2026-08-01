@@ -14,7 +14,7 @@ The instructors have to answer the same question in every cohort. In this FAQ da
 we collect all these questions, so they can be used to help the students. We also
 use it for the FAQ assistant in Slack to answer these questions automatically.
 
-## The parts
+## Overview
 
 The repository has several parts:
 
