@@ -1,18 +1,18 @@
 # Model Choice
 
-The FAQ bot runs on **`gpt-5.4-nano`**, set once in `faq_automation/rag_agent.py`
-as `DEFAULT_MODEL` and overridable per run with the `FAQ_MODEL` environment
-variable. This document records what we measured, why we chose it, and what the
-choice gives up — so the next person to touch it can disagree with evidence
-rather than start over.
+The FAQ automation runs on **`gpt-5.4-nano`**, set once in
+`faq_automation/rag_agent.py` as `DEFAULT_MODEL` and overridable per run with the
+`FAQ_MODEL` environment variable. This document records what we measured, why we
+chose it, and what the choice gives up — so the next person to touch it can
+disagree with evidence rather than start over.
 
 ## The decision in one paragraph
 
 Three models score within one case of each other on the eval suite, so the suite
-total was useless as a tiebreaker. We picked on failure *cost* instead. The bot
-can fail in two ways that are not equally expensive: it can open a bad pull
-request, which a maintainer reviews and closes, or it can close a student's valid
-proposal with a wrong explanation, which nobody reviews. `gpt-5.4-nano` is the
+total was useless as a tiebreaker. We picked on failure *cost* instead. The
+automation can fail in two ways that are not equally expensive: it can open a bad
+pull request, which a maintainer reviews and closes, or it can close a student's
+valid proposal with a wrong explanation, which nobody reviews. `gpt-5.4-nano` is the
 best model we measured at not rewriting existing published entries, and it never
 once wrongly rejected a proposal as filed against the wrong course. It pays for
 that by catching only 1 in 5 genuinely misfiled proposals — the cheapest failure

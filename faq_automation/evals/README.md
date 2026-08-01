@@ -1,6 +1,6 @@
 # FAQ Automation Evals
 
-Two eval suites for the FAQ merge agent, each testing a different layer.
+Two eval suites for the FAQ automation, each testing a different layer.
 
 ## The feedback loop
 
@@ -17,9 +17,9 @@ The evals are part of a continuous improvement loop:
 4. The search eval and RAG eval are run to measure the automation's performance on
    the accumulated cases. The search eval (fast, no LLM) tunes the index.
    The RAG eval (slow, full pipeline) validates end-to-end.
-5. Based on eval results, the agent prompt, search index config, or section
-   metadata comments are adjusted. The evals are re-run to confirm the fix
-   worked without regressing other cases.
+5. Based on eval results, the automation's prompt, search index config, or
+   section metadata comments are adjusted. The evals are re-run to confirm the
+   fix worked without regressing other cases.
 
 This loop means PR reviews directly improve the automation — human corrections that
 represent recurring patterns become permanent regression tests.
@@ -154,7 +154,7 @@ than from an exact proposal-to-FAQ match.
 ## RAG eval (`runner.py`)
 
 Tests the full pipeline end-to-end: search + LLM decision + content generation.
-Each case is a real issue proposal processed through the agent, then checked
+Each case is a real issue proposal processed through the automation, then checked
 against expected outcomes.
 
 ```bash
@@ -204,15 +204,17 @@ Each case is a real issue with known ground truth (the action, section, and
 content quality expected). The runner:
 
 1. For NEW cases: hides the target doc from a temporary copy of the course
-   directory, so the agent can't trivially find it as a duplicate. This
-   simulates the state the agent was in when the proposal was first processed.
+   directory, so the automation can't trivially find it as a duplicate. This
+   simulates the state the automation was in when the proposal was first
+   processed.
 2. For DUPLICATE cases: runs against the full index (doc is present).
-3. Runs the agent end-to-end and checks the decision against expected outcomes.
+3. Runs the automation end-to-end and checks the decision against expected
+   outcomes.
 
 ### What it checks
 
-- Action correctness: NEW, UPDATE, DUPLICATE, or WRONG_COURSE — does the agent
-  make the right call?
+- Action correctness: NEW, UPDATE, DUPLICATE, or WRONG_COURSE — does the
+  automation make the right call?
 - Section placement: does the entry land in the right section?
 - Content quality: is the code runnable (all variables defined)? Are there
   structural headers? Is the answer concise? Is the filename slug present?
@@ -222,16 +224,16 @@ content quality expected). The runner:
 ### The historical-data problem
 
 Entries we merged already exist in the FAQ. For DUPLICATE cases this is correct
-— the agent should find and cite the existing entry. For NEW cases, we hide the
-target doc so the agent sees the "before" state.
+— the automation should find and cite the existing entry. For NEW cases, we hide
+the target doc so the automation sees the "before" state.
 
 ### WRONG_COURSE and its false-positive budget
 
 Students pick the course from a dropdown when filing a proposal, and sometimes
 pick the wrong one — issues #97, #109, #148, #287, and #311 are all questions
-about one course filed against another. The agent only ever sees the selected
-course's entries and sections, so a misfiled proposal gets forced into whichever
-section fits least badly. WRONG_COURSE closes the issue instead.
+about one course filed against another. The automation only ever sees the
+selected course's entries and sections, so a misfiled proposal gets forced into
+whichever section fits least badly. WRONG_COURSE closes the issue instead.
 
 The two failure modes are not equal, and only one of them is expensive.
 
@@ -259,7 +261,7 @@ Where it stands on `gpt-5.4-nano`, the production model:
 | | Result |
 |---|---|
 | False positives | 0 of 54 non-wrong-course cases (single suite run) |
-| Recall | 0 of 7 wrong-course cases (single suite run) |
+| Recall | 1 of 7 wrong-course cases (single suite run) |
 
 Every model measured holds the false-positive count at zero; they differ only in
 recall and in what they do on the other 54 cases. `gpt-5.4-nano` sits at the low
@@ -340,18 +342,18 @@ Each case is tagged for failure analysis:
 
 | Tag | Cases | What it tests |
 |-----|-------|---------------|
-| correct-new | 14 | Valid NEW proposals — agent should create them |
-| section-misplacement | 12 | Bot historically placed in wrong section |
-| duplicate-verify | 6 | Doc in index — agent should find it as DUPLICATE |
-| false-duplicate | 4 | Genuine NEW that agent wrongly calls DUPLICATE |
+| correct-new | 14 | Valid NEW proposals — the automation should create them |
+| section-misplacement | 12 | Historically placed in the wrong section |
+| duplicate-verify | 6 | Doc in index — the automation should find it as DUPLICATE |
+| false-duplicate | 4 | Genuine NEW that the automation wrongly calls DUPLICATE |
 | dlt | 6 | dlt-specific placement (workshop vs module-3) |
 | content-formatting | 4 | No structural headers, proper formatting |
-| duplicate-detection | 3 | Agent should correctly identify duplicates |
+| duplicate-detection | 3 | The automation should correctly identify duplicates |
 | bruin | 2 | Bruin-specific placement (module-5) |
 | code-quality | 2 | Generated code must be runnable |
 | section-placement | 7 | Tests correct section selection |
-| relevance | 2 | Agent should reject irrelevant proposals |
-| wrong-course | 7 | Student picked the wrong course — agent should close the issue |
+| relevance | 2 | The automation should reject irrelevant proposals |
+| wrong-course | 7 | Student picked the wrong course — the automation should close the issue |
 | wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
 | catch-all | 3 | `misc`/`general` must not swallow placeable entries, but must still take genuinely cross-cutting ones |
 | synthetic | 6 | Written by hand rather than taken from a real issue (negative `case_id`) |
@@ -453,24 +455,24 @@ ML Zoomcamp has a `misc` section ("Miscellaneous") and every course has
 `general`. Both can plausibly hold anything, which makes them worth a specific
 set of cases — tagged `catch-all`.
 
-The obvious worry is that a catch-all becomes a dumping ground the agent drifts
-into. That worry turned out to be **wrong**, and it is worth recording why so
-nobody re-derives it. With `misc` carrying no `comment` at all, the agent still
-placed course logistics in `general` (5/5) and a Waitress/Docker serving error in
-`module-5` (5/5). It was not reaching for `misc` when something else fit. What it
-could not do was use `misc` when `misc` was correct: a "Python 3.13 breaks sklearn"
-question — cross-cutting, owned by no module — went to `module-5` 5 times out of
-5. Adding a comment that scopes `misc` and states plainly that it is not a
-fallback took those three cases from 10/15 to 15/15.
+The obvious worry is that a catch-all becomes a dumping ground the automation
+drifts into. That worry turned out to be **wrong**, and it is worth recording why
+so nobody re-derives it. With `misc` carrying no `comment` at all, the automation
+still placed course logistics in `general` (5/5) and a Waitress/Docker serving
+error in `module-5` (5/5). It was not reaching for `misc` when something else
+fit. What it could not do was use `misc` when `misc` was correct: a "Python 3.13
+breaks sklearn" question — cross-cutting, owned by no module — went to `module-5`
+5 times out of 5. Adding a comment that scopes `misc` and states plainly that it
+is not a fallback took those three cases from 10/15 to 15/15.
 
 Two things follow:
 
-- **The 40 entries in ML Zoomcamp's `misc` are not evidence of agent drift.** All
-  40 were added by a human in bulk imports; the automation has never filed anything
-  there. Their placement is a content-curation question, not a bug.
+- **The 40 entries in ML Zoomcamp's `misc` are not evidence of automation
+  drift.** All 40 were added by a human in bulk imports; the automation has never
+  filed anything there. Their placement is a content-curation question, not a bug.
 - **The real catch-all failure is the reverse of the intuitive one.** A section
-  with no `comment` is invisible to the agent as a *destination*, because the
-  prompt weights `comment` above retrieval. An undescribed section does not
+  with no `comment` is invisible to the automation as a *destination*, because
+  the prompt weights `comment` above retrieval. An undescribed section does not
   attract entries — it repels them.
 
 The separate trap is `WRONG_COURSE`: a catch-all silently satisfies "no section
