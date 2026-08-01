@@ -91,7 +91,7 @@ REAL_CASES = [
     SearchCase('machine-learning-zoomcamp', 'TypeError while creating OneHotEncoder object', 'If you get Type Error when categorical values are oneHotEncoded using sparse as parameter, as below then here is the reason  TypeError Traceback (most recent call last) Cell In[60], line 4 2 scaler = StandardScaler() 3 X_train_num = scaler.fit_transform(X_train_num) ----> 4 ohe = OneHotEncoder(spars', '548dcc8a3c', 23, ''),
 ]
 
-# Synthetic edge cases: (course, question, answer, doc_id, case_id, note)
+# Synthetic challenge cases: (course, question, answer, doc_id, case_id, note)
 # answer is empty for synthetic cases
 SYNTHETIC_CASES = [
     SearchCase('llm-zoomcamp', 'It crashes when I try to search', '', '1a7b27c4df', -1, 'vague: IndexError search crash'),
@@ -105,8 +105,7 @@ SYNTHETIC_CASES = [
     SearchCase('data-engineering-zoomcamp', 'IO Error: Could not set lock on file', '', 'd07a9a8ff9', -9, 'exact error message'),
     SearchCase('llm-zoomcamp', 'APIStatusError: Error code: 402', '', 'cfb07a27d5', -10, 'exact error message'),
     SearchCase('llm-zoomcamp', "Module 2 homework vector search results don't match", '', 'e889793af9', -11, 'homework context'),
-    SearchCase('data-engineering-zoomcamp', "homework 6 Spark record counts don't match", '', '4d5aa45b03', -12, 'homework context'),
-    SearchCase('llm-zoomcamp', 'What is the meaning of life?', '', 'NONE', -13, 'negative: should return no strong match'),
+    SearchCase('data-engineering-zoomcamp', "homework 6 Spark record counts don't match", '', 'bcafec775a', -12, 'homework context'),
     SearchCase('data-engineering-zoomcamp', 'How to get the table creation SQL from BigQuery', '', '7df3102580', -14, 'paraphrased: DDL query'),
     SearchCase('data-engineering-zoomcamp', 'Running dbt transformations inside Kestra orchestrator', '', 'e14f6a8ed9', -15, 'paraphrased: dbt+Kestra'),
     SearchCase('llm-zoomcamp', 'Parse JSON response into Python objects with Gemini', '', '341f71f28c', -16, 'paraphrased: structured output'),
@@ -114,4 +113,8 @@ SYNTHETIC_CASES = [
     SearchCase('llm-zoomcamp', 'Kestra flow fails with missing GEMINI_API_KEY secret using docker compose', '', 'c8ca21af33', 300, 'duplicate: Kestra base64 secret, second relevant doc'),
 ]
 
-ALL_CASES = REAL_CASES + SYNTHETIC_CASES
+# Exact proposal-to-FAQ matches are retained above as source history, but they do
+# not belong in the active benchmark: their near-identical wording makes them
+# trivial keyword lookups. A note marks cases deliberately written or selected
+# to exercise a retrieval failure mode.
+ALL_CASES = [case for case in REAL_CASES + SYNTHETIC_CASES if case.note]

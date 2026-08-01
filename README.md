@@ -105,13 +105,14 @@ Two suites cover the agent, because it has two layers that fail differently.
 
 | Suite | What it covers | Cases | Runtime | Current |
 |---|---|---|---|---|
-| `run_search_eval.py` | Retrieval only, no LLM calls | 73 | ~4s | recall@5 0.849, MRR@5 0.836 |
+| `run_search_eval.py` | Retrieval challenge set, no LLM calls | 25 | ~2s | recall@5 0.840, MRR@5 0.813 |
 | `runner.py` | Full pipeline, search to written entry | 61 | ~2 min | 37/58 on `gpt-5.4-nano` before cases #329, #336, and #342 |
 
-The search eval pairs each real student question with the entry it became, and
-measures whether keyword search surfaces that entry. This is what drives
-duplicate detection. If recall drops, genuine duplicates get filed again as new
-entries.
+The search eval pairs difficult queries—paraphrases, vague questions, bare error
+messages, and cross-module wording—with the existing entry they should retrieve.
+Exact proposal-to-entry self-matches are excluded because they are trivial
+keyword lookups. This suite measures the retrieval bottleneck behind duplicate
+detection: if recall drops, genuine duplicates get filed again as new entries.
 
 The end-to-end eval runs each real proposal through the whole agent and checks it
 against what a human decided. It looks for the right action, the right section,
@@ -331,7 +332,7 @@ faq/
 We use keyword search (`minsearch`) rather than a vector database. The index
 holds a few hundred entries per course and gets rebuilt from disk on each run. It
 has to work in a GitHub Actions job with no services. Embeddings would retrieve
-paraphrases better, and the search eval's 0.849 recall@5 is what that costs us.
+paraphrases better, and the challenge set's 0.840 recall@5 is what that costs us.
 It isn't enough to justify an external service in the path of a bot that runs a
 few times a week.
 

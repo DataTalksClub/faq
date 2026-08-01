@@ -2,9 +2,9 @@
 Search/retrieval eval for the FAQ merge agent.
 
 Tests the retrieval layer (minsearch index) in isolation — no LLM calls, runs
-in seconds. Each case is a real issue question paired with the doc_id of the
-FAQ entry it became. We search the current index (which contains that entry)
-and measure whether the search surfaces the right doc.
+in seconds. The active benchmark contains deliberately difficult queries paired
+with the doc_id of the FAQ entry they should retrieve. We search the current
+index and measure whether search surfaces the right doc.
 
   Metrics: recall@k (= hit_rate@k), MRR@k.
 
@@ -77,7 +77,7 @@ def simulate_action(ranked_ids, relevant_ids, k):
 
 def run_all(num_results=10, k_values=(1, 3, 5)):
     cases = [c for c in ALL_CASES if c.answer != 'NONE']
-    print(f"Search retrieval eval — {len(cases)} cases\n")
+    print(f"Search retrieval eval — {len(cases)} challenge cases\n")
 
     # Load all documents per course
     docs_by_course = {}
@@ -95,6 +95,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         indices[course] = build_index(docs)
 
     results = []
+    stale_cases = []
 
     for case in cases:
         if case.course not in indices:
@@ -103,6 +104,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         all_docs = docs_by_course[case.course]
         existing_ids = set(d['document_id'] for d in all_docs)
         if case.doc_id not in existing_ids:
+            stale_cases.append((case.case_id, case.course, case.doc_id))
             continue
 
         relevant_ids = {case.doc_id}
@@ -129,6 +131,11 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
             row[f'recall@{k}'] = recall_at_k(ranked, relevant_ids, k)
             row[f'mrr@{k}'] = mrr_at_k(ranked, relevant_ids, k)
         results.append(row)
+
+    if stale_cases:
+        print("\nERROR: eval cases reference documents that are not in the current corpus:")
+        for case_id, course, doc_id in stale_cases:
+            print(f"  #{case_id} course={course} missing={doc_id}")
 
     n = len(results)
     if not n:
@@ -172,7 +179,7 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
 
     total = len(results)
     passed = sum(1 for r in results if r['recall@5'] > 0)
-    return passed == total
+    return not stale_cases and passed == total
 
 
 if __name__ == '__main__':

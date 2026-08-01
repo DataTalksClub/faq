@@ -39,7 +39,7 @@ We don't add every correction as a test case. We select cases that:
 
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
-| Search eval (`run_search_eval.py`) | Retrieval layer (minsearch index) in isolation — no LLM calls | 73 | ~4s | recall@k, MRR@k, hit_rate@k |
+| Search eval (`run_search_eval.py`) | Retrieval challenge set (minsearch index) in isolation — no LLM calls | 25 | ~2s | recall@k, MRR@k, hit_rate@k |
 | RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 61 | ~2 min | action correctness, section placement, code quality, formatting |
 
 The most recent recorded results, before cases #329, #336, and #342 were added,
@@ -57,10 +57,10 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 ## Search eval (`run_search_eval.py`)
 
-Tests retrieval in isolation — no LLM calls, runs in ~4 seconds. Lets us
+Tests retrieval in isolation — no LLM calls, runs in ~2 seconds. Lets us
 iterate on index configuration and immediately see the impact on recall and hit
-rate. The current recorded result is recall@5 0.849 and MRR@5 0.836 across the
-53 cases whose target documents are still in the corpus.
+rate. The current recorded result is recall@5 0.840 and MRR@5 0.813 across 25
+challenge cases.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
@@ -68,10 +68,11 @@ uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 
 ### How it works
 
-Each eval case is a real GitHub issue (the question a student asked) paired with
-the `doc_id` of the FAQ entry that was eventually created from it. For example,
-issue #289 ("Why do I get IndexError: list index out of range?") became FAQ entry
-`1a7b27c4df` in `module-2-vector-search`.
+Each eval case is a deliberately difficult query paired with the `doc_id` of the
+FAQ entry it should retrieve. Ten cases come from real GitHub issues and 15 are
+synthetic variations. They cover regressions, reworded and paraphrased questions,
+vague queries, exact error messages without context, cross-module terminology,
+homework context, and competing documents with similar wording.
 
 The search index is the current `_questions/` directory, which already contains
 that entry (we merged it). Production searches the question separately from the
@@ -85,28 +86,29 @@ question, will the search find the existing entry so the agent can mark it as
 DUPLICATE instead of creating a redundant new one? If recall is low, genuine
 duplicates slip through as NEW.
 
-### The self-match problem
+### Why exact self-matches are excluded
 
-Many eval cases use the same (or very similar) question text as the FAQ entry
-they became. This makes the search trivially easy — keyword search finds a doc
-with the same keywords. To make the eval meaningful, some cases were reworded to
-sound like how a student would phrase the question in Slack (marked `"reworded"`
-in the note field), rather than copying the FAQ question verbatim.
+An original proposal usually has the same wording as the FAQ created from it.
+Retrieving that document is a trivial keyword lookup and inflates the aggregate
+score without testing whether search can recognize a future duplicate. The
+active benchmark therefore includes only cases with a named retrieval challenge.
+The original proposal cases remain in `search_cases.py` as source history but
+are not included in `ALL_CASES`.
 
 ### Metrics
 
 - recall@k: did the search surface the relevant doc in the top-k? This
   directly controls DUPLICATE detection. Low recall means genuine duplicates
   slip through as NEW.
-  Baseline: recall@5 = 0.830
+  Baseline: recall@5 = 0.840
 
 - MRR@k: mean reciprocal rank of the relevant doc. Higher is better — the
   relevant doc should appear early so the LLM sees it in context.
-  Baseline: MRR@5 = 0.816
+  Baseline: MRR@5 = 0.813
 
 - hit_rate@k: fraction of cases where the relevant doc is anywhere in the
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
-  Baseline: hit_rate@5 = 0.830
+  Baseline: hit_rate@5 = 0.840
 
 ## RAG eval (`runner.py`)
 
@@ -334,6 +336,11 @@ SearchCase(
     note="reworded",
 )
 ```
+
+The `note` must name the retrieval challenge. Cases without a note are retained
+only as historical source data and are not run. Do not add an unchanged proposal
+solely because it has a known target document; reword it into a realistic future
+duplicate or capture a specific retrieval regression.
 
 To find the doc_id for a merged entry: `grep -r '<question text>' _questions/`
 or check the file's frontmatter `id`. To fetch the answer from GitHub:
