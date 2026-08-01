@@ -104,34 +104,69 @@ We run two suites:
 
 | Suite | What it tests | Cases | Runtime | Score |
 |---|---|---|---|---|
-| [Retrieval](#retrieval) (`run_search_eval.py`) | whether search finds the entry that already answers a proposal | 72 | ~2s | recall@5 0.875 |
-| [Generation](#generation) (`runner.py`) | whether the model then picks the right action and writes the entry well | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
+| [Retrieval](#retrieval) (`run_search_eval.py`) | Retrieval | 25 | ~2s | recall@5 0.840 |
+| [Generation](#generation) (`runner.py`) | Generation | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
 
 Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md).
 
 ### Retrieval
 
-There are no LLM calls, so the suite is fast enough to change the index and see
-immediately what it did.
+In the first suite, we test retrieval. There are no calls to LLMs. 
 
-25 of the cases are challenge cases, written to look like a future duplicate
-rather than a repeat of the original wording. Recall@5 on those is 0.840, and the
-easier exact matches pull the overall number up.
+We need it because:
 
-Retrieval is a ceiling on everything downstream. If search can't surface an
-existing entry, the model has no way to recognize the proposal as a duplicate.
+- Retrieval is the ceiling. The model only sees the top 5 hits, so an entry
+  search doesn't surface can't be recognized as a duplicate.
+- We need a smoke test to make sure we don't accidentally break retrieval. The
+  run fails if recall@5 drops below the recorded baseline.
+
+Every case in the retrieval eval set is a hard query:
+
+- vague symptoms: "the download just hangs"
+- bare error messages: "IO Error: Could not set lock on file"
+- rewordings that share no vocabulary with the entry they should find
+
+Current performance: 
+
+| | @1 | @3 | @5 |
+|---|---|---|---|
+| recall | 0.800 | 0.840 | 0.840 |
+| MRR | 0.800 | 0.813 | 0.813 |
+
+
 
 ### Generation
 
-Each proposal goes through search and the model, and the case checks the action,
-the section, the generated answer, and the filename metadata.
+In the second suite we test the whole flow, checks the result and the final action. 
 
-The total on its own is a weak signal: three candidate models landed within one
-case of each other, and a single run is noisy enough that the gap means nothing.
+We need it because:
 
-Cases run on the flex tier, which bills at the Batch API rate but answers in real
-time. A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is
-fine for CI and useless for iterating.
+- Finding the entry doesn't mean using it. The model can see the existing answer
+  in its context and still file the proposal as new.
+- The bot closes issues on its own and nobody reviews that, so a wrong
+  `DUPLICATE` or `WRONG_COURSE` leaves no trace in production.
+
+Every case checks what a reviewer would check:
+
+- the action: `NEW`, `UPDATE`, `DUPLICATE` or `WRONG_COURSE`
+- the section the entry lands in
+- the content: runnable code, defined variables, a filename slug
+
+Current performance:
+
+| | Result |
+|---|---|
+| cases passing | 42/61 |
+| valid proposals left open | 54/54 |
+| misfiled proposals caught | 0/7 |
+
+Never closing a valid proposal is the number that has to hold. Catching a
+misfiled one is a bonus we deliberately don't chase — see
+[docs/model-choice.md](docs/model-choice.md).
+
+We use the Flex tier for evals, so it's 50% cheaper than the usual API requests.
+A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is fine
+for CI and useless for iterating.
 
 ## Skills
 
