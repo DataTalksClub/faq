@@ -101,35 +101,17 @@ occupied slot isn't a failure mode.
 
 ## Evals
 
-Two suites cover the agent, because it has two layers that fail differently.
+We run two suites because retrieval and model decisions fail in different ways:
 
-| Suite | What it covers | Cases | Runtime | Current |
-|---|---|---|---|---|
-| `run_search_eval.py` | Retrieval challenge set, no LLM calls | 25 | ~2s | recall@5 0.840, MRR@5 0.813 |
-| `runner.py` | Full pipeline, search to written entry | 61 | ~2 min | 37/58 on `gpt-5.4-nano` before cases #329, #336, and #342 |
+- The search eval runs 25 difficult queries without an LLM. If it can't find an
+  existing FAQ, the model can't recognize the proposal as a duplicate. The
+  current recall@5 is 0.840.
+- The end-to-end eval runs 61 proposals through search and the model. It checks
+  the action, section, generated answer, and filename metadata.
 
-The search eval pairs difficult queries—paraphrases, vague questions, bare error
-messages, and cross-module wording—with the existing entry they should retrieve.
-Exact proposal-to-entry self-matches are excluded because they are trivial
-keyword lookups. This suite measures the retrieval bottleneck behind duplicate
-detection: if recall drops, genuine duplicates get filed again as new entries.
-
-The end-to-end eval runs each real proposal through the whole agent and checks it
-against what a human decided. It looks for the right action, the right section,
-runnable code, and no sort-order collision.
-
-Neither number is the interesting one, because the agent's failures don't cost
-the same. Opening a bad PR costs a maintainer the review they were doing anyway.
-Closing a valid proposal with a wrong explanation reaches a student, and nobody
-reviews a closed issue. Both suites are weighted to catch the second kind, and
-`gpt-5.4-nano` was chosen for that reason rather than for its score.
-[docs/model-choice.md](docs/model-choice.md) walks through that tradeoff,
-including the model that beat it on two headline numbers and why we passed on it.
-
-We take the cases from PR reviews. When a human corrects the agent on a mistake
-that looks likely to recur, we add that correction as a permanent regression
-test. See the [eval README](faq_automation/evals/README.md) for that loop, the
-tags, and how to add cases.
+We add cases when a reviewer finds a mistake that could happen again. See the
+[eval guide](faq_automation/evals/README.md) for the datasets, metrics, and
+commands.
 
 ## Skills
 
@@ -140,9 +122,10 @@ PRs, and go looking for questions the FAQ is missing. Those jobs live in
 - `add-faq-record` adds or updates a single entry from a question, a chat thread,
   or a screenshot, and pushes back when unclear course material caused the
   confusion, because fixing that material beats writing an FAQ around it.
-- `clear-backlog` resolves open FAQ PRs first and then issues, one item at a
-  time. It checks placement, duplicates, canonical sources, and content quality,
-  and recommends eval coverage only for meaningful agent regressions.
+- `clear-backlog` resolves open FAQ PRs first and then issues, one item at a time.
+  It checks placement, duplicates, and canonical sources before reviewing
+  content quality. It recommends eval coverage only for meaningful agent
+  regressions.
 - `slack-faq-fetch` pulls recent Slack discussion for a course into a review
   export, to find the questions nobody has filed yet.
 

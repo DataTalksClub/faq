@@ -57,43 +57,72 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 ## Search eval (`run_search_eval.py`)
 
-Tests retrieval in isolation — no LLM calls, runs in ~2 seconds. Lets us
-iterate on index configuration and immediately see the impact on recall and hit
-rate. The current recorded result is recall@5 0.840 and MRR@5 0.813 across 25
+We test retrieval without making LLM calls, so the suite runs in about two
+seconds. We can change the index and immediately see how it affects recall and
+ranking. On the current corpus, recall@5 is 0.840 and MRR@5 is 0.813 across 25
 challenge cases.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 ```
 
-### How it works
+### Retrieval flow
 
 Each eval case is a deliberately difficult query paired with the `doc_id` of the
-FAQ entry it should retrieve. Ten cases come from real GitHub issues and 15 are
-synthetic variations. They cover regressions, reworded and paraphrased questions,
-vague queries, exact error messages without context, cross-module terminology,
-homework context, and competing documents with similar wording.
+FAQ entry it should retrieve. Ten cases come from real GitHub issues, and the
+other 15 are synthetic variations. Each case names the retrieval failure it
+tests.
 
-The search index is the current `_questions/` directory, which already contains
-that entry (we merged it). Production searches the question separately from the
+We build the search index from the current `_questions/` directory, which already
+contains the target entry. Production searches the question separately from the
 full question-and-answer proposal, then combines both rankings with reciprocal
 rank fusion. This keeps a vague proposed answer from burying a strong question
 match. The eval uses the same retrieval path and measures whether it surfaces
 the right document.
 
-This tests the DUPLICATE detection scenario: if a future student asks a similar
-question, will the search find the existing entry so the agent can mark it as
-DUPLICATE instead of creating a redundant new one? If recall is low, genuine
-duplicates slip through as NEW.
+This matters for duplicate detection. When a future student asks a similar
+question, search must put the existing entry in front of the model. Otherwise,
+the model will probably create a redundant entry.
 
-### Why exact self-matches are excluded
+### Exact self-matches
 
 An original proposal usually has the same wording as the FAQ created from it.
-Retrieving that document is a trivial keyword lookup and inflates the aggregate
-score without testing whether search can recognize a future duplicate. The
-active benchmark therefore includes only cases with a named retrieval challenge.
-The original proposal cases remain in `search_cases.py` as source history but
-are not included in `ALL_CASES`.
+When we search with that wording, keyword matching makes the result trivial and
+inflates the aggregate score. It doesn't test whether search can recognize a
+future duplicate. We therefore include only cases with a named retrieval
+challenge. The original proposals remain in `search_cases.py` as source history
+but aren't included in `ALL_CASES`.
+
+### Challenge cases
+
+We want the query to resemble the next student's question, not the proposal that
+created the FAQ. A student may remember the symptom but leave out the tool, use
+different words, or mention terms that appear in several modules. We still need
+search to put the right FAQ in front of the model.
+
+The challenge set includes:
+
+- Vague questions such as "the download just hangs". They contain few words
+  that distinguish the target from other troubleshooting entries.
+- Reworded and paraphrased questions. They describe the same problem without
+  copying the FAQ title.
+- Bare error messages. An error can be distinctive, but without the command or
+  module around it, several entries may look plausible.
+- Cross-module questions. Terms such as Docker, Kestra, DuckDB, and dbt appear
+  throughout a course, so keyword overlap can point search to the wrong section.
+- Homework questions with little context. "My counts don't match" says what the
+  student sees, but not which exercise or operation produced the counts.
+- Competing-document cases. More than one FAQ is a reasonable match, and the
+  specific one the model needs must rank near the top.
+- Regressions from earlier runs. Some now rank first because we fixed them, but
+  we keep them to catch the same mistake if it returns.
+
+Four queries currently miss the top five. For example, "It crashes when I try to
+search" doesn't mention the embedding-count mismatch in its target FAQ. "Kestra
+Docker volume not working" mixes two common topics. The query "homework 6 Spark
+record counts don't match" leaves several Spark and homework entries in
+contention. We learn more about the limits of keyword search from these misses
+than from an exact proposal-to-FAQ match.
 
 ### Metrics
 
