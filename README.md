@@ -1,51 +1,37 @@
 # DataTalks.Club FAQ
 
-Answers to the questions DataTalks.Club Zoomcamp students actually ask, so they
-can find one in seconds instead of scrolling Slack. Read it at
+Answers to the questions DataTalks.Club Zoomcamp students regularly ask, so they
+can find them quickly. It's available at
 [datatalks.club/faq](https://datatalks.club/faq).
 
-Each cohort brings thousands of students through the same material, so they hit
-the same walls:
+Each course cohort brings thousands of students. They have the same problems:
 
-- a Docker mount that fails on one OS
+- a Docker mount that fails on Windows
 - an API that changed since the video was recorded
 - a homework answer that doesn't match any of the options
 
-Someone already solved each of these in Slack. But Slack scrolls and the next
-cohort asks again, while course repos hold the material rather than the failure
-modes. So instructors answer the same question every cohort, and students search
-a chat history they weren't around for.
+The instructors have to answer the same question in every cohort. In this FAQ database,
+we collect all these questions, so they can be used to help the students. We also
+use it for the FAQ assistant in Slack to answer these questions automatically.
 
-## How it fits together
+## The parts
 
-Six parts, in the order an answer travels through them.
+The repository has several parts:
 
-The content is 1395 answers across 6 courses, one markdown file each under
-`_questions/`. That's the product. Everything else here either fills it or ships
-it.
+- Content (`_questions/`): 1395 answers across 6 courses, one markdown file each
+- The agent (`faq_automation/`): turns a student's GitHub issue into a reviewed
+  PR, or closes it
+- Evals (`faq_automation/evals/`): score the agent, so changing the prompt or the
+  model is a decision rather than a guess
+- Skills (`.claude/skills/`): the jobs that stay human, like adding an entry by
+  hand or working the review queue
+- The site (`website/`): publishes the answers twice, as HTML for students and as
+  JSON for programs
+- The FAQ assistant: a Slack bot in
+  [its own repo](https://github.com/DataTalksClub/faq-assistant) that answers
+  students from this content
 
-The agent fills it. A knowledge base stays useful only while adding to it stays
-cheap, and asking a maintainer to file every recurring question by hand isn't
-cheap. A student who hit a problem and solved it opens an issue, and the agent
-turns it into a reviewed PR, or closes it with a link to the answer that already
-existed.
-
-The evals watch the agent. Its failures are quiet: an issue it wrongly closed
-looks just like one it handled. Two suites score it against accumulated real
-cases, so changing the prompt or the model is a decision rather than a guess.
-
-The skills cover what the agent doesn't. Some jobs stay human: adding an entry by
-hand, working the review queue, going looking for questions nobody filed.
-`.claude/skills/` writes those down so they run the same way every time.
-
-The site ships it. Everything under `_questions/` gets published twice, as HTML
-for students and as JSON for programs that want the corpus.
-
-The FAQ assistant delivers it. Most students never open the site; they ask in
-Slack, and a separate bot answers them there from this content. So an answer
-written here does double duty.
-
-The rest of this README walks the same six in the same order.
+The rest of this README covers them in the same order.
 
 ## Content
 
