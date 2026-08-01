@@ -47,7 +47,7 @@ In the frontmatter it contains:
 
 The answer is in the body. 
 
-Example:
+Example for `001_74eb249bbf_i-just-discovered-the-course-can-i-still-join.md`:
 
 ```markdown
 ---
@@ -60,16 +60,7 @@ Yes, but if you want to receive a certificate, you need to submit your project
 while we're still accepting submissions.
 ```
 
-The filename repeats the sort order and the id, then a slug of the question:
-
-```text
-001_74eb249bbf_i-just-discovered-the-course-can-i-still-join.md
-```
-
-The id is what the entry's URL on the site points at, so it stays the same for the
-life of the record.
-
-Each course has a `_metadata.yaml` next to its sections:
+Each course has a `_metadata.yaml` file:
 
 ```yaml
 course: llm-zoomcamp
@@ -84,116 +75,64 @@ sections:
       sections."
 ```
 
-It names the course, the Slack and Telegram channels the questions get collected
-from, and the sections. Each section's `id` is its directory under the course, the
-`name` is what the site prints as a heading, and the order of the list is the
-order both the site and the automation use.
-
-The `comment` on each section describes what that section owns. Those comments are
-written for the automation as much as for people. It weights them above
-search results when it picks where an entry goes, so it guesses at any section
-that lacks one. 42 of 74 sections currently have one, and they are unevenly
-spread: Data Engineering describes 14 of its 15 and LLM Zoomcamp 13 of 16, while
-MLOps describes none of its 8. Placement is worst in the courses at the bottom of
-that list.
-
-Open a [FAQ proposal issue](https://github.com/DataTalksClub/faq/issues/new/choose)
+Open a [FAQ proposal issue](https://github.com/DataTalksClub/faq/issues/new?template=faq-proposal.yml)
 to add an answer, or send a PR to fix one that's already there. See
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## FAQ automation
 
-A student files an issue from the FAQ proposal template, picking a course and
-writing up the question and answer. GitHub Actions hands it to FAQ automation,
-which decides one of four things:
+Anyone can contribute to the FAQ dataset:
 
-- the question is new, so it opens a PR adding an entry to the right section
-- it adds to an existing entry, so it opens a PR merging the two
-- it's already answered, so it comments with a link and closes the issue
-- it's about a different course, so it comments and closes the issue
+- You submit an issue, specifying the question, the course and your answer.
+- A GitHub Actions workflow indexes the entire dataset with minsearch.
+- It searches twice - on the question alone, and on the question and answer together - and combines the two results with reciprocal rank fusion.
+- It sends the results to OpenAI, which returns a structured decision: `NEW`, `UPDATE`, `DUPLICATE` or `WRONG_COURSE`.
+- For `NEW` or `UPDATE`, it commits the file and opens a pull request.
+- For `DUPLICATE` or `WRONG_COURSE`, it closes the issue.
 
-Every content change goes through a PR, and the bot never commits to `main`. It
-can close an issue on its own, though, and nobody reviews that. Which is why both
-the model choice and the evals care far more about wrongly closing an issue than
-about wrongly opening a PR.
-
-```mermaid
-flowchart TD
-    A["Student opens issue<br/>(faq-proposal label)"] --> B["GitHub Actions<br/>faq-automation.yml"]
-    B --> C["cli.py<br/>parse course / question / answer"]
-    C --> D["FAQAgent<br/>load that course's entries + sections"]
-    D --> E["minsearch<br/>retrieve 5 similar entries"]
-    E --> F{"LLM returns<br/>FAQDecision"}
-    F -->|NEW| G["Write new file"]
-    F -->|UPDATE| H["Merge into existing file"]
-    F -->|DUPLICATE| I["Comment + close issue"]
-    F -->|WRONG_COURSE| J["Comment + close issue"]
-    G --> K["Open PR"]
-    H --> K
-    K --> L["Maintainer reviews + merges"]
-    L --> M["Site rebuilds from _questions/"]
-```
-
-The course comes from the student rather than the model. The dropdown is one click
-and is right most of the time, and making it a model decision would put a much
-larger classification in front of every proposal to fix a minority case. So
-`cli.py` passes the choice straight through as the directory to load. FAQ
-automation only ever sees one course's entries and section metadata, which is the
-whole reason `WRONG_COURSE` exists: without it, a proposal filed against the wrong
-course gets forced into whichever section of that course fits least badly. It
-catches roughly 1 in 5 misfiled proposals, the cheapest failure on the list and a
-deliberate trade.
-
-Retrieval is keyword search. [`minsearch`](https://github.com/alexeygrigorev/minsearch)
-indexes the selected course, and the top 5 hits go into the prompt as context. The
-index holds a few hundred entries per course, gets rebuilt from disk on each run,
-and has to work in a GitHub Actions job with no services. Embeddings would
-retrieve paraphrases better, and what keyword search costs us is exactly that: a
-proposal that paraphrases an existing entry without sharing its vocabulary can get
-filed as new.
 
 The LLM then makes one structured call that returns the action, target section,
-sort order, and rewritten content together as a single `FAQDecision`. Sort-order
-collisions get resolved after the decision rather than by the model. `actions.py`
-shifts existing entries down to make room, so the model picking an occupied slot
-isn't a failure mode.
+sort order, and rewritten content together as a single `FAQDecision`.
 
-We run `gpt-5.4-nano`, chosen on failure cost rather than eval score. Three models
-scored within one case of each other, so we picked the one least likely to rewrite
-a good entry or close a valid proposal. The full reasoning, and the case against
-it, are in [docs/model-choice.md](docs/model-choice.md).
+TODO include the schema here
 
-FAQ automation isn't deterministic near its decision boundaries. The same proposal
-can come back as `NEW` on one run and `WRONG_COURSE` on the next. On `gpt-5-nano`, 5
-of 7 wrong-course eval cases flipped on identical input. One eval run isn't
-evidence, which is why `probe_wrong_course.py` exists.
+We run `gpt-5.4-nano`. See the reasons in [docs/model-choice.md](docs/model-choice.md).
 
 ## Evals
 
-We run two suites, because retrieval and model decisions fail in different ways.
+We run two suites:
 
-The search eval runs without an LLM in about two seconds, so we can change the
-index and immediately see what it did. It holds 72 cases. Recall@5 is 0.875
-overall and 0.840 on the 25 challenge cases, the ones written to look like a
-future duplicate rather than a repeat of the original wording. That number is a
-ceiling on everything downstream: if search can't surface an existing entry, the
-model has no way to recognize the proposal as a duplicate.
+- Retrieval: can search find the entry that already answers a proposal
+- Generation: does the model then pick the right action and write the entry well
 
-The end-to-end eval runs 61 proposals through search and the model, checking the
-action, section, generated answer, and filename metadata. It scores 42/61 on
-`gpt-5.4-nano`. The total on its own is a weak signal: three candidate models
-landed within one case of each other, and a single run is noisy enough that the
-gap means nothing.
+Cases come from real mistakes. When a reviewer finds something the automation got
+wrong in a way that could happen again, it becomes a case. Nothing monitors the
+automation in production, so the evals and PR review are the only places we see
+how it decides. The [eval guide](faq_automation/evals/README.md) has the datasets,
+the metrics, and the per-suite detail.
 
-We add cases when a reviewer finds a mistake that could happen again. Cases run on
-the flex tier, which bills at the Batch API rate but answers in real time; a batch
-run of this suite once sat at 0/51 completed for 2.7 hours, which is fine for CI
-and useless for iterating.
+### Retrieval
 
-Nothing monitors the automation in production. We only see how well it decides
-when we run the evals or review a PR, and nothing records what it decided over
-time. See the [eval guide](faq_automation/evals/README.md) for the datasets, the
-metrics, and the per-suite detail.
+`run_search_eval.py` runs 72 cases without an LLM in about two seconds, so we can
+change the index and see immediately what it did. Recall@5 is 0.875 overall, and
+0.840 on the 25 challenge cases, which are the ones written to look like a future
+duplicate rather than a repeat of the original wording.
+
+That number is a ceiling on everything downstream. If search can't surface an
+existing entry, the model has no way to recognize the proposal as a duplicate.
+
+### Generation
+
+`runner.py` runs 61 proposals through search and the model, checking the action,
+the section, the generated answer, and the filename metadata. It scores 42/61 on
+`gpt-5.4-nano`.
+
+The total on its own is a weak signal: three candidate models landed within one
+case of each other, and a single run is noisy enough that the gap means nothing.
+
+Cases run on the flex tier, which bills at the Batch API rate but answers in real
+time. A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is
+fine for CI and useless for iterating.
 
 ## Skills
 
@@ -205,26 +144,32 @@ metrics, and the per-suite detail.
 
 ## The site
 
-We render the site with our own generator (`website/generate_website.py`) rather
-than Jekyll, and dbt is the reason. A good chunk of the Data Engineering answers
-contain dbt code, and dbt writes its refs in Jinja braces, `{{ ref('stg_trips') }}`,
-which Liquid claims as its own. Every dbt answer would need escaping, that
-escaping would live in the source file where the next person copies it, and an
-author who forgets breaks the build. Fighting the templating on every dbt entry
-was more work than writing the generator.
+`website/generate_website.py` reads every markdown file under `_questions/`,
+parses the frontmatter, orders sections per `_metadata.yaml` and questions by
+`sort_order`, then writes the content twice:
 
-The generator reads every markdown file under `_questions/`, parses the
-frontmatter, orders sections per `_metadata.yaml` and questions by `sort_order`,
-then writes the same content twice.
+- the website: pages for students to read
+- the JSON feed: the same answers for other programs to read
 
-Students read the HTML: one page per course plus an index, markdown run through
-Pygments for syntax highlighting and rendered into the Jinja2 templates in
-`_layouts/`. Question ids become the anchors, so an entry keeps its URL when it
-moves between sections.
+We use our own generator rather than Jekyll, and dbt is the reason. A good chunk
+of the Data Engineering answers contain dbt code, and dbt writes its refs in Jinja
+braces, `{{ ref('stg_trips') }}`, which Liquid claims as its own. Every dbt answer
+would need escaping, that escaping would live in the source file where the next
+person copies it, and an author who forgets breaks the build. Fighting the
+templating on every dbt entry was more work than writing the generator.
 
-Programs read the JSON, which holds the same answers without the presentation.
-`json/courses.json` indexes the courses, and each `json/<course>.json` is a flat
-list of entries:
+### Website
+
+One HTML page per course plus an index. Markdown runs through Pygments for syntax
+highlighting and gets rendered into the Jinja2 templates in `_layouts/`.
+
+Question ids become the anchors, so an entry keeps its URL when it moves between
+sections.
+
+### JSON
+
+The same answers without the presentation. `json/courses.json` indexes the
+courses, and each `json/<course>.json` is a flat list of entries:
 
 ```json
 {
@@ -236,11 +181,11 @@ list of entries:
 }
 ```
 
-FAQ automation doesn't use that feed, because it runs inside the repo and
-reads `_questions/` straight from disk. Other things do, and the closest one is a
-course: LLM Zoomcamp students fetch `json/courses.json` in the first lesson and
-index it to build their own RAG pipeline. We teach retrieval over the FAQ that the
-retrieval bot answers from.
+FAQ automation doesn't use this feed, because it runs inside the repo and reads
+`_questions/` straight from disk. Other things do, and the closest one is a course:
+LLM Zoomcamp students fetch `json/courses.json` in the first lesson and index it to
+build their own RAG pipeline. We teach retrieval over the FAQ that the retrieval
+bot answers from.
 
 ## The FAQ assistant
 
