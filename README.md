@@ -225,11 +225,15 @@ deployment package, so there's no vector database and effectively no fixed cost.
 Course channels search that course's FAQ plus the course material, and other
 channels search the general [docs](https://github.com/DataTalksClub/docs) corpus.
 
-## Working on it
+## Running it
 
-You need Python 3.13 and [uv](https://docs.astral.sh/uv/). An OpenAI API key is
-only needed for the automation and the evals, so the content and the site need
-neither a key nor a service.
+You need
+
+- Python 3.13
+- [uv](https://docs.astral.sh/uv/)
+- An OpenAI API key for the automation and the evals
+
+### Cloning the website 
 
 ```bash
 git clone https://github.com/DataTalksClub/faq
@@ -239,13 +243,9 @@ uv sync --dev
 
 ### Building the site
 
-`make website` builds the static site into `_site/`, and `make test` runs the 102
-website tests and 77 automation tests.
+- `make website` builds the static site into `_site/`
+- `make test` runs the 102 website tests and 77 automation tests
 
-```bash
-make website
-make test
-```
 
 ### Running FAQ automation
 
@@ -274,13 +274,6 @@ uv run python -m faq_automation.cli \
 
 ### Running the evals
 
-These need `OPENAI_API_KEY`. The first command runs every end-to-end case.
-`--case` runs one `case_id`, where a positive number is a GitHub issue and a
-negative one is a synthetic case, so pass those as `--case=-3`.
-`--batch` sends the suite as one Batch API job for the same price, though it can
-take hours to come back. The search eval needs no key. The last command re-runs
-the wrong-course cases 5 times each to measure recall and false positives.
-
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.runner
 uv run --project faq_automation python -m faq_automation.evals.runner --case 303
@@ -288,6 +281,14 @@ uv run --project faq_automation python -m faq_automation.evals.runner --batch
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 uv run --project faq_automation python -m faq_automation.evals.probe_wrong_course gpt-5.4-nano 5
 ```
+
+The first command runs every end-to-end case.
+`--case` runs one `case_id`, where a positive number is a GitHub issue and a
+negative one is a synthetic case, so pass those as `--case=-3`.
+`--batch` sends the suite as one Batch API job for the same price, though it can
+take hours to come back. The search eval needs no key. The last command re-runs
+the wrong-course cases 5 times each to measure recall and false positives.
+
 
 ### Finding candidates
 
