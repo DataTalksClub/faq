@@ -343,7 +343,7 @@ Each case is tagged for failure analysis:
 | Tag | Cases | What it tests |
 |-----|-------|---------------|
 | correct-new | 14 | Valid NEW proposals — the automation should create them |
-| section-misplacement | 12 | Historically placed in the wrong section |
+| section-misplacement | 12 | The automation historically placed these in the wrong section |
 | duplicate-verify | 6 | Doc in index — the automation should find it as DUPLICATE |
 | false-duplicate | 4 | Genuine NEW that the automation wrongly calls DUPLICATE |
 | dlt | 6 | dlt-specific placement (workshop vs module-3) |
