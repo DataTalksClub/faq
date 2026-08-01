@@ -13,7 +13,8 @@ body:
         Our FAQ bot will automatically analyze your proposal and determine if it should:
         - Create a new FAQ entry
         - Update an existing FAQ entry
-        - Mark as duplicate of an existing FAQ
+        - Close it as a duplicate of an existing FAQ
+        - Close it because it belongs to a different course
 
   - type: dropdown
     id: course
@@ -25,6 +26,8 @@ body:
         - data-engineering-zoomcamp
         - llm-zoomcamp
         - mlops-zoomcamp
+        - stock-markets-analytics-zoomcamp
+        - ai-dev-tools-zoomcamp
     validations:
       required: true
 
