@@ -137,20 +137,12 @@ Current performance:
 
 ### Generation
 
-In the second suite we test the whole flow, checks the result and the final action. 
+In the second suite we test the whole flow. We check if:
 
-We need it because:
-
-- Finding the entry doesn't mean using it. The model can see the existing answer
-  in its context and still file the proposal as new.
-- The bot closes issues on its own and nobody reviews that, so a wrong
-  `DUPLICATE` or `WRONG_COURSE` leaves no trace in production.
-
-Every case checks what a reviewer would check:
-
-- the action: `NEW`, `UPDATE`, `DUPLICATE` or `WRONG_COURSE`
-- the section the entry lands in
-- the content: runnable code, defined variables, a filename slug
+- the action (`NEW`, `UPDATE`, `DUPLICATE` or `WRONG_COURSE`) is correct
+- the session for the course is selected correctly 
+- the code looks runnable, all the variables are defined variables
+- the filename slug makes sense
 
 Current performance:
 
@@ -158,11 +150,19 @@ Current performance:
 |---|---|
 | cases passing | 42/61 |
 | valid proposals left open | 54/54 |
-| misfiled proposals caught | 0/7 |
+| wrong-course proposals closed | 0/7 |
 
-Never closing a valid proposal is the number that has to hold. Catching a
-misfiled one is a bonus we deliberately don't chase — see
-[docs/model-choice.md](docs/model-choice.md).
+The last row is a known limitation: the agent doesn't catch a proposal filed
+under the wrong course. The student picks the course from a dropdown, and the
+agent only ever sees that course's entries, so a wrong pick lands in whichever
+section of that course fits least badly. Case #97 is a real one — an answer about
+Spark global temporary views, submitted under ML Zoomcamp, should come back
+`WRONG_COURSE` and close the issue. It comes back `NEW` in `misc` instead.
+
+We leave it that way. The prompt demands positive evidence of another course and
+files when unsure, which is what holds the row above it at 54/54. A miss costs a
+wrong PR that a maintainer closes in seconds; the opposite mistake closes a valid
+proposal with nobody looking. See [docs/model-choice.md](docs/model-choice.md).
 
 We use the Flex tier for evals, so it's 50% cheaper than the usual API requests.
 A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is fine
