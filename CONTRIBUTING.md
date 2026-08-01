@@ -15,9 +15,6 @@ including when the question turns out to be answered already.
 
 ## Writing a good entry
 
-Either way, an entry is worth more when it's written the way the student who needs
-it will go looking for it.
-
 Ask the question in the words a student would search:
 
 - ✅ "How do I install Python dependencies using uv?"
