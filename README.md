@@ -20,11 +20,11 @@ The repository has several parts:
 
 - [Content](#content) (`_questions/`): the answers, one markdown file per
   question, 1395 of them across 6 courses
-- [FAQ automation](#faq-automation) (`faq_automation/`): the bot that reads a
-  student's proposal issue and opens a pull request, or closes the issue if it's
-  already answered
+- [FAQ automation](#faq-automation) (`faq_automation/`): the automation that
+  reads a student's proposal issue and opens a pull request, or closes the issue
+  if it's already answered
 - [Evals](#evals) (`faq_automation/evals/`): test cases that measure how well the
-  bot finds existing entries and picks the right action
+  automation finds existing entries and picks the right action
 - [Skills](#skills) (`.claude/skills/`): written procedures for the work
   maintainers do by hand, like adding an entry or reviewing open pull requests
 - [The site](#the-site) (`website/`): the generator that builds datatalks.club/faq,
@@ -130,7 +130,6 @@ Current performance:
 
 | | @1 | @3 | @5 |
 |---|---|---|---|
-| cases passing | 20/25 | 21/25 | 21/25 |
 | recall | 0.800 | 0.840 | 0.840 |
 | MRR | 0.800 | 0.813 | 0.813 |
 
@@ -149,7 +148,7 @@ Current performance:
 
 | | Result |
 |---|---|
-| cases passing | 42/61 |
+| overall performance | 42/61 |
 | valid proposals left open | 54/54 |
 | wrong-course proposals closed | 0/7 |
 
@@ -219,8 +218,8 @@ courses, and each `json/<course>.json` is a flat list of entries:
 FAQ automation doesn't use this feed, because it runs inside the repo and reads
 `_questions/` straight from disk. Other things do, and the closest one is a course:
 LLM Zoomcamp students fetch `json/courses.json` in the first lesson and index it to
-build their own RAG pipeline. We teach retrieval over the FAQ that the retrieval
-bot answers from.
+build their own RAG pipeline. We teach retrieval over the FAQ that the automation
+retrieves from.
 
 ## The FAQ assistant
 
@@ -348,7 +347,7 @@ faq/
 | Workflow | Trigger | What it does |
 |---|---|---|
 | `faq-automation.yml` | Issue opened with the `faq-proposal` label | Runs the automation, then opens a PR or closes the issue |
-| `test-faq-automation.yml` | PRs and pushes touching the bot | Runs the automation test suite |
+| `test-faq-automation.yml` | PRs and pushes touching the automation | Runs the automation test suite |
 | `test-website.yml` | PRs and pushes touching the site | Runs the website test suite |
 | `build-website.yml` | Push to `main` | Rebuilds and deploys to GitHub Pages |
 
