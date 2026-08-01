@@ -182,8 +182,10 @@ Jekyll with Liquid cannot parse them and I didn't find an easy way to deal with 
 
 ### Website
 
-One HTML page per course plus an index. Markdown runs through Pygments for syntax
-highlighting and gets rendered into the Jinja2 templates in `_layouts/`.
+One HTML page per course plus an index, live at
+[datatalks.club/faq](https://datatalks.club/faq). Markdown runs through Pygments
+for syntax highlighting and gets rendered into the Jinja2 templates in
+[`_layouts/`](_layouts/).
 
 Question ids become the anchors, so an entry keeps its URL when it moves between
 sections.
@@ -192,8 +194,10 @@ sections.
 
 The same answers without the presentation:
 
-- `json/courses.json` indexes the courses
-- each `json/<course>.json` is a flat list of entries
+- [`json/courses.json`](https://datatalks.club/faq/json/courses.json) indexes the
+  courses
+- each `json/<course>.json` is a flat list of entries, for example
+  [`llm-zoomcamp.json`](https://datatalks.club/faq/json/llm-zoomcamp.json)
 
 Record example:
 
