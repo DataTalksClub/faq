@@ -37,12 +37,59 @@ The rest of this README covers them in the same order.
 
 ## Content
 
-Every answer is one markdown file under `_questions/<course>/<section>/`, with an
-id, the question, and a sort order in its frontmatter. Sections and their order
-come from each course's `_metadata.yaml`.
+Every FAQ record is a markdown file in `_questions/<course>/<section>/`.
 
-Each section there also has a `comment` describing what it owns. Those comments
-are written for the automation as much as for people. It weights them above
+In the frontmatter it contains:
+
+- the unique id
+- the question
+- the sort order
+
+The answer itself is the markdown body:
+
+```markdown
+---
+id: 95feb4e75b
+question: Why does cosine similarity reduce to a matrix multiplication between the
+  embeddings and the query vector?
+sort_order: 6
+---
+
+Cosine similarity measures how aligned two vectors are, regardless of their
+magnitude. When all vectors are normalized to unit length, their magnitudes no
+longer matter, so cosine similarity is equivalent to the dot product.
+```
+
+The filename repeats the sort order and the id, then a slug of the question:
+
+```text
+006_95feb4e75b_why-does-cosine-similarity-reduce-to-a-matrix-mult.md
+```
+
+The id is what the entry's URL on the site points at, so it stays the same for the
+life of the record.
+
+Each course has a `_metadata.yaml` next to its sections:
+
+```yaml
+course: llm-zoomcamp
+course_name: "LLM Zoomcamp"
+slack_channel: course-llm-zoomcamp
+telegram_channel: llm_zoomcamp
+sections:
+  - id: module-2-vector-search
+    name: "Module 2: Vector Search"
+    comment: "Vector search, embeddings, embedding models, indexing, semantic
+      search, chunking errors, and embedding dimension mismatches."
+```
+
+It names the course, the Slack and Telegram channels the questions get collected
+from, and the sections. Each section's `id` is its directory under the course, the
+`name` is what the site prints as a heading, and the order of the list is the
+order both the site and the automation use.
+
+The `comment` on each section describes what that section owns. Those comments are
+written for the automation as much as for people. It weights them above
 search results when it picks where an entry goes, so it guesses at any section
 that lacks one. 42 of 74 sections currently have one, and they are unevenly
 spread: Data Engineering describes 14 of its 15 and LLM Zoomcamp 13 of 16, while
