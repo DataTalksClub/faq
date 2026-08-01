@@ -102,30 +102,29 @@ We run `gpt-5.4-nano`. See the reasons in [docs/model-choice.md](docs/model-choi
 
 We run two suites:
 
-- Retrieval: can search find the entry that already answers a proposal
-- Generation: does the model then pick the right action and write the entry well
+| Suite | What it tests | Cases | Runtime | Score |
+|---|---|---|---|---|
+| [Retrieval](#retrieval) (`run_search_eval.py`) | whether search finds the entry that already answers a proposal | 72 | ~2s | recall@5 0.875 |
+| [Generation](#generation) (`runner.py`) | whether the model then picks the right action and writes the entry well | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
 
-Cases come from real mistakes. When a reviewer finds something the automation got
-wrong in a way that could happen again, it becomes a case. Nothing monitors the
-automation in production, so the evals and PR review are the only places we see
-how it decides. The [eval guide](faq_automation/evals/README.md) has the datasets,
-the metrics, and the per-suite detail.
+Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md).
 
 ### Retrieval
 
-`run_search_eval.py` runs 72 cases without an LLM in about two seconds, so we can
-change the index and see immediately what it did. Recall@5 is 0.875 overall, and
-0.840 on the 25 challenge cases, which are the ones written to look like a future
-duplicate rather than a repeat of the original wording.
+There are no LLM calls, so the suite is fast enough to change the index and see
+immediately what it did.
 
-That number is a ceiling on everything downstream. If search can't surface an
+25 of the cases are challenge cases, written to look like a future duplicate
+rather than a repeat of the original wording. Recall@5 on those is 0.840, and the
+easier exact matches pull the overall number up.
+
+Retrieval is a ceiling on everything downstream. If search can't surface an
 existing entry, the model has no way to recognize the proposal as a duplicate.
 
 ### Generation
 
-`runner.py` runs 61 proposals through search and the model, checking the action,
-the section, the generated answer, and the filename metadata. It scores 42/61 on
-`gpt-5.4-nano`.
+Each proposal goes through search and the model, and the case checks the action,
+the section, the generated answer, and the filename metadata.
 
 The total on its own is a weak signal: three candidate models landed within one
 case of each other, and a single run is noisy enough that the gap means nothing.
