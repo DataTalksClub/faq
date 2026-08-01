@@ -104,21 +104,16 @@ We run two suites:
 
 | Suite | What it tests | Cases | Runtime | Score |
 |---|---|---|---|---|
-| [Retrieval](#retrieval) (`run_search_eval.py`) | Retrieval | 25 | ~2s | recall@5 0.840 |
-| [Generation](#generation) (`runner.py`) | Generation | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
+| [Retrieval](#retrieval) ([`run_search_eval.py`](faq_automation/evals/run_search_eval.py)) | Retrieval | 25 | ~2s | recall@5 0.840 |
+| [Generation](#generation) ([`runner.py`](faq_automation/evals/runner.py)) | Generation | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
 
 Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md).
 
 ### Retrieval
 
-In the first suite, we test retrieval. There are no calls to LLMs. 
+### Retrieval
 
-We need it because:
-
-- Retrieval is the ceiling. The model only sees the top 5 hits, so an entry
-  search doesn't surface can't be recognized as a duplicate.
-- We need a smoke test to make sure we don't accidentally break retrieval. The
-  run fails if recall@5 drops below the recorded baseline.
+In the first suite, we test retrieval. We need reliable search to make sure we are able to detect duplicates.
 
 Every case in the retrieval eval set is a hard query:
 
@@ -133,8 +128,6 @@ Current performance:
 | recall | 0.800 | 0.840 | 0.840 |
 | MRR | 0.800 | 0.813 | 0.813 |
 
-
-
 ### Generation
 
 In the second suite we test the whole flow. We check if:
@@ -146,23 +139,29 @@ In the second suite we test the whole flow. We check if:
 
 Current performance:
 
-| | Result |
+| Expected action | Result |
 |---|---|
 | overall performance | 42/61 |
-| valid proposals left open | 54/54 |
-| wrong-course proposals closed | 0/7 |
+| `NEW` — file a new entry | 28/38 |
+| `DUPLICATE` — close, it's already answered | 8/10 |
+| `UPDATE` — merge into an existing entry | 1/2 |
+| `NEW` on a near miss — a shared tool, not another course | 4/4 |
+| `WRONG_COURSE` — close, it belongs elsewhere | 1/7 |
 
-The last row is a known limitation: the automation doesn't catch a proposal filed
-under the wrong course. The student picks the course from a dropdown, and the
-automation only ever sees that course's entries, so a wrong pick lands in
-whichever section of that course fits least badly. Case #97 is a real one — an answer about
-Spark global temporary views, submitted under ML Zoomcamp, should come back
-`WRONG_COURSE` and close the issue. It comes back `NEW` in `misc` instead.
+No valid proposal was closed as wrong-course: all 54 cases outside the last row
+kept the issue open.
+
+That last row is a known limitation. The student picks the course from a
+dropdown, and the automation only ever sees that course's entries, so a wrong
+pick lands in whichever section of that course fits least badly. Case #109 is a
+real one — "GitHub Codespaces: Running pgadmin in Docker", submitted under ML
+Zoomcamp, should close with a pointer to Data Engineering. It comes back as a new
+ML Zoomcamp entry instead, on every run we've measured.
 
 We leave it that way. The prompt demands positive evidence of another course and
-files when unsure, which is what holds the row above it at 54/54. A miss costs a
-wrong PR that a maintainer closes in seconds; the opposite mistake closes a valid
-proposal with nobody looking. See [docs/model-choice.md](docs/model-choice.md).
+files when unsure, which is what keeps those 54 open. A miss costs a wrong PR
+that a maintainer closes in seconds; the opposite mistake closes a valid proposal
+with nobody looking. See [docs/model-choice.md](docs/model-choice.md).
 
 We use the Flex tier for evals, so it's 50% cheaper than the usual API requests.
 A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is fine
