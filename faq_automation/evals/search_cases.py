@@ -113,8 +113,10 @@ SYNTHETIC_CASES = [
     SearchCase('llm-zoomcamp', 'Kestra flow fails with missing GEMINI_API_KEY secret using docker compose', '', 'c8ca21af33', 300, 'duplicate: Kestra base64 secret, second relevant doc'),
 ]
 
-# Exact proposal-to-FAQ matches are retained above as source history, but they do
-# not belong in the active benchmark: their near-identical wording makes them
-# trivial keyword lookups. A note marks cases deliberately written or selected
-# to exercise a retrieval failure mode.
-ALL_CASES = [case for case in REAL_CASES + SYNTHETIC_CASES if case.note]
+# The benchmark runs every case. A note marks the cases deliberately written or
+# selected to exercise a retrieval failure mode; the rest are exact
+# proposal-to-FAQ matches, whose near-identical wording makes them easy keyword
+# lookups. The eval reports both the overall score and the challenge subset, so
+# the easy cases cannot hide a regression on the hard ones.
+ALL_CASES = REAL_CASES + SYNTHETIC_CASES
+CHALLENGE_CASES = [case for case in ALL_CASES if case.note]

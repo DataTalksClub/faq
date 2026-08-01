@@ -2,9 +2,11 @@
 Search/retrieval eval for the FAQ merge agent.
 
 Tests the retrieval layer (minsearch index) in isolation — no LLM calls, runs
-in seconds. The active benchmark contains deliberately difficult queries paired
-with the doc_id of the FAQ entry they should retrieve. We search the current
-index and measure whether search surfaces the right doc.
+in seconds. Every case pairs a query with the doc_id of the FAQ entry it should
+retrieve. We search the current index and measure whether search surfaces the
+right doc. Results are reported for the whole suite and, separately, for the
+challenge cases — the deliberately difficult queries — so the easy exact
+matches cannot hide a regression on the hard ones.
 
   Metrics: recall@k (= hit_rate@k), MRR@k.
 
@@ -77,7 +79,7 @@ def simulate_action(ranked_ids, relevant_ids, k):
 
 def run_all(num_results=10, k_values=(1, 3, 5)):
     cases = [c for c in ALL_CASES if c.answer != 'NONE']
-    print(f"Search retrieval eval — {len(cases)} challenge cases\n")
+    print(f"Search retrieval eval — {len(cases)} cases\n")
 
     # Load all documents per course
     docs_by_course = {}
@@ -158,6 +160,24 @@ def run_all(num_results=10, k_values=(1, 3, 5)):
         avg_recall = sum(r[f'recall@{k}'] for r in results) / n
         avg_mrr = sum(r[f'mrr@{k}'] for r in results) / n
         print(f"  @{k}:  recall={avg_recall:.3f}  mrr={avg_mrr:.3f}")
+
+    # Challenge subset vs exact matches
+    challenge_rows = []
+    exact_rows = []
+    for r in results:
+        if r['note']:
+            challenge_rows.append(r)
+        else:
+            exact_rows.append(r)
+
+    print(f"\nBy case type:")
+    for label, rows in [('challenge', challenge_rows), ('exact match', exact_rows)]:
+        if not rows:
+            continue
+        nr = len(rows)
+        avg_recall = sum(r['recall@5'] for r in rows) / nr
+        avg_mrr = sum(r['mrr@5'] for r in rows) / nr
+        print(f"  {label}: recall@5={avg_recall:.3f}  mrr@5={avg_mrr:.3f}  ({nr} cases)")
 
     # By course
     print(f"\nBy course:")

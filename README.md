@@ -103,11 +103,12 @@ occupied slot isn't a failure mode.
 
 We run two suites because retrieval and model decisions fail in different ways:
 
-- The search eval runs 25 difficult queries without an LLM. If it can't find an
-  existing FAQ, the model can't recognize the proposal as a duplicate. The
-  current recall@5 is 0.840.
+- The search eval runs 72 queries without an LLM. If it can't find an existing
+  FAQ, the model can't recognize the proposal as a duplicate. Recall@5 is 0.833
+  overall and 0.840 on the 25 difficult ones.
 - The end-to-end eval runs 61 proposals through search and the model. It checks
-  the action, section, generated answer, and filename metadata.
+  the action, section, generated answer, and filename metadata. It scores 42/61
+  on `gpt-5.4-nano`.
 
 We add cases when a reviewer finds a mistake that could happen again. See the
 [eval guide](faq_automation/evals/README.md) for the datasets, metrics, and
@@ -119,15 +120,11 @@ The agent handles the filing, but people still add entries by hand, review the
 PRs, and go looking for questions the FAQ is missing. Those jobs live in
 `.claude/skills/` so they run the same way every time.
 
-- `add-faq-record` adds or updates a single entry from a question, a chat thread,
-  or a screenshot, and pushes back when unclear course material caused the
-  confusion, because fixing that material beats writing an FAQ around it.
-- `clear-backlog` resolves open FAQ PRs first and then issues, one item at a time.
-  It checks placement, duplicates, and canonical sources before reviewing
-  content quality. It recommends eval coverage only for meaningful agent
-  regressions.
-- `slack-faq-fetch` pulls recent Slack discussion for a course into a review
-  export, to find the questions nobody has filed yet.
+| Skill | What it does |
+|-------|--------------|
+| `add-faq-record` | Adds or updates a single entry from a question, a chat thread, or a screenshot. Pushes back when unclear course material caused the confusion, because fixing that material beats writing an FAQ around it. |
+| `clear-backlog` | Resolves open FAQ PRs first and then issues, one item at a time. Checks placement, duplicates, and canonical sources before reviewing content quality; recommends eval coverage only for meaningful agent regressions. |
+| `slack-faq-fetch` | Pulls recent Slack discussion for a course into a review export, to find the questions nobody has filed yet. |
 
 ## Site generator
 
