@@ -18,18 +18,19 @@ use it for the FAQ assistant in Slack to answer these questions automatically.
 
 The repository has several parts:
 
-- Content (`_questions/`): 1395 answers across 6 courses, one markdown file each
-- FAQ automation (`faq_automation/`): turns a student's GitHub issue into a
-  reviewed PR, or closes it
-- Evals (`faq_automation/evals/`): score the automation, so changing the prompt or
-  the model is a decision rather than a guess
-- Skills (`.claude/skills/`): the jobs that stay human, like adding an entry by
-  hand or working the review queue
-- The site (`website/`): publishes the answers twice, as HTML for students and as
-  JSON for programs
+- Content (`_questions/`): the answers, one markdown file per question, 1395 of
+  them across 6 courses
+- FAQ automation (`faq_automation/`): the bot that reads a student's proposal
+  issue and opens a pull request, or closes the issue if it's already answered
+- Evals (`faq_automation/evals/`): test cases that measure how well the bot finds
+  existing entries and picks the right action
+- Skills (`.claude/skills/`): written procedures for the work maintainers do by
+  hand, like adding an entry or reviewing open pull requests
+- The site (`website/`): the generator that builds datatalks.club/faq, plus a JSON
+  copy of the content for other programs to read
 - The FAQ assistant: a Slack bot in
-  [its own repo](https://github.com/DataTalksClub/faq-assistant) that answers
-  students from this content
+  [a separate repo](https://github.com/DataTalksClub/faq-assistant) that answers
+  students using this FAQ as one of its sources
 
 The rest of this README covers them in the same order.
 
