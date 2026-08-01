@@ -19,10 +19,10 @@ use it for the FAQ assistant in Slack to answer these questions automatically.
 The repository has several parts:
 
 - Content (`_questions/`): 1395 answers across 6 courses, one markdown file each
-- The agent (`faq_automation/`): turns a student's GitHub issue into a reviewed
-  PR, or closes it
-- Evals (`faq_automation/evals/`): score the agent, so changing the prompt or the
-  model is a decision rather than a guess
+- FAQ automation (`faq_automation/`): turns a student's GitHub issue into a
+  reviewed PR, or closes it
+- Evals (`faq_automation/evals/`): score the automation, so changing the prompt or
+  the model is a decision rather than a guess
 - Skills (`.claude/skills/`): the jobs that stay human, like adding an entry by
   hand or working the review queue
 - The site (`website/`): publishes the answers twice, as HTML for students and as
@@ -40,7 +40,7 @@ id, the question, and a sort order in its frontmatter. Sections and their order
 come from each course's `_metadata.yaml`.
 
 Each section there also has a `comment` describing what it owns. Those comments
-are written for the agent as much as for people. The agent weights them above
+are written for the automation as much as for people. It weights them above
 search results when it picks where an entry goes, so it guesses at any section
 that lacks one. 42 of 74 sections currently have one, and they are unevenly
 spread: Data Engineering describes 14 of its 15 and LLM Zoomcamp 13 of 16, while
@@ -51,11 +51,11 @@ Open a [FAQ proposal issue](https://github.com/DataTalksClub/faq/issues/new/choo
 to add an answer, or send a PR to fix one that's already there. See
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## The agent
+## FAQ automation
 
 A student files an issue from the FAQ proposal template, picking a course and
-writing up the question and answer. GitHub Actions hands it to the agent, which
-decides one of four things:
+writing up the question and answer. GitHub Actions hands it to FAQ automation,
+which decides one of four things:
 
 - the question is new, so it opens a PR adding an entry to the right section
 - it adds to an existing entry, so it opens a PR merging the two
@@ -87,9 +87,9 @@ flowchart TD
 The course comes from the student rather than the model. The dropdown is one click
 and is right most of the time, and making it a model decision would put a much
 larger classification in front of every proposal to fix a minority case. So
-`cli.py` passes the choice straight through as the directory the agent loads. The
-agent only ever sees one course's entries and section metadata, which is the whole
-reason `WRONG_COURSE` exists: without it, a proposal filed against the wrong
+`cli.py` passes the choice straight through as the directory to load. FAQ
+automation only ever sees one course's entries and section metadata, which is the
+whole reason `WRONG_COURSE` exists: without it, a proposal filed against the wrong
 course gets forced into whichever section of that course fits least badly. It
 catches roughly 1 in 5 misfiled proposals, the cheapest failure on the list and a
 deliberate trade.
@@ -113,8 +113,8 @@ scored within one case of each other, so we picked the one least likely to rewri
 a good entry or close a valid proposal. The full reasoning, and the case against
 it, are in [docs/model-choice.md](docs/model-choice.md).
 
-The agent isn't deterministic near its decision boundaries. The same proposal can
-come back as `NEW` on one run and `WRONG_COURSE` on the next. On `gpt-5-nano`, 5
+FAQ automation isn't deterministic near its decision boundaries. The same proposal
+can come back as `NEW` on one run and `WRONG_COURSE` on the next. On `gpt-5-nano`, 5
 of 7 wrong-course eval cases flipped on identical input. One eval run isn't
 evidence, which is why `probe_wrong_course.py` exists.
 
@@ -140,17 +140,17 @@ the flex tier, which bills at the Batch API rate but answers in real time; a bat
 run of this suite once sat at 0/51 completed for 2.7 hours, which is fine for CI
 and useless for iterating.
 
-Nothing monitors the agent in production. We only see how well it decides when we
-run the evals or review a PR, and nothing records what it decided over time. See
-the [eval guide](faq_automation/evals/README.md) for the datasets, the metrics,
-and the per-suite detail.
+Nothing monitors the automation in production. We only see how well it decides
+when we run the evals or review a PR, and nothing records what it decided over
+time. See the [eval guide](faq_automation/evals/README.md) for the datasets, the
+metrics, and the per-suite detail.
 
 ## Skills
 
 | Skill | What it does |
 |-------|--------------|
 | `add-faq-record` | Adds or updates a single entry from a question, a chat thread, or a screenshot. Pushes back when unclear course material caused the confusion, because fixing that material beats writing an FAQ around it. |
-| `clear-backlog` | Resolves open FAQ PRs first and then issues, one item at a time. Checks placement, duplicates, and canonical sources before reviewing content quality; recommends eval coverage only for meaningful agent regressions. |
+| `clear-backlog` | Resolves open FAQ PRs first and then issues, one item at a time. Checks placement, duplicates, and canonical sources before reviewing content quality; recommends eval coverage only for meaningful automation regressions. |
 | `slack-faq-fetch` | Pulls recent Slack discussion for a course into a review export, to find the questions nobody has filed yet. |
 
 ## The site
@@ -186,7 +186,7 @@ list of entries:
 }
 ```
 
-The agent in this repo doesn't use that feed, because it runs inside the repo and
+FAQ automation doesn't use that feed, because it runs inside the repo and
 reads `_questions/` straight from disk. Other things do, and the closest one is a
 course: LLM Zoomcamp students fetch `json/courses.json` in the first lesson and
 index it to build their own RAG pipeline. We teach retrieval over the FAQ that the
@@ -206,8 +206,8 @@ channels search the general [docs](https://github.com/DataTalksClub/docs) corpus
 ## Working on it
 
 You need Python 3.13 and [uv](https://docs.astral.sh/uv/). An OpenAI API key is
-only needed for the agent and the evals, so the content and the site need neither
-a key nor a service.
+only needed for the automation and the evals, so the content and the site need
+neither a key nor a service.
 
 ```bash
 git clone https://github.com/DataTalksClub/faq
@@ -225,7 +225,7 @@ make website
 make test
 ```
 
-### Running the agent
+### Running FAQ automation
 
 Set a key and feed it an issue body. The key can also live in `.env`. The model
 comes from `DEFAULT_MODEL` in `faq_automation/rag_agent.py`, and
@@ -293,7 +293,7 @@ faq/
 ├── _questions/<course>/         # the content: one markdown file per answer
 │   ├── _metadata.yaml           # section ids, names, and placement comments
 │   └── <section>/NNN_<id>_<slug>.md
-├── faq_automation/              # the agent
+├── faq_automation/              # the automation
 │   ├── rag_agent.py             # prompt, FAQDecision schema, DEFAULT_MODEL
 │   ├── cli.py                   # issue body in, decision JSON out
 │   ├── actions.py               # writes files, builds PR bodies and comments
@@ -317,7 +317,7 @@ faq/
 
 | Workflow | Trigger | What it does |
 |---|---|---|
-| `faq-automation.yml` | Issue opened with the `faq-proposal` label | Runs the agent, then opens a PR or closes the issue |
+| `faq-automation.yml` | Issue opened with the `faq-proposal` label | Runs the automation, then opens a PR or closes the issue |
 | `test-faq-automation.yml` | PRs and pushes touching the bot | Runs the automation test suite |
 | `test-website.yml` | PRs and pushes touching the site | Runs the website test suite |
 | `build-website.yml` | Push to `main` | Rebuilds and deploys to GitHub Pages |
