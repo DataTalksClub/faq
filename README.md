@@ -111,8 +111,6 @@ Cases come from real mistakes. If automation gets something wrong, it may become
 
 ### Retrieval
 
-### Retrieval
-
 In the first suite, we test retrieval. We need reliable search to make sure we are able to detect duplicates.
 
 Every case in the retrieval eval set is a hard query:
