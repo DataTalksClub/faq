@@ -152,10 +152,10 @@ Current performance:
 | valid proposals left open | 54/54 |
 | wrong-course proposals closed | 0/7 |
 
-The last row is a known limitation: the agent doesn't catch a proposal filed
+The last row is a known limitation: the automation doesn't catch a proposal filed
 under the wrong course. The student picks the course from a dropdown, and the
-agent only ever sees that course's entries, so a wrong pick lands in whichever
-section of that course fits least badly. Case #97 is a real one — an answer about
+automation only ever sees that course's entries, so a wrong pick lands in
+whichever section of that course fits least badly. Case #97 is a real one — an answer about
 Spark global temporary views, submitted under ML Zoomcamp, should come back
 `WRONG_COURSE` and close the issue. It comes back `NEW` in `misc` instead.
 
