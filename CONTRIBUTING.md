@@ -1,8 +1,8 @@
 # Contributing to the DataTalks.Club FAQ
 
 The FAQ collects the questions Zoomcamp students actually hit, and the answers
-that unblocked them. There are two ways to add one: open a proposal issue and let
-the bot file it for you, or edit `_questions/` and send a pull request yourself.
+that unblocked them. There are two ways to help: propose an answer that isn't
+there yet, or open a pull request to fix one that is.
 
 ## Proposing an answer
 
@@ -18,8 +18,8 @@ describes how it decides.
 
 ## Writing a good entry
 
-Whichever route you take, an entry is worth more when it's written the way the
-student who needs it will go looking for it.
+Either way, an entry is worth more when it's written the way the student who needs
+it will go looking for it.
 
 Ask the question in the words a student would search:
 
@@ -47,15 +47,13 @@ link still points at the truth and a paraphrase has quietly gone stale.
 If the confusion came from unclear course material, say so in the issue. Fixing
 the material is usually better than writing an FAQ entry around it.
 
-## Sending a pull request
+## Updating an existing entry
 
-Every answer is one markdown file:
+An answer that's already published but wrong, outdated, or thin doesn't need an
+issue. Edit the file and open a pull request.
 
-```text
-_questions/<course>/<section-id>/NNN_<id>_<slug>.md
-```
-
-with the id, the question, and the sort order in its frontmatter:
+Every answer is one markdown file under `_questions/<course>/<section-id>/`, with
+the id, the question, and the sort order in its frontmatter:
 
 ```markdown
 ---
@@ -68,29 +66,12 @@ The most common cause is using a different embedding model than the homework
 specifies.
 ```
 
-The section directory is the `id` of a section in that course's `_metadata.yaml`.
-Each section there carries a `comment` describing what it owns, so read those
-before choosing rather than guessing from the section name.
+Leave the `id` as it is. It's the anchor the entry's URL is built from, so
+changing it breaks every link pointing at that answer. The filename can stay as it
+is too, even if you reword the question.
 
-The three parts of the filename:
-
-- `NNN` is the `sort_order` padded to three digits, and it has to match the
-  `sort_order` in the frontmatter
-- `<id>` is the first 10 characters of the MD5 of the question and the answer
-  joined by a space, and it repeats in the frontmatter as `id`
-- `<slug>` comes from the question, lowercased, with punctuation removed, spaces
-  turned into hyphens, and the result cut to 50 characters
-
-Generate the id the same way the bot does:
-
-```bash
-python -c "import hashlib, sys; print(hashlib.md5(sys.argv[1].encode()).hexdigest()[:10])" \
-  "How do I check my Python version? Run python --version in your terminal."
-```
-
-If the `sort_order` you want is already taken, either take the next free number in
-the section or renumber the entries below it. The bot has `actions.py` to shift
-existing entries down; a pull request has to do it by hand.
+New entries go through the proposal form rather than a hand-written file, because
+ids and sort order have to be assigned against everything already in the section.
 
 Check the result before you send it:
 

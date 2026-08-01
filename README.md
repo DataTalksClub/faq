@@ -62,8 +62,8 @@ MLOps describes none of its 8. Placement is worst in the courses at the bottom o
 that list.
 
 Open a [FAQ proposal issue](https://github.com/DataTalksClub/faq/issues/new/choose)
-to add an answer, or edit `_questions/` directly and send a PR. See
-[CONTRIBUTING.md](CONTRIBUTING.md) for the format.
+to add an answer, or send a PR to fix one that's already there. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## The agent
 
