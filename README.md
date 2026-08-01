@@ -20,29 +20,30 @@ a chat history they weren't around for.
 
 Six parts, in the order an answer travels through them.
 
-**Content.** 1395 answers across 6 courses, one markdown file each under
+The content is 1395 answers across 6 courses, one markdown file each under
 `_questions/`. That's the product. Everything else here either fills it or ships
 it.
 
-**The agent.** A knowledge base stays useful only while adding to it stays cheap,
-and asking a maintainer to file every recurring question by hand isn't cheap. A
-student who hit a problem and solved it opens an issue, and the agent turns it
-into a reviewed PR, or closes it with a link to the answer that already existed.
+The agent fills it. A knowledge base stays useful only while adding to it stays
+cheap, and asking a maintainer to file every recurring question by hand isn't
+cheap. A student who hit a problem and solved it opens an issue, and the agent
+turns it into a reviewed PR, or closes it with a link to the answer that already
+existed.
 
-**Evals.** The agent's failures are quiet: an issue it wrongly closed looks just
-like one it handled. Two suites score it against accumulated real cases, so
-changing the prompt or the model is a decision rather than a guess.
+The evals watch the agent. Its failures are quiet: an issue it wrongly closed
+looks just like one it handled. Two suites score it against accumulated real
+cases, so changing the prompt or the model is a decision rather than a guess.
 
-**Skills.** Some jobs stay human — adding an entry by hand, working the review
-queue, going looking for questions nobody filed. `.claude/skills/` writes those
-down so they run the same way every time.
+The skills cover what the agent doesn't. Some jobs stay human: adding an entry by
+hand, working the review queue, going looking for questions nobody filed.
+`.claude/skills/` writes those down so they run the same way every time.
 
-**The site.** Everything under `_questions/` gets published twice, as HTML for
-students and as JSON for programs that want the corpus.
+The site ships it. Everything under `_questions/` gets published twice, as HTML
+for students and as JSON for programs that want the corpus.
 
-**The FAQ assistant.** Most students never open the site; they ask in Slack. A
-separate bot answers them there from this content, so an answer written here does
-double duty.
+The FAQ assistant delivers it. Most students never open the site; they ask in
+Slack, and a separate bot answers them there from this content. So an answer
+written here does double duty.
 
 The rest of this README walks the same six in the same order.
 
@@ -97,17 +98,17 @@ flowchart TD
     L --> M["Site rebuilds from _questions/"]
 ```
 
-**The course comes from the student, not the model.** The dropdown is one click
+The course comes from the student rather than the model. The dropdown is one click
 and is right most of the time, and making it a model decision would put a much
 larger classification in front of every proposal to fix a minority case. So
 `cli.py` passes the choice straight through as the directory the agent loads. The
 agent only ever sees one course's entries and section metadata, which is the whole
 reason `WRONG_COURSE` exists: without it, a proposal filed against the wrong
 course gets forced into whichever section of that course fits least badly. It
-catches roughly 1 in 5 misfiled proposals — the cheapest failure on the list, and
-a deliberate trade.
+catches roughly 1 in 5 misfiled proposals, the cheapest failure on the list and a
+deliberate trade.
 
-**Retrieval is keyword search.** [`minsearch`](https://github.com/alexeygrigorev/minsearch)
+Retrieval is keyword search. [`minsearch`](https://github.com/alexeygrigorev/minsearch)
 indexes the selected course, and the top 5 hits go into the prompt as context. The
 index holds a few hundred entries per course, gets rebuilt from disk on each run,
 and has to work in a GitHub Actions job with no services. Embeddings would
@@ -127,7 +128,7 @@ a good entry or close a valid proposal. The full reasoning, and the case against
 it, are in [docs/model-choice.md](docs/model-choice.md).
 
 The agent isn't deterministic near its decision boundaries. The same proposal can
-come back as `NEW` on one run and `WRONG_COURSE` on the next — on `gpt-5-nano`, 5
+come back as `NEW` on one run and `WRONG_COURSE` on the next. On `gpt-5-nano`, 5
 of 7 wrong-course eval cases flipped on identical input. One eval run isn't
 evidence, which is why `probe_wrong_course.py` exists.
 
@@ -135,17 +136,16 @@ evidence, which is why `probe_wrong_course.py` exists.
 
 We run two suites, because retrieval and model decisions fail in different ways.
 
-The **search eval** runs without an LLM in about two seconds, so we can change the
-index and immediately see what it did. It holds 72 cases, 54 of which score
-against the current corpus. Recall@5 is 0.833 overall and 0.840 on the 25
-challenge cases, the ones written to look like a future duplicate rather than a
-repeat of the original wording. That number is a ceiling on everything downstream:
-if search can't surface an existing entry, the model has no way to recognize the
-proposal as a duplicate.
+The search eval runs without an LLM in about two seconds, so we can change the
+index and immediately see what it did. It holds 72 cases. Recall@5 is 0.875
+overall and 0.840 on the 25 challenge cases, the ones written to look like a
+future duplicate rather than a repeat of the original wording. That number is a
+ceiling on everything downstream: if search can't surface an existing entry, the
+model has no way to recognize the proposal as a duplicate.
 
-The **end-to-end eval** runs 61 proposals through search and the model, checking
-the action, section, generated answer, and filename metadata. It scores 42/61 on
-`gpt-5.4-nano`. The total on its own is a weak signal — three candidate models
+The end-to-end eval runs 61 proposals through search and the model, checking the
+action, section, generated answer, and filename metadata. It scores 42/61 on
+`gpt-5.4-nano`. The total on its own is a weak signal: three candidate models
 landed within one case of each other, and a single run is noisy enough that the
 gap means nothing.
 
@@ -171,8 +171,8 @@ and the per-suite detail.
 
 We render the site with our own generator (`website/generate_website.py`) rather
 than Jekyll, and dbt is the reason. A good chunk of the Data Engineering answers
-contain dbt code, and dbt writes its refs in Jinja braces — `{{ ref('stg_trips') }}`
-— which Liquid claims as its own. Every dbt answer would need escaping, that
+contain dbt code, and dbt writes its refs in Jinja braces, `{{ ref('stg_trips') }}`,
+which Liquid claims as its own. Every dbt answer would need escaping, that
 escaping would live in the source file where the next person copies it, and an
 author who forgets breaks the build. Fighting the templating on every dbt entry
 was more work than writing the generator.

@@ -57,11 +57,9 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 We test retrieval without making LLM calls, so the suite runs in about two
 seconds. We can change the index and immediately see how it affects recall and
-ranking. The file holds 72 cases. On the current corpus 54 of them score —
-recall@5 is 0.833 and MRR@5 is 0.821 — and 18 are skipped because their target
-`doc_id` is not in `_questions/` (see [Cases with no target](#cases-with-no-target)).
-The run also splits the score by case type: recall@5 is 0.840 on the 25 challenge
-cases and 0.828 on the 29 exact matches.
+ranking. All 72 cases score against the current corpus: recall@5 is 0.875 and
+MRR@5 is 0.866. The run also splits the score by case type: recall@5 is 0.840 on
+the 25 challenge cases and 0.894 on the 47 exact matches.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
@@ -94,16 +92,15 @@ but the aggregate they produce is not the number to tune against: read the
 challenge line in the by-case-type breakdown, which is what a realistic future
 duplicate looks like.
 
-### Cases with no target
+### Stale targets
 
-18 of the exact-match cases name a `doc_id` that no document in `_questions/`
-carries. They cannot be scored, so the run skips them, lists them under `ERROR:
-eval cases reference documents that are not in the current corpus`, and exits
-non-zero. The ids are not stale renames — they never appear anywhere in the
-repository's history, so these cases were authored against ids that did not
-exist. A few collide with an unrelated document in another course, which is
-coincidence and not a course-label mistake. They need a correct `doc_id` or
-removal; until then the suite is red by design.
+A case is scored only when its `doc_id` is in `_questions/`. Entries get
+rewritten during review, and the id is derived from the content, so a merged
+entry can come back with a different id than the one the case recorded. The run
+lists any case whose target is missing under `ERROR: eval cases reference
+documents that are not in the current corpus` and exits non-zero. Re-point those
+cases at the entry that now answers the question; grep the corpus for the
+question text to find its current id.
 
 ### Challenge cases
 
@@ -141,15 +138,15 @@ keyword search from these misses than from an exact proposal-to-FAQ match.
 - recall@k: did the search surface the relevant doc in the top-k? This
   directly controls DUPLICATE detection. Low recall means genuine duplicates
   slip through as NEW.
-  Baseline: recall@5 = 0.833 overall, 0.840 on challenge cases
+  Baseline: recall@5 = 0.875 overall, 0.840 on challenge cases
 
 - MRR@k: mean reciprocal rank of the relevant doc. Higher is better — the
   relevant doc should appear early so the LLM sees it in context.
-  Baseline: MRR@5 = 0.821 overall, 0.813 on challenge cases
+  Baseline: MRR@5 = 0.866 overall, 0.813 on challenge cases
 
 - hit_rate@k: fraction of cases where the relevant doc is anywhere in the
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
-  Baseline: hit_rate@5 = 0.833 overall, 0.840 on challenge cases
+  Baseline: hit_rate@5 = 0.875 overall, 0.840 on challenge cases
 
 ## RAG eval (`runner.py`)
 
@@ -383,7 +380,7 @@ exercises, so it counts toward the challenge score rather than padding the easy
 half. Do not add an unchanged proposal solely because it has a known target
 document; reword it into a realistic future duplicate or capture a specific
 retrieval regression. Verify the `doc_id` against the current corpus — a case
-whose target is missing is skipped and turns the run red.
+whose target is missing is skipped and fails the run.
 
 To find the doc_id for a merged entry: `grep -r '<question text>' _questions/`
 or check the file's frontmatter `id`. To fetch the answer from GitHub:
