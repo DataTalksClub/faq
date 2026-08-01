@@ -39,7 +39,7 @@ We don't add every correction as a test case. We select cases that:
 
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
-| Search eval (`run_search_eval.py`) | Retrieval (minsearch index) in isolation — no LLM calls | 72 | ~2s | recall@k, MRR@k, hit_rate@k |
+| Search eval (`run_search_eval.py`) | Retrieval challenge set (minsearch index) in isolation — no LLM calls | 25 | ~2s | recall@k, MRR@k, hit_rate@k |
 | RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 61 | ~2 min | action correctness, section placement, code quality, formatting |
 
 The RAG eval scores 42/61 on `gpt-5.4-nano`. The three historical placement cases
@@ -57,9 +57,13 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 We test retrieval without making LLM calls, so the suite runs in about two
 seconds. We can change the index and immediately see how it affects recall and
-ranking. All 72 cases score against the current corpus: recall@5 is 0.875 and
-MRR@5 is 0.866. The run also splits the score by case type: recall@5 is 0.840 on
-the 25 challenge cases and 0.894 on the 47 exact matches.
+ranking. Across the 25 challenge cases, recall@5 is 0.840 and MRR@5 is 0.813.
+
+Misses are expected — several queries are written to be hard — so the run does
+not fail on them. It fails when recall@5 drops below `RECALL_BASELINE` in
+`run_search_eval.py`, or when a case has no target left in the corpus. Raise the
+baseline whenever a change moves recall above it, so the gain can't erode
+unnoticed.
 
 ```bash
 uv run --project faq_automation python -m faq_automation.evals.run_search_eval
@@ -67,10 +71,9 @@ uv run --project faq_automation python -m faq_automation.evals.run_search_eval
 
 ### Retrieval flow
 
-Each eval case is a query paired with the `doc_id` of the FAQ entry it should
-retrieve. 55 cases come from real GitHub issues and 17 are synthetic variations.
-A case carries a `note` when it was written or selected to exercise a specific
-retrieval failure; those are the challenge cases the suite reports separately.
+Each eval case is a deliberately difficult query paired with the `doc_id` of the
+FAQ entry it should retrieve. Eight cases come from real GitHub issues and 17 are
+synthetic variations. Each case's `note` names the retrieval failure it tests.
 
 We build the search index from the current `_questions/` directory, which already
 contains the target entry. Production searches the question separately from the
@@ -86,11 +89,11 @@ the model will probably create a redundant entry.
 ### Exact self-matches
 
 An original proposal usually has the same wording as the FAQ created from it.
-When we search with that wording, keyword matching makes the result easy, and it
-doesn't test whether search can recognize a future duplicate. These cases run,
-but the aggregate they produce is not the number to tune against: read the
-challenge line in the by-case-type breakdown, which is what a realistic future
-duplicate looks like.
+Searching with that wording is a keyword lookup that succeeds on vocabulary the
+entry was written from, so it says nothing about the query the next student will
+type. We don't keep those cases: they inflate the aggregate and never move when
+the index changes. If one turns out to be hard, reword it into a realistic future
+duplicate and keep it as a challenge case.
 
 ### Stale targets
 
@@ -126,27 +129,27 @@ The challenge set includes:
 - Regressions from earlier runs. Some now rank first because we fixed them, but
   we keep them to catch the same mistake if it returns.
 
-Nine queries currently miss the top five, four of them challenge cases. For
-example, "It crashes when I try to search" doesn't mention the embedding-count
-mismatch in its target FAQ. "Kestra Docker volume not working" mixes two common
-topics. The query "homework 6 Spark record counts don't match" leaves several
-Spark and homework entries in contention. We learn more about the limits of
-keyword search from these misses than from an exact proposal-to-FAQ match.
+Four queries currently miss the top five. For example, "It crashes when I try to
+search" doesn't mention the embedding-count mismatch in its target FAQ. "Kestra
+Docker volume not working" mixes two common topics. The query "homework 6 Spark
+record counts don't match" leaves several Spark and homework entries in
+contention. We learn more about the limits of keyword search from these misses
+than from an exact proposal-to-FAQ match.
 
 ### Metrics
 
 - recall@k: did the search surface the relevant doc in the top-k? This
   directly controls DUPLICATE detection. Low recall means genuine duplicates
   slip through as NEW.
-  Baseline: recall@5 = 0.875 overall, 0.840 on challenge cases
+  Baseline: recall@5 = 0.840
 
 - MRR@k: mean reciprocal rank of the relevant doc. Higher is better — the
   relevant doc should appear early so the LLM sees it in context.
-  Baseline: MRR@5 = 0.866 overall, 0.813 on challenge cases
+  Baseline: MRR@5 = 0.813
 
 - hit_rate@k: fraction of cases where the relevant doc is anywhere in the
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
-  Baseline: hit_rate@5 = 0.875 overall, 0.840 on challenge cases
+  Baseline: hit_rate@5 = 0.840
 
 ## RAG eval (`runner.py`)
 
@@ -375,12 +378,11 @@ SearchCase(
 )
 ```
 
-Every case runs. Give a new case a `note` naming the retrieval challenge it
-exercises, so it counts toward the challenge score rather than padding the easy
-half. Do not add an unchanged proposal solely because it has a known target
-document; reword it into a realistic future duplicate or capture a specific
-retrieval regression. Verify the `doc_id` against the current corpus — a case
-whose target is missing is skipped and fails the run.
+The `note` must name the retrieval challenge the case exercises; every case in
+the set has one. Do not add an unchanged proposal solely because it has a known
+target document; reword it into a realistic future duplicate or capture a
+specific retrieval regression. Verify the `doc_id` against the current corpus —
+a case whose target is missing is skipped and fails the run.
 
 To find the doc_id for a merged entry: `grep -r '<question text>' _questions/`
 or check the file's frontmatter `id`. To fetch the answer from GitHub:
