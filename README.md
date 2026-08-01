@@ -135,15 +135,14 @@ In the second suite we test the whole flow. We check if:
 - the code looks runnable, all the variables are defined variables
 - the filename slug makes sense
 
-Current performance:
+Current performance is 42/61:
 
-| What the proposal is | Expected action | Result |
+| Proposal | Expected action | Result |
 |---|---|---|
-| overall performance | | 42/61 |
 | a question the FAQ doesn't answer yet | `NEW` | 28/38 |
 | a question it already answers | `DUPLICATE` | 8/10 |
 | something to add to an existing entry | `UPDATE` | 1/2 |
-| a shared tool — Docker, uv, Kestra — asked in the course that teaches it | anything but `WRONG_COURSE` | 4/4 |
+| a shared tool, asked in the right course | anything but `WRONG_COURSE` | 4/4 |
 | a question that belongs to another course | `WRONG_COURSE` | 1/7 |
 
 The fourth row is a deliberate near miss: the proposal mentions a tool several
