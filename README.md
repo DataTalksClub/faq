@@ -137,58 +137,48 @@ In the second suite we test the whole flow. We check if:
 
 Current performance is 42/61:
 
-| Proposal | Expected action | Result |
+| Situation | Expected action | Result |
 |---|---|---|
-| a question the FAQ doesn't answer yet | `NEW` | 28/38 |
-| a question it already answers | `DUPLICATE` | 8/10 |
-| something to add to an existing entry | `UPDATE` | 1/2 |
-| a shared tool, asked in the right course | anything but `WRONG_COURSE` | 4/4 |
-| a question that belongs to another course | `WRONG_COURSE` | 1/7 |
+| No answer in FAQ yet | `NEW` | 28/38 |
+| Already in FAQ | `DUPLICATE` | 8/10 |
+| Already in FAQ but incomplete | `UPDATE` | 1/2 |
+| Tool relevant for the course | anything but `WRONG_COURSE` | 4/4 |
+| Record belongs to a different course | `WRONG_COURSE` | 1/7 |
 
-The fourth row is a deliberate near miss: the proposal mentions a tool several
-courses use, so it looks misfiled and isn't. Any of `NEW`, `UPDATE` or
-`DUPLICATE` passes — only closing it as wrong-course fails. Across all 54 cases
-outside the last row, that never happened.
+For the last type, the current automation misses most cases. This is a known limitation.
 
-That last row is a known limitation. The student picks the course from a
-dropdown, and the automation only ever sees that course's entries, so a wrong
-pick lands in whichever section of that course fits least badly. Case #109 is a
-real one — "GitHub Codespaces: Running pgadmin in Docker", submitted under ML
-Zoomcamp, should close with a pointer to Data Engineering. It comes back as a new
-ML Zoomcamp entry instead, on every run we've measured.
-
-We leave it that way. The prompt demands positive evidence of another course and
-files when unsure, which is what keeps those 54 open. A miss costs a wrong PR
-that a maintainer closes in seconds; the opposite mistake closes a valid proposal
-with nobody looking. See [docs/model-choice.md](docs/model-choice.md).
-
-We use the Flex tier for evals, so it's 50% cheaper than the usual API requests.
-A batch run of this suite once sat at 0/51 completed for 2.7 hours, which is fine
-for CI and useless for iterating.
+We use the Flex tier for evals, it's 50% cheaper than the usual API requests.
 
 ## Skills
 
+We also have a series of skills that help with clearning the PRs and add new records to the dataset in a semi-automated controlled way.
+
 | Skill | What it does |
 |-------|--------------|
-| `add-faq-record` | Adds or updates a single entry from a question, a chat thread, or a screenshot. Pushes back when unclear course material caused the confusion, because fixing that material beats writing an FAQ around it. |
 | `clear-backlog` | Resolves open FAQ PRs first and then issues, one item at a time. Checks placement, duplicates, and canonical sources before reviewing content quality; recommends eval coverage only for meaningful automation regressions. |
+| `add-faq-record` | Adds or updates a single entry from a question, a chat thread, or a screenshot. Pushes back when unclear course material caused the confusion, because fixing that material beats writing an FAQ around it. |
 | `slack-faq-fetch` | Pulls recent Slack discussion for a course into a review export, to find the questions nobody has filed yet. |
 
 ## The site
 
-`website/generate_website.py` reads every markdown file under `_questions/`,
-parses the frontmatter, orders sections per `_metadata.yaml` and questions by
-`sort_order`, then writes the content twice:
+The questions from this dataset are served via GitHub Pages as:
 
 - the website: pages for students to read
 - the JSON feed: the same answers for other programs to read
 
-We use our own generator rather than Jekyll, and dbt is the reason. A good chunk
-of the Data Engineering answers contain dbt code, and dbt writes its refs in Jinja
-braces, `{{ ref('stg_trips') }}`, which Liquid claims as its own. Every dbt answer
-would need escaping, that escaping would live in the source file where the next
-person copies it, and an author who forgets breaks the build. Fighting the
-templating on every dbt entry was more work than writing the generator.
+`website/generate_website.py` 
+
+- reads every markdown file under `_questions/`
+- parses the frontmatter
+- orders sections per `_metadata.yaml` and questions by `sort_order`
+ 
+We use our own generator instead of Jekyll. Many records from the data engineering course contain dbt code with Jinja templtes like that:
+
+```
+{{ ref('stg_trips') }}
+```
+
+Jekyll with Liquid cannot parse them and I didn't find an easy way to deal with it. Eventually I just decided to create our own static website generator. 
 
 ### Website
 
@@ -200,8 +190,12 @@ sections.
 
 ### JSON
 
-The same answers without the presentation. `json/courses.json` indexes the
-courses, and each `json/<course>.json` is a flat list of entries:
+The same answers without the presentation:
+
+- `json/courses.json` indexes the courses
+- each `json/<course>.json` is a flat list of entries
+
+Record example:
 
 ```json
 {
@@ -213,11 +207,8 @@ courses, and each `json/<course>.json` is a flat list of entries:
 }
 ```
 
-FAQ automation doesn't use this feed, because it runs inside the repo and reads
-`_questions/` straight from disk. Other things do, and the closest one is a course:
-LLM Zoomcamp students fetch `json/courses.json` in the first lesson and index it to
-build their own RAG pipeline. We teach retrieval over the FAQ that the automation
-retrieves from.
+I use these JSON endpoints actively in courses and workshops about RAG and AI.
+
 
 ## The FAQ assistant
 
