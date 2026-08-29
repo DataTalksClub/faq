@@ -8,19 +8,3 @@ Recorded eval results must describe the suite as it stands now. When cases are
 added or changed, re-run the eval and record the new number. Never publish a
 score qualified as predating some of the cases ("before case #N was added",
 "before these cases existed") — re-run and replace the number instead.
-
-## Skills
-
-Skills live in `.claude/skills/` and codify repeatable workflows for this repo:
-
-- **add-faq-record** (`.claude/skills/add-faq-record/SKILL.md`) — Add or update one
-  FAQ entry from a question, screenshot, chat thread, issue, or other source; check
-  placement and duplicates, assign a collision-free filename and sort order, and validate
-  the result.
-- **clear-backlog** (`.claude/skills/clear-backlog/SKILL.md`) — Clear open FAQ
-  pull requests first and then issues, strictly one item at a time. Check placement,
-  duplicates, canonical sources, and content quality; get approval for each resolution;
-  and add eval coverage only for meaningful agent regressions.
-- **slack-faq-fetch** (`.claude/skills/slack-faq-fetch/SKILL.md`) — Pull recent Slack
-  channel discussions for a course into a review export to find missing FAQ entries.
-  Last-fetch dates live in `.claude/slack-fetch-log.md`.
