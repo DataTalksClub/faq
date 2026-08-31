@@ -15,5 +15,6 @@ Besides the tools listed above, free models (free API) exist, although sometimes
 
 - openrouter.ai - https://openrouter.ai/models?max_price=0&output_modalities=text
 - kilo.ai - Free models: https://kilo.ai/landing/free-models
+- Nous Portal - Free Models are listed on top: https://portal.nousresearch.com/models
 
 For example, at time of writing, Hy3 and Minimax M3 are free, albeit rate-limited.
