@@ -11,9 +11,28 @@ Key differences from the Responses-based loop:
 
 - Use `client.chat.completions.create(model=..., messages=..., tools=...)` instead of `client.responses.create(..., input=...)`.
 - Get tool calls from `response.choices[0].message.tool_calls` (not from `response.output`).
+- Use a `system` message for the instructions instead of the Responses API's `developer` message.
 - Append the full assistant message (including its requested tool calls) to `messages` before adding tool results.
 - For each tool call, add a `role="tool"` message with the matching `tool_call_id` and the tool result as `content`.
 - Keep looping until the returned assistant message has no `tool_calls`.
+
+For example, to run the loop with Gemini through Google's OpenAI-compatible endpoint:
+
+```python
+import os
+
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+openai_client = OpenAI(
+    api_key=os.environ["GEMINI_API_KEY"],
+    base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+)
+
+MODEL_ID = "gemini-3.1-flash-lite"
+```
 
 You can use code like this after you define your `search` function and `search_tool` schema:
 
@@ -48,7 +67,7 @@ def agent_loop(
     max_iterations=5,
 ):
     messages = [
-        {"role": "developer", "content": instructions},
+        {"role": "system", "content": instructions},
         {"role": "user", "content": question},
     ]
 
@@ -61,7 +80,7 @@ def agent_loop(
             tools=tools,
         )
 
-        message = response.choices.message
+        message = response.choices[0].message
 
         # Preserve the assistant message, including its tool calls.
         messages.append(message)
@@ -97,4 +116,6 @@ answer = agent_loop(
 )
 ```
 
-This pattern applies only if your provider supports the OpenAI-compatible Chat Completions tool-calling format. If the provider’s `tools` schema or response fields differ, you’ll need to adjust accordingly.
+This pattern was tested with Gemini: on the first iteration the model requested the `search` tool, and on the second iteration it returned the final answer.
+
+It applies only to providers that support the OpenAI-compatible Chat Completions tool-calling format. If your provider's `tools` schema or response fields differ, check its documentation — see OpenAI's [function-calling guide](https://platform.openai.com/docs/guides/function-calling) for the underlying protocol.
