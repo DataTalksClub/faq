@@ -47,6 +47,10 @@ jobs:
         id: process
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPIK_URL_OVERRIDE: https://www.comet.com/opik/api
+          OPIK_WORKSPACE: default
+          OPIK_PROJECT_NAME: faq-automation-ci
+          OPIK_API_KEY: ${{ secrets.OPIK_API_KEY }}
         run: |
           # Run FAQ automation CLI with full issue body.
           # No --model: the default in rag_agent.py is the single source of truth,
