@@ -22,6 +22,9 @@ from .core import (
     reciprocal_rank_fusion,
 )
 
+from opik import track
+from opik.integrations.openai import track_openai
+
 
 # Single source of truth for the model used by both automation and evals.
 # Override per-run with the FAQ_MODEL environment variable.
@@ -246,7 +249,7 @@ class FAQAgent:
                 Pass explicitly when course_dir is a copy outside the repository.
         """
         self.course_dir = course_dir
-        self.openai_client = OpenAI(api_key=openai_api_key)
+        self.openai_client = track_openai(OpenAI(api_key=openai_api_key))
         self.model = model
 
         if questions_dir is None:
@@ -316,6 +319,7 @@ class FAQAgent:
             {"role": "user", "content": prompt}
         ]
 
+    @track
     def process_proposal(self, question: str, answer: str, num_results: int = 5) -> FAQDecision:
         """
         Process a new FAQ proposal
