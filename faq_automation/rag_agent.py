@@ -21,7 +21,9 @@ from .core import (
     read_questions,
     reciprocal_rank_fusion,
 )
-from .opik_tracing import project_name as _opik_project, track as _track, wrap_openai_client as _wrap_openai
+
+from opik import track
+from opik.integrations.openai import track_openai
 
 
 # Single source of truth for the model used by both automation and evals.
@@ -247,9 +249,7 @@ class FAQAgent:
                 Pass explicitly when course_dir is a copy outside the repository.
         """
         self.course_dir = course_dir
-        self.openai_client = _wrap_openai(
-            OpenAI(api_key=openai_api_key), project=_opik_project("faq-automation")
-        )
+        self.openai_client = track_openai(OpenAI(api_key=openai_api_key))
         self.model = model
 
         if questions_dir is None:
@@ -267,7 +267,6 @@ class FAQAgent:
         )
         self.index.fit(self.documents)
 
-    @_track(project="faq-automation")
     def build_messages(self, question: str, answer: str, num_results: int = 5) -> List[dict]:
         """
         Build the model input for a proposal: retrieval plus prompt assembly.
@@ -320,7 +319,7 @@ class FAQAgent:
             {"role": "user", "content": prompt}
         ]
 
-    @_track(project="faq-automation")
+    @track
     def process_proposal(self, question: str, answer: str, num_results: int = 5) -> FAQDecision:
         """
         Process a new FAQ proposal
@@ -345,7 +344,6 @@ class FAQAgent:
         return extract_decision(response)
 
 
-@_track(project="faq-automation")
 def process_faq_proposal(
     course_dir: Path,
     question: str,
