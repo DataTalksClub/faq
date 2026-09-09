@@ -19,7 +19,7 @@ use it for the FAQ assistant in Slack to answer these questions automatically.
 The repository has several parts:
 
 - [Content](#content) (`_questions/`): the answers, one markdown file per
-  question, 1395 of them across 6 courses
+  question, 1397 of them across 6 courses
 - [FAQ automation](#faq-automation) (`faq_automation/`): the automation that
   reads a student's proposal issue and opens a pull request, or closes the issue
   if it's already answered
