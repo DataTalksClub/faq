@@ -1,28 +1,28 @@
 ---
 id: b47f096063
-question: How can I detect when an LLM judge gives inconsistent scores compared to
-  its own reasoning in LLM-as-judge evaluation?
+question: How do I catch an inconsistent score from an LLM-as-judge evaluation?
 sort_order: 7
 ---
 
-When using LLM-as-a-judge, don’t rely only on the numeric score—also read the judge’s written reasoning next to the score, especially during spot-checks on a small sample (e.g., 5–10 items).
+When using LLM-as-a-judge, don't rely only on the numeric score — also read the judge's written reasoning next to the score. A distinct failure mode is a justification that says one thing while the numeric score contradicts it (e.g. the reasoning concludes the answer is correct, yet the score is low). This is invisible in aggregate statistics over large batches because it "averages out" — it only surfaces through case-level inspection, so spot-check a small sample (5-10 items) by hand.
 
-A distinct failure mode is when the judge’s justification says one thing, but the numeric score contradicts it (e.g., reasoning concludes the answer is correct, yet it assigns a low score). This can be invisible in aggregate statistics over large batches because it may “average out,” so you need case-level inspection.
-
-To make this easier to check, structure the judge output so the reasoning and score always appear together, for example with a structured schema like:
+To make the check easy, structure the judge output so reasoning and score always appear together:
 
 ```python
+from pydantic import BaseModel
+
 class JudgeScore(BaseModel):
     reasoning: str
     score: int  # e.g. 1-3
 ```
 
-Then after scoring, manually review a small sample:
+Then review a small sample manually:
 
 ```python
-for result in sample:
+for result in sample:  # 5-10 scored items, checked by hand
     print(f"Reasoning: {result.reasoning}")
     print(f"Score: {result.score}")
+    # does the reasoning's conclusion actually match the score?
 ```
 
-If your judge returns only a bare number (no accompanying reasoning text), this inconsistency check becomes much harder or impossible.
+If the judge returns only a bare number with no reasoning text, this check is impossible. See the [Module 4 LLM-as-judge lesson](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/cohorts/2026/04-evaluation/13-llm-as-judge.md) and [Hamel's LLM-judge guide](https://hamel.dev/blog/posts/llm-judge/).
