@@ -41,20 +41,48 @@ This error may also cause messages like "No such file or directory: 'output.csv.
 3. Rename the file `wget64.exe` to `wget.exe` if necessary.
 4. Move `wget.exe` to your `Git\mingw64\bin\` directory.
 
-**Python Alternative:**
+**Python Alternatives:**
 
-- Use the Python wget library:
-
-  First, install using pip:
+- Use the Python `wget` library. First, install it:
 
   ```bash
   pip install wget
   ```
 
-- Use it with Python:
+  Then download a file:
+
+  ```python
+  import wget
+
+  wget.download("URL")
+  ```
+
+  Or from the command line:
 
   ```bash
-  python -m wget
+  python -m wget <URL>
+  ```
+
+- Use `pandas` to read a CSV directly from a URL:
+
+  ```python
+  import pandas as pd
+
+  url = "https://raw.githubusercontent.com/alexeygrigorev/datasets/master/housing.csv"
+
+  df = pd.read_csv(url)
+  ```
+
+  Valid URL schemes include http, ftp, s3, gs, and file.
+
+- Or use `urllib` from the standard library:
+
+  ```python
+  import urllib.request
+
+  url = "https://raw.githubusercontent.com/alexeygrigorev/datasets/master/housing.csv"
+
+  urllib.request.urlretrieve(url, "housing.csv")
   ```
 
 You can also paste the file URL into your web browser to download normally, then move the file to your working directory.
