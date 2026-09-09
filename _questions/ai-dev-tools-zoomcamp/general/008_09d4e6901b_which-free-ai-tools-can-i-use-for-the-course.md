@@ -13,8 +13,8 @@ You can complete the course on free or low-cost tools:
 
 Besides the tools listed above, free models (free API) exist, although sometimes temporarily, which could still be suitable for the duration of a course:
 
-- openrouter.ai - https://openrouter.ai/models?max_price=0&output_modalities=text
-- kilo.ai - Free models: https://kilo.ai/landing/free-models
-- Nous Portal - Free Models are listed on top: https://portal.nousresearch.com/models
+- [OpenRouter free models](https://openrouter.ai/models?pricing=free)
+- [Kilo free models](https://kilo.ai/landing/free-models)
+- [Nous Portal models](https://portal.nousresearch.com/models) (free models listed on top)
 
 For example, at time of writing, Hy3 and Minimax M3 are free, albeit rate-limited.
