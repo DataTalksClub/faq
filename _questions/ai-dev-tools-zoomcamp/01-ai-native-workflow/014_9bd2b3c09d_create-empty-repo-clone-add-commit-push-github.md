@@ -2,7 +2,7 @@
 id: 9bd2b3c09d
 question: How do I create an empty GitHub repository, clone it, add files, commit,
   and push?
-sort_order: 6
+sort_order: 14
 ---
 
 Do this step-by-step from your terminal:
