@@ -1,7 +1,7 @@
 ---
 id: 5d234ceff9
 question: 'What is AGENTS.md and how do I use it for regular commits and prompt history?'
-sort_order: 9
+sort_order: 7
 ---
 
 `AGENTS.md` gives coding agents durable, project-specific context and instructions, so you don't repeat the same instructions in every prompt. Put the file at the repo root (see [agents.md](https://agents.md/)) and document stable project information there:

@@ -1,7 +1,7 @@
 ---
 id: f73287a0cb
 question: 'How do I define rules in Antigravity?'
-sort_order: 10
+sort_order: 8
 ---
 
 Rules in Antigravity are Markdown files with standards, conventions, and constraints that guide the agent. You can manage them through the UI or by creating the files directly — see the [official Rules docs](https://antigravity.google/docs/rules-workflows).

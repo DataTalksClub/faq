@@ -1,7 +1,7 @@
 ---
 id: f1b8db22ca
 question: 'Which Python version is compatible with Django 5.2.9?'
-sort_order: 7
+sort_order: 3
 ---
 
 Django 5.2.9 needs Python 3.10 or above; on older versions (3.9 or less) the server won't start.
