@@ -2,7 +2,7 @@
 id: 1f4ae0aa4b
 question: When two groomed backlog issues depend on each other (cycle), should I implement
   them one at a time anyway?
-sort_order: 6
+sort_order: 14
 ---
 
 Yes, implement in dependency order—but fix the backlog first and don’t work around a cycle.
@@ -15,4 +15,4 @@ What to do:
 3) If they can’t be separated because they’re truly one vertical slice, merge them into a single issue and close the other as a duplicate.
 4) After grooming (before implementing anything), run a quick dependency check: ask the assistant to list dependencies between all open issues and flag any cycles. Catching cycles early prevents engineers from writing code against a spec that can’t hold.
 
-Then implement in dependency order once the cycle is removed.
+Then implement in dependency order once the cycle is removed. "One issue at a time" is about keeping each unit of work small enough to review, not about the issue count.
