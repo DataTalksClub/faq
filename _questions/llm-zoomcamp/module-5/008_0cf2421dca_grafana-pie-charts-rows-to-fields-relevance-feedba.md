@@ -32,4 +32,9 @@ FROM feedback_counts;
 
 Why this happens: Grafana can reduce a numeric column named `n` to a single value (often the last one), which produces one slice. Renaming labels alone doesn’t split the data into separate numeric fields per category—`Rows to fields` does.
 
-Note: this kind of transform doesn’t populate an empty result; validate using real aggregates from the same DB and time range you’re charting.
+Note: this kind of transform doesn't populate an empty result; validate using real aggregates from the same DB and time range you're charting. The example above should display `thumbs up: 3` and `thumbs down: 2` (5 votes total), not one slice labelled `n`. This was verified with Grafana 10.2.3 and a PostgreSQL datasource.
+
+References:
+
+- [Grafana: Rows to fields transformation](https://grafana.com/docs/grafana/latest/panels-visualizations/query-transform-data/transform-data/#rows-to-fields)
+- [Grafana 10.2.3 rowsToFields implementation](https://github.com/grafana/grafana/blob/v10.2.3/public/app/features/transformers/rowsToFields/rowsToFields.ts)
