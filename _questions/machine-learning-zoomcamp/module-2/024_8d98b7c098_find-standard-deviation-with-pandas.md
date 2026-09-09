@@ -14,4 +14,16 @@ standard_deviation = pd.Series(x).std()
 print(standard_deviation)
 ```
 
-This will calculate the standard deviation of the list `x`. 
+This will calculate the standard deviation of the list `x`.
+
+For a DataFrame column, use:
+
+```python
+df['column_name'].std()
+```
+
+It also works on several columns at once:
+
+```python
+df[['column_1', 'column_2']].std()
+```

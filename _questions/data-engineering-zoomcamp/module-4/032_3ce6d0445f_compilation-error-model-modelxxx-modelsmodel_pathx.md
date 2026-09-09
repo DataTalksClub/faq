@@ -12,3 +12,5 @@ Example:
 ```sql
 select * from {{ source('staging', '<your table name in the database>') }}
 ```
+
+If you're following video 4.3.1 and the lineage graph is missing along with this error, make sure you saved your `schema.yml` — dbt only picks up the sources after the file is saved.

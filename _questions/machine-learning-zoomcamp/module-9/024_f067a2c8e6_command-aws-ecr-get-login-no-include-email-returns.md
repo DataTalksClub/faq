@@ -14,3 +14,9 @@ aws ecr get-login-password --region <your-region> | docker login --username AWS 
 ```
 
 Replace `<your-region>` with your AWS region and `<your-account-id>` with your account ID.
+
+If you have a default region configured, this variant needs no changes:
+
+```bash
+aws ecr get-login-password --region $(aws configure get region) | docker login --username AWS --password-stdin "$(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.$(aws configure get region).amazonaws.com"
+```

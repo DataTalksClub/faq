@@ -6,4 +6,10 @@ question: 'There is an error when opening the table using `dbtable = db.open_tab
 sort_order: 3
 ---
 
-The error indicates that you have not changed all instances of "employee_handbook" to "homework" in your pipeline settings.
+The error indicates that the table you open doesn't match the table the dlt pipeline created.
+
+Make sure you changed all instances of "employee_handbook" to "homework" in your pipeline settings, then open the table the pipeline actually created:
+
+```python
+dbtable = db.open_table("notion_pages___homework")
+```
