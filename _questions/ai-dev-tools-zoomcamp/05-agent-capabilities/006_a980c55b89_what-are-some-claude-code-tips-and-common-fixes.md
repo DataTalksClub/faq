@@ -1,7 +1,7 @@
 ---
 id: a980c55b89
 question: 'What are some Claude Code tips and common fixes?'
-sort_order: 1
+sort_order: 6
 ---
 
 Tips:

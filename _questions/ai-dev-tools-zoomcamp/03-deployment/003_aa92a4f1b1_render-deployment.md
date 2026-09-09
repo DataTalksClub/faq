@@ -1,7 +1,7 @@
 ---
 id: aa92a4f1b1
 question: How do I deploy my Dockerized API to Render (free tier)?
-sort_order: 2
+sort_order: 3
 ---
 
 Quickest path:

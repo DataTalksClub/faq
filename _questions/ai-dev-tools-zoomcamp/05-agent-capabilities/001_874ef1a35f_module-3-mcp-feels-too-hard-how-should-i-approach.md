@@ -1,6 +1,6 @@
 ---
 id: 874ef1a35f
-question: 'Module 3 (MCP) feels too hard. How should I approach it?'
+question: 'MCP feels too hard. How should I approach it?'
 sort_order: 1
 ---
 

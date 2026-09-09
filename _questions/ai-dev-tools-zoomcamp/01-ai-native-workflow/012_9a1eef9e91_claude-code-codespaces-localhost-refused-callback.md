@@ -2,7 +2,7 @@
 id: 9a1eef9e91
 question: How do I fix Claude Code login failing with "localhost refused to connect"
   in GitHub Codespaces?
-sort_order: 6
+sort_order: 12
 ---
 
 Claude Code's OAuth login opens a browser tab pointing at `http://localhost:PORT/callback`. In GitHub Codespaces, that callback URL can fail to load because the browser reaches it through Codespaces' port-forwarding proxy instead of talking directly to the listener.
