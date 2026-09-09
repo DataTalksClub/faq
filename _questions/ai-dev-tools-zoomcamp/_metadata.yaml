@@ -8,15 +8,27 @@ sections:
   - id: 01-ai-native-workflow
     name: "Unit 1: AI-Native Developer Workflow"
     comment: "Assistant choice and setup, agent modes, project rules (AGENTS.md), Django homework workflow, quotas and environment setup."
+  - id: 01-ai-native-workflow-homework
+    name: "Unit 1 Homework"
+    comment: "Issues encountered while running Unit 1 homework code or scripts."
   - id: 02-development
     name: "Unit 2: Build and Ship an AI-Assisted Full-Stack App"
     comment: "Full-stack app development: frontend/backend contract, local dev issues, prompts used in the videos."
+  - id: 02-development-homework
+    name: "Unit 2 Homework"
+    comment: "Issues encountered while running Unit 2 homework code or scripts."
   - id: 03-deployment
     name: "Unit 3: Test, Containerize, and Deploy"
     comment: "Testing, containers, CI, and deployment to Render, Railway, and similar platforms."
+  - id: 03-deployment-homework
+    name: "Unit 3 Homework"
+    comment: "Issues encountered while running Unit 3 homework code or scripts."
   - id: 04-devops
     name: "Unit 4: DevOps and Observability"
     comment: "Observability, alerts, and production operations for AI-built apps."
+  - id: 04-devops-homework
+    name: "Unit 4 Homework"
+    comment: "Issues encountered while running Unit 4 homework code or scripts."
   - id: 05-agent-capabilities
     name: "Unit 5: Coding Agent Capabilities"
     comment: "MCP, skills, agent configuration and clients, and custom agent scope."
