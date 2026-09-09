@@ -2,7 +2,7 @@
 id: c745f48092
 question: Codex CLI asks for approval every time it runs a GitHub CLI command. How
   do I stop approving the same command repeatedly?
-sort_order: 6
+sort_order: 13
 ---
 
 When Codex CLI prompts for approval, it’s because the command pattern matches a rule that requires user confirmation.
@@ -13,4 +13,6 @@ When Codex CLI prompts for approval, it’s because the command pattern matches 
 
 - If you want Codex to manage approval prompting more interactively, start it with `codex --ask-for-approval on-request` so approval is controlled on demand rather than being fully disabled.
 
-Note: “trusted project”/sandbox trust and “ask-for-approval” are separate—trusting a project doesn’t automatically disable all command-approval prompts. Avoid using `codex --ask-for-approval never` unless you understand the security implications.
+Note: "trusted project"/sandbox trust and "ask-for-approval" are separate—trusting a project doesn't automatically disable all command-approval prompts. Avoid using `codex --ask-for-approval never` unless you understand the security implications.
+
+See the [Codex CLI reference](https://developers.openai.com/codex/cli/reference) (`--ask-for-approval`, `--sandbox`) and the [sandbox and approvals guide](https://developers.openai.com/codex/sandbox).
