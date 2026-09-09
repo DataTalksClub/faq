@@ -4,22 +4,16 @@ question: 'How do I define rules in Antigravity?'
 sort_order: 2
 ---
 
-Rules in Google Antigravity are defined using Markdown files that outline standards, conventions, constraints, and checklists to guide your agents.
+Rules in Antigravity are Markdown files with standards, conventions, and constraints that guide the agent. You can manage them through the UI or by creating the files directly — see the [official Rules docs](https://antigravity.google/docs/rules-workflows).
 
-You can define rules at two main levels depending on your scope:
+To use the UI: open the Customizations panel via the "…" dropdown at the top of the agent panel, go to the Rules panel, and click + Global or + Workspace.
 
-### Workspace Rules
+### Workspace rules
 
-Workspace-level rules are stored directly within your project directory and govern behavior for that specific codebase.
+Workspace rules live in the `.agents/rules` folder of your workspace or git root. Create a `.md` file there (e.g. `coding-standards.md`) with your constraints in plain Markdown. (The older `.agent/rules` path still works, but `.agents/rules` is the current default.)
 
-1. Create a folder named `.agents/rules` in your workspace or git root directory.
-2. Add a new `.md` file inside this folder (for example, `coding-standards.md` or `testing-rules.md`).
-3. Write your constraints, formatting preferences, or workflow requirements in plain Markdown. You can also specify activation parameters (such as manual triggers or automatic matching) at the top of the file.
+### Global rules
 
-### Global Customization Menu
+Global rules apply across all workspaces and live in `~/.gemini/GEMINI.md`.
 
-If you want to add quick or global rules directly through the interface without manually creating directories:
-
-1. Click the **three-dot icon** in the top right corner of the Agent chat window.
-2. Select **Customizations**.
-3. Click the **+** button to add and save your custom instructions or rule sets.
+At the rule level you can set how a rule activates: Manual (via @ mention in the agent input), Always On, Model Decision (the model decides from your description), or Glob (applies to files matching a pattern like `src/**/*.ts`).
