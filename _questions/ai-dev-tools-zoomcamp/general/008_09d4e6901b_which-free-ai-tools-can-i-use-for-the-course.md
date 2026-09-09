@@ -10,3 +10,11 @@ You can complete the course on free or low-cost tools:
 - Module 2: Cursor or GitHub Copilot (pro free trial possible).
 - Module 4: a small API deposit (~$5) for OpenAI/Anthropic.
 - Other free alternatives are shared on Slack (e.g. Qoder, Kilo Code, Antigravity).
+
+Besides the tools listed above, free models (free API) exist, although sometimes temporarily, which could still be suitable for the duration of a course:
+
+- [OpenRouter free models](https://openrouter.ai/models?pricing=free)
+- [Kilo free models](https://kilo.ai/landing/free-models)
+- [Nous Portal models](https://portal.nousresearch.com/models) (free models listed on top)
+
+For example, at time of writing, Hy3 and Minimax M3 are free, albeit rate-limited.

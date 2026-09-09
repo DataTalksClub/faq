@@ -5,20 +5,32 @@ sections:
   - id: general
     name: "General Course-Related Questions"
     comment: "Course logistics: cohort schedule, certificate, deadlines, leaderboard, homework submission, prerequisites."
-  - id: module-1
-    name: "Module 1. Introduction to Vibe Coding / AI Tools Overview"
-  - id: module-2
-    name: "Module 2. End-to-End Project (Snake)"
-  - id: module-3
-    name: "Module 3. Model-Context Protocol"
-  - id: module-4
-    name: "Module 4. Build an AI Coding Agent (Django)"
-  - id: module-5
-    name: "Module 5. AI for Testing, CI/CD & DevOps"
-  - id: module-6
-    name: "Module 6. Automation with Low-Code and No-Code AI (n8n)"
+  - id: 01-ai-native-workflow
+    name: "Unit 1: AI-Native Developer Workflow"
+    comment: "Assistant choice and setup, agent modes, project rules (AGENTS.md), Django homework workflow, quotas and environment setup."
+  - id: 01-ai-native-workflow-homework
+    name: "Unit 1 Homework"
+    comment: "Issues encountered while running Unit 1 homework code or scripts."
+  - id: 02-development
+    name: "Unit 2: Build and Ship an AI-Assisted Full-Stack App"
+    comment: "Full-stack app development: frontend/backend contract, local dev issues, prompts used in the videos."
+  - id: 02-development-homework
+    name: "Unit 2 Homework"
+    comment: "Issues encountered while running Unit 2 homework code or scripts."
+  - id: 03-deployment
+    name: "Unit 3: Test, Containerize, and Deploy"
+    comment: "Testing, containers, CI, and deployment to Render, Railway, and similar platforms."
+  - id: 03-deployment-homework
+    name: "Unit 3 Homework"
+    comment: "Issues encountered while running Unit 3 homework code or scripts."
+  - id: 04-devops
+    name: "Unit 4: DevOps and Observability"
+    comment: "Observability, alerts, and production operations for AI-built apps."
+  - id: 04-devops-homework
+    name: "Unit 4 Homework"
+    comment: "Issues encountered while running Unit 4 homework code or scripts."
+  - id: 05-agent-capabilities
+    name: "Unit 5: Coding Agent Capabilities"
+    comment: "MCP, skills, agent configuration and clients, and custom agent scope."
   - id: projects
     name: "Projects"
-  - id: misc
-    name: "Miscellaneous"
-    comment: "Cross-cutting tooling issues not owned by any one module: assistant accounts and sign-in, editor setup, general tips that span tools. NOT a fallback for anything that fits nowhere else — course logistics go to 'general', and anything tied to a module's material goes to that module even if no entry there covers it yet."
