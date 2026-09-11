@@ -320,7 +320,13 @@ class FAQAgent:
         ]
 
     @track
-    def process_proposal(self, question: str, answer: str, num_results: int = 5) -> FAQDecision:
+    def process_proposal(
+        self,
+        question: str,
+        answer: str,
+        num_results: int = 5,
+        issue_ref: dict | None = None,
+    ) -> FAQDecision:
         """
         Process a new FAQ proposal
 
@@ -328,10 +334,22 @@ class FAQAgent:
             question: The proposed question
             answer: The proposed answer
             num_results: Number of similar FAQs to retrieve (default: 5)
+            issue_ref: Optional {issue_number, issue_url, course} dict. It lands
+                in the trace input via @track automatically and, when present,
+                groups this trace onto thread faq-issue-{n} for issue-level history.
 
         Returns:
             FAQDecision object with action and all necessary information
         """
+        if issue_ref and isinstance(issue_ref, dict):
+            try:
+                from opik import opik_context
+
+                n = issue_ref.get("issue_number")
+                if n is not None:
+                    opik_context.update_current_trace(thread_id=f"faq-issue-{n}")
+            except Exception:
+                pass
         messages = self.build_messages(question, answer, num_results)
 
         # Call OpenAI with structured output
@@ -349,7 +367,8 @@ def process_faq_proposal(
     question: str,
     answer: str,
     openai_api_key: str,
-    model: str = DEFAULT_MODEL
+    model: str = DEFAULT_MODEL,
+    issue_ref: dict | None = None,
 ) -> FAQDecision:
     """
     Convenience function to process a single FAQ proposal
@@ -360,9 +379,11 @@ def process_faq_proposal(
         answer: The proposed answer
         openai_api_key: OpenAI API key
         model: OpenAI model to use (default: DEFAULT_MODEL)
+        issue_ref: Optional {issue_number, issue_url, course} dict, passed
+            through to FAQAgent.process_proposal for trace threading.
 
     Returns:
         FAQDecision object
     """
     agent = FAQAgent(course_dir, openai_api_key, model)
-    return agent.process_proposal(question, answer)
+    return agent.process_proposal(question, answer, issue_ref=issue_ref)

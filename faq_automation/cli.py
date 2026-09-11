@@ -62,6 +62,81 @@ def parse_full_issue_body(issue_body: str) -> tuple[str, str, str]:
     return course, question, answer
 
 
+def build_issue_ref(issue_number: int, course: str | None = None) -> dict:
+    """
+    Build the {issue_number, issue_url, course} dict for trace threading.
+
+    Repo comes from GITHUB_REPOSITORY (owner/repo), defaulting to
+    DataTalksClub/faq for local runs.
+    """
+    repo = os.environ.get("GITHUB_REPOSITORY", "DataTalksClub/faq")
+    return {
+        "issue_number": issue_number,
+        "issue_url": f"https://github.com/{repo}/issues/{issue_number}",
+        "course": course,
+    }
+
+
+def log_outcome_trace(
+    issue_ref: dict | None,
+    action: str,
+    file_path: str | None = None,
+    pr_body: str | None = None,
+    comment: str | None = None,
+    pr_url: str | None = None,
+    course: str | None = None,
+):
+    """
+    Best-effort second trace on the same thread as triage.
+
+    Logs file_path/pr_body (NEW/UPDATE) or comment (DUPLICATE/WRONG_COURSE),
+    plus pr_url when known (workflow PR step fills it in later via this same
+    helper). Disabled gracefully without OPIK_API_KEY; never raises.
+    """
+    try:
+        if not issue_ref or not isinstance(issue_ref, dict):
+            return None
+        n = issue_ref.get("issue_number")
+        if n is None:
+            return None
+        if not os.environ.get("OPIK_API_KEY"):
+            return None
+        from opik import Opik
+
+        project = os.environ.get("OPIK_PROJECT_NAME", "faq-automation-ci")
+        client = Opik(project_name=project)
+        thread_id = f"faq-issue-{n}"
+        resolved_course = course or issue_ref.get("course")
+        client.trace(
+            name="faq-outcome",
+            thread_id=thread_id,
+            input={
+                "issue_number": n,
+                "issue_url": issue_ref.get("issue_url"),
+                "course": resolved_course,
+                "action": action,
+            },
+            output={
+                "action": action,
+                "file_path": str(file_path) if file_path else None,
+                "pr_body": pr_body,
+                "comment": comment,
+                "pr_url": pr_url,
+            },
+            tags=[resolved_course] if resolved_course else None,
+            metadata={"source": "faq-automation-cli"},
+        )
+        try:
+            import opik
+
+            opik.flush_tracker()
+        except Exception:
+            pass
+        return thread_id
+    except Exception:
+        return None
+
+
 def main():
     """Main CLI entry point"""
     parser = argparse.ArgumentParser(description='Process FAQ proposal from GitHub issue')
@@ -93,6 +168,9 @@ def main():
             print(f"Error: Course directory {course_dir} does not exist", file=sys.stderr)
             sys.exit(1)
 
+        # Issue ref lands in the triage trace input via @track and threads it.
+        issue_ref = build_issue_ref(args.issue_number, course)
+
         # Process proposal
         print("\nProcessing FAQ proposal with LLM...")
         faq_decision = process_faq_proposal(
@@ -100,7 +178,8 @@ def main():
             question=question,
             answer=answer,
             openai_api_key=openai_api_key,
-            model=args.model
+            model=args.model,
+            issue_ref=issue_ref,
         )
 
         print(f"\nDecision: {faq_decision.action}")
@@ -141,6 +220,19 @@ def main():
         elif faq_decision.action == 'WRONG_COURSE':
             print("\nGenerating wrong course comment...")
             output['comment'] = generate_wrong_course_comment(faq_decision, course)
+
+        # Second trace on the same thread with file/comment outcome (pr_url is
+        # None here — the workflow PR step creates the PR after the CLI exits;
+        # it can call log_outcome_trace again with the real pr_url).
+        log_outcome_trace(
+            issue_ref=issue_ref,
+            action=faq_decision.action,
+            file_path=output.get('file_path'),
+            pr_body=output.get('pr_body'),
+            comment=output.get('comment'),
+            pr_url=None,
+            course=course,
+        )
 
         # Write output as JSON for GitHub Actions
         output_file = Path(args.output_dir) / 'faq_decision.json'
