@@ -19,7 +19,7 @@ from opik import track  # noqa: E402
 
 
 @track
-def demo(course: str = "llm-zoomcamp"):
+def faq_proposal_triage(course: str = "llm-zoomcamp"):
     from faq_automation.rag_agent import FAQAgent
 
     agent = FAQAgent(Path(f"_questions/{course}"), openai_api_key="dummy")
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         )
         print("live:", d.action, d.section_id)
     else:
-        demo()
+        faq_proposal_triage()
         print("dry-run trace sent")
     opik.flush_tracker()
     print("view at http://localhost:5173, project faq-automation")
