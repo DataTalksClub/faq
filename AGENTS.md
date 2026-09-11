@@ -1,5 +1,8 @@
 use uv for dependency management and running python
 
+To run the evals (search eval, or the RAG end-to-end eval, plain or
+Opik-tracked), see [docs/evals.md](docs/evals.md).
+
 periodically commit to git. use double quotes for commit messages, and put the entire message in one line.
 
 ## Eval numbers in docs

@@ -176,7 +176,6 @@ def run_experiment(project, dataset_name, experiment, num_results, model, case_i
         scoring_metrics=_metrics(),
         experiment_name=experiment,
         experiment_config={"num_results": num_results, "model": model},
-        project_name=project,
     )
     print(f"\nexperiment {experiment!r} done: {result}")
     return result

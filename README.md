@@ -107,7 +107,7 @@ We run two suites:
 | [Retrieval](#retrieval) ([`run_search_eval.py`](faq_automation/evals/run_search_eval.py)) | Retrieval | 25 | ~2s | recall@5 0.840 |
 | [Generation](#generation) ([`runner.py`](faq_automation/evals/runner.py)) | Generation | 61 | ~2min | 42/61 on `gpt-5.4-nano` |
 
-Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md).
+Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md) for methodology, or [docs/evals.md](docs/evals.md) for the terminal commands (including the Opik-tracked version of the generation eval).
 
 ### Retrieval
 
