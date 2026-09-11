@@ -80,15 +80,17 @@ def parse_pr_outcome(number):
     action = "NEW" if "[FAQ Bot] NEW" in pr["title"] else (
         "UPDATE" if "[FAQ Bot] UPDATE" in pr["title"] else "NEW")
     files = sh("pr", "view", str(pr["number"]), "--json", "files")["files"]
-    section, document_id = "", ""
+    section, document_id, pr_path = "", "", ""
     if files:
-        parts = files[0]["path"].split("/")
+        pr_path = files[0]["path"]
+        parts = pr_path.split("/")
         if len(parts) >= 4 and parts[0] == "_questions":
             section = parts[2]
             name = parts[3].split("_", maxsplit=2)
             if len(name) >= 2 and len(name[1]) == 10:
                 document_id = name[1]
     return {"action": action, "section": section, "document_id": document_id,
+            "pr_path": pr_path,
             "pr_number": pr["number"], "pr_url": pr["url"], "decided_at": pr["createdAt"]}
 
 
@@ -109,6 +111,51 @@ def parse_comment_outcome(comments):
             return {"action": "WRONG_COURSE", "section": "", "document_id": "",
                     "comment_url": c.get("url", ""), "decided_at": c.get("createdAt", "")}
     return None
+
+
+def read_file_content(course, pr_path, document_id, pr_number=None):
+    """Rewrite content: the merged file (NEW/UPDATE) or matched entry (DUPLICATE).
+
+    Current file content approximates what the system generated — the merged
+    record is the rewrite. For closed-unmerged bot PRs the file never landed
+    on main, so fall back to the PR diff (the bot proposal). Best-effort:
+    empty string when unresolvable.
+    """
+    from faq_automation.core import find_question_files
+
+    candidates = []
+    if pr_path:
+        candidates.append(ROOT / pr_path)
+    if document_id:
+        try:
+            index = find_question_files(ROOT / "_questions" / course)
+            if document_id in index:
+                candidates.append(index[document_id])
+        except Exception:
+            pass
+    for path in candidates:
+        try:
+            if path.exists():
+                return path.read_text()[:4000]
+        except Exception:
+            continue
+    if pr_number:
+        try:
+            out = subprocess.run(["gh", "pr", "diff", str(pr_number)],
+                                 capture_output=True, text=True, check=True, cwd=ROOT)
+            lines = []
+            for line in out.stdout.splitlines():
+                if line.startswith("+++ ") or line.startswith("--- ") or \
+                   line.startswith("diff ") or line.startswith("index ") or \
+                   line.startswith("@@") or line.startswith("new file"):
+                    continue
+                if line.startswith("+"):
+                    lines.append(line[1:])
+            if lines:
+                return "\n".join(lines)[:4000]
+        except Exception:
+            pass
+    return ""
 
 
 def retrieval_context(course, question, answer, hide_doc_ids, _cache={}):
@@ -161,6 +208,11 @@ def build_trace(issue, outcome):
         return None, f"issue #{number}: retrieval failed: {e}"
 
     end = outcome.get("decided_at") or issue.get("closedAt") or issue["createdAt"]
+    rewrite = ""
+    if outcome["action"] in ("NEW", "UPDATE", "DUPLICATE"):
+        rewrite = read_file_content(course, outcome.get("pr_path", ""),
+                                    outcome.get("document_id", ""),
+                                    outcome.get("pr_number"))
     trace = {
         "id": new_id(),
         "project_name": os.environ.get("OPIK_PROJECT_NAME", "faq-automation-ci"),
@@ -172,6 +224,7 @@ def build_trace(issue, outcome):
                   "search_results": results},
         "output": {"action": outcome["action"], "section": outcome.get("section", ""),
                    "document_id": outcome.get("document_id", ""),
+                   "rewrite": rewrite,
                    "pr_number": outcome.get("pr_number"), "pr_url": outcome.get("pr_url", ""),
                    "comment_url": outcome.get("comment_url", "")},
         "metadata": {"backfilled": True, "source": "github-history",
