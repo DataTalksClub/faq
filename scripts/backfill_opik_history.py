@@ -181,13 +181,11 @@ def retrieval_context(course, question, answer, hide_doc_ids, _cache={}):
     both = [agent.index.search(question, num_results=10),
             agent.index.search(proposal, num_results=10)]
     results = keep_relevant(reciprocal_rank_fusion(both, weights=[1.0, 2.0], limit=5))
+    # Keep match info only (id/question/section/score): full answer bodies bloat
+    # the trace input ~5KB and bury the actual post in the UI. Full texts live
+    # in the FAQ files; the question + score tell the retrieval story.
     keep = ("document_id", "question", "section_id", "score")
-    trimmed = []
-    for r in results:
-        t = {k: r[k] for k in keep if k in r}
-        t["answer"] = str(r.get("answer", ""))[:2000]
-        trimmed.append(t)
-    return trimmed
+    return [{k: r[k] for k in keep if k in r} for r in results]
 
 
 def build_trace(issue, outcome):
