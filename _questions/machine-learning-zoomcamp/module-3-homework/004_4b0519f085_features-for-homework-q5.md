@@ -12,3 +12,5 @@ Do we need to train the model only with the features: total_rooms, total_bedroom
 4. Identify which feature has the smallest absolute accuracy difference.
 
 While calculating differences between accuracy scores, use the smallest absolute difference. For example, if the differences are -4 and -2, the smallest absolute difference is `abs(-2)`. Use this value to determine the impact of the feature on accuracy.
+
+A difference close to zero (or even negative) is normal: the removed feature may add little information, or its signal may already be captured by other correlated features.
