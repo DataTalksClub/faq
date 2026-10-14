@@ -5,15 +5,16 @@ question: 'np.linalg.inv(XTX) throws LinAlgError: Singular matrix — what does 
 sort_order: 3
 ---
 
-A `LinAlgError: Singular matrix` from `np.linalg.inv(XTX)` means `XTX` is not invertible—typically because its rows/columns are linearly dependent (often due to redundant features or insufficient independent information).
+`np.linalg.inv` raises `LinAlgError: Singular matrix` when `XTX` is not invertible, which happens when some columns of `X` are linearly dependent (duplicated or redundant features).
 
-To diagnose, check whether the matrix is rank-deficient:
+It's normal to hit this while following the Module 2 videos. The regularization lesson fixes it by adding a small value to the diagonal before inverting:
 
-- Compute `np.linalg.matrix_rank(XTX)` and compare it to the number of columns of `XTX` (if the rank is smaller, it’s singular).
+```python
+XTX = X.T @ X
+XTX = XTX + r * np.eye(XTX.shape[0])
+w_full = np.linalg.inv(XTX) @ X.T @ y
+```
 
-Common fixes:
+To diagnose it, compare `np.linalg.matrix_rank(XTX)` with `XTX.shape[0]`. A smaller rank means redundant columns that you can drop or combine. `np.linalg.pinv` avoids the error, but for homework use `inv` with regularization as in the lessons, because the answer options were computed that way.
 
-- Drop or combine redundant features so you get a full-rank `XTX`.
-- Instead of the exact inverse, use the pseudo-inverse: `np.linalg.pinv(XTX)`. The pseudo-inverse works even when the matrix is singular, and is often the preferred approach in ML when you can’t guarantee full rank.
-
-If you still get the error, also verify you’re forming `XTX` correctly (e.g., for linear regression it should be based on `X.T @ X`, not `X @ X.T`).
+Also check that you compute `X.T @ X` (not `X @ X.T`) and that you don't invert the matrix twice.
