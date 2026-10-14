@@ -12,4 +12,7 @@ Common causes, in order of frequency:
 4. Different sklearn / numpy / Python versions — pin them via `requirements.txt`, `Pipfile.lock`, or `uv.lock`.
 5. Different train/val/test split logic — `train_test_split` shuffles by default; manual `np.random.shuffle` produces a different ordering than sklearn's.
 
-If after these checks your answer still doesn't match, pick the closest option — the homework explicitly allows it.
+If your answer still doesn't match after these checks:
+
+- **2026 cohort:** the options are computed from a pinned data release, and the homework says not to choose a merely close value. A mismatch means something in your code differs from the instructions, so re-check your work (data file, split, seeds, rounding) rather than picking the nearest option.
+- **Older cohorts:** pick the closest option.
