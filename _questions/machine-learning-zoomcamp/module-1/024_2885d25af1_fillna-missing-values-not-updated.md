@@ -1,16 +1,15 @@
 ---
 id: 2885d25af1
 question: Why are there still missing values after I use `fillna()` in Pandas?
-sort_order: 33
+sort_order: 24
 ---
 
-By default, Pandas operations like `fillna()` don’t modify the original DataFrame in-place; they return a modified copy. If you don’t assign that result back, the missing values remain.
+By default, Pandas operations like `fillna()` don't modify the original DataFrame in-place; they return a modified copy. If you don't assign that result back, the missing values remain.
 
 Fix: assign the returned Series/column back, e.g.:
 - `df['score'] = df['score'].fillna(fill_value)`
 
-Alternative: you can write into the existing data by using `inplace=True`, e.g.:
-- `df['score'].fillna(fill_value, inplace=True)`
+Don't use `df['score'].fillna(fill_value, inplace=True)`. In pandas 3 (Copy-on-Write) this chained call doesn't change `df`. If you want in-place, call it on the DataFrame: `df.fillna({'score': fill_value}, inplace=True)`.
 
 Example:
 ```python
