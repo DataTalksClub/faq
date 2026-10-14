@@ -1,7 +1,7 @@
 ---
 id: c73cdc7714
-question: FastAPI container serving fails because my AI-generated Vite frontend is
-  SSR (no static `index.html`)—how do I fix it?
+question: My AI-generated frontend (Lovable, v0, Bolt) uses SSR and the build has
+  no static `index.html` for FastAPI to serve. How do I fix it?
 sort_order: 4
 ---
 
@@ -9,8 +9,7 @@ If your AI builder scaffolds your frontend with SSR (e.g., Next.js/Remix/TanStac
 
 Fix it by switching the frontend build to a static SPA export, then have FastAPI serve the produced static assets:
 
-1) Update the frontend framework configuration to disable SSR and enable static SPA output.
-   - For examples like `vite.config.ts` or `next.config.js`, change the config so the build exports static HTML/CSS/JS (no Node runtime required).
+1) Ask the agent to switch the framework to static/SPA output (for example TanStack Start's SPA mode or Next.js `output: 'export'`), then confirm `npm run build` produces an `index.html` in the output directory.
 
 2) Re-generate/adjust your Dockerfile to match the “static frontend + FastAPI serves it” strategy.
    - Use a multi-stage build: Stage 1 builds the static frontend assets; Stage 2 builds a Python/FastAPI image and copies those static files into the location FastAPI serves from.
