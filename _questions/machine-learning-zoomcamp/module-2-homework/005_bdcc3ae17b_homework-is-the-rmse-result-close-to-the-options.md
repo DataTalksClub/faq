@@ -1,15 +1,21 @@
 ---
 id: bdcc3ae17b
-question: 'Homework: is the RMSE result close to the options?'
+question: 'Homework 2 Q5/Q6: my RMSE is far from all the options after changing the
+  seed. What should I check?'
 sort_order: 5
 ---
 
-My result is about 12.4 different from the closest option. For previous questions, my answers were close, so I'm unsure why there's a large discrepancy for question 6.
+The most common cause is reusing an index array that was already shuffled. `np.random.shuffle(idx)` shuffles in place, so if you create `idx` once and then shuffle it again for each seed, every split after the first differs from the expected one.
 
-For questions 5 and 6, please ensure you reinitialize with:
+Recreate the index for every seed, right before shuffling, exactly as in the lecture split:
 
 ```python
-Idx = np.arange(n)
+n = len(df)
+idx = np.arange(n)
+np.random.seed(seed)
+np.random.shuffle(idx)
 ```
 
-This should be done for each iteration of `r` in question 5 and also for question 6.
+Do this inside the seed loop in Question 5, and again for the seed 9 split in Question 6. The `r` loop in Question 4 doesn't need a new split.
+
+If the split is right and the result is still off, check that you use only the listed columns, fill the NAs as the question says, and add `r` to the diagonal of `XTX`. See also "My homework answer doesn't match any of the options".
