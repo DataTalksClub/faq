@@ -9,3 +9,4 @@ sort_order: 7
 - Eligibility for the certificate also follows the existing two-project policy: If you have submitted two projects and peer-reviewed at least 3 course-mates’ projects for each submission, you will receive the certificate. According to the course coordinator, only two projects are needed to get the course certificate.
 - Are projects solo or collaborative? All midterms and capstones are solo projects.
 - Grading basis: The pass decision is based on the scores across projects; no overall percentage or rank is awarded.
+- The pass mark for each project is set per cohort and shown on the course platform under "Project outcomes". Each project also requires reviewing 3 peers' projects by the review deadline; skipping the reviews fails that project whatever its score.
