@@ -93,6 +93,9 @@ def create_new_faq_file(
     doc_slug = _slugify(faq_decision.filename_slug or faq_decision.question)
     faq_section = faq_decision.section_id
     section_dir = course_dir / faq_section
+    # A section can be listed in _metadata.yaml before it has any files,
+    # and git does not track empty directories, so create it if missing.
+    section_dir.mkdir(parents=True, exist_ok=True)
 
     # If order is -1, append to end of section
     if sort_order == -1:

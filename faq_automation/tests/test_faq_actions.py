@@ -144,3 +144,27 @@ def test_create_new_faq_file_sanitizes_model_provided_slug(tmp_path):
     assert faq_file.parent == section_dir
     assert len(slug) <= 50
     assert slug == _slugify(decision.filename_slug)
+
+
+def test_create_new_faq_file_creates_missing_section_dir(tmp_path):
+    section_dir = tmp_path / "04-devops-homework"
+    assert not section_dir.exists()
+    decision = FAQDecision(
+        action="NEW",
+        rationale="First entry in a new homework section.",
+        document_id="unused",
+        section_rationale="Unit 4 homework question.",
+        section_id="04-devops-homework",
+        order=-1,
+        question="Why does my Grafana alert stay Normal?",
+        proposed_content="Check the Grafana logs for rule evaluator errors.",
+        filename_slug="grafana-alert-stays-normal",
+        warnings=[],
+    )
+
+    faq_file = create_new_faq_file(tmp_path, {}, decision)
+
+    assert section_dir.is_dir()
+    assert faq_file.parent == section_dir
+    assert faq_file.exists()
+    assert faq_file.name.startswith("001_")
