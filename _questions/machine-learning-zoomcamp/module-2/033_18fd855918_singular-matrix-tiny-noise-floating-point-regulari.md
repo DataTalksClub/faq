@@ -1,26 +1,40 @@
 ---
 id: 18fd855918
-question: 'LinAlgError: Singular matrix when adding tiny noise (e.g., 5.00000001)
-  to duplicated columns—floating-point precision issue?'
+question: 'Lesson 2.13: adding tiny noise (5.00000001) still gives LinAlgError: Singular
+  matrix instead of huge weights. Why?'
 sort_order: 33
 ---
 
-In that part of the lesson, adding a tiny bit of noise (like `5.00000001`) is meant to make nearly-duplicate columns “slightly different”, so the normal-equation Gram matrix becomes invertible and you get huge weights.
+This is a floating-point precision difference between your environment and the one used in the video, not a mistake in your code.
 
-If you instead see `LinAlgError: Singular matrix`, it’s usually because of floating-point precision differences between your environment and the one used in the video. The noise you add may be so small (e.g., difference on the order of `1e-8`) that after forming `X.T @ X`, the rounding in `X.T @ X` can make the matrix effectively singular. Different `numpy` versions and linear algebra backends (OpenBLAS/MKL/Apple Accelerate) can change whether the result is treated as singular.
+In the lesson, `5.00000001` makes the duplicated columns slightly different, so the instructor's NumPy finds an inverse with huge values. But the difference is so small (1e-8) that after computing `X.T @ X`, it can get lost in rounding. Depending on your NumPy version and linear algebra backend (OpenBLAS, MKL, Apple Accelerate), the matrix may be treated as exactly singular, so `np.linalg.inv` raises `LinAlgError`.
 
-That’s also why later in the lesson a slightly larger noise (e.g., `1.0000001`) may work: the perturbation survives rounding better.
+The smaller 3x3 example later in the lesson uses `1.0000001`, which survives rounding, so it still inverts.
 
-How to validate the lesson behavior
-- Try a slightly larger noise than `5.00000001` in your duplicated column and recompute `XTX = X.T @ X`.
+To see the behaviour shown in the video, use a slightly larger noise value:
 
-Fix
-- Apply regularization (the lesson’s goal): add a small value to the diagonal before inverting.
-
-Example:
 ```python
+import numpy as np
+
+X = np.array([
+    [4, 4, 4],
+    [3, 5, 5],
+    [5, 1, 1],
+    [5, 4, 4],
+    [7, 5, 5],
+    [4, 5, 5.0000001],   # one more decimal place of noise
+])
 XTX = X.T @ X
-XTX = XTX + 0.01 * np.eye(XTX.shape[0])
-W = np.linalg.inv(XTX) @ X.T @ y
+np.linalg.inv(XTX)       # huge values, around 1e13
 ```
-Use `np.eye(XTX.shape[0])` (or otherwise match the feature dimension) rather than hard-coding `np.eye(3)` so it works for the right number of features.
+
+To fix it, apply regularization, which is the point of the lesson. Add a small number to the diagonal before inverting:
+
+```python
+XTX = XTX + 0.01 * np.eye(XTX.shape[0])
+np.linalg.inv(XTX)       # works; values are now under control
+```
+
+This works with `5.00000001` too. Use `np.eye(XTX.shape[0])` rather than hard-coding `np.eye(3)` so it matches the number of features.
+
+For singular matrix errors in general (duplicate features, wrong multiplication order), see "np.linalg.inv(XTX) throws LinAlgError: Singular matrix — what does this mean?".
