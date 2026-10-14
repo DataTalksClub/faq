@@ -5,10 +5,12 @@ question: 'Homework 1 Q6: Why does the median of horsepower change after filling
 sort_order: 9
 ---
 
-In pandas, filling missing values with the column mode can change the median because the median is sensitive to how many values fall below vs. above it.
+The median is the middle value of the sorted column. Filling NAs adds many copies of one value. If that value (the mode) lies below the original median, the middle shifts down; if it lies above, the middle shifts up. With hundreds of NAs the shift is easy to see.
 
-In this case, `df.horsepower.mode()[0]` (the most frequent value) is `252.0`, while the original median is `254.0`. When you replace all `877` missing values with `252.0`, you add a large block of values below the original median, so the median shifts down to `252.0`.
+```python
+median_before = df['horsepower'].median()
+mode = df['horsepower'].mode()[0]
+median_after = df['horsepower'].fillna(mode).median()
+```
 
-A couple of implementation notes:
-- `mode()` returns a Series (to handle ties). That’s why you use `[0]` to get the single most common value: `df.horsepower.mode()[0]`.
-- `fillna()` does not modify the DataFrame in place unless you assign the result back (e.g., `df['horsepower'] = df['horsepower'].fillna(mode)`, or use the returned Series/column in your next calculation).
+Compare `mode` with `median_before` to predict the direction. See also "Why the mode returns a Series instead of a single value?" and "Why are there still missing values after I use `fillna()` in Pandas?".
