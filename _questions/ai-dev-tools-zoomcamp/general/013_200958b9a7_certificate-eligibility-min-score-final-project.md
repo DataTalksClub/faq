@@ -1,12 +1,9 @@
 ---
 id: 200958b9a7
-question: What minimum score is required to pass the final project and qualify for
-  the certificate?
+question: What's the minimum project score to pass and get the certificate?
 sort_order: 13
 ---
 
-For the current AI Dev Tools Zoomcamp cohort, the minimum score required to pass the final project and qualify for the certificate is 10 points.
+The pass mark is set for each cohort. For the 2026 cohort, the draft project criteria have 19 criteria worth 41 points, and you need 24 points to pass (see the [project page](https://github.com/DataTalksClub/ai-dev-tools-zoomcamp/blob/main/project/README.md)). The criteria are still a draft and may change, so check the project page and the "Project outcomes" section of the course dashboard for your cohort.
 
-You can check the current pass mark on the course dashboard under “Project outcomes.” Pass marks may change for future cohorts, so always use the dashboard value for your cohort.
-
-Note: passing the final project is only one part of certificate eligibility—you also need to complete your assigned peer reviews, which is required regardless of your project score.
+Passing the project isn't enough on its own. You also need to evaluate three of your peers' projects. A project submitted without the peer reviews doesn't pass, whatever its score.
