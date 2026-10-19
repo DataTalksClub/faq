@@ -1,14 +1,22 @@
 ---
 id: 866f5d58d2
-question: 'What does ''use the numerical variable as a score'' mean for AUC?'
+question: Why can a numerical feature have a ROC AUC below 0.5, and why can we invert
+  the feature when using AUC for feature importance?
 sort_order: 29
 ---
 
-You're treating each numerical feature as if it were the model's predicted score, and computing how well it discriminates the two classes:
+A ROC AUC below 0.5 doesn’t mean the feature is useless—it often means the feature is predictive but in the opposite direction.
+
+AUC measures how well your feature values rank positive examples above negative ones. If your feature tends to give higher scores to the negative class (instead of the positive class), then the ranking is “reversed,” and the AUC can drop below 0.5.
+
+When you compute AUC using a single numerical feature as the `y_score`, you can flip the ranking by negating that feature:
 
 ```python
 from sklearn.metrics import roc_auc_score
-auc = roc_auc_score(y_train, df_train['balance'])
+
+auc = roc_auc_score(y_train, df_train[feature])
+if auc < 0.5:
+    auc = roc_auc_score(y_train, -df_train[feature])
 ```
 
-If `auc < 0.5`, invert the score by passing `-df_train['column']` (or take `1 - auc`). The numerical values don't need to be in [0, 1] — AUC only cares about ranking, not magnitudes.
+Negating the feature reverses the order of the scores, turning a reversed relationship into a correctly oriented one. This is why, for feature importance based on AUC, an AUC < 0.5 can indicate meaningful predictive information—just with the opposite sign.
