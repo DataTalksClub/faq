@@ -74,3 +74,40 @@ def test_write_outputs_writes_json_and_markdown(tmp_path):
     assert "Slack export: llm-zoomcamp / course-llm-zoomcamp" in markdown
     assert "thread=1710000000.000100" in markdown
     assert "Use `uv run jupyter lab`." in markdown
+
+
+def test_slack_api_call_retries_on_http_429(monkeypatch):
+    import io
+    import urllib.error
+    from email.message import Message
+
+    from faq_automation import slack_fetch
+
+    calls = {"n": 0}
+
+    class FakeResponse(io.BytesIO):
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+    def fake_urlopen(request, timeout=30):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            headers = Message()
+            headers["Retry-After"] = "1"
+            raise urllib.error.HTTPError(
+                request.full_url, 429, "Too Many Requests", headers, io.BytesIO(b"{}")
+            )
+        return FakeResponse(json.dumps({"ok": True, "messages": []}).encode())
+
+    sleeps = []
+    monkeypatch.setattr(slack_fetch.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(slack_fetch.time, "sleep", sleeps.append)
+
+    payload = slack_fetch.slack_api_call("token", "conversations.replies", {"channel": "C1"})
+
+    assert payload["ok"] is True
+    assert calls["n"] == 2
+    assert sleeps == [1.0]

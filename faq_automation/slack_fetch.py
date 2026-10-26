@@ -17,6 +17,7 @@ from .core import read_metadata
 
 
 SLACK_API_BASE = "https://slack.com/api"
+MAX_RATE_LIMIT_RETRIES = 8
 DEFAULT_COURSE = "llm-zoomcamp"
 
 
@@ -60,19 +61,35 @@ def slack_api_call(token: str, method: str, params: dict[str, str | int | float 
         headers={"Authorization": f"Bearer {token}"},
     )
 
+    for attempt in range(MAX_RATE_LIMIT_RETRIES + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < MAX_RATE_LIMIT_RETRIES:
+                time.sleep(_retry_after_seconds(e.headers.get("Retry-After")))
+                continue
+            detail = e.read().decode("utf-8", errors="replace")
+            raise SlackAPIError(f"Slack HTTP error for {method}: {e.code} {detail}") from e
+        except urllib.error.URLError as e:
+            raise SlackAPIError(f"Could not call Slack {method}: {e}") from e
+
+        if payload.get("error") == "ratelimited" and attempt < MAX_RATE_LIMIT_RETRIES:
+            time.sleep(_retry_after_seconds(None))
+            continue
+        if not payload.get("ok"):
+            raise SlackAPIError(f"Slack API error for {method}: {payload.get('error', 'unknown_error')}")
+
+        return payload
+
+    raise SlackAPIError(f"Slack API error for {method}: rate limited after {MAX_RATE_LIMIT_RETRIES} retries")
+
+
+def _retry_after_seconds(header: str | None) -> float:
     try:
-        with urllib.request.urlopen(request, timeout=30) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode("utf-8", errors="replace")
-        raise SlackAPIError(f"Slack HTTP error for {method}: {e.code} {detail}") from e
-    except urllib.error.URLError as e:
-        raise SlackAPIError(f"Could not call Slack {method}: {e}") from e
-
-    if not payload.get("ok"):
-        raise SlackAPIError(f"Slack API error for {method}: {payload.get('error', 'unknown_error')}")
-
-    return payload
+        return max(1.0, float(header)) if header else 3.0
+    except ValueError:
+        return 3.0
 
 
 def resolve_channel_id(token: str, channel: str, include_private: bool = False) -> str:
