@@ -4,6 +4,6 @@ question: 'Homework: I’m not getting the exact result'
 sort_order: 2
 ---
 
-**2026 cohort:** don't pick a close option. The options are computed from the pinned 2026 data release, and the homework says to use the value that matches your calculation, not a merely close one. If nothing matches, re-check your work: the dataset file, the `random_state` in the splits, the features you use, and the rounding.
+That's fine, use the closest option. This applies to all cohorts, including 2026.
 
-**Older cohorts:** that's fine, use the closest option.
+If your result is far from every option, re-check your work: the dataset file, the `random_state` in the splits, the features you use, and the rounding.

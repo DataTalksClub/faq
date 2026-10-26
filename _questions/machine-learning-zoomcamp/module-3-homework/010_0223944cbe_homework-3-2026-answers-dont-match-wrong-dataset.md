@@ -26,6 +26,6 @@ Then make sure you follow the homework exactly:
 
 - remove `converted` from the feature dataframes after splitting
 
-The 2026 options are computed from the pinned release, so with the right file your results should match an option exactly.
+The 2026 options are computed from the pinned release, so with the right file your results should be very close to one option. If a result doesn't match any option exactly, pick the closest one.
 
 Homework: [cohorts/2026/homework/03-classification](https://github.com/DataTalksClub/machine-learning-zoomcamp/tree/main/cohorts/2026/homework/03-classification)
