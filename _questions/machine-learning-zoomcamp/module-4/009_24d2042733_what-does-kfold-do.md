@@ -16,6 +16,8 @@ KFold(n_splits=n_splits, shuffle=True, random_state=1)
 
 - **Impact of Random State:** Changing the `random_state` can yield different results because it affects how the data is shuffled. However, the creation of the `KFold` object, either inside or outside a loop, doesn't make a difference as long as the configuration (`n_splits`, `shuffle`, `random_state`) remains constant.
 
+- **Same folds for every hyperparameter value:** Keep `n_splits`, `shuffle`, and `random_state` fixed when comparing values such as different `C`s. Every value is then evaluated on the same folds, so score differences reflect the hyperparameter rather than a different random split, and reruns are reproducible.
+
 - **Best Practice:** It is recommended to create the `KFold` object before the loop to avoid unnecessary repetition:
 
   ```python
