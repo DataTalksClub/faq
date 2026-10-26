@@ -13,3 +13,6 @@ finished. You don't need to request the certificate. Before then, make sure the
 certificate name in your profile on the
 [course management platform](https://courses.datatalks.club/llm-zoomcamp-2026/)
 is the one you want printed.
+
+When your certificate is ready, you get an email. If you don't see it, check your
+spam folder, and mark the email as "not spam" if it's there.
