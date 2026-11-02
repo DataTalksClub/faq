@@ -1,14 +1,34 @@
 ---
 id: e80cb08772
-question: 'DictVectorizer: feature names'
+question: How can I preserve the feature names created by `DictVectorizer` when converting
+  the data to an XGBoost `DMatrix`?
 sort_order: 16
 ---
 
-The DictVectorizer has a function to get the feature names using [`get_feature_names_out()`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer.get_feature_names_out:~:text=always%202%2Dd.-,get_feature_names_out,-(input_features%3D)). This is helpful if you need to analyze feature importance but are using the dict vectorizer for one-hot encoding. 
+After `DictVectorizer` transforms your dataframe, `X_train` contains the encoded values, but the feature names are not automatically attached to the NumPy/scipy matrix you pass into `xgb.DMatrix`. You can preserve meaningful names by pulling them from the fitted vectorizer and passing them as `feature_names`.
 
-Keep in mind that it returns a NumPy array, so you may need to convert this to a list depending on your usage. For example:
+First, get the names from the fitted vectorizer:
 
-- `dv.get_feature_names_out()` will return an ndarray of string objects.
-- `list(dv.get_feature_names_out())` will convert it to a standard list of strings.
+`feature_names = list(dv.get_feature_names_out())`
 
-Also, ensure that you fit the predictor and response arrays before accessing the feature names.
+Then create your `DMatrix` and pass `feature_names` explicitly:
+
+```python
+feature_names = list(dv.get_feature_names_out())
+
+dtrain = xgb.DMatrix(
+    X_train,
+    label=y_train,
+    feature_names=feature_names,
+)
+
+dval = xgb.DMatrix(
+    X_val,
+    label=y_val,
+    feature_names=feature_names,
+)
+```
+
+This doesn’t change training or predictions—it just attaches the metadata so later inspection (e.g., feature-related outputs) is easier to interpret. 
+
+If you hit a type error, note that `xgb.DMatrix` expects a list of strings; converting `dv.get_feature_names_out()` to a Python list (or using `.tolist()`) avoids the `numpy.ndarray` issue.
