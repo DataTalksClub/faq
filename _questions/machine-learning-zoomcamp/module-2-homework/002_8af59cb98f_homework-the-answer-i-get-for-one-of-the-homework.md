@@ -1,18 +1,14 @@
 ---
 id: 8af59cb98f
-question: 'Homework: The answer I get for one of the homework questions doesn''t match
-  any of the options. What should I do?'
+question: Is there any reason for the slightly different RMSE result when doing the
+  Q2 in Homework 6?
 sort_order: 2
 ---
 
-Select the option closest to your answer. This applies to every cohort: if your value doesn't match any option exactly, pick the closest one. If your value lies between two options, choose the larger one.
+Slight RMSE differences usually come from evaluating on data that isn’t exactly the same as what the homework expects—most commonly, using the full dataframe (`df`) instead of the training split (`df_train`) when fitting the preprocessing/imputation.
 
-**2026 cohort:** the homework uses a pinned dataset (`cohorts/2026/data/`) and the options are computed from it, so your answer should be very close to one option. If it is far from all of them, check these first:
+Concretely:
+- For imputation/transformers that learn from data, fit them on `df_train` (e.g., `dv.fit(df_train)`), then transform `df_train`/`df_val`/`df_test` using that fitted object.
+- Don’t fit on the full dataset (`dv.fit(df)`), because that leaks information from validation/test into training and will change downstream metrics (so Q3/Q4 can also shift).
 
-- You downloaded `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` (not an older car dataset) and kept only the five listed columns.
-- You set `np.random.seed(...)` and recreated `idx = np.arange(n)` before every shuffle.
-- You computed the imputation mean on `df_train` only.
-- You used `np.std` (ddof=0), not pandas `.std()` (ddof=1).
-- You rounded as instructed: 3 decimals in Q3, 4 in Q4.
-
-Small differences (library versions, OS, floating point) are normal and not a problem: just pick the closest option.
+Also re-check the exact rounding/standardization steps the homework specifies; if everything matches but you still see a tiny difference, small floating-point/library-version differences can happen—pick the closest option.
