@@ -7,7 +7,7 @@ sort_order: 16
 
 `DictVectorizer` stores the names of its output columns. Call `get_feature_names_out()` after fitting the vectorizer to retrieve those names. It returns a NumPy array, so convert that array to a list when you pass the names to XGBoost.
 
-Assuming you've already fit `dv` and created `X_train` and `y_train`, create the matrix this way:
+After fitting `dv` and creating `X_train` and `y_train`, pass the names to `DMatrix`:
 
 ```python
 import xgboost as xgb
