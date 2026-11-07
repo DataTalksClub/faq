@@ -141,6 +141,9 @@ the wrong one. WRONG_COURSE catches only that mistake — it is not a rejection 
   - Docker questions → the module or section specifically about Docker
   - Kestra/orchestration questions → the module about workflow orchestration
   - Homework-specific questions → the dedicated homework section (e.g. "module-2-homework"), NOT the main module section
+- When an entry names Homework N, put it in `module-N-homework` if that section
+  exists in SECTIONS. This rule overrides similar wording in FAQs for another
+  homework assignment.
 - Set the order to place the FAQ near related entries (e.g. if it logically follows FAQ #5, use order 6). Use -1 only to append to the end. The system handles sort order collisions automatically — never worry about picking an existing number.
 
 ## Example reasoning
