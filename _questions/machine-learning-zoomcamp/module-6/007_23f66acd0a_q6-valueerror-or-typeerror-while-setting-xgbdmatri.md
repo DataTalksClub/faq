@@ -4,22 +4,26 @@ question: 'Q6: XGBoost DMatrix feature-name TypeError and invalid-name ValueErro
 sort_order: 7
 ---
 
-If `dv.get_feature_names_out()` returns a NumPy array, convert it to a list before passing it to `xgb.DMatrix`:
-
-```python
-feature_names = dv.get_feature_names_out().tolist()
-```
-
-This fixes a `TypeError` that says XGBoost expected a sequence of strings but received a NumPy array.
+If `dv.get_feature_names_out()` returns a NumPy array, call `.tolist()` to convert it to a Python list before passing it to `xgb.DMatrix`. This fixes a `TypeError` that says XGBoost expected a sequence of strings but received a NumPy array.
 
 A separate `ValueError` can occur when a feature name contains `[`, `]`, or `<`. XGBoost doesn't allow those characters in `feature_names`. Names such as `ocean_proximity=<1H OCEAN` contain a less-than sign. The equals sign and greater-than sign are allowed by this specific check.
 
-Replace the unsupported characters before creating each `DMatrix`. Use the same renamed features for the training and validation matrices.
-
-For example:
+Replace the unsupported characters before creating each `DMatrix`, using the same renamed features for training and validation:
 
 ```python
+from sklearn.feature_extraction import DictVectorizer
 import xgboost as xgb
+
+train_records = [
+    {"ocean_proximity": "<1H OCEAN", "median_income": 8.3},
+    {"ocean_proximity": "INLAND", "median_income": 4.0},
+]
+y_train = [500000.0, 100000.0]
+valid_records = [{"ocean_proximity": "INLAND", "median_income": 5.2}]
+
+dv = DictVectorizer(sparse=True)
+X_train = dv.fit_transform(train_records)
+X_val = dv.transform(valid_records)
 
 feature_names = dv.get_feature_names_out().tolist()
 translation = str.maketrans({
@@ -36,7 +40,6 @@ dtrain = xgb.DMatrix(
 )
 dval = xgb.DMatrix(
     X_val,
-    label=y_val,
     feature_names=safe_feature_names,
 )
 ```
