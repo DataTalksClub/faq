@@ -13,7 +13,7 @@ Check these parts of the assignment first:
 - the exact train, validation, and test split
 - the preprocessing, metric, and rounding
 
-If you need to calculate a fill value such as a mean, calculate it on the training split only. For 2026 car data, download `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` rather than reusing an older dataset.
+If you need a fill value, such as a mean, calculate it from the training split only. For 2026 car data, download `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` rather than reusing an older dataset.
 
 In Homework 6, fill missing values with zeros before making the split.
 
