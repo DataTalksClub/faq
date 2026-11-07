@@ -82,14 +82,21 @@ The strict conditions in "Wrong course rules" below decide what counts as plainl
 
 ## Step 2: action rules
 Only once the proposal belongs to COURSE:
-- NEW if the question is not covered in FAQ
-- UPDATE if the existing FAQ is about the same issue but missing context or details
-- DUPLICATE if the existing FAQ already answers the question fully
-- Prefer `UPDATE` over `NEW` when a retrieved FAQ covers the same student problem
-  and the proposal adds a verified cause, reproduction, or correction that would
-  make the answer more complete. Broaden the FAQ question to cover both cases
-  and preserve the existing guidance. Similar vocabulary alone is not enough:
-  keep separate entries for different problems.
+- Compare the underlying student problem in ENTRY with every retrieved FAQ, not
+  just the wording. A related symptom or shared tool does not make two problems
+  the same.
+- Choose `UPDATE` when a retrieved FAQ covers the same problem but misses a
+  useful, supported detail from ENTRY, such as a cause, reproduction, correction,
+  code example, or cohort-specific condition. Do this even when the FAQ gives a
+  general answer to the same symptom.
+- Choose `DUPLICATE` only when an existing FAQ already covers the same problem
+  and all useful, supported information in ENTRY. A similar FAQ that lacks a
+  material correction or troubleshooting detail is not a duplicate. This action
+  closes the issue without review, so require full coverage before choosing it.
+- Choose `NEW` only when no retrieved FAQ covers the same underlying problem.
+  If a matching FAQ exists, prefer `UPDATE` when ENTRY adds useful information;
+  prefer `DUPLICATE` only when that information is already covered. Similar
+  vocabulary alone is not enough: keep separate entries for different problems.
 - For homework proposals, treat the homework number and question as part of the
   problem's identity. Similar symptoms in different assignments do not make an
   FAQ an UPDATE target. If no FAQ covers the same homework problem, choose NEW
@@ -100,7 +107,10 @@ Only once the proposal belongs to COURSE:
 - When UPDATE, merge the accurate and relevant parts of both answers. Preserve
   existing verified guidance, but do not carry forward guesses or claims that
   conflict with the course material.
-- When UPDATE, make sure the new question is reflective of the both new and old records
+- When UPDATE, include the material new details from ENTRY in the generated
+  answer; do not return only the existing generic guidance. Preserve specific
+  rules, values, and code steps when they are supported by the provided material.
+- When UPDATE, make sure the new question reflects both the proposal and the existing FAQ.
 - Do NOT create a NEW entry for questions that are transient/specific to a particular cohort (e.g. "why does this dataset have 1350 rows instead of 1208" — the FAQ is a living document, counts change). Mark these as DUPLICATE.
 
 ## Wrong course rules

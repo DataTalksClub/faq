@@ -4,6 +4,7 @@ import pytest
 from faq_automation.rag_agent import (
     FAQAgent,
     FAQDecision,
+    SYSTEM_PROMPT,
     enforce_homework_assignment,
     filter_other_homework_results,
 )
@@ -36,6 +37,13 @@ def test_filter_other_homework_results_keeps_same_assignment_and_non_homework_fa
     filtered = filter_other_homework_results(results, 6)
 
     assert filtered == results[1:]
+
+
+def test_prompt_requires_full_coverage_before_duplicate_and_preserves_update_details():
+    assert "DUPLICATE` only when an existing FAQ already covers the same problem" in SYSTEM_PROMPT
+    assert "all useful, supported information in ENTRY" in SYSTEM_PROMPT
+    assert "include the material new details from ENTRY" in SYSTEM_PROMPT
+    assert "Choose `NEW` only when no retrieved FAQ covers the same underlying problem" in SYSTEM_PROMPT
 
 
 def test_build_messages_excludes_other_numbered_homeworks_from_retrieval():
