@@ -1,23 +1,16 @@
 ---
 id: ac86a07238
 question: When answering Homework 5 Question 2, why does `uv.lock` show `scikit-learn
-  == 1.9.1` (or other unconstrained versions) instead of the homework-pinned `1.7.2`?
+  == 1.9.1` instead of the `1.7.2` version specified in the assignment?
 sort_order: 76
 ---
 
-This usually happens because you’re inspecting the root repo’s `pyproject.toml`/`uv.lock` (from earlier Homeworks) instead of the isolated locked environment created for Homework 5.
+From a shared repository, switch to `cohorts/2026/homework/05-deployment/` and run these commands to sync the lock file and check the installed version:
 
-Homework 5 is self-contained and expects you to use the pinned environment under `cohorts/2026/homework/05-deployment/` (or your local `05-deployment/`).
+```bash
+cd cohorts/2026/homework/05-deployment
+uv sync --locked
+uv run python -c 'import sklearn; print(sklearn.__version__)'
+```
 
-1. `cd cohorts/2026/homework/05-deployment`
-2. Sync the locked environment:
-
-   ```bash
-   uv sync --locked
-   ```
-
-3. Verify that the pinned files in that same directory match the homework options:
-   - `05-deployment/pyproject.toml` should list `scikit-learn==1.7.2`
-   - `05-deployment/uv.lock` should show `name = "scikit-learn"` and `version = "1.7.2"`
-
-Make sure both your terminal working directory and your editor are scoped to the `05-deployment/` folder when checking versions or running `uv` commands.
+The `pyproject.toml` in this directory specifies `scikit-learn==1.7.2`, and `uv.lock` records version `1.7.2`. See the [Homework 5 setup instructions](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/05-deployment/homework.md#setup) and the [project file](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/05-deployment/pyproject.toml).
