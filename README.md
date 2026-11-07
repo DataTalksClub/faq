@@ -19,7 +19,7 @@ use it for the FAQ assistant in Slack to answer these questions automatically.
 The repository has several parts:
 
 - [Content](#content) (`_questions/`): the answers, one markdown file per
-  question, 1395 of them across 6 courses
+  question, 1470 of them across 6 courses
 - [FAQ automation](#faq-automation) (`faq_automation/`): the automation that
   reads a student's proposal issue and opens a pull request, or closes the issue
   if it's already answered
@@ -105,7 +105,7 @@ We run two suites:
 | Suite | What it tests | Cases | Runtime | Score |
 |---|---|---|---|---|
 | [Retrieval](#retrieval) ([`run_search_eval.py`](faq_automation/evals/run_search_eval.py)) | Retrieval | 25 | ~2s | recall@5 0.840 |
-| [Generation](#generation) ([`runner.py`](faq_automation/evals/runner.py)) | Generation | 63 | ~2min | 43/63 on `gpt-5.4-nano` |
+| [Generation](#generation) ([`runner.py`](faq_automation/evals/runner.py)) | Generation | 74 | ~2min | 45/74 on `gpt-5.4-nano` ([workflow run](https://github.com/DataTalksClub/faq/actions/runs/42366074324)) |
 
 Cases come from real mistakes. If automation gets something wrong, it may become a test case for the evaluations. See the [eval guide](faq_automation/evals/README.md) for methodology, or [docs/evals.md](docs/evals.md) for the terminal commands (including the Opik-tracked version of the generation eval).
 
@@ -135,10 +135,7 @@ In the second suite we test the whole flow. We check if:
 - the code looks runnable, all the variables are defined variables
 - the filename slug makes sense
 
-The latest full run scored 43/63 on `gpt-5.4-nano`. The suite includes
-historical corpus snapshots for UPDATE cases, so later FAQ corrections do not
-leak into the model's input. The run still exposes action and placement errors;
-the model missed UPDATE for both recent regression cases.
+See the [eval guide](faq_automation/evals/README.md) for the remaining failures.
 
 We use the Flex tier for evals, it's 50% cheaper than the usual API requests.
 
@@ -319,7 +316,7 @@ faq/
 │   └── evals/                   # see evals/README.md
 │       ├── search_cases.py      # 72 retrieval cases
 │       ├── run_search_eval.py   # recall@k and MRR@k, no LLM calls
-│       ├── cases.py             # 63 end-to-end cases + check predicates
+│       ├── cases.py             # 74 end-to-end cases + check predicates
 │       ├── runner.py            # scores cases (flex tier by default)
 │       ├── flex.py / batch.py   # the two discounted OpenAI tiers
 │       └── probe_wrong_course.py # repeat-runs to measure decision stability

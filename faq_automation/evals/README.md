@@ -11,9 +11,10 @@ The evals are part of a continuous improvement loop:
 2. A human reviews the PRs using the `pr` skill (`.claude/skills/pr/SKILL.md`),
    which checks section placement, duplicates, sort order collisions, content
    quality, and code correctness. Problems are fixed before merging.
-3. The fixes reveal patterns the automation gets wrong. These become new eval cases:
-   the issue question/answer becomes the input, the corrected outcome becomes
-   the expected result, and the failure pattern becomes a tag.
+3. Turn mistakes into new eval cases. Use the issue question and answer when the
+   answer is supported. Replace a speculative answer with a source-verified
+   correction. Use that correction as the expected result and tag the mistake
+   type.
 4. The search eval and RAG eval are run to measure the automation's performance on
    the accumulated cases. The search eval (fast, no LLM) tunes the index.
    The RAG eval (slow, full pipeline) validates end-to-end.
@@ -40,18 +41,23 @@ We don't add every correction as a test case. We select cases that:
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
 | Search eval (`run_search_eval.py`) | Retrieval challenge set (minsearch index) in isolation — no LLM calls | 25 | ~2s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 63 | ~2 min | action correctness, section placement, code quality, formatting |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 74 | ~2 min | action correctness, section placement, code quality, formatting |
 
-The latest full run scored 43/63 on `gpt-5.4-nano` ([workflow run](https://github.com/DataTalksClub/faq/actions/runs/42358047771)).
-The suite includes historical snapshots for UPDATE cases #548 and #509, so later
-FAQ corrections do not replace the text the model should have seen. In this run,
-the model chose NEW for both cases. Other failures include duplicate decisions,
-placement, generated code quality, and WRONG_COURSE recall; see below for why the
-last category is deliberately allowed to fail.
+The model scored 45/74 in the latest full run on `gpt-5.4-nano` ([workflow run](https://github.com/DataTalksClub/faq/actions/runs/42366074324)).
+It returns NEW for #548 and places it in `module-6-homework`, but still chooses
+NEW instead of UPDATE for #509. The suite keeps historical corpus snapshots for
+UPDATE cases so later corrections do not leak into the model input.
 
-The suite total is a weak signal: three candidate models scored within one case
-of each other, and a single run is noisy enough that the gap means nothing. The
-model was picked on failure cost instead — see [docs/model-choice.md](../../docs/model-choice.md).
+All 11 cases added for recent FAQ Bot corrections failed at least one check in
+this run: eight chose the wrong action, while three chose the expected action
+and section but omitted required answer details. Across all 74 cases, the model
+made no false `WRONG_COURSE` decisions among 67 valid proposals and correctly
+identified 2 of 7 misfiled proposals. This run records the current baseline; it
+does not pass the full RAG evaluation.
+
+Review the per-case failures alongside the total. See the
+[model-choice guide](../../docs/model-choice.md) for the action costs and how to
+re-evaluate the default.
 
 ## Search eval (`run_search_eval.py`)
 
@@ -256,77 +262,20 @@ recall is a nice-to-have. The eval is deliberately lopsided about this:
   comes back WRONG_COURSE fails. That makes the whole suite the false-positive
   budget, not just the cases written for it.
 
-Where it stands on `gpt-5.4-nano`, the production model:
+We checked false positives and recall in the same run:
 
 | | Result |
 |---|---|
-| False positives | 0 of 54 non-wrong-course cases (single suite run) |
-| Recall | 1 of 7 wrong-course cases (single suite run) |
+| False positives | 0 of 67 non-wrong-course cases |
+| Recall | 2 of 7 wrong-course cases |
 
-Every model measured holds the false-positive count at zero; they differ only in
-recall and in what they do on the other 54 cases. `gpt-5.4-nano` sits at the low
-end of recall on purpose — [docs/model-choice.md](../../docs/model-choice.md) has
-the comparison and the reasoning.
+We prioritize avoiding false positives. When the model misses a `WRONG_COURSE`
+label, the bot opens a PR for a maintainer to review. When the bot wrongly
+returns `WRONG_COURSE`, it closes a valid student's issue without review.
 
-That recall is low on purpose and is fine to ship. The rules demand positive
-evidence of another course and tell the model to prefer NEW/UPDATE/DUPLICATE when
-unsure, so a borderline call lands on "file it" rather than "close it". The misses
-become PRs that a human closes, which is exactly what happened before this action
-existed — the automation is no worse than the status quo on them. The zero is the number
-that has to hold.
-
-Do not chase recall by softening the "when unsure, prefer NEW" hedge or by
-dropping the demand for positive evidence. Those are what buy the zero. If recall
-ever needs to be better, a stronger model for this decision is the safer lever
-than a more aggressive prompt.
-
-#### The decision is not stable
-
-A single run understates how much this moves. Re-running the wrong-course and
-guard cases 5x each against an identical prompt on `gpt-5-nano` — the model this
-project used before `gpt-5.4-nano`, kept here because it is the clearest
-illustration of the instability, which has not gone away:
-
-| Case | Fires | |
-|---|---|---|
-| #148 BigQuery query costs | 4/5 | flips |
-| MLflow model registry (synthetic) | 4/5 | flips |
-| #97 Spark global temp views | 3/5 | flips |
-| #311 RAGWithMetrics | 1/5 | flips |
-| Terraform GCS bucket (synthetic) | 1/5 | flips |
-| #287 FAQ dataset doc counts | 0/5 | never fires |
-| #109 pgAdmin in Codespaces | 0/5 | never fires |
-| **Recall** | **13/35** | |
-| **False positives** | **0/20** | |
-
-Five of seven wrong-course cases flip between NEW and WRONG_COURSE on identical
-input, so any single case's result is a coin toss, not a fact. The guards flip
-too — the `uv` case returned DUPLICATE twice, NEW twice, and UPDATE once — but
-never into WRONG_COURSE. Across the suite run and this probe the false-positive
-count is 0/64 observations, which is the evidence the release gate rests on. It
-is still a bounded sample, not a proof: re-run after any prompt change rather
-than trusting a previous green, and treat a single passing run of a wrong-course
-case as noise.
-
-What predicts recall is whether the entry names a tool owned by exactly one
-course. BigQuery, MLflow, and Spark fire reliably. #311 is mostly generic OpenAI
-API mechanics (`chat.completions` vs `responses`) with RAG incidental to it, and
-#287 names no tool at all — both read as "unfamiliar", which the rules correctly
-send to NEW. #109 never fires because the rules explicitly forbid firing on
-Docker and Codespaces, which is most of that entry; the pgAdmin signal that would
-identify it never gets weighed. That is the "prefer NEW when unsure" hedge doing
-its job, and the cost of the zero.
-
-Reproduce with the probe used to produce this table, on any model:
-
-```bash
-uv run --project faq_automation python -m faq_automation.evals.probe_wrong_course gpt-5.4-nano 5
-```
-
-Model choice moves these numbers more than prompt tuning has: `gpt-5.6-luna`
-reaches 27/35 recall with 5 of 7 cases fully deterministic, still at 0/20 false
-positives, but was not adopted for reasons that have nothing to do with this
-table. See [docs/model-choice.md](../../docs/model-choice.md).
+Don't chase recall by softening the "when unsure, prefer NEW" hedge or by
+dropping the demand for positive evidence. If you want to improve recall, test a
+stronger model before making the prompt more aggressive.
 
 Catch-all sections are a trap worth knowing about: ML Zoomcamp has a `misc`
 section and every course has `general`. A catch-all can plausibly hold anything,
@@ -342,7 +291,7 @@ Each case is tagged for failure analysis:
 
 | Tag | Cases | What it tests |
 |-----|-------|---------------|
-| correct-new | 14 | Valid NEW proposals — the automation should create them |
+| correct-new | 15 | Valid NEW proposals — the automation should create them |
 | section-misplacement | 12 | The automation historically placed these in the wrong section |
 | duplicate-verify | 6 | Doc in index — the automation should find it as DUPLICATE |
 | false-duplicate | 4 | Genuine NEW that the automation wrongly calls DUPLICATE |
@@ -351,15 +300,22 @@ Each case is tagged for failure analysis:
 | duplicate-detection | 3 | The automation should correctly identify duplicates |
 | bruin | 2 | Bruin-specific placement (module-5) |
 | code-quality | 2 | Generated code must be runnable |
-| section-placement | 7 | Tests correct section selection |
+| section-placement | 11 | Tests correct section selection |
 | relevance | 2 | The automation should reject irrelevant proposals |
 | wrong-course | 7 | Student picked the wrong course — the automation should close the issue |
 | wrong-course-guard | 4 | Near misses that must NOT be rejected as wrong course |
 | catch-all | 3 | `misc`/`general` must not swallow placeable entries, but must still take genuinely cross-cutting ones |
 | synthetic | 6 | Written by hand rather than taken from a real issue (negative `case_id`) |
-| update-quality | 2 | UPDATE should not degrade existing content or target a lexical match from the wrong section |
+| update-quality | 4 | UPDATE should not degrade existing content or target a lexical match from the wrong section |
 | retrieval-bias | 2 | Lexical similarity must not outweigh course and section context |
-| homework-placement | 4 | Homework-only material must not land in a lesson or another module |
+| homework-placement | 10 | Homework-only material must not land in a lesson or another module |
+| content-correctness | 12 | Generated answers should preserve verified corrections and avoid unsupported claims |
+| content-preservation | 1 | UPDATE must preserve verified guidance from the existing FAQ |
+| new-vs-update | 10 | Distinguish a genuinely new FAQ from a correction to an existing one |
+| runnable-code | 2 | Generated code examples must be runnable |
+| source-grounding | 1 | Cohort-specific claims must match the course source |
+| tree-interpretation | 1 | Explain encoded decision-tree feature splits correctly |
+| kestra | 1 | Kestra-specific course ownership and placement |
 | verbosity | 1 | Answer should be concise |
 | filename-slug | 1 | Filename slug should not be None |
 

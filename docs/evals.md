@@ -16,7 +16,7 @@ challenge cases.
 
 ## 2. RAG eval (full pipeline: search + LLM decision + content generation, ~2min)
 
-**Plain version** — runs all 63 cases on the flex tier, prints PASS/FAIL per
+**Plain version** — runs all 74 cases on the flex tier, prints PASS/FAIL per
 case plus a pattern/tag failure breakdown, exits nonzero on any failure:
 
 ```bash
@@ -27,11 +27,11 @@ uv run --project faq_automation python -m faq_automation.evals.runner --batch   
 
 Needs `OPENAI_API_KEY`.
 
-**Opik-tracked version** — a smaller, cheap "Friday-demo" subset (6 of the 63
+**Opik-tracked version** — a smaller, cheap "Friday-demo" subset (6 of the 74
 cases, deterministic `action_match` + `placement_match` scoring, no judge-model
 cost) run through `opik.evaluate()` so before/after comparisons (e.g. changing
 `num_results`) land as comparable Experiments on Comet Opik Cloud instead of
-only a terminal report. This does **not** run the full 63-case suite or the
+only a terminal report. This does **not** run the full 74-case suite or the
 per-case content-quality checks (code correctness, formatting, etc.) that
 `runner.py` enforces — it's a fast, deterministic sanity check for prompt/
 retrieval changes, not a replacement for the full suite.
