@@ -5,14 +5,26 @@ question: 'Homework: The answer I get for one of the homework questions doesn''t
 sort_order: 2
 ---
 
-Select the option closest to your answer. This applies to every cohort: if your value doesn't match any option exactly, pick the closest one. If your value lies between two options, choose the larger one.
+Select the option closest to your answer. If your value falls between two options, choose the larger one.
 
-**2026 cohort:** the homework uses a pinned dataset (`cohorts/2026/data/`) and the options are computed from it, so your answer should be very close to one option. If it is far from all of them, check these first:
+Check these parts of the assignment first:
 
-- You downloaded `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` (not an older car dataset) and kept only the five listed columns.
-- You set `np.random.seed(...)` and recreated `idx = np.arange(n)` before every shuffle.
-- You computed the imputation mean on `df_train` only.
-- You used `np.std` (ddof=0), not pandas `.std()` (ddof=1).
-- You rounded as instructed: 3 decimals in Q3, 4 in Q4.
+- the named dataset and columns
+- the exact train, validation, and test split
+- the preprocessing, metric, and rounding
 
-Small differences (library versions, OS, floating point) are normal and not a problem: just pick the closest option.
+If you need a fill value, such as a mean, calculate it from the training split only. For 2026 car data, download `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` rather than reusing an older dataset.
+
+In Homework 6, fill missing values with zeros before making the split.
+
+Make the 2026 split with two calls to scikit-learn's `train_test_split`.
+
+For the first call, use `test_size=0.2` and `random_state=1`. The first call returns the full-training set and the test set.
+
+For the second call, split the full-training set with `test_size=0.25` and `random_state=1`. The second call returns the training and validation sets. See the [2026 Homework 6 instructions](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#preparing-the-dataset).
+
+For Question 2, use `DictVectorizer(sparse=True)`. Fit the vectorizer on the feature dictionaries from `df_train`. Then use the fitted vectorizer to transform feature dictionaries from `df_val`, so validation rows don't influence its vocabulary. Train the random forest with the assignment's parameters and calculate RMSE on validation data.
+
+For questions about standard deviation, `np.std` uses `ddof=0`, while pandas `.std()` uses `ddof=1` by default. Follow the rounding precision stated in each question. Round Q3 to 3 decimals and Q4 to 4 decimals for these 2026 questions.
+
+Use the specified seed, and recreate `idx = np.arange(n)` before each required shuffle.
