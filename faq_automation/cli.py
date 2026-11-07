@@ -13,7 +13,7 @@ import argparse
 from pathlib import Path
 
 from .rag_agent import process_faq_proposal, DEFAULT_MODEL
-from .core import find_question_files, read_metadata
+from .core import find_question_files, read_metadata, normalize_course_id
 from .actions import (
     create_new_faq_file,
     update_existing_faq_file,
@@ -151,6 +151,8 @@ def main():
             output_file.write_text(json.dumps(output, indent=2), encoding='utf-8')
             print(f"Incomplete proposal; output written to: {output_file}")
             return
+
+        course = normalize_course_id(course)
 
         print(f"Course: {course}")
         print(f"Question: {question[:100]}...")

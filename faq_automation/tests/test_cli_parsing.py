@@ -8,6 +8,7 @@ from faq_automation.cli import (
     parse_full_issue_body,
     validate_faq_decision,
 )
+from faq_automation.core import normalize_course_id
 from faq_automation.rag_agent import FAQDecision
 
 
@@ -214,6 +215,10 @@ def test_incomplete_proposal_result_explains_how_to_reopen():
     assert decision["issue_number"] == 521
     assert "course, question, or answer" in decision["comment"]
     assert "reopen it" in decision["comment"]
+
+
+def test_normalize_course_id_maps_observed_ml_zoomcamp_alias():
+    assert normalize_course_id(" ML-Zoomcamp ") == "machine-learning-zoomcamp"
 
 
 def _decision(**overrides):

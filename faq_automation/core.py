@@ -9,6 +9,17 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 
+COURSE_ALIASES = {
+    "ml-zoomcamp": "machine-learning-zoomcamp",
+}
+
+
+def normalize_course_id(course: str) -> str:
+    """Map observed course-form aliases to the canonical FAQ directory id."""
+    normalized = (course or "").strip().casefold()
+    return COURSE_ALIASES.get(normalized, normalized)
+
+
 def parse_metadata(content: str) -> dict:
     """Parse YAML metadata content"""
     return yaml.safe_load(content)

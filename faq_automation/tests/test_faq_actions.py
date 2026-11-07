@@ -291,6 +291,32 @@ Run `uv sync`.
     assert duplicate is None
 
 
+def test_find_duplicate_submission_normalizes_known_course_aliases():
+    duplicate = find_duplicate_submission(
+        "Do I need to scale features before training a decision tree?",
+        "machine-learning-zoomcamp",
+        544,
+        [
+            {
+                "number": 543,
+                "title": "[FAQ] Scaling for trees",
+                "labels": ["faq-proposal"],
+                "body": """### Course
+ml-zoomcamp
+
+### Question
+Do I need to scale features before training a decision tree?
+
+### Answer
+No. A monotonic scale change preserves feature ordering.
+""",
+            }
+        ],
+    )
+
+    assert duplicate["number"] == 543
+
+
 def test_update_existing_faq_file_preserves_id_and_moves_to_section_end(tmp_path):
     source_dir = tmp_path / "module-1"
     target_dir = tmp_path / "module-2-homework"

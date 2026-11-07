@@ -16,6 +16,7 @@ from .core import (
     write_frontmatter,
     find_question_files,
     parse_frontmatter,
+    normalize_course_id,
 )
 from .rag_agent import FAQDecision
 
@@ -79,7 +80,7 @@ def find_duplicate_submission(
     current_question = _normalize_question(
         question or _proposal_question(issue_title, "")
     )
-    normalized_course = (course or "").strip().casefold()
+    normalized_course = normalize_course_id(course)
     if not current_question or not normalized_course:
         return None
 
@@ -116,7 +117,7 @@ def find_duplicate_submission(
         if not candidate_question or candidate_question != current_question:
             continue
 
-        candidate_course = _extract_issue_field(body, "course").casefold()
+        candidate_course = normalize_course_id(_extract_issue_field(body, "course"))
         if candidate_course != normalized_course:
             continue
         candidates.append(issue)
