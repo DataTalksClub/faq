@@ -2,17 +2,33 @@ name: FAQ Automation
 
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: Open FAQ issue number to process
+        type: number
+        required: true
 
 permissions:
   contents: write
   issues: write
   pull-requests: write
+  actions: write
+
+concurrency:
+  group: faq-automation-${{ inputs.issue_number || github.event.issue.number }}
+  cancel-in-progress: false
 
 jobs:
   process-faq-proposal:
-    if: contains(github.event.issue.labels.*.name, 'faq-proposal')
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (contains(github.event.issue.labels.*.name, 'faq-proposal') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'faq-proposal'))
     runs-on: ubuntu-latest
+    env:
+      ISSUE_NUMBER: ${{ inputs.issue_number || github.event.issue.number }}
 
     steps:
       - name: Checkout repository
@@ -35,13 +51,38 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.issue.body || '';
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
+            if (!Number.isInteger(issueNumber) || issueNumber < 1) {
+              throw new Error('A valid issue_number is required');
+            }
+            const { data: issue } = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+            });
+            if (issue.state !== 'open') {
+              throw new Error(`Issue #${issueNumber} is not open`);
+            }
+            const body = issue.body || '';
 
             // Save issue body to file for Python to parse
             const fs = require('fs');
             fs.writeFileSync('/tmp/issue_body.txt', body);
+            fs.writeFileSync('/tmp/issue_title.txt', issue.title || '');
+            fs.writeFileSync('/tmp/issue_number.txt', String(issueNumber));
 
-            console.log('Fetched issue body, saved to /tmp/issue_body.txt');
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+            const relatedIssues = issues.filter(issue =>
+              issue.number !== issueNumber && !issue.pull_request
+            );
+            fs.writeFileSync('/tmp/related_issues.json', JSON.stringify(relatedIssues));
+
+            console.log(`Fetched issue body and ${relatedIssues.length} other open issues`);
 
       - name: Process FAQ with AI
         id: process
@@ -57,7 +98,9 @@ jobs:
           # so production and the evals cannot drift apart. See docs/model-choice.md.
           uv run --project faq_automation python -m faq_automation.cli \
             --issue-body "$(cat /tmp/issue_body.txt)" \
-            --issue-number ${{ github.event.issue.number }} \
+            --issue-title "$(cat /tmp/issue_title.txt)" \
+              --issue-number "$ISSUE_NUMBER" \
+            --related-issues-file /tmp/related_issues.json \
             --output-dir /tmp
 
           # Write decision output to GitHub Actions
@@ -66,16 +109,43 @@ jobs:
       - name: Handle NEW or UPDATE action
         if: fromJson(steps.process.outputs.decision).action == 'NEW' || fromJson(steps.process.outputs.decision).action == 'UPDATE'
         uses: actions/github-script@v7
+        env:
+          DECISION_JSON: ${{ steps.process.outputs.decision }}
         with:
           script: |
-            const decision = ${{ steps.process.outputs.decision }};
+            const decision = JSON.parse(process.env.DECISION_JSON);
             const action = decision.action;
             const issueNumber = decision.issue_number;
+            const issueTitle = decision.issue_title;
             const prBody = decision.pr_body;
             const filePath = decision.file_path;
 
             // Create branch name
             const branchName = `faq-bot/issue-${issueNumber}`;
+
+            // Repeated issue events should not open another PR for this issue.
+            const existingPRs = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${branchName}`,
+              base: 'main',
+            });
+            if (existingPRs.length > 0) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                title: issueTitle,
+              });
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: `A FAQ proposal PR is already open: #${existingPRs[0].number}.`,
+              });
+              return;
+            }
 
             // Configure git
             await exec.exec('git', ['config', 'user.name', 'FAQ Bot']);
@@ -106,6 +176,26 @@ jobs:
               body: `${prBody}\n\nCloses #${issueNumber}`
             });
 
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              title: issueTitle,
+            });
+
+            // PR events created with GITHUB_TOKEN require manual approval.
+            // Dispatch the content test on the PR branch for an automatic CI result.
+            try {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'test-website.yml',
+                ref: branchName,
+              });
+            } catch (error) {
+              core.warning(`Could not dispatch FAQ content tests: ${error.message}`);
+            }
+
             // Comment on issue with PR link
             await github.rest.issues.createComment({
               owner: context.repo.owner,
@@ -117,11 +207,20 @@ jobs:
       - name: Handle DUPLICATE action
         if: fromJson(steps.process.outputs.decision).action == 'DUPLICATE'
         uses: actions/github-script@v7
+        env:
+          DECISION_JSON: ${{ steps.process.outputs.decision }}
         with:
           script: |
-            const decision = ${{ steps.process.outputs.decision }};
+            const decision = JSON.parse(process.env.DECISION_JSON);
             const comment = decision.comment;
             const issueNumber = decision.issue_number;
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              title: decision.issue_title,
+            });
 
             // Post comment
             await github.rest.issues.createComment({
@@ -140,14 +239,75 @@ jobs:
               state_reason: 'completed'
             });
 
+      - name: Handle INVALID_PROPOSAL action
+        if: fromJson(steps.process.outputs.decision).action == 'INVALID_PROPOSAL'
+        uses: actions/github-script@v7
+        env:
+          DECISION_JSON: ${{ steps.process.outputs.decision }}
+        with:
+          script: |
+            const decision = JSON.parse(process.env.DECISION_JSON);
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: decision.issue_number,
+              body: decision.comment,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: decision.issue_number,
+              state: 'closed',
+              state_reason: 'not_planned',
+            });
+
+      - name: Handle DUPLICATE_SUBMISSION action
+        if: fromJson(steps.process.outputs.decision).action == 'DUPLICATE_SUBMISSION'
+        uses: actions/github-script@v7
+        env:
+          DECISION_JSON: ${{ steps.process.outputs.decision }}
+        with:
+          script: |
+            const decision = JSON.parse(process.env.DECISION_JSON);
+            const issueNumber = decision.issue_number;
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              title: decision.issue_title,
+            });
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: decision.comment,
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              state: 'closed',
+              state_reason: 'not_planned',
+            });
+
       - name: Handle WRONG_COURSE action
         if: fromJson(steps.process.outputs.decision).action == 'WRONG_COURSE'
         uses: actions/github-script@v7
+        env:
+          DECISION_JSON: ${{ steps.process.outputs.decision }}
         with:
           script: |
-            const decision = ${{ steps.process.outputs.decision }};
+            const decision = JSON.parse(process.env.DECISION_JSON);
             const comment = decision.comment;
             const issueNumber = decision.issue_number;
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              title: decision.issue_title,
+            });
 
             // Post comment
             await github.rest.issues.createComment({
@@ -171,10 +331,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const issueNumber = context.payload.issue.number;
+            const issueNumber = Number(process.env.ISSUE_NUMBER);
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issueNumber,
-              body: `❌ FAQ Bot encountered an error processing this proposal.\n\nPlease check the [workflow run](${context.payload.repository.html_url}/actions/runs/${context.runId}) for details.\n\nA maintainer will review this manually.`
+              body: `❌ FAQ Bot encountered an error processing this proposal.\n\nPlease check the [workflow run](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details.\n\nA maintainer will review this manually.`
             });

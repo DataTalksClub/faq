@@ -181,6 +181,18 @@ def content_is_concise(decision):
     return True
 
 
+def content_contains_all(*terms):
+    """Return a check requiring every durable fact to survive an UPDATE."""
+    normalized_terms = tuple(term.casefold() for term in terms)
+
+    def check(decision):
+        content = (decision.proposed_content or "").casefold()
+        return all(term in content for term in normalized_terms)
+
+    check.__name__ = f"content contains {', '.join(terms)}"
+    return check
+
+
 def has_filename_slug(decision):
     """Filename slug should not be None or 'None'."""
     slug = decision.filename_slug
@@ -1153,6 +1165,50 @@ CASES.append(EvalCase(
     description="Docker container exits — shared tool, but ML zoomcamp owns model deployment. Must not be WRONG_COURSE.",
     checks=[],
     tags=["wrong-course-guard", "synthetic"],
+))
+
+# ========================================================================== #
+# GROUP 10: Backlog corrections from November 2026
+# ========================================================================== #
+
+# Case #548 updates an existing homework mismatch FAQ. The new explanation must
+# not erase its 2026 dataset, standard-deviation, and closest-option guidance.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=548,
+    question="Is there any reason for the slightly different RMSE result when doing the Q2 in Homework 6?",
+    answer="""Maybe it is because you fit the original data instead of the train data `dv.fit(df)` instead of `dv.fit(df_train)`. If you did, your answers in Q3 and Q4 may also be wrong, remember to recheck them.""",
+    expected_action="UPDATE",
+    expected_section="module-2-homework",
+    description="RMSE discrepancy adds a train-split cause to an existing homework answer-mismatch FAQ without dropping its verified checks.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("8af59cb98f"),
+        section_is("module-2-homework"),
+        content_contains_all("df_train", "car_fuel_efficiency_2026.csv", "np.std", "closest"),
+    ],
+    tags=["new-vs-update", "content-preservation", "homework-placement"],
+    relevant_doc_id="8af59cb98f",
+))
+
+# Case #509 belongs in the homework section and extends the existing local vs.
+# Docker output entry rather than creating a duplicate FAQ.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=509,
+    question="Why should the output of a machine learning model be identical whether running locally or in a Docker container?",
+    answer="""With the use of the Docker container for model deployment, reproducibility can be ensured. Using the same model, preprocessing pipeline and input data, the prediction probability should be the same. In Homework 5, the prediction from the container is compared with the expected inference from Question 4 using an absolute tolerance of 0.005. The `/health` route provides the SHA-256 hash of the model being used.""",
+    expected_action="UPDATE",
+    expected_section="module-5-homework",
+    description="Homework 5 local/container prediction question updates existing incomplete coverage and moves it to the homework section.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("cee7450404"),
+        section_is("module-5-homework"),
+        content_contains_all("0.005", "/health"),
+    ],
+    tags=["new-vs-update", "homework-placement", "content-preservation"],
+    relevant_doc_id="cee7450404",
 ))
 
 # Guard: Kestra is DE's signature tool but the LLM course uses it in module-3

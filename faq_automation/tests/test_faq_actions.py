@@ -7,8 +7,13 @@ from faq_automation.actions import (
     _slugify,
     create_new_faq_file,
     generate_duplicate_comment,
+    generate_duplicate_submission_comment,
     generate_pr_body,
+    find_duplicate_submission,
+    normalize_issue_title,
+    update_existing_faq_file,
 )
+from faq_automation.core import parse_frontmatter
 from faq_automation.rag_agent import FAQDecision
 
 
@@ -168,3 +173,206 @@ def test_create_new_faq_file_creates_missing_section_dir(tmp_path):
     assert faq_file.parent == section_dir
     assert faq_file.exists()
     assert faq_file.name.startswith("001_")
+
+
+def test_normalize_issue_title_collapses_whitespace_and_rejects_empty():
+    assert normalize_issue_title("  How do I\nuse uv?  ") == "How do I use uv?"
+    assert len(normalize_issue_title("x" * 300)) == 256
+    with pytest.raises(ValueError, match="cannot be empty"):
+        normalize_issue_title(" \n ")
+
+
+def test_find_duplicate_submission_matches_normalized_open_faq_question():
+    related_issues = [
+        {
+            "number": 523,
+            "title": "[FAQ] API accepts invalid input",
+            "labels": [],
+            "body": """### Course
+machine-learning-zoomcamp
+
+### Question
+Why does `/predict` accept invalid categorical values?
+
+### Answer
+The request model checks types but not all semantic values.
+""",
+        },
+        {
+            "number": 524,
+            "title": "[FAQ] API accepts invalid input",
+            "labels": ["faq-proposal"],
+            "body": "### Course\nmachine-learning-zoomcamp\n",
+        },
+    ]
+
+    duplicate = find_duplicate_submission(
+        "Why does `/predict` accept invalid categorical values!",
+        "machine-learning-zoomcamp",
+        524,
+        related_issues,
+    )
+
+    assert duplicate["number"] == 523
+    comment = generate_duplicate_submission_comment(duplicate)
+    assert "issue #523" in comment
+    assert "separate FAQ PRs" in comment
+
+
+def test_find_duplicate_submission_does_not_match_on_title_when_questions_differ():
+    duplicate = find_duplicate_submission(
+        "When running `uv run python script.py`, why does VIRTUAL_ENV not match the project environment path? How can I resolve this?",
+        "machine-learning-zoomcamp",
+        534,
+        [
+            {
+                "number": 531,
+                "title": "### How to fix uv warning: VIRTUAL_ENV does not match the project environment path",
+                "body": """### Course
+machine-learning-zoomcamp
+
+When running scripts with `uv run`, I get a virtual environment warning.
+
+**Answer:**
+This warning occurs because `uv` selects the project environment by default.
+""",
+            }
+        ],
+        issue_title="How to fix uv warning: VIRTUAL_ENV does not match the project environment path",
+    )
+
+    assert duplicate is None
+
+
+def test_find_duplicate_submission_requires_course_evidence():
+    duplicate = find_duplicate_submission(
+        "Why does `/predict` accept invalid categorical values?",
+        "machine-learning-zoomcamp",
+        524,
+        [
+            {
+                "number": 523,
+                "title": "[FAQ] API accepts invalid input",
+                "labels": ["faq-proposal"],
+                "body": """### Question
+Why does `/predict` accept invalid categorical values?
+
+### Answer
+The request model checks types but not all semantic values.
+""",
+            }
+        ],
+    )
+
+    assert duplicate is None
+
+
+def test_find_duplicate_submission_does_not_match_other_course():
+    duplicate = find_duplicate_submission(
+        "How do I install dependencies with uv?",
+        "machine-learning-zoomcamp",
+        100,
+        [
+            {
+                "number": 99,
+                "title": "[FAQ] How do I install dependencies with uv?",
+                "labels": ["faq-proposal"],
+                "body": """### Course
+llm-zoomcamp
+### Question
+How do I install dependencies with uv?
+### Answer
+Run `uv sync`.
+""",
+            }
+        ],
+    )
+
+    assert duplicate is None
+
+
+def test_update_existing_faq_file_preserves_id_and_moves_to_section_end(tmp_path):
+    source_dir = tmp_path / "module-1"
+    target_dir = tmp_path / "module-2-homework"
+    source_dir.mkdir()
+    target_dir.mkdir()
+    source = source_dir / "002_abc1234567_old-title.md"
+    source.write_text(
+        "---\nid: abc1234567\nquestion: Old question\nsort_order: 2\n---\n\nOld answer.\n",
+        encoding="utf-8",
+    )
+    (target_dir / "005_def1234567_existing.md").write_text(
+        "---\nid: def1234567\nquestion: Existing\nsort_order: 5\n---\n\nExisting.\n",
+        encoding="utf-8",
+    )
+    doc_index = {"abc1234567": source}
+    decision = FAQDecision(
+        action="UPDATE",
+        rationale="This question updates the existing entry.",
+        document_id="abc1234567",
+        section_rationale="The question is specific to homework.",
+        section_id="module-2-homework",
+        order=1,
+        question="Updated question?",
+        proposed_content="Updated answer.\n",
+        filename_slug=None,
+        warnings=[],
+    )
+
+    result = update_existing_faq_file(tmp_path, doc_index, decision)
+
+    assert result == target_dir / "006_abc1234567_old-title.md"
+    assert not source.exists()
+    metadata, answer = parse_frontmatter(result.read_text(encoding="utf-8"))
+    assert metadata["id"] == "abc1234567"
+    assert metadata["question"] == "Updated question?"
+    assert metadata["sort_order"] == 6
+    assert answer == "Updated answer."
+    assert doc_index["abc1234567"] == result
+
+
+def test_update_existing_faq_file_keeps_order_for_in_place_update(tmp_path):
+    section_dir = tmp_path / "module-1"
+    section_dir.mkdir()
+    source = section_dir / "002_abc1234567_old-title.md"
+    source.write_text(
+        "---\nid: abc1234567\nquestion: Old question\nsort_order: 2\n---\n\nOld answer.\n",
+        encoding="utf-8",
+    )
+    decision = FAQDecision(
+        action="UPDATE",
+        rationale="This question updates the existing entry.",
+        document_id="abc1234567",
+        section_rationale="Same section.",
+        section_id="module-1",
+        order=9,
+        question="Updated question?",
+        proposed_content="Updated answer.\n",
+        filename_slug=None,
+        warnings=[],
+    )
+
+    result = update_existing_faq_file(tmp_path, {"abc1234567": source}, decision)
+
+    metadata, _ = parse_frontmatter(result.read_text(encoding="utf-8"))
+    assert result == source
+    assert metadata["sort_order"] == 2
+
+
+def test_generate_pr_body_uses_actual_file_order():
+    decision = FAQDecision(
+        action="UPDATE",
+        rationale="Update an existing entry.",
+        document_id="abc1234567",
+        section_rationale="Homework-specific guidance.",
+        section_id="module-2-homework",
+        order=3,
+        question="Why does the result differ?",
+        proposed_content="Check the train split.",
+        filename_slug=None,
+        warnings=[],
+    )
+
+    body = generate_pr_body(decision, 548, "machine-learning-zoomcamp", actual_sort_order=2)
+
+    assert "**Sort Order**: 2" in body
