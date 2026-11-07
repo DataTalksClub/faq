@@ -5,27 +5,29 @@ question: How do I fix GitHub error GH001 (file larger than 100 MiB) when pushin
 sort_order: 6
 ---
 
-GitHub blocks normal `git push` operations when a commit contains a file larger than 100 MiB (often shown as GH001 / “large files”). The correct fix is to remove the large file from your Git history and store it with Git LFS.
+GitHub rejects a regular Git push if its history contains a file larger than 100 MiB. Choose the fix based on which commit contains the file.
 
-First, use Git LFS for the large file(s):
+To remove a file from the latest unpushed commit while keeping the local copy, run:
 
-- Install Git LFS and initialize it: 
-  - `git lfs install`
-- Track the file pattern (example):
-  - `git lfs track "path/to/large-file-or-pattern"`
-- Commit the generated `.gitattributes` file, then re-add the large file and commit again.
+```bash
+git rm --cached path/to/file
+git commit --amend -C HEAD
+```
 
-If the large file was already committed in the past, deleting it in a later commit is not enough, because earlier commits still contain the blob. In that case, rewrite history to remove it, e.g. with `git filter-repo`:
+If you add another commit, the earlier, unpushed commit will still contain the file.
 
-- Example (replace the path/pattern):
-  - `git filter-repo --path "path/to/large-file" --invert-paths`
+If an earlier commit contains the file and you don't need it in the repository, remove it from the history with `git filter-repo`:
 
-After history rewriting, your local commit IDs will change, so you will typically need a force push:
+```bash
+git filter-repo --path path/to/file --invert-paths
+```
 
-- `git push --force-with-lease`
+To keep the file, migrate it to Git LFS:
 
-Because rewriting history changes commit IDs, coordinate with collaborators before force-pushing to a shared branch.
+```bash
+git lfs migrate import --everything --include="path/to/file"
+```
 
-See GitHub docs on large files and removing files from repository history:
-- https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
-- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
+`git filter-repo` and `git lfs migrate import` rewrite history and change commit IDs. If you already pushed the branch, coordinate with collaborators before pushing the rewritten branch with `git push --force-with-lease`. The `git lfs track` command applies only to future commits, so use `git lfs migrate import` for files already in history.
+
+See GitHub's guides to [large files](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github) and [removing a file from repository history](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository), plus the Git LFS [migration guide](https://github.com/git-lfs/git-lfs/blob/main/docs/man/git-lfs-migrate.adoc).
