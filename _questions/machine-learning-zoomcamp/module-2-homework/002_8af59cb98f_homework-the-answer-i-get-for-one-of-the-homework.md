@@ -17,14 +17,11 @@ If you need a fill value, such as a mean, calculate it from the training split o
 
 In Homework 6, fill missing values with zeros before making the split.
 
-Use the exact calls in the [2026 Homework 6 instructions](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#preparing-the-dataset):
+Make the 2026 split with two calls to scikit-learn's `train_test_split`.
 
-```python
-df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=1)
-df_train, df_val = train_test_split(
-    df_full_train, test_size=0.25, random_state=1
-)
-```
+For the first call, use `test_size=0.2` and `random_state=1`. The first call returns the full-training set and the test set.
+
+For the second call, split the full-training set with `test_size=0.25` and `random_state=1`. The second call returns the training and validation sets. See the [2026 Homework 6 instructions](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#preparing-the-dataset).
 
 For Question 2, use `DictVectorizer(sparse=True)`. Fit the vectorizer on the feature dictionaries from `df_train`. Then use the fitted vectorizer to transform feature dictionaries from `df_val`, so validation rows don't influence its vocabulary. Train the random forest with the assignment's parameters and calculate RMSE on validation data.
 
