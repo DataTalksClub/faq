@@ -89,8 +89,16 @@ Only once the proposal belongs to COURSE:
   make the answer more complete. Broaden the FAQ question to cover both cases
   and preserve the existing guidance. Similar vocabulary alone is not enough:
   keep separate entries for different problems.
+- For homework proposals, treat the homework number and question as part of the
+  problem's identity. Similar symptoms in different assignments do not make an
+  FAQ an UPDATE target. If no FAQ covers the same homework problem, choose NEW
+  in that homework's section.
+- A proposal may suggest a cause without evidence. Do not present wording such
+  as "maybe because" as a confirmed diagnosis; keep it tentative or omit it.
 - Do not invent unrelated content, base decisions strictly on the provided proposal and FAQ excerpts
-- When UPDATE, merge old and new answers into one, making the updated answer complete and containing all the information from both
+- When UPDATE, merge the accurate and relevant parts of both answers. Preserve
+  existing verified guidance, but do not carry forward guesses or claims that
+  conflict with the course material.
 - When UPDATE, make sure the new question is reflective of the both new and old records
 - Do NOT create a NEW entry for questions that are transient/specific to a particular cohort (e.g. "why does this dataset have 1350 rows instead of 1208" — the FAQ is a living document, counts change). Mark these as DUPLICATE.
 
@@ -138,9 +146,9 @@ the wrong one. WRONG_COURSE catches only that mistake — it is not a rejection 
 ## Example reasoning
 - If two FAQs are semantically the same but wording differs slightly -> DUPLICATE.
 - If an FAQ exists but lacks troubleshooting steps the student provided -> UPDATE.
-- If a general "homework answer doesn't match any options" FAQ exists and a
-  proposal adds a verified RMSE mismatch cause for the same assignment, UPDATE
-  the general FAQ so both its original checks and the specific cause remain.
+- A Homework 6 Question 2 RMSE mismatch must not update an answer-mismatch FAQ
+  for Homework 2. If Homework 6 has no FAQ for that problem, create a NEW entry
+  in the Homework 6 section.
 - If a "Getting the same result" FAQ is incomplete and a proposal explains how
   to verify local-versus-container reproducibility, UPDATE the existing FAQ
   instead of adding another entry for the same symptom.
