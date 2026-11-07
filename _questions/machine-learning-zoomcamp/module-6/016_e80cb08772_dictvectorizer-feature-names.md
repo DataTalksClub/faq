@@ -1,14 +1,42 @@
 ---
 id: e80cb08772
-question: 'DictVectorizer: feature names'
+question: How can I preserve the feature names created by `DictVectorizer` when converting
+  the data to an XGBoost `DMatrix`?
 sort_order: 16
 ---
 
-The DictVectorizer has a function to get the feature names using [`get_feature_names_out()`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.DictVectorizer.html#sklearn.feature_extraction.DictVectorizer.get_feature_names_out:~:text=always%202%2Dd.-,get_feature_names_out,-(input_features%3D)). This is helpful if you need to analyze feature importance but are using the dict vectorizer for one-hot encoding. 
+`DictVectorizer` stores the names of its output columns. Call `get_feature_names_out()` after fitting the vectorizer to retrieve those names. It returns a NumPy array, so convert that array to a list when you pass the names to XGBoost.
 
-Keep in mind that it returns a NumPy array, so you may need to convert this to a list depending on your usage. For example:
+Use the same fitted vectorizer to create named training and validation matrices from sample records:
 
-- `dv.get_feature_names_out()` will return an ndarray of string objects.
-- `list(dv.get_feature_names_out())` will convert it to a standard list of strings.
 
-Also, ensure that you fit the predictor and response arrays before accessing the feature names.
+```python
+from sklearn.feature_extraction import DictVectorizer
+import xgboost as xgb
+
+train_records = [
+    {"model_year": 2018, "origin": "USA"},
+    {"model_year": 2020, "origin": "Europe"},
+]
+y_train = [18.0, 20.0]
+valid_records = [{"model_year": 2019, "origin": "USA"}]
+
+dv = DictVectorizer(sparse=True)
+X_train = dv.fit_transform(train_records)
+X_val = dv.transform(valid_records)
+feature_names = dv.get_feature_names_out().tolist()
+
+dtrain = xgb.DMatrix(
+    X_train,
+    label=y_train,
+    feature_names=feature_names,
+)
+dval = xgb.DMatrix(
+    X_val,
+    feature_names=feature_names,
+)
+```
+
+Use the same ordered feature names for validation data. They make feature-importance output easier to read without changing the matrix values.
+
+If XGBoost raises a `ValueError` about `[`, `]`, or `<` in feature names, see the [XGBoost DMatrix API](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.DMatrix).
