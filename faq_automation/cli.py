@@ -28,18 +28,18 @@ from .actions import (
 from .rag_agent import FAQDecision
 
 
-# Only these template headers act as delimiters; a "### ..." line inside the
-# question or answer body is kept as content (see issue #169).
-_HEADER_RE = re.compile(r'###\s+(Course|Question|Answer|Checklist)\b', re.IGNORECASE)
+# Only recognized field headings act as delimiters; other Markdown headings in
+# the question or answer body remain content (see issue #169).
+_HEADER_RE = re.compile(r'#{1,6}\s+(Course|Question|Answer|Checklist)\b', re.IGNORECASE)
 
 
 def parse_full_issue_body(issue_body: str) -> tuple[str, str, str]:
     """
     Parse a structured GitHub issue body into (course, question, answer).
 
-    Expected sections: `### Course`, `### Question`, `### Answer` (a trailing
-    `### Checklist` is ignored). Raises ValueError if any of the three is
-    missing or empty.
+    Expected sections use Markdown headings at any level: `## Course`,
+    `## Question`, and `## Answer` (a trailing `## Checklist` is ignored).
+    Raises ValueError if any of the three is missing or empty.
     """
     sections: dict[str, list[str]] = {}
     current = None

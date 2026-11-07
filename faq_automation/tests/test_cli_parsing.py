@@ -207,6 +207,24 @@ How do I install?
         assert question == "How do I install?"
         assert answer == "Run pip install."
 
+    def test_parse_full_issue_body_accepts_two_level_field_headings(self):
+        """A valid proposal remains valid when its field headings use ##."""
+        issue_body = """## Course
+machine-learning-zoomcamp
+
+## Question
+Why does the Homework 5 prediction differ?
+
+## Answer
+Run `uv sync --locked` in the homework directory.
+"""
+
+        course, question, answer = parse_full_issue_body(issue_body)
+
+        assert course == "machine-learning-zoomcamp"
+        assert question == "Why does the Homework 5 prediction differ?"
+        assert "uv sync --locked" in answer
+
 
 def test_incomplete_proposal_result_explains_how_to_reopen():
     decision = build_invalid_proposal_decision(521)

@@ -219,6 +219,32 @@ The request model checks types but not all semantic values.
     assert "separate FAQ PRs" in comment
 
 
+def test_find_duplicate_submission_parses_two_level_field_headings():
+    duplicate = find_duplicate_submission(
+        "Why does the Homework 5 prediction differ?",
+        "machine-learning-zoomcamp",
+        515,
+        [
+            {
+                "number": 514,
+                "title": "[FAQ] Homework 5 prediction differs",
+                "labels": [],
+                "body": """## Course
+machine-learning-zoomcamp
+
+## Question
+Why does the Homework 5 prediction differ?
+
+## Answer
+Use the locked homework environment and frozen artifact.
+""",
+            }
+        ],
+    )
+
+    assert duplicate["number"] == 514
+
+
 def test_find_duplicate_submission_does_not_match_on_title_when_questions_differ():
     duplicate = find_duplicate_submission(
         "When running `uv run python script.py`, why does VIRTUAL_ENV not match the project environment path? How can I resolve this?",

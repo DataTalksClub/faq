@@ -40,14 +40,14 @@ We don't add every correction as a test case. We select cases that:
 | Eval | What it tests | Cases | Runtime | Metrics |
 |------|--------------|-------|---------|---------|
 | Search eval (`run_search_eval.py`) | Retrieval challenge set (minsearch index) in isolation — no LLM calls | 25 | ~2s | recall@k, MRR@k, hit_rate@k |
-| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 61 | ~2 min | action correctness, section placement, code quality, formatting |
+| RAG eval (`runner.py`) | Full pipeline (search + LLM decision + content generation) | 63 | ~2 min | action correctness, section placement, code quality, formatting |
 
-The RAG eval scores 42/61 on `gpt-5.4-nano`. The three historical placement cases
-added for issues #319, #330, and #332 select the correct section; #332 varies
-between NEW and UPDATE across runs. Failures are mostly action decisions (false
-DUPLICATE on genuinely new proposals), content quality (code variables undefined,
-filename slug), and WRONG_COURSE recall — see below for why that last one is
-deliberately allowed to fail.
+The latest full run scored 43/63 on `gpt-5.4-nano` ([workflow run](https://github.com/DataTalksClub/faq/actions/runs/42358047771)).
+The suite includes historical snapshots for UPDATE cases #548 and #509, so later
+FAQ corrections do not replace the text the model should have seen. In this run,
+the model chose NEW for both cases. Other failures include duplicate decisions,
+placement, generated code quality, and WRONG_COURSE recall; see below for why the
+last category is deliberately allowed to fail.
 
 The suite total is a weak signal: three candidate models scored within one case
 of each other, and a single run is noisy enough that the gap means nothing. The
@@ -57,7 +57,7 @@ model was picked on failure cost instead — see [docs/model-choice.md](../../do
 
 We test retrieval without making LLM calls, so the suite runs in about two
 seconds. We can change the index and immediately see how it affects recall and
-ranking. Across the 25 challenge cases, recall@5 is 0.840 and MRR@5 is 0.813.
+ranking. Across the 25 challenge cases, recall@5 is 0.840 and MRR@5 is 0.793.
 
 Misses are expected — several queries are written to be hard — so the run does
 not fail on them. It fails when recall@5 drops below `RECALL_BASELINE` in
@@ -145,7 +145,7 @@ than from an exact proposal-to-FAQ match.
 
 - MRR@k: mean reciprocal rank of the relevant doc. Higher is better — the
   relevant doc should appear early so the LLM sees it in context.
-  Baseline: MRR@5 = 0.813
+  Current MRR@5 = 0.793
 
 - hit_rate@k: fraction of cases where the relevant doc is anywhere in the
   top-k. With a single relevant doc per case, hit_rate@k = recall@k.
