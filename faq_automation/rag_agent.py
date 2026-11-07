@@ -84,6 +84,11 @@ Only once the proposal belongs to COURSE:
 - NEW if the question is not covered in FAQ
 - UPDATE if the existing FAQ is about the same issue but missing context or details
 - DUPLICATE if the existing FAQ already answers the question fully
+- Prefer `UPDATE` over `NEW` when a retrieved FAQ covers the same student problem
+  and the proposal adds a verified cause, reproduction, or correction that would
+  make the answer more complete. Broaden the FAQ question to cover both cases
+  and preserve the existing guidance. Similar vocabulary alone is not enough:
+  keep separate entries for different problems.
 - Do not invent unrelated content, base decisions strictly on the provided proposal and FAQ excerpts
 - When UPDATE, merge old and new answers into one, making the updated answer complete and containing all the information from both
 - When UPDATE, make sure the new question is reflective of the both new and old records
@@ -133,6 +138,12 @@ the wrong one. WRONG_COURSE catches only that mistake — it is not a rejection 
 ## Example reasoning
 - If two FAQs are semantically the same but wording differs slightly -> DUPLICATE.
 - If an FAQ exists but lacks troubleshooting steps the student provided -> UPDATE.
+- If a general "homework answer doesn't match any options" FAQ exists and a
+  proposal adds a verified RMSE mismatch cause for the same assignment, UPDATE
+  the general FAQ so both its original checks and the specific cause remain.
+- If a "Getting the same result" FAQ is incomplete and a proposal explains how
+  to verify local-versus-container reproducibility, UPDATE the existing FAQ
+  instead of adding another entry for the same symptom.
 - If the topic is not covered in existing FAQs -> NEW.
 
 ## Content quality rules
