@@ -5,15 +5,6 @@ question: Why doesn’t the maximum F1-score happen where precision equals recal
 sort_order: 35
 ---
 
-On an imbalanced classification problem, the threshold where `precision == recall` (or where the two curves intersect) is not guaranteed to maximize the `F1` score.
+`F1` is the harmonic mean of precision and recall: `F1 = 2 * P * R / (P + R)`. Because the formula depends on both values, the threshold where precision and recall are closest doesn't have to maximize `F1`.
 
-`F1` is the harmonic mean:
-
-- `F1 = 2 * P * R / (P + R)`
-
-So even if `P` and `R` are close, `F1` can still be lower when the *product* `P * R` is smaller. In practice, changing the decision threshold often shifts precision and recall unevenly:
-
-- At the precision–recall intersection (e.g. `threshold = 0.63`), you may get fairly balanced values (precision and recall close), but the model might still trade away some recall or some precision.
-- The threshold that maximizes `F1` (e.g. `threshold = 0.41`) can move you to a different tradeoff: recall may increase a lot while precision decreases. If the recall gain outweighs the precision loss (because `F1` depends strongly on `P * R`), `F1` will be higher even when `P != R`.
-
-In short: balancing `P` and `R` can reduce the gap between metrics, but the `F1` optimum is driven by how the threshold changes the overall `P`/`R` tradeoff—often favoring the metric that improves `P * R` the most (commonly recall on imbalanced datasets).
+Using the values in your question, threshold `0.63` gives precision `0.733` and recall `0.725`, so `F1` is about `0.729`. Threshold `0.41` gives precision `0.619` and recall `0.976`, so `F1` is about `0.758`. The `0.41` threshold has the higher `F1`, even though precision and recall differ. The [2026 Homework 4 instructions](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/04-evaluation/homework.md#question-4-f1-score) ask you to calculate `F1` at every threshold from `0.0` to `1.0`.
