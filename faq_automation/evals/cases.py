@@ -1241,6 +1241,557 @@ Remember, you are using a model by downloading the model and Python version. Ens
     )],
 ))
 
+# ========================================================================== #
+# GROUP 11: Alexey's October-November FAQ Bot corrections
+# These replay the pre-correction entries for UPDATEs so later edits cannot
+# leak the corrected answer into the model's input.
+# ========================================================================== #
+
+# Issue #536 was an UPDATE to the existing XGBoost feature-name FAQ. Alexey
+# corrected the unsupported-character rules and replaced the incomplete sample
+# with a runnable example.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=536,
+    question="""When creating a `DMatrix` for XGBoost in Module 6 using the features outputted by `DictVectorizer`:
+`dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=dv.get_feature_names_out())`
+I get this error:
+`ValueError: feature_names must not contain [, ], or <`
+How do I fix this?""",
+    answer="""This error occurs because XGBoost has strict rules for feature names and does not allow certain characters (like `[`, `]`, `<`, or `=`). When using `DictVectorizer` with text or categorical columns, it often generates feature names containing these exact characters (e.g., `origin=USA`).
+
+To resolve this, you must clean the feature names by replacing the invalid characters before passing them to `DMatrix`. You can do this easily using Python's `re` (regex) module:
+
+```python
+import re
+import xgboost as xgb
+
+feature_names = dv.get_feature_names_out().tolist()
+clean_feature_names = [re.sub(r'[\\[\\]<>=]', '_', f) for f in feature_names]
+dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=clean_feature_names)
+dval = xgb.DMatrix(X_val, label=y_val, feature_names=clean_feature_names)
+```""",
+    expected_action="UPDATE",
+    expected_section="module-6",
+    description="Issue #536 updates the XGBoost feature-name FAQ: allow '=' and '>' and keep the replacement DMatrix example runnable.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("23f66acd0a"),
+        section_is("module-6"),
+        content_contains_all(
+            "get_feature_names_out().tolist()",
+            "The equals sign and greater-than sign are allowed",
+            "str.maketrans",
+            '"<": "_LT_"',
+            "feature_names=safe_feature_names",
+            "Check that the renamed feature names stay unique",
+        ),
+        content_is_runnable_python,
+    ],
+    tags=["update-quality", "content-correctness", "runnable-code"],
+    relevant_doc_id="23f66acd0a",
+    historical_files=[(
+        "module-6/007_23f66acd0a_q6-valueerror-or-typeerror-while-setting-xgbdmatri.md",
+        """---
+id: 23f66acd0a
+question: 'Q6: ValueError: feature_names must not contain [, ], or < when creating
+  `xgb.DMatrix` with DictVectorizer'
+sort_order: 7
+---
+
+When creating `xgb.DMatrix`, `feature_names` has strict formatting rules. If your `DictVectorizer` produces names with characters like `[` `]` `<` `>` or `=`, XGBoost will raise:
+
+`ValueError: feature_names must not contain [, ], or <`
+
+To fix it, clean/rename the feature names before passing them to `DMatrix` (keep the same cleaned names for train/val/test).
+
+Example using regex:
+
+```python
+import re
+import xgboost as xgb
+
+# feature names from DictVectorizer
+feature_names = dv.get_feature_names_out().tolist()
+
+# replace invalid characters with underscore
+clean_feature_names = [re.sub(r'[\\[\\]<> =]', '_', f).replace(' ', '_') for f in feature_names]
+
+dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=clean_feature_names)
+dval = xgb.DMatrix(X_val, label=y_val, feature_names=clean_feature_names)
+```
+
+If you don’t need to set `feature_names` explicitly, another option is to omit `feature_names=` entirely; XGBoost will still train, but feature names won’t be preserved for interpretability.""",
+    )],
+))
+
+# Issue #540 was correctly classified as NEW, but Alexey corrected the
+# encoded-feature branch directions and the mapping back to the source column.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=540,
+    question="When using DictVectorizer, why can a Decision Tree split on a feature such as origin=USA instead of the original categorical column origin?",
+    answer="""DictVectorizer converts categorical columns into separate binary features before the Decision Tree sees the data. For example, the original column `origin` can become `origin=USA`, `origin=Europe`, and `origin=Asia`.
+
+The tree is trained on these encoded features rather than directly on the original categorical column. A split such as `origin=USA <= 0.5` separates cars in the USA category from cars that do not belong to it. If a homework question asks for the original feature, map `origin=USA` back to `origin` by inspecting `dv.get_feature_names_out()`.""",
+    expected_action="NEW",
+    expected_section="module-6",
+    description="Issue #540 needs the correct left/right values for an encoded binary split and the original feature name for homework answers.",
+    checks=[
+        action_is("NEW"),
+        section_is("module-6"),
+        content_contains_all(
+            "origin=USA <= 0.5",
+            "value `0` to the left branch",
+            "origin=USA > 0.5",
+            "value `1` to the right branch",
+            "Report `origin` when the homework asks for the original feature",
+        ),
+    ],
+    tags=["correct-new", "content-correctness", "tree-interpretation"],
+    relevant_doc_id="a3d5c94238",
+))
+
+# Issue #542 updates the existing feature-name FAQ. Alexey made its example
+# self-contained and used the list returned by get_feature_names_out().
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=542,
+    question="How can I preserve the feature names created by DictVectorizer when converting the training data to an XGBoost DMatrix?",
+    answer="""After DictVectorizer transforms the dataframe, `X_train` contains the encoded feature values. The feature names are not automatically carried over to `xgb.DMatrix`, so retrieve them from the fitted vectorizer and pass them explicitly:
+
+```python
+feature_names = list(dv.get_feature_names_out())
+dtrain = xgb.DMatrix(X_train, label=y_train, feature_names=feature_names)
+dval = xgb.DMatrix(X_val, label=y_val, feature_names=feature_names)
+```""",
+    expected_action="UPDATE",
+    expected_section="module-6",
+    description="Issue #542 updates the existing XGBoost feature-name FAQ with a complete DictVectorizer setup and runnable DMatrix examples.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("e80cb08772"),
+        section_is("module-6"),
+        content_contains_all(
+            "get_feature_names_out().tolist()",
+            "DictVectorizer(sparse=True)",
+            "train_records = [",
+            "valid_records = [",
+            "fit_transform(train_records)",
+            "transform(valid_records)",
+            "feature_names=feature_names",
+        ),
+        content_is_runnable_python,
+    ],
+    tags=["update-quality", "content-correctness", "runnable-code"],
+    relevant_doc_id="e80cb08772",
+    historical_files=[(
+        "module-6/016_e80cb08772_dictvectorizer-feature-names.md",
+        """---
+id: e80cb08772
+question: How can I preserve the feature names created by `DictVectorizer` when converting
+  the data to an XGBoost `DMatrix`?
+sort_order: 16
+---
+
+After `DictVectorizer` transforms your dataframe, `X_train` contains the encoded values, but the feature names are not automatically attached to the NumPy/scipy matrix you pass into `xgb.DMatrix`. You can preserve meaningful names by pulling them from the fitted vectorizer and passing them as `feature_names`.
+
+First, get the names from the fitted vectorizer:
+
+`feature_names = list(dv.get_feature_names_out())`
+
+Then create your `DMatrix` and pass `feature_names` explicitly:
+
+```python
+feature_names = list(dv.get_feature_names_out())
+
+dtrain = xgb.DMatrix(
+    X_train,
+    label=y_train,
+    feature_names=feature_names,
+)
+
+dval = xgb.DMatrix(
+    X_val,
+    label=y_val,
+    feature_names=feature_names,
+)
+```
+
+This doesn’t change training or predictions—it just attaches the metadata so later inspection (e.g., feature-related outputs) is easier to interpret.
+
+If you hit a type error, note that `xgb.DMatrix` expects a list of strings; converting `dv.get_feature_names_out()` to a Python list (or using `.tolist()`) avoids the `numpy.ndarray` issue.""",
+    )],
+))
+
+# PR #393 was marked NEW in projects, but Alexey updated the existing general
+# pass-rate FAQ. He also distinguished project completion from pass rate.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=392,
+    question="How should I interpret the project completion rate, pass rate, and fail rate shown for the ML Zoomcamp projects page?",
+    answer="""Passed: 766
+Failed: 119
+Total Project Outcomes Evaluated: 885
+
+Pass Rate: 86.55%
+Fail Rate: 13.45%
+
+The "Project completion rate" listed on the left panel is 18.7%, which reflects the percentage of total enrolled students who completed the project.""",
+    expected_action="UPDATE",
+    expected_section="general",
+    description="Issue #392 updates the existing general pass-rate FAQ, distinguishing project completion among enrolled students from pass/fail among evaluated projects.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("90323db1ac"),
+        section_is("general"),
+        content_contains_all(
+            "Project completion rate",
+            "share of all enrolled students",
+            "submitted a project",
+            "pass rate",
+            "766 of the 885 evaluated projects",
+            "119 failed",
+            "18.7%",
+        ),
+    ],
+    tags=["new-vs-update", "section-placement", "content-correctness"],
+    relevant_doc_id="90323db1ac",
+    hidden_doc_ids=["90323db1ac"],
+    historical_files=[(
+        "general/018_90323db1ac_None.md",
+        """---
+id: 90323db1ac
+question: What’s the recent pass/completion rate?
+sort_order: 18
+---
+
+In the most recent cohort's dashboard snapshot, roughly 85% of project attempts passed.""",
+    )],
+))
+
+# PR #460 was marked NEW, but Alexey added the missing C/regularization
+# explanation to the existing Module 3 homework FAQ.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=459,
+    question="Why can changing the value of C in Logistic Regression produce different validation accuracy results?",
+    answer="""In Logistic Regression, `C` controls the strength of regularization. A smaller value of `C` means stronger regularization, while a larger value of `C` means weaker regularization. Because regularization affects model coefficients, changing `C` can also change model predictions and validation accuracy.
+
+For example, we can test several values of `C`, fit a Logistic Regression model for each value, and compare the validation accuracy to choose the value that gives the best result.""",
+    expected_action="UPDATE",
+    expected_section="module-3-homework",
+    description="Issue #459 updates the existing regularized Logistic Regression homework FAQ with how C changes regularization, coefficients, and validation accuracy.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("a7e230bfb4"),
+        section_is("module-3-homework"),
+        content_contains_all(
+            "Smaller `C` means stronger regularization",
+            "coefficients are pushed toward zero",
+            "Larger `C` means weaker regularization",
+            "validation accuracy",
+        ),
+    ],
+    tags=["new-vs-update", "content-correctness"],
+    relevant_doc_id="a7e230bfb4",
+    historical_files=[(
+        "module-3-homework/008_a7e230bfb4_homework-q6-train-a-regularized-logistic-regressio.md",
+        """---
+id: a7e230bfb4
+question: 'Homework Q6: Train a regularized logistic regression
+  with C=0.0'
+sort_order: 8
+---
+
+This is not possible since the parameter `C` represents the inverse of the regularization strength. Setting `C` to 0 means infinite regularization. Attempting this with the scikit-learn module of Logistic Regression will result in a `ValueError`.""",
+    )],
+))
+
+# PR #457 was marked NEW, but Alexey added the explanation to the existing
+# homework FAQ about removing features one at a time.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=456,
+    question="When testing feature importance by removing one feature at a time, why can removing a feature result in almost no change in validation accuracy?",
+    answer="""Removing a feature may have very little effect on validation accuracy if that feature does not provide much additional information to the model. Some of its information may already be represented by other features.
+
+One way to check is to train the model again without the feature and compare validation accuracy. If the difference is very small, the removed feature had little effect on validation accuracy.""",
+    expected_action="UPDATE",
+    expected_section="module-3-homework",
+    description="Issue #456 updates the existing homework feature-removal FAQ with why a near-zero or negative accuracy difference can happen.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("4b0519f085"),
+        section_is("module-3-homework"),
+        content_contains_all(
+            "difference close to zero",
+            "even negative",
+            "little information",
+            "correlated features",
+        ),
+    ],
+    tags=["new-vs-update", "content-correctness", "homework-placement"],
+    relevant_doc_id="4b0519f085",
+    historical_files=[(
+        "module-3-homework/004_4b0519f085_features-for-homework-q5.md",
+        """---
+id: 4b0519f085
+question: 'Features for homework: Q5'
+sort_order: 4
+---
+
+Do we need to train the model only with the features: total_rooms, total_bedrooms, population, and households, or with all the available features, then remove each of the previous features one at a time to compare accuracy?
+
+1. Create a list of all features and evaluate the model to obtain the original accuracy.
+2. Remove one feature at a time.
+3. Train the model each time, calculate the accuracy, and find the difference between the original accuracy and the new accuracy.
+4. Identify which feature has the smallest absolute accuracy difference.
+
+While calculating differences between accuracy scores, use the smallest absolute difference. For example, if the differences are -4 and -2, the smallest absolute difference is `abs(-2)`. Use this value to determine the impact of the feature on accuracy.""",
+    )],
+))
+
+# PR #452 was incorrectly routed to a new Module 4 FAQ. Alexey corrected the
+# existing Module 3 homework FAQ with the round-then-tie-break rule.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=451,
+    question="In Homework 3, Question 6, should I choose C using the full-precision validation accuracies or the accuracies rounded to three decimals?",
+    answer="""Follow the homework instructions: round each validation accuracy to three decimal places before selecting `C`. Choose the value with the highest rounded accuracy. If multiple values tie for the highest rounded accuracy, choose the smallest `C`. Keep the full-precision values for reporting, but use the rounded values to make the selection.""",
+    expected_action="UPDATE",
+    expected_section="module-3-homework",
+    description="Issue #451 updates the existing Homework 3 Q6 FAQ and must compare rounded accuracies before choosing the smallest C on a tie.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("b5c44e4f07"),
+        section_is("module-3-homework"),
+        content_contains_all(
+            "round each validation accuracy to 3 decimals",
+            "highest rounded accuracy",
+            "if several values tie",
+            "smallest `C`",
+            "not the full-precision values",
+        ),
+    ],
+    tags=["new-vs-update", "section-placement", "homework-placement", "content-correctness"],
+    relevant_doc_id="b5c44e4f07",
+    historical_files=[(
+        "module-3-homework/006_b5c44e4f07_homework-q6-choosing-smaller-c-that-leads-to-best.md",
+        """---
+id: b5c44e4f07
+question: 'Homework Q6: Choosing smaller C that leads to best accuracy'
+sort_order: 6
+---
+
+When searching for the best value of `C` that yields the highest accuracy, be mindful that you should be looking for the maximum accuracy, not the minimum.
+
+Although the goal is to find the smallest `C` value, ensure that it corresponds to the highest accuracy achieved. Always prioritize accuracy maximization while minimizing `C`.""",
+    )],
+))
+
+# PR #450 was marked NEW, but Alexey added the per-cohort pass mark and peer
+# review requirement to the existing certificate FAQ.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=449,
+    question="How many points do I need to get on the final project to pass, and what else is required to earn the certificate?",
+    answer="""For the current Machine Learning Zoomcamp cohort, you need at least 7 points to pass the final project. The pass mark can change for future cohorts, so verify it on the course dashboard under `Project outcomes`.
+
+You must also complete your assigned peer reviews to qualify for the certificate, regardless of your project score.""",
+    expected_action="UPDATE",
+    expected_section="projects",
+    description="Issue #449 updates the existing certificate FAQ with a cohort-specific pass-mark source and the peer-review consequence.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("8ea1e7e31f"),
+        section_is("projects"),
+        content_contains_all(
+            "pass mark for each project is set per cohort",
+            "Project outcomes",
+            "reviewing 3 peers' projects",
+            "skipping the reviews fails that project",
+        ),
+        content_does_not_contain("7 points", "at least 7 points"),
+    ],
+    tags=["new-vs-update", "content-correctness", "source-grounding"],
+    relevant_doc_id="8ea1e7e31f",
+    historical_files=[(
+        "projects/007_8ea1e7e31f_what-if-i-submitted-only-two-projects-and-failed-t.md",
+        """---
+id: 8ea1e7e31f
+question: What do I need to earn the certificate?
+sort_order: 7
+---
+
+- You must pass 2 out of the 3 projects to earn the certificate: Midterm + Capstone 1, or Capstone 1 + Capstone 2.
+- Certificates show pass/fail only—no percentage or rank.
+- Eligibility for the certificate also follows the existing two-project policy: If you have submitted two projects and peer-reviewed at least 3 course-mates’ projects for each submission, you will receive the certificate. According to the course coordinator, only two projects are needed to get the course certificate.
+- Are projects solo or collaborative? All midterms and capstones are solo projects.
+- Grading basis: The pass decision is based on the scores across projects; no overall percentage or rank is awarded.""",
+    )],
+))
+
+# PR #443 was marked NEW in Module 2 homework. Alexey made the existing
+# homework-mismatch FAQ cohort-aware instead; this uses the current combined
+# guidance, including the later correction in PR #562.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=442,
+    question="Homework 2 (2026): My answer doesn't exactly match any option. Can I pick the closest one?",
+    answer="""Select the option closest to your answer. This applies to every cohort: if your value doesn't match any option exactly, pick the closest one. If your value lies between two options, choose the larger one.
+
+**2026 cohort:** the homework uses a pinned dataset (`cohorts/2026/data/`) and the options are computed from it, so your answer should be very close to one option. If it is far from all of them, check these first:
+
+- You downloaded `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` (not an older car dataset) and kept only the five listed columns.
+- You set `np.random.seed(...)` and recreated `idx = np.arange(n)` before every shuffle.
+- You computed the imputation mean on `df_train` only.
+- You used `np.std` (ddof=0), not pandas `.std()` (ddof=1).
+- You rounded as instructed: 3 decimals in Q3, 4 in Q4.
+
+Small differences (library versions, OS, floating point) are normal and not a problem: just pick the closest option.""",
+    expected_action="UPDATE",
+    expected_section="module-2-homework",
+    description="Issue #442 updates the existing homework-mismatch FAQ; preserve the pinned 2026 dataset checks while treating only far-off values as a reason to re-check the work.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("8af59cb98f"),
+        section_is("module-2-homework"),
+        content_contains_all(
+            "This applies to every cohort",
+            "pick the closest option",
+            "2026 cohort",
+            "pinned dataset",
+            "very close to one option",
+            "far from all of them",
+            "np.random.seed",
+            "df_train",
+            "np.std",
+            "ddof=0",
+        ),
+    ],
+    tags=["new-vs-update", "section-placement", "homework-placement", "content-correctness"],
+    relevant_doc_id="8af59cb98f",
+    historical_files=[(
+        "module-2-homework/002_8af59cb98f_homework-the-answer-i-get-for-one-of-the-homework.md",
+        """---
+id: 8af59cb98f
+question: 'Homework: The answer I get for one of the homework questions doesn''t match
+  any of the options. What should I do?'
+sort_order: 2
+---
+
+That's normal. We all have different environments: our computers have different versions of OS and different versions of libraries - even different versions of Python.
+
+If your answer doesn't match the options, just select the option that's closest to your answer.
+
+If your answer value lies in between two options, choose the option which is more than your value.""",
+    )],
+))
+
+# PR #438 was marked NEW in Module 4, but Alexey expanded the existing Module
+# 2 FAQ on combining train and validation datasets.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=436,
+    question="Why do we combine the training and validation datasets before evaluating the final model on the test dataset?",
+    answer="""The validation dataset is used while choosing and tuning the model. After we have selected the final model, we no longer need the validation dataset for model selection. We can combine the training and validation datasets to give the final model more data to learn from. Then train the final model using this combined dataset and evaluate it once on the test dataset. The test dataset should remain separate until final evaluation because it estimates performance on unseen data.""",
+    expected_action="UPDATE",
+    expected_section="module-2",
+    description="Issue #436 updates the existing train/validation FAQ, keeping the test set untouched and adding reset_index after concatenating dataframes.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("19a42e2005"),
+        section_is("module-2"),
+        content_contains_all(
+            "used the validation set to choose the model",
+            "Retrain the final model on train + validation",
+            "Keep the test set untouched",
+            "evaluate on it only once",
+            "pandas.concat",
+            "reset_index(drop=True)",
+        ),
+    ],
+    tags=["new-vs-update", "section-placement", "content-correctness"],
+    relevant_doc_id="19a42e2005",
+    historical_files=[(
+        "module-2/027_19a42e2005_how-to-combine-train-and-validation-datasets.md",
+        """---
+id: 19a42e2005
+question: How to combine train and validation datasets
+sort_order: 27
+---
+
+Use `pandas.concat` function ([pandas documentation](https://pandas.pydata.org/docs/reference/api/pandas.concat.html)) to combine two dataframes. To combine two numpy arrays, use `numpy.concatenate` ([numpy documentation](https://numpy.org/doc/stable/reference/generated/numpy.concatenate.html)).
+
+The code would be as follows:
+
+```python
+df_train_combined = pd.concat([df_train, df_val])
+y_train = np.concatenate((y_train, y_val), axis=0)
+```""",
+    )],
+))
+
+# Alexey's 2026 edit to the FAQ Bot-created RMSE entry corrects the advice to
+# recreate `idx` inside each seed split, including the Q5/Q6 distinction.
+CASES.append(EvalCase(
+    course="machine-learning-zoomcamp",
+    case_id=-13,
+    question="Homework 2 Q5/Q6 RMSE is far from all the options after changing seeds. What should I check about `idx`?",
+    answer="""The most common cause is reusing an index array that was already shuffled. `np.random.shuffle(idx)` shuffles in place, so if you create `idx` once and then shuffle it again for each seed, every split after the first differs from the expected one.
+
+Recreate the index for every seed, right before shuffling, exactly as in the lecture split:
+
+```python
+n = len(df)
+idx = np.arange(n)
+np.random.seed(seed)
+np.random.shuffle(idx)
+```
+
+Do this inside the seed loop in Question 5, and again for the seed 9 split in Question 6. The `r` loop in Question 4 doesn't need a new split.
+
+If the split is right and the result is still off, check that you use only the listed columns, fill the NAs as the question says, and add `r` to the diagonal of `XTX`.""",
+    expected_action="UPDATE",
+    expected_section="module-2-homework",
+    description="Synthetic regression case from Alexey's correction to the FAQ Bot-created Homework 2 RMSE entry: recreate idx for every seed, not for the Q4 r loop.",
+    checks=[
+        action_is("UPDATE"),
+        document_is("bdcc3ae17b"),
+        section_is("module-2-homework"),
+        content_contains_all(
+            "np.random.shuffle(idx) shuffles in place",
+            "Recreate the index for every seed",
+            "np.random.seed(seed)",
+            "inside the seed loop in Question 5",
+            "seed 9 split in Question 6",
+            "r loop in Question 4 doesn't need a new split",
+            "add `r` to the diagonal of `XTX`",
+        ),
+    ],
+    tags=["new-vs-update", "homework-placement", "content-correctness"],
+    relevant_doc_id="bdcc3ae17b",
+    historical_files=[(
+        "module-2-homework/005_bdcc3ae17b_homework-is-the-rmse-result-close-to-the-options.md",
+        """---
+id: bdcc3ae17b
+question: 'Homework: is the RMSE result close to the options?'
+sort_order: 5
+---
+
+My result is about 12.4 different from the closest option. For previous questions, my answers were close, so I'm unsure why there's a large discrepancy for question 6.
+
+For questions 5 and 6, please ensure you reinitialize with:
+
+```python
+Idx = np.arange(n)
+```
+
+This should be done for each iteration of `r` in question 5 and also for question 6.""",
+    )],
+))
+
 # Guard: Kestra is DE's signature tool but the LLM course uses it in module-3
 CASES.append(EvalCase(
     course="llm-zoomcamp",
