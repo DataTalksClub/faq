@@ -4,7 +4,7 @@ question: 'Why doesn’t Docker Compose automatically load all my environment fi
 sort_order: 6
 ---
 
-Docker Compose uses environment files in two different ways: to substitute values in the Compose file and to set environment variables inside a container. These are separate steps.
+Docker Compose uses environment files in two different ways: to substitute values in the Compose file and to set environment variables inside a container.
 
 Compose uses `.env` for variable interpolation by default.
 
