@@ -6,6 +6,7 @@ Uses LLM and retrieval to decide how to handle new FAQ proposals.
 
 import os
 import json
+import re
 from typing import List, Optional, Literal
 from pathlib import Path
 
@@ -243,6 +244,96 @@ RESPONSE_TEXT_FORMAT = {
 }
 
 
+_HOMEWORK_NUMBER_RE = re.compile(r"\b(?:homework|hw)\s*(\d+)\b", re.IGNORECASE)
+_HOMEWORK_SECTION_RE = re.compile(r"^module-(\d+)-homework$")
+
+
+def filter_other_homework_results(results, homework_number):
+    """Exclude homework FAQs for other assignments from a numbered proposal's matches."""
+    filtered = []
+    for result in results:
+        match = _HOMEWORK_SECTION_RE.fullmatch(result.get("section_id", ""))
+        if match and int(match.group(1)) != int(homework_number):
+            continue
+        filtered.append(result)
+    return filtered
+
+
+def enforce_homework_assignment(decision, question, sections, documents):
+    """Keep explicit Homework N proposals out of another numbered homework section."""
+    match = _HOMEWORK_NUMBER_RE.search(question)
+    if not match:
+        return decision
+
+    homework_number = int(match.group(1))
+    target_section = f"module-{homework_number}-homework"
+    section_ids = {section["id"] for section in sections}
+    if target_section not in section_ids:
+        return decision
+
+    documents_by_id = {doc["document_id"]: doc for doc in documents}
+    target_document = documents_by_id.get(decision.document_id)
+    target_section_id = (
+        target_document.get("section_id") if target_document else decision.section_id
+    )
+    target_match = _HOMEWORK_SECTION_RE.fullmatch(target_section_id or "")
+    target_number = int(target_match.group(1)) if target_match else None
+    cross_homework_target = target_number is not None and target_number != homework_number
+
+    if decision.action == "DUPLICATE" and cross_homework_target:
+        raise ValueError(
+            f"Refusing to close Homework {homework_number} as a duplicate of "
+            f"Homework {target_number}; the proposal needs a matching homework FAQ."
+        )
+
+    if decision.action == "UPDATE" and cross_homework_target:
+        if not decision.proposed_content or not decision.proposed_content.strip():
+            raise ValueError(
+                f"Refusing to update Homework {target_number} with a Homework "
+                f"{homework_number} proposal that has no new FAQ content."
+            )
+        warning = (
+            f"Created a separate Homework {homework_number} entry; the selected "
+            f"FAQ belongs to Homework {target_number}."
+        )
+        return decision.model_copy(update={
+            "action": "NEW",
+            "document_id": "",
+            "question": question,
+            "section_id": target_section,
+            "section_rationale": (
+                f"The proposal names Homework {homework_number}, so it belongs "
+                f"in {target_section}."
+            ),
+            "order": -1,
+            "filename_slug": None,
+            "rationale": (
+                f"The selected FAQ covers Homework {target_number}; this "
+                f"proposal covers Homework {homework_number}."
+            ),
+            "warnings": [*decision.warnings, warning],
+        })
+
+    if decision.action == "NEW" and decision.section_id != target_section:
+        warning = (
+            f"Placed the new entry in {target_section} because the proposal "
+            f"names Homework {homework_number}."
+        )
+        return decision.model_copy(update={
+            "question": question,
+            "section_id": target_section,
+            "section_rationale": (
+                f"The proposal names Homework {homework_number}, so it belongs "
+                f"in {target_section}."
+            ),
+            "order": -1,
+            "filename_slug": None,
+            "warnings": [*decision.warnings, warning],
+        })
+
+    return decision
+
+
 def extract_decision(response) -> FAQDecision:
     """Pull the parsed FAQDecision out of a Responses API result."""
     message = next(filter(lambda o: o.type == 'message', response.output))
@@ -317,6 +408,17 @@ class FAQAgent:
             proposal,
             num_results=candidate_count,
         )
+        homework_match = _HOMEWORK_NUMBER_RE.search(question)
+        if homework_match:
+            homework_number = int(homework_match.group(1))
+            homework_section = f"module-{homework_number}-homework"
+            if any(section["id"] == homework_section for section in self.metadata["sections"]):
+                question_results = filter_other_homework_results(
+                    question_results, homework_number
+                )
+                proposal_results = filter_other_homework_results(
+                    proposal_results, homework_number
+                )
         results = reciprocal_rank_fusion(
             [question_results, proposal_results],
             weights=[1.0, 2.0],
@@ -340,6 +442,15 @@ class FAQAgent:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": prompt}
         ]
+
+    def apply_decision_guards(self, decision: FAQDecision, question: str) -> FAQDecision:
+        """Apply deterministic placement checks shared by production and evals."""
+        return enforce_homework_assignment(
+            decision,
+            question,
+            self.metadata["sections"],
+            self.documents,
+        )
 
     @track
     def process_proposal(
@@ -371,7 +482,7 @@ class FAQAgent:
             text_format=FAQDecision,
         )
 
-        return extract_decision(response)
+        return self.apply_decision_guards(extract_decision(response), question)
 
 
 def process_faq_proposal(

@@ -1186,23 +1186,24 @@ CASES.append(EvalCase(
 # GROUP 10: Backlog corrections from November 2026
 # ========================================================================== #
 
-# Case #548 asks about Homework 6; similar wording in a Homework 2 FAQ does not
-# make it an UPDATE. The issue's proposed cause is tentative and must stay so.
+# Case #548 asks about Homework 6; similar wording in Homework 2 or 4 FAQs does
+# not make it an UPDATE. Use the source-verified answer because the issue's
+# original diagnosis was only a guess.
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
     case_id=548,
     question="Is there any reason for the slightly different RMSE result when doing the Q2 in Homework 6?",
-    answer="""Maybe it is because you fit the original data instead of the train data `dv.fit(df)` instead of `dv.fit(df_train)`. If you did, your answers in Q3 and Q4 may also be wrong, remember to recheck them.""",
+    answer="""Before training on the 2026 Homework 6 dataset, fill missing values with zeros and split off 20% for testing with `random_state=1`. Then split the remaining data into training and validation sets with `test_size=0.25` and `random_state=1`. For Question 2, fit `DictVectorizer(sparse=True)` on dictionaries from `df_train` and use it to transform `df_val`. Train a random forest regressor with `n_estimators=10` and `random_state=1`, and calculate its RMSE on the validation data. You can set `n_jobs=-1` to train faster, but it's optional. See the [Homework 6 dataset preparation](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#preparing-the-dataset) and [Question 2](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#question-2) instructions.""",
     expected_action="NEW",
     expected_section="module-6-homework",
-    description="Homework 6 RMSE mismatch must not update a similarly worded Homework 2 FAQ; do not assert the proposal's tentative cause.",
+    description="Homework 6 RMSE mismatch must not update similarly worded Homework 2 or 4 FAQs; use the source-verified answer rather than the issue's unverified guess.",
     checks=[
         action_is("NEW"),
         section_is("module-6-homework"),
         content_contains_all("DictVectorizer", "df_train", "n_estimators=10", "random_state=1"),
-        content_does_not_contain("maybe it is because", "dv.fit(df)"),
+        content_does_not_contain("dv.fit(df)"),
     ],
-    tags=["new-vs-update", "homework-placement", "unsupported-diagnosis"],
+    tags=["new-vs-update", "homework-placement", "content-correctness"],
     relevant_doc_id="ba714d9bb8",
 ))
 

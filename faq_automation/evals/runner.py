@@ -282,6 +282,10 @@ def run_all(model=DEFAULT_MODEL, case_id=None, use_batch=False, batch_id=None):
         prepared.append((case, agent, section_orders))
 
     decisions = collect_decisions(prepared, model, use_batch=use_batch, batch_id=batch_id)
+    decisions = [
+        agent.apply_decision_guards(decision, case.question) if decision is not None else None
+        for (case, agent, _), decision in zip(prepared, decisions)
+    ]
 
     all_results = []
 
