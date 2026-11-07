@@ -5,30 +5,21 @@ question: How can I preserve the feature names created by `DictVectorizer` when 
 sort_order: 16
 ---
 
-After `DictVectorizer` transforms your dataframe, `X_train` contains the encoded values, but the feature names are not automatically attached to the NumPy/scipy matrix you pass into `xgb.DMatrix`. You can preserve meaningful names by pulling them from the fitted vectorizer and passing them as `feature_names`.
+`DictVectorizer` stores the names of its output columns. Call `get_feature_names_out()` after fitting the vectorizer to retrieve those names. It returns a NumPy array, so convert that array to a list when you pass the names to XGBoost.
 
-First, get the names from the fitted vectorizer:
-
-`feature_names = list(dv.get_feature_names_out())`
-
-Then create your `DMatrix` and pass `feature_names` explicitly:
+Assuming you've already fit `dv` and created `X_train` and `y_train`, create the matrix this way:
 
 ```python
-feature_names = list(dv.get_feature_names_out())
+import xgboost as xgb
 
+feature_names = dv.get_feature_names_out().tolist()
 dtrain = xgb.DMatrix(
     X_train,
     label=y_train,
     feature_names=feature_names,
 )
-
-dval = xgb.DMatrix(
-    X_val,
-    label=y_val,
-    feature_names=feature_names,
-)
 ```
 
-This doesn’t change training or predictions—it just attaches the metadata so later inspection (e.g., feature-related outputs) is easier to interpret. 
+Use the same ordered feature names for validation data. The names help you read feature-related model output, and the matrix values stay the same.
 
-If you hit a type error, note that `xgb.DMatrix` expects a list of strings; converting `dv.get_feature_names_out()` to a Python list (or using `.tolist()`) avoids the `numpy.ndarray` issue.
+If XGBoost raises a `ValueError` about `[`, `]`, or `<` in feature names, see [the FAQ about invalid XGBoost feature names](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.DMatrix).
