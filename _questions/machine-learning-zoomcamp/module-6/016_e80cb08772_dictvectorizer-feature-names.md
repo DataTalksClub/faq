@@ -20,6 +20,6 @@ dtrain = xgb.DMatrix(
 )
 ```
 
-Use the same ordered feature names for validation data. The names help you read feature-related model output, and the matrix values stay the same.
+Use the same ordered feature names for validation data. They make feature-importance output easier to read without changing the matrix values.
 
-If XGBoost raises a `ValueError` about `[`, `]`, or `<` in feature names, see [the FAQ about invalid XGBoost feature names](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.DMatrix).
+If XGBoost raises a `ValueError` about `[`, `]`, or `<` in feature names, see the [XGBoost DMatrix API](https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.DMatrix).
