@@ -7,15 +7,32 @@ sort_order: 16
 
 `DictVectorizer` stores the names of its output columns. Call `get_feature_names_out()` after fitting the vectorizer to retrieve those names. It returns a NumPy array, so convert that array to a list when you pass the names to XGBoost.
 
-After fitting `dv` and creating `X_train` and `y_train`, pass the names to `DMatrix`:
+Use the same fitted vectorizer to create named training and validation matrices from sample records:
+
 
 ```python
+from sklearn.feature_extraction import DictVectorizer
 import xgboost as xgb
 
+train_records = [
+    {"model_year": 2018, "origin": "USA"},
+    {"model_year": 2020, "origin": "Europe"},
+]
+y_train = [18.0, 20.0]
+valid_records = [{"model_year": 2019, "origin": "USA"}]
+
+dv = DictVectorizer(sparse=True)
+X_train = dv.fit_transform(train_records)
+X_val = dv.transform(valid_records)
 feature_names = dv.get_feature_names_out().tolist()
+
 dtrain = xgb.DMatrix(
     X_train,
     label=y_train,
+    feature_names=feature_names,
+)
+dval = xgb.DMatrix(
+    X_val,
     feature_names=feature_names,
 )
 ```
