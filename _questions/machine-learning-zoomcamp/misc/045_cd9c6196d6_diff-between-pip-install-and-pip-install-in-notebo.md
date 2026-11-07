@@ -4,14 +4,8 @@ question: What’s the difference between `!pip install` and `pip install`?
 sort_order: 45
 ---
 
-In a notebook (Jupyter), `!pip install ...` uses the `!` prefix to run a shell command from a notebook cell. So `!pip install x` installs `x` using `pip`.
+In a Jupyter notebook, `!pip install x` runs the shell command `pip install x`. Prefer `%pip install x`: IPython runs it against the environment used by the current notebook kernel.
 
-If you’re in Jupyter, you can also use `%pip install x`—the `%pip` magic installs into the same Python environment that the notebook kernel is using.
+In a terminal such as Git Bash, omit `!`. Bash treats it as history expansion, so it can run a previous command instead of the command you intended.
 
-In a terminal like Git Bash, don’t use `!`. Bash treats `!` as history expansion and can rerun an earlier command you didn’t intend.
-
-If you hit permission issues in Git Bash, run pip via Python instead (avoids common pip/path confusion):
-
-```bash
-python -m pip install x
-```
+If you run `python -m pip install x`, Python uses the `pip` module installed for that interpreter. This targets the intended interpreter. You may still need to use an environment where you have write access to resolve a permission error. Use an environment where you have write access, such as the course project's virtual environment.
