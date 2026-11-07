@@ -7,7 +7,7 @@ sort_order: 31
 
 `DictVectorizer` turns each categorical value into its own binary feature. For example, the column `origin` can become `origin=USA`, `origin=Europe`, and `origin=Asia`.
 
-For the binary feature `origin=USA`, a tree sends rows with value `0` to the left branch when its rule is `origin=USA <= 0.5`. It sends rows with value `1` to the right branch when its rule is `origin=USA > 0.5`. In `export_text`, the `<=` branch appears first and the `>` branch appears second. Here, value `1` means the car's origin is USA.
+For the binary feature `origin=USA`, a tree sends rows with value `0` to the left branch when its rule is `origin=USA <= 0.5`. It sends rows with value `1` to the right branch when its rule is `origin=USA > 0.5`. In `export_text`, the `<=` branch appears first and the `>` branch appears second. A value of `1` marks cars from the USA.
 
 To map the encoded feature back to its original column, look at `dv.get_feature_names_out()`. It lists `origin=USA` as a feature derived from `origin`. Report `origin` when the homework asks for the original feature.
 
