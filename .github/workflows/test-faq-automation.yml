@@ -5,12 +5,23 @@ on:
     branches: [ main ]
     paths:
       - 'faq_automation/**'
+      - '.github/workflows/faq-automation.yml'
+      - '.github/workflows/test-faq-automation.yml'
       - 'website/**'
   pull_request:
     branches: [ main ]
     paths:
       - 'faq_automation/**'
+      - '.github/workflows/faq-automation.yml'
+      - '.github/workflows/test-faq-automation.yml'
       - 'website/**'
+  workflow_dispatch:
+    inputs:
+      run_rag_eval:
+        description: Run the full FAQ triage RAG evaluation
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   unit-tests:
@@ -51,3 +62,25 @@ jobs:
       - name: Run integration tests
         working-directory: ./faq_automation
         run: uv run pytest tests_integration/ -v
+
+  rag-eval:
+    if: github.event_name == 'workflow_dispatch' && inputs.run_rag_eval
+    needs: [unit-tests, integration-tests]
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        working-directory: ./faq_automation
+        run: uv sync --dev
+
+      - name: Run full RAG eval
+        run: uv run --project faq_automation python -m faq_automation.evals.runner
