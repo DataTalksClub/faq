@@ -26,8 +26,8 @@ df_train, df_val = train_test_split(
 )
 ```
 
-For Question 2, use `DictVectorizer(sparse=True)`. Fit it on `df_train`, then use it to transform `df_val`. You keep validation rows out of the learned feature vocabulary by fitting on `df_train`. Train the random forest with the assignment's parameters and calculate RMSE on validation data.
+For Question 2, use `DictVectorizer(sparse=True)`. Fit the vectorizer on the feature dictionaries from `df_train`. Then use the fitted vectorizer to transform feature dictionaries from `df_val`, so validation rows don't influence its vocabulary. Train the random forest with the assignment's parameters and calculate RMSE on validation data.
 
 For questions about standard deviation, `np.std` uses `ddof=0`, while pandas `.std()` uses `ddof=1` by default. Follow the rounding precision stated in each question. Round Q3 to 3 decimals and Q4 to 4 decimals for these 2026 questions.
 
-Use each prescribed random seed. If you shuffle row indexes as prescribed, recreate `idx = np.arange(n)` before each shuffle.
+Use the specified seed, and recreate `idx = np.arange(n)` before each required shuffle.
