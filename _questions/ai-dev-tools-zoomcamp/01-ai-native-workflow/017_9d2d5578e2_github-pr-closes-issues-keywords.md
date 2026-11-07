@@ -1,20 +1,11 @@
 ---
 id: 9d2d5578e2
-question: 'Why did my GitHub issue close automatically when I merged a PR, even though
-  the PR description said "do not close #N"?'
+question: 'Why did my GitHub issue close automatically when I merged a PR, even though the PR description said "do not close #123"?'
 sort_order: 17
 ---
 
-GitHub can automatically close issues when it sees certain closing keywords in a PR title or description (and similarly in commit messages) followed by an issue reference.
+GitHub closes a linked issue when you merge a pull request into the default branch. The PR description must contain a closing keyword followed by the issue number. For example, `Closes #123` closes issue #123. Negating the phrase doesn't prevent GitHub from recognizing it: `Don't close #123` still contains the closing keyword and reference.
 
-Key points:
-- The keywords are `close`, `closes`, `closed`, `fix`, `fixes`, `fixed`, `resolve`, `resolves`, `resolved`.
-- If any of those appear immediately before an issue reference like `#8`, GitHub treats it as an instruction to close that issue when the PR merges into the default branch.
-- This means phrasing like “Do not close #8 …” still closes `#8` because GitHub doesn’t interpret the surrounding negation.
-- It can happen in a PR description, PR title, or the eventual commit message that lands on the default branch.
+GitHub also recognizes closing keywords in commit messages that land on the default branch. Its documented locations are pull request descriptions and commit messages, not PR titles. See [GitHub's documentation on linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue).
 
-How to link the issue without closing it:
-- Use `Refs #8` or `Related to #8`.
-- Avoid placing any closing keyword directly before `#<number>`.
-
-If you need the issue to stay open until QA/review, make sure your PR text uses `Refs`/`Related` (or doesn’t include the closing keywords at all).
+To link an issue without closing it, write `Refs #123` or `Related to #123` in the PR description.
