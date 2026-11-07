@@ -196,6 +196,18 @@ def content_contains_all(*terms):
     return check
 
 
+def content_does_not_contain(*terms):
+    """Return a check rejecting unsupported claims from the proposal."""
+    normalized_terms = tuple(term.casefold() for term in terms)
+
+    def check(decision):
+        content = (decision.proposed_content or "").casefold()
+        return all(term not in content for term in normalized_terms)
+
+    check.__name__ = f"content omits {', '.join(terms)}"
+    return check
+
+
 def has_filename_slug(decision):
     """Filename slug should not be None or 'None'."""
     slug = decision.filename_slug
@@ -1174,47 +1186,25 @@ CASES.append(EvalCase(
 # GROUP 10: Backlog corrections from November 2026
 # ========================================================================== #
 
-# Case #548 updates an existing homework mismatch FAQ. The new explanation must
-# not erase its 2026 dataset, standard-deviation, and closest-option guidance.
+# Case #548 asks about Homework 6; similar wording in Homework 2 or 4 FAQs does
+# not make it an UPDATE. Use the source-verified answer because the issue's
+# original diagnosis was only a guess.
 CASES.append(EvalCase(
     course="machine-learning-zoomcamp",
     case_id=548,
     question="Is there any reason for the slightly different RMSE result when doing the Q2 in Homework 6?",
-    answer="""Maybe it is because you fit the original data instead of the train data `dv.fit(df)` instead of `dv.fit(df_train)`. If you did, your answers in Q3 and Q4 may also be wrong, remember to recheck them.""",
-    expected_action="UPDATE",
-    expected_section="module-2-homework",
-    description="RMSE discrepancy adds a train-split cause to an existing homework answer-mismatch FAQ without dropping its verified checks.",
+    answer="""Before training on the 2026 Homework 6 dataset, fill missing values with zeros and split off 20% for testing with `random_state=1`. Then split the remaining data into training and validation sets with `test_size=0.25` and `random_state=1`. For Question 2, fit `DictVectorizer(sparse=True)` on dictionaries from `df_train` and use it to transform `df_val`. Train a random forest regressor with `n_estimators=10` and `random_state=1`, and calculate its RMSE on the validation data. You can set `n_jobs=-1` to train faster, but it's optional. See the [Homework 6 dataset preparation](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#preparing-the-dataset) and [Question 2](https://github.com/DataTalksClub/machine-learning-zoomcamp/blob/main/cohorts/2026/homework/06-trees/homework.md#question-2) instructions.""",
+    expected_action="NEW",
+    expected_section="module-6-homework",
+    description="Homework 6 RMSE mismatch must not update similarly worded Homework 2 or 4 FAQs; use the source-verified answer rather than the issue's unverified guess.",
     checks=[
-        action_is("UPDATE"),
-        document_is("8af59cb98f"),
-        section_is("module-2-homework"),
-        content_contains_all("df_train", "car_fuel_efficiency_2026.csv", "np.std", "closest"),
+        action_is("NEW"),
+        section_is("module-6-homework"),
+        content_contains_all("DictVectorizer", "df_train", "n_estimators=10", "random_state=1"),
+        content_does_not_contain("dv.fit(df)"),
     ],
-    tags=["new-vs-update", "content-preservation", "homework-placement"],
-    relevant_doc_id="8af59cb98f",
-    hidden_doc_ids=["8af59cb98f"],
-    historical_files=[(
-        "module-2-homework/002_8af59cb98f_homework-the-answer-i-get-for-one-of-the-homework.md",
-        """---
-id: 8af59cb98f
-question: 'Homework: The answer I get for one of the homework questions doesn''t match
-  any of the options. What should I do?'
-sort_order: 2
----
-
-Select the option closest to your answer. This applies to every cohort: if your value doesn't match any option exactly, pick the closest one. If your value lies between two options, choose the larger one.
-
-**2026 cohort:** the homework uses a pinned dataset (`cohorts/2026/data/`) and the options are computed from it, so your answer should be very close to one option. If it is far from all of them, check these first:
-
-- You downloaded `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` (not an older car dataset) and kept only the five listed columns.
-- You set `np.random.seed(...)` and recreated `idx = np.arange(n)` before every shuffle.
-- You computed the imputation mean on `df_train` only.
-- You used `np.std` (ddof=0), not pandas `.std()` (ddof=1).
-- You rounded as instructed: 3 decimals in Q3, 4 in Q4.
-
-Small differences (library versions, OS, floating point) are normal and not a problem: just pick the closest option.
-""",
-    )],
+    tags=["new-vs-update", "homework-placement", "content-correctness"],
+    relevant_doc_id="ba714d9bb8",
 ))
 
 # Case #509 belongs in the homework section and extends the existing local vs.
