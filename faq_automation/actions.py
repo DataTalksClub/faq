@@ -31,7 +31,7 @@ def normalize_issue_title(question: str, max_length: int = 256) -> str:
 
 def _extract_issue_field(body: str, field: str) -> str:
     """Extract a standard FAQ issue field, preserving nested markdown headings."""
-    field_re = re.compile(r"^###\s+(Course|Question|Answer|Checklist)\b", re.IGNORECASE)
+    field_re = re.compile(r"^#{1,6}\s+(Course|Question|Answer|Checklist)\b", re.IGNORECASE)
     sections: dict[str, list[str]] = {}
     current = None
 
@@ -99,7 +99,7 @@ def find_duplicate_submission(
         answer = _extract_issue_field(body, "answer")
         if not answer:
             answer_match = re.search(
-                r"(?ims)\*\*Answer:\*\*\s*(.*?)(?=^\s*###\s+Checklist\b|\Z)",
+                r"(?ims)\*\*Answer:\*\*\s*(.*?)(?=^\s*#{1,6}\s+Checklist\b|\Z)",
                 body,
             )
             answer = answer_match.group(1).strip() if answer_match else ""

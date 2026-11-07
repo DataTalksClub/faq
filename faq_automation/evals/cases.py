@@ -48,6 +48,8 @@ class EvalCase:
                      so the agent can't trivially find it as a duplicate.
     hidden_doc_ids: additional docs to remove when recreating historical corpus
                     state for a case.
+    historical_files: markdown files to restore after removing later corrections,
+                      as (course-relative path, content) pairs.
     """
     course: str
     case_id: int
@@ -60,6 +62,7 @@ class EvalCase:
     tags: list = field(default_factory=list)
     relevant_doc_id: str = ""
     hidden_doc_ids: list[str] = field(default_factory=list)
+    historical_files: list[tuple[str, str]] = field(default_factory=list)
 
 
 # -- Check predicates --------------------------------------------------------
@@ -1189,6 +1192,29 @@ CASES.append(EvalCase(
     ],
     tags=["new-vs-update", "content-preservation", "homework-placement"],
     relevant_doc_id="8af59cb98f",
+    hidden_doc_ids=["8af59cb98f"],
+    historical_files=[(
+        "module-2-homework/002_8af59cb98f_homework-the-answer-i-get-for-one-of-the-homework.md",
+        """---
+id: 8af59cb98f
+question: 'Homework: The answer I get for one of the homework questions doesn''t match
+  any of the options. What should I do?'
+sort_order: 2
+---
+
+Select the option closest to your answer. This applies to every cohort: if your value doesn't match any option exactly, pick the closest one. If your value lies between two options, choose the larger one.
+
+**2026 cohort:** the homework uses a pinned dataset (`cohorts/2026/data/`) and the options are computed from it, so your answer should be very close to one option. If it is far from all of them, check these first:
+
+- You downloaded `car_fuel_efficiency_2026.csv` from `cohorts/2026/data/` (not an older car dataset) and kept only the five listed columns.
+- You set `np.random.seed(...)` and recreated `idx = np.arange(n)` before every shuffle.
+- You computed the imputation mean on `df_train` only.
+- You used `np.std` (ddof=0), not pandas `.std()` (ddof=1).
+- You rounded as instructed: 3 decimals in Q3, 4 in Q4.
+
+Small differences (library versions, OS, floating point) are normal and not a problem: just pick the closest option.
+""",
+    )],
 ))
 
 # Case #509 belongs in the homework section and extends the existing local vs.
@@ -1209,6 +1235,20 @@ CASES.append(EvalCase(
     ],
     tags=["new-vs-update", "homework-placement", "content-preservation"],
     relevant_doc_id="cee7450404",
+    hidden_doc_ids=["cee7450404"],
+    historical_files=[(
+        "module-5/042_cee7450404_getting-the-same-result.md",
+        """---
+id: cee7450404
+question: Getting the same result
+sort_order: 42
+---
+
+While running the Docker image, if you get the same result, check which model you are using.
+
+Remember, you are using a model by downloading the model and Python version. Ensure to change the model in your file when running your prediction test.
+""",
+    )],
 ))
 
 # Guard: Kestra is DE's signature tool but the LLM course uses it in module-3
