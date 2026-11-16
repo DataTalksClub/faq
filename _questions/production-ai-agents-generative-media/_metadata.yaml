@@ -1,0 +1,12 @@
+course: production-ai-agents-generative-media
+course_name: "Production AI Agents for Generative Media"
+sections:
+  - id: general
+    name: "General Course-Related Questions"
+    comment: "Course logistics: application, cohort schedule, prerequisites, live sessions, where to get help."
+  - id: cost-and-gpus
+    name: "Cost and GPUs"
+    comment: "Course cost, GPU credits through the Nebius AI Builder Program, billing beyond credits, own GPU access."
+  - id: course-work
+    name: "Homework and Capstone"
+    comment: "What you build, homework deadlines, capstone requirements and dates."

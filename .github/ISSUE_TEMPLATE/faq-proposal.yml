@@ -28,6 +28,7 @@ body:
         - mlops-zoomcamp
         - stock-markets-analytics-zoomcamp
         - ai-dev-tools-zoomcamp
+        - production-ai-agents-generative-media
     validations:
       required: true
 
