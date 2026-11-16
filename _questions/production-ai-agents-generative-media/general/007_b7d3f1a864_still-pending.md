@@ -4,4 +4,4 @@ question: 'I applied and still see Pending. What should I do?'
 sort_order: 7
 ---
 
-Applications are reviewed in batches, usually within 2 business days. No further step is needed.
+Applications are processed in batches, with the current batch processed just before launch. You can attend the launch stream and follow the public materials regardless of status.
