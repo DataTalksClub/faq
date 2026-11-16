@@ -1,0 +1,7 @@
+---
+id: b7d3f1a864
+question: 'I applied and still see Pending. What should I do?'
+sort_order: 7
+---
+
+Applications are reviewed in batches, usually within 2 business days. No further step is needed.
