@@ -1,9 +1,14 @@
 ---
 id: ddd3bc7e2b
-question: 'Do I need my own GPU, and who pays for GPU usage?'
+question: Do I need to add a credit card to my Nebius account to receive the GPU credits
+  for this course?
 sort_order: 2
 ---
 
-You do not need your own GPU or cluster: the models run as Jobs and Endpoints on Nebius Serverless AI. Applicants get GPU credits through the [Nebius AI Builder Program](https://dev.nebius.com/builders), which is free to join: $25 of compute credits on joining and $50 more after Homework 2. Usage beyond the credits is billed to your Nebius account.
+You do not need to add a credit card to your Nebius account to receive the GPU credits for this course.
 
-Each module reports the cost per asset, so you know what a run costs before you scale it. If you follow along without applying, you need your own GPU access and pay for your own usage.
+The Module 1 setup instructions may be outdated and suggest adding payment details or making a $25 payment before using the Nebius AI Builder Program promo code. For this course, Nebius says you should follow the instructions in the email containing the promotional codes and approve the credits.
+
+Do not follow the old instructions about adding a bank card and making a $25 payment—use the updated promo-code instructions provided by Nebius.
+
+If you have questions, check `#course-ai-mediagen` in the DataTalks.Club Slack.
