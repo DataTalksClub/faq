@@ -14,4 +14,4 @@ major decisions - it is good practice and helps reviewers. You are not required 
 disclose AI usage otherwise, and there is no form to sign.
 
 The full rules are in the
-[AI usage policy](https://datatalks.club/docs/courses/zoomcamp-logistics/ai-usage/).
+[AI usage policy](/docs/courses/zoomcamp-logistics/ai-usage/).

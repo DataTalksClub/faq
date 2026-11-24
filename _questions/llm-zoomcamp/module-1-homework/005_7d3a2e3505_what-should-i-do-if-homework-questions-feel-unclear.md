@@ -13,4 +13,4 @@ For Module 1 in the 2026 cohort, start here:
 
 The homework follows the lesson workflow, but usually uses a different dataset or asks you to apply the same idea in a slightly different way.
 
-If it is still unclear, ask in Slack and include the code or command output as text, not a screenshot. Follow the [asking questions guidelines](https://datatalks.club/docs/courses/zoomcamp-logistics/asking-questions/).
+If it is still unclear, ask in Slack and include the code or command output as text, not a screenshot. Follow the [asking questions guidelines](/docs/courses/zoomcamp-logistics/asking-questions/).

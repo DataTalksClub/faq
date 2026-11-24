@@ -8,4 +8,4 @@ A new cohort runs roughly January–April every year. For the current cohort's e
 
 - Register via the link in the course repo before the cohort starts.
 - Join the [course Telegram channel](https://t.me/dezoomcamp) for announcements.
-- Join DataTalks.Club's [Slack](https://datatalks.club/docs/general/slack/) and the `#course-data-engineering` channel.
+- Join DataTalks.Club's [Slack](/docs/general/slack/) and the `#course-data-engineering` channel.

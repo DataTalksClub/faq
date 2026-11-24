@@ -15,4 +15,4 @@ Small differences can come from:
 
 If your answer is far from every option, re-check the question, the dataset version, and the GitHub homework instructions.
 
-See the general homework guidance: [homework logistics](https://datatalks.club/docs/courses/zoomcamp-logistics/homework/).
+See the general homework guidance: [homework logistics](/docs/courses/zoomcamp-logistics/homework/).
